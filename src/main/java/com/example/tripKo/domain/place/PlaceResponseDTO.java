@@ -1,11 +1,11 @@
-package com.example.tripKo.place;
+package com.example.tripKo.domain.place;
 
-import com.example.tripKo.place.festival.PlaceFestival;
-import com.example.tripKo.place.festival.PlaceFestivalResponseDTO;
-import com.example.tripKo.place.restaurant.PlaceRestaurant;
-import com.example.tripKo.place.restaurant.PlaceRestaurantResponseDTO;
-import com.example.tripKo.place.touristSpot.PlaceTouristSpot;
-import com.example.tripKo.place.touristSpot.PlaceTouristSpotResponseDTO;
+import com.example.tripKo.domain.place.festival.PlaceFestival;
+import com.example.tripKo.domain.place.restaurant.PlaceRestaurant;
+import com.example.tripKo.domain.place.touristSpot.PlaceTouristSpot;
+import com.example.tripKo.domain.place.festival.PlaceFestivalResponseDTO;
+import com.example.tripKo.domain.place.restaurant.PlaceRestaurantResponseDTO;
+import com.example.tripKo.domain.place.touristSpot.PlaceTouristSpotResponseDTO;
 import lombok.Builder;
 import lombok.Getter;
 

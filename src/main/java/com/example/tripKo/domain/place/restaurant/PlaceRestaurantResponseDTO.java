@@ -1,6 +1,5 @@
-package com.example.tripKo.place.restaurant;
+package com.example.tripKo.domain.place.restaurant;
 
-import com.example.tripKo.place.festival.PlaceFestival;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,7 +8,7 @@ public class PlaceRestaurantResponseDTO {
     private int id;
     private String name;
     private String summary;
-    //    private String image;
+    private String image;
     private String address;
     private float averageRating;
     //    private Boolean liked;
@@ -18,8 +17,8 @@ public class PlaceRestaurantResponseDTO {
         this.id = placeRestaurant.getId();
         this.name = placeRestaurant.getPlace().getName();
         this.summary = placeRestaurant.getPlace().getSummary();
-//        this.image = placeRestaurant.getPlace().getFile();
-        this.address = placeRestaurant.getPlace().getAddress();
+//        this.image = placeRestaurant.getPlace().getFile().getName();;
+        this.address = placeRestaurant.getPlace().getAddress().toString();
         this.averageRating = placeRestaurant.getPlace().getAverageRating();
     }
 }
