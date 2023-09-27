@@ -12,7 +12,7 @@ import java.util.List;
 public class AddressCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private long id;
 
     private String emdName;
