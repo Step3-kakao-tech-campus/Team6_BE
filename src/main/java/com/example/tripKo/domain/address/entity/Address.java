@@ -31,14 +31,6 @@ public class Address {
     @JoinColumn(name = "address_category_id", nullable = false)
     private AddressCategory addressCategory;
 
-    /*
-    FK를 place에 두되 Address에서도 Place를 가져올 수 있게 하였습니다.
-    Address의 place는 읽기만 가능합니다.
-    Place 생성 후 주석 처리 삭제하면 됩니다.
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "address")
-    Place place;
-     */
-
     @Builder
     public Address(String buildingName, String roadName, String zipCode) {
         this.buildingName = buildingName;

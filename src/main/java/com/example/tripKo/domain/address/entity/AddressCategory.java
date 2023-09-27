@@ -28,9 +28,6 @@ public class AddressCategory {
     @Column(nullable = false)
     private String sidoName;
 
-    @OneToMany(mappedBy = "addressCategory")
-    @Column(nullable = false)
-    private final List<Address> addressList = new ArrayList<>();
 
     @Builder
     public AddressCategory(String emdName, String siggName, String sidoName) {
