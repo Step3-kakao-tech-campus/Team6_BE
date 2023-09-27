@@ -1,15 +1,21 @@
-package com.example.tripKo.place.festival;
+package com.example.tripKo.domain.place.festival;
 
 import com.example.tripKo.BaseTimeEntity;
-import com.example.tripKo.place.Category;
-import com.example.tripKo.place.Place;
+import com.example.tripKo.domain.place.Category;
+import com.example.tripKo.domain.place.Place;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
+@DynamicInsert
+@DynamicUpdate
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -28,7 +34,8 @@ public class PlaceFestival extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToOne
+    @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "place_id", nullable = false)
     private Place place;
 
     @Column(nullable = false)
