@@ -1,4 +1,4 @@
-package com.example.tripKo.place;
+package com.example.tripKo.domain.place;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
