@@ -29,7 +29,7 @@ public class Address {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_category_id", nullable = false)
-    AddressCategory addressCategory;
+    private AddressCategory addressCategory;
 
     /*
     FK를 place에 두되 Address에서도 Place를 가져올 수 있게 하였습니다.
@@ -40,12 +40,9 @@ public class Address {
      */
 
     @Builder
-    public Address(String buildingName, String roadName, String zipCode, AddressCategory addressCategory) {
+    public Address(String buildingName, String roadName, String zipCode) {
         this.buildingName = buildingName;
         this.roadName = roadName;
         this.zipCode = zipCode;
-        this.addressCategory = addressCategory;
-
-        addressCategory.getAddressList().add(this);
     }
 }

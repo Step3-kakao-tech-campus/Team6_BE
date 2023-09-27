@@ -30,13 +30,12 @@ public class AddressCategory {
 
     @OneToMany(mappedBy = "addressCategory")
     @Column(nullable = false)
-    private List<Address> addressList = new ArrayList<>();
+    private final List<Address> addressList = new ArrayList<>();
 
     @Builder
-    public AddressCategory(String emdName, String siggName, String sidoName, List<Address> addressList) {
+    public AddressCategory(String emdName, String siggName, String sidoName) {
         this.emdName = emdName;
         this.siggName = siggName;
         this.sidoName = sidoName;
-        this.addressList = addressList;
     }
 }
