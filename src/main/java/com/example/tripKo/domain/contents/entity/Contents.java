@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.example.tripKo.domain.file.entity.ContentsFile;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +47,9 @@ public class Contents {
 
   @OneToMany(mappedBy = "contents")
   private final List<ContentsMenu> contentsMenus = new ArrayList<>();
+
+  @OneToMany(mappedBy = "contents")
+  private final List<ContentsFile> contentsFiles = new ArrayList<>();
 
   @Builder
   private Contents(Long page, String description, Place place) {

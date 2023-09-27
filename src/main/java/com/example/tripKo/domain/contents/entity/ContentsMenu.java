@@ -4,7 +4,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
-import com.example.tripKo.domain.File;
+import com.example.tripKo.domain.file.entity.File;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,7 +52,7 @@ public class ContentsMenu {
 
   @Builder
   private ContentsMenu(Contents contents, Long price, String name, String description, String characteristic, File file) {
-    this. contents = contents;
+    this.contents = contents;
     this.price = price;
     this.name = name;
     this.description = description;
