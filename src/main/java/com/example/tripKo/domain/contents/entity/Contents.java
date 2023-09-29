@@ -14,8 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import com.example.tripKo.domain.file.entity.ContentsFile;
+import com.example.tripKo.domain.place.Place;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
