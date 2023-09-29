@@ -23,6 +23,7 @@ public class PlaceFestivalResponseDTO {
         this.image = placeFestival.getPlace().getFile().getName();
         this.address = addressToString(placeFestival.getPlace().getAddress());
         this.averageRating = placeFestival.getPlace().getAverageRating();
+        this.liked = false;
     }
 
     public String addressToString(Address address) {

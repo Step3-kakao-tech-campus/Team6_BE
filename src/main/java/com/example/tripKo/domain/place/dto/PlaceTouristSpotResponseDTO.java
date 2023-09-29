@@ -23,6 +23,7 @@ public class PlaceTouristSpotResponseDTO {
         this.image = placeTouristSpot.getPlace().getFile().getName();
         this.address = addressToString(placeTouristSpot.getPlace().getAddress());
         this.averageRating = placeTouristSpot.getPlace().getAverageRating();
+        this.liked = false;
     }
 
     public String addressToString(Address address) {
