@@ -10,11 +10,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PlaceFestivalJPARepository extends JpaRepository<PlaceFestival, Integer> {
-    @Query("SELECT p FROM PlaceFestival p WHERE p.place.address.addressCategory.sidoName LIKE :location%")
+    @Query("SELECT p FROM PlaceFestival p WHERE UPPER(p.place.address.addressCategory.sidoName) = UPPER(:location)")
     List<PlaceFestival> findAllByLocation(@Param("location") String location);
 
     @Query(
-            value = "SELECT p FROM PlaceFestival p WHERE p.place.address.addressCategory.sidoName = :location",
+            value = "SELECT p FROM PlaceFestival p WHERE UPPER(p.place.address.addressCategory.sidoName) = UPPER(:location)",
             countQuery = "SELECT COUNT(*) FROM PlaceFestival"
     )
     Page<PlaceFestival> findFestivalByLocation(@Param("location") String location, Pageable pageable);
