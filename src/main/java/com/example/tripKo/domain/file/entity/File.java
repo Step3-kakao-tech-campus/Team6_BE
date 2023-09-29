@@ -32,9 +32,6 @@ public class File {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "file")
-    private List<ContentsFile> contentsFiles = new ArrayList<>();
-
     @Builder
     private File(String type, String name) {
         this.type = type;
