@@ -1,7 +1,7 @@
 package com.example.tripKo.domain.address.entity;
 
 
-import com.example.tripKo.BaseTimeEntity;
+import com.example.tripKo.domain.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -33,9 +33,10 @@ public class Address extends BaseTimeEntity {
     private AddressCategory addressCategory;
 
     @Builder
-    public Address(String buildingName, String roadName, String zipCode) {
+    public Address(String buildingName, String roadName, String zipCode, AddressCategory addressCategory) {
         this.buildingName = buildingName;
         this.roadName = roadName;
         this.zipCode = zipCode;
+        this.addressCategory = addressCategory;
     }
 }

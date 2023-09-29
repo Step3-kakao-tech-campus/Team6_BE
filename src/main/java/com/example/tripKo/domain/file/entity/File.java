@@ -4,15 +4,12 @@ import static lombok.AccessLevel.PROTECTED;
 
 import javax.persistence.*;
 
-import com.example.tripKo.BaseTimeEntity;
+import com.example.tripKo.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @DynamicInsert
 @DynamicUpdate
@@ -34,7 +31,7 @@ public class File extends BaseTimeEntity {
     private String name;
 
     @Builder
-    private File(String type, String name) {
+    public File(String type, String name) {
         this.type = type;
         this.name = name;
     }

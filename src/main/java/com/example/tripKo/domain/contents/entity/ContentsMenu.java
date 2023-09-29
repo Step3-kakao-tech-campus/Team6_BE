@@ -4,7 +4,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
-import com.example.tripKo.BaseTimeEntity;
+import com.example.tripKo.domain.BaseTimeEntity;
 import com.example.tripKo.domain.file.entity.File;
 import javax.persistence.Column;
 import javax.persistence.Entity;

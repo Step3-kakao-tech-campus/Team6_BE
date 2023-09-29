@@ -1,6 +1,6 @@
 package com.example.tripKo.domain.place.entity;
 
-import com.example.tripKo.BaseTimeEntity;
+import com.example.tripKo.domain.BaseTimeEntity;
 import com.example.tripKo.domain.place.Category;
 import lombok.AccessLevel;
 import lombok.Builder;

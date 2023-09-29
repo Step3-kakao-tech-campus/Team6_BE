@@ -1,6 +1,6 @@
 package com.example.tripKo.domain.place.entity;
 
-import com.example.tripKo.BaseTimeEntity;
+import com.example.tripKo.domain.BaseTimeEntity;
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.file.entity.File;
 import lombok.AccessLevel;
@@ -42,11 +42,12 @@ public class Place extends BaseTimeEntity {
     private Address address;
 
     @Builder
-    public Place(String name, String summary, int count, float averageRating, Address address) {
+    public Place(String name, String summary, int count, float averageRating, File file, Address address) {
         this.name = name;
         this.summary = summary;
         this.count = count;
         this.averageRating = averageRating;
+        this.file = file;
         this.address = address;
     }
 }

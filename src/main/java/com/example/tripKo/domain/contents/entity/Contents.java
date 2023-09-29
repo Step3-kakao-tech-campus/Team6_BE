@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.example.tripKo.BaseTimeEntity;
+import com.example.tripKo.domain.BaseTimeEntity;
 import com.example.tripKo.domain.file.entity.ContentsFile;
 import com.example.tripKo.domain.place.entity.Place;
 import lombok.Builder;
