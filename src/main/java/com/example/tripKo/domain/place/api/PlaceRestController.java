@@ -8,10 +8,7 @@ import com.example.tripKo.domain.place.dto.PlaceRestaurantResponseDTO;
 import com.example.tripKo.domain.place.dto.PlaceTouristSpotResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,14 +17,14 @@ import java.util.List;
 public class PlaceRestController {
     private final PlaceService placeService;
 
-    @GetMapping("/{location}")
+    @RequestMapping(value = "/{location:^.*(?!h2-console)}", method = RequestMethod.GET)
     public ResponseEntity<?> findAllByLocation(@PathVariable String location) {
         PlaceResponseDTO responseDTO = placeService.findAllByLocation(location);
         ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
         return ResponseEntity.ok(apiResult);
     }
 
-    @GetMapping("/{location}/restaurants")
+    @GetMapping("/{location}/restaurant")
     public ResponseEntity<?> findRestaurantByLocation(@PathVariable String location, @RequestParam(value = "page", defaultValue = "0") Integer page) {
         List<PlaceRestaurantResponseDTO> responseDTO = placeService.findRestaurantByLocation(location, page);
         ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
