@@ -4,6 +4,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+import com.example.tripKo.BaseTimeEntity;
 import com.example.tripKo.domain.contents.entity.Contents;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "contents_has_file")
-public class ContentsFile {
+public class ContentsFile extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

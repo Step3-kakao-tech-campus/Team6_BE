@@ -4,6 +4,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 import javax.persistence.*;
 
+import com.example.tripKo.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "file")
-public class File {
+public class File extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

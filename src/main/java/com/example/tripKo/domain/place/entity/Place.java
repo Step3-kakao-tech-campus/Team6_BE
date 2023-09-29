@@ -1,8 +1,8 @@
-package com.example.tripKo.domain.place;
+package com.example.tripKo.domain.place.entity;
 
 import com.example.tripKo.BaseTimeEntity;
-import com.example.tripKo.domain.Address;
-import com.example.tripKo.domain.File;
+import com.example.tripKo.domain.address.entity.Address;
+import com.example.tripKo.domain.file.entity.File;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,5 +1,6 @@
-package com.example.tripKo.domain.place.restaurant;
+package com.example.tripKo.domain.place.dto;
 
+import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import lombok.Builder;
 import lombok.Getter;
 

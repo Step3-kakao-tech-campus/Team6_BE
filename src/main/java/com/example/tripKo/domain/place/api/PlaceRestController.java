@@ -1,9 +1,11 @@
-package com.example.tripKo.domain.place;
+package com.example.tripKo.domain.place.api;
 
 import com.example.tripKo._core.utils.ApiUtils;
-import com.example.tripKo.domain.place.festival.PlaceFestivalResponseDTO;
-import com.example.tripKo.domain.place.restaurant.PlaceRestaurantResponseDTO;
-import com.example.tripKo.domain.place.touristSpot.PlaceTouristSpotResponseDTO;
+import com.example.tripKo.domain.place.dto.PlaceResponseDTO;
+import com.example.tripKo.domain.place.application.PlaceService;
+import com.example.tripKo.domain.place.dto.PlaceFestivalResponseDTO;
+import com.example.tripKo.domain.place.dto.PlaceRestaurantResponseDTO;
+import com.example.tripKo.domain.place.dto.PlaceTouristSpotResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,14 +1,15 @@
-package com.example.tripKo.domain.place;
+package com.example.tripKo.domain.place.application;
 
-import com.example.tripKo.domain.place.festival.PlaceFestival;
-import com.example.tripKo.domain.place.festival.PlaceFestivalJPARepository;
-import com.example.tripKo.domain.place.festival.PlaceFestivalResponseDTO;
-import com.example.tripKo.domain.place.restaurant.PlaceRestaurant;
-import com.example.tripKo.domain.place.restaurant.PlaceRestaurantJPARepository;
-import com.example.tripKo.domain.place.restaurant.PlaceRestaurantResponseDTO;
-import com.example.tripKo.domain.place.touristSpot.PlaceTouristSpot;
-import com.example.tripKo.domain.place.touristSpot.PlaceTouristSpotJPARepository;
-import com.example.tripKo.domain.place.touristSpot.PlaceTouristSpotResponseDTO;
+import com.example.tripKo.domain.place.dto.PlaceResponseDTO;
+import com.example.tripKo.domain.place.entity.PlaceFestival;
+import com.example.tripKo.domain.place.dao.PlaceFestivalJPARepository;
+import com.example.tripKo.domain.place.dto.PlaceFestivalResponseDTO;
+import com.example.tripKo.domain.place.entity.PlaceRestaurant;
+import com.example.tripKo.domain.place.dao.PlaceRestaurantJPARepository;
+import com.example.tripKo.domain.place.dto.PlaceRestaurantResponseDTO;
+import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
+import com.example.tripKo.domain.place.dao.PlaceTouristSpotJPARepository;
+import com.example.tripKo.domain.place.dto.PlaceTouristSpotResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

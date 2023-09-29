@@ -1,8 +1,7 @@
-package com.example.tripKo.domain.place.restaurant;
+package com.example.tripKo.domain.place.entity;
 
 import com.example.tripKo.BaseTimeEntity;
 import com.example.tripKo.domain.place.Category;
-import com.example.tripKo.domain.place.Place;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

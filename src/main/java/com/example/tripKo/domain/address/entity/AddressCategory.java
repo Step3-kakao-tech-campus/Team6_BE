@@ -1,5 +1,6 @@
 package com.example.tripKo.domain.address.entity;
 
+import com.example.tripKo.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -13,7 +14,7 @@ import java.util.List;
 @DynamicInsert
 @Entity
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
-public class AddressCategory {
+public class AddressCategory extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)

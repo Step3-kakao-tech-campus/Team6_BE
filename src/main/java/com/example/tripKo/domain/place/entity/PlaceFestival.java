@@ -1,8 +1,7 @@
-package com.example.tripKo.domain.place.touristSpot;
+package com.example.tripKo.domain.place.entity;
 
 import com.example.tripKo.BaseTimeEntity;
 import com.example.tripKo.domain.place.Category;
-import com.example.tripKo.domain.place.Place;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,11 +18,17 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="place_tourist_spot")
-public class PlaceTouristSpot extends BaseTimeEntity {
+@Table(name="place_festival")
+public class PlaceFestival extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(length = 100, nullable = false)
+    private String startDate;
+
+    @Column(length = 100, nullable = false)
+    private String endDate;
 
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -32,8 +37,14 @@ public class PlaceTouristSpot extends BaseTimeEntity {
     @JoinColumn(name = "place_id", nullable = false)
     private Place place;
 
+    @Column(nullable = false)
+    private Boolean reservationAvailable;
+
     @Builder
-    public PlaceTouristSpot(Place place) {
+    public PlaceFestival(String startDate, String endDate, Place place, Boolean reservationAvailable) {
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.place = place;
+        this.reservationAvailable = reservationAvailable;
     }
 }

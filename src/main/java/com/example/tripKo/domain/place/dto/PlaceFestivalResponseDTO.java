@@ -1,5 +1,6 @@
-package com.example.tripKo.domain.place.festival;
+package com.example.tripKo.domain.place.dto;
 
+import com.example.tripKo.domain.place.entity.PlaceFestival;
 import lombok.Builder;
 import lombok.Getter;
 

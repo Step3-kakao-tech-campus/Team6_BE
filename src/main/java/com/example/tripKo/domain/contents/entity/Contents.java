@@ -3,7 +3,6 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
-import com.example.tripKo.domain.Place;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -14,8 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.example.tripKo.BaseTimeEntity;
 import com.example.tripKo.domain.file.entity.ContentsFile;
-import com.example.tripKo.domain.place.Place;
+import com.example.tripKo.domain.place.entity.Place;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "contents")
-public class Contents {
+public class Contents extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)

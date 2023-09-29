@@ -1,6 +1,6 @@
-package com.example.tripKo.domain.place.festival;
+package com.example.tripKo.domain.place.dao;
 
-import com.example.tripKo.domain.place.restaurant.PlaceRestaurant;
+import com.example.tripKo.domain.place.entity.PlaceFestival;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
