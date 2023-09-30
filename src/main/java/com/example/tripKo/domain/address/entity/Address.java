@@ -1,6 +1,7 @@
 package com.example.tripKo.domain.address.entity;
 
 
+import com.example.tripKo.domain.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @DynamicUpdate
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Address {
+public class Address extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -32,9 +33,10 @@ public class Address {
     private AddressCategory addressCategory;
 
     @Builder
-    public Address(String buildingName, String roadName, String zipCode) {
+    public Address(String buildingName, String roadName, String zipCode, AddressCategory addressCategory) {
         this.buildingName = buildingName;
         this.roadName = roadName;
         this.zipCode = zipCode;
+        this.addressCategory = addressCategory;
     }
 }
