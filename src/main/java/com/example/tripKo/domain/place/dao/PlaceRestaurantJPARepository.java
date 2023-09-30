@@ -19,4 +19,14 @@ public interface PlaceRestaurantJPARepository extends JpaRepository<PlaceRestaur
     )
     Page<PlaceRestaurant> findRestaurantByLocation(@Param("location") String location, Pageable pageable);
 
+    @Query("SELECT DISTINCT r FROM PlaceRestaurant r " +
+            "JOIN FETCH r.place p " +
+            "LEFT JOIN FETCH p.file f " +
+            "JOIN FETCH p.address a " +
+            "JOIN FETCH a.addressCategory ac " +
+            "JOIN FETCH p.contents c " +
+//            "LEFT JOIN FETCH c.contentsMenus m " +
+//            "LEFT JOIN FETCH c.contentsFiles cf " +
+            "WHERE r.id = :id")
+    PlaceRestaurant findRestaurantDetailsById(@Param("id")long id);
 }

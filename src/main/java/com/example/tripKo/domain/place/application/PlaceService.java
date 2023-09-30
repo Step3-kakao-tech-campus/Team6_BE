@@ -8,17 +8,14 @@ import com.example.tripKo.domain.file.dao.FileRepository;
 import com.example.tripKo.domain.file.entity.File;
 import com.example.tripKo.domain.place.Category;
 import com.example.tripKo.domain.place.dao.PlaceJPARepository;
-import com.example.tripKo.domain.place.dto.PlaceResponseDTO;
+import com.example.tripKo.domain.place.dto.*;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
 import com.example.tripKo.domain.place.dao.PlaceFestivalJPARepository;
-import com.example.tripKo.domain.place.dto.PlaceFestivalResponseDTO;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantJPARepository;
-import com.example.tripKo.domain.place.dto.PlaceRestaurantResponseDTO;
 import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
 import com.example.tripKo.domain.place.dao.PlaceTouristSpotJPARepository;
-import com.example.tripKo.domain.place.dto.PlaceTouristSpotResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,6 +69,13 @@ public class PlaceService {
         Page<PlaceRestaurant> placeRestaurants = placeRestaurantJPARepository.findRestaurantByLocation(location, pageable);
         List<PlaceRestaurantResponseDTO> placeRestaurantResponseDTOs = placeRestaurants.getContent().stream().map(p->PlaceRestaurantResponseDTO.builder().placeRestaurant(p).build()).collect(Collectors.toList());
         return placeRestaurantResponseDTOs;
+    }
+
+    public PlaceRestaurantDetailsResponseDTO findRestaurantDetailsById(long id) {
+//        test();
+        PlaceRestaurant placeRestaurant = placeRestaurantJPARepository.findRestaurantDetailsById(id);
+        PlaceRestaurantDetailsResponseDTO ResponseDTO = new PlaceRestaurantDetailsResponseDTO(placeRestaurant);
+        return ResponseDTO;
     }
 
     @Transactional
