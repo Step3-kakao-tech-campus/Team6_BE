@@ -20,9 +20,10 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name="place_restaurant")
 public class PlaceRestaurant extends BaseTimeEntity {
+    //int -> long으로 변경
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -51,6 +52,18 @@ public class PlaceRestaurant extends BaseTimeEntity {
 
     @Builder
     public PlaceRestaurant(Place place) {
+        this.place = place;
+    }
+
+    //test용
+    public PlaceRestaurant(Category category, String contact_info, String openingTime, String closingTime, String breakStartTime, String breakEndTime, String holidayDate, Place place) {
+        this.category = category;
+        this.contact_info = contact_info;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
+        this.breakStartTime = breakStartTime;
+        this.breakEndTime = breakEndTime;
+        this.holidayDate = holidayDate;
         this.place = place;
     }
 }

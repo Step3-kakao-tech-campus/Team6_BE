@@ -35,6 +35,7 @@ public class Contents extends BaseTimeEntity {
   @Column(nullable = false)
   private String description;
 
+  //OneToOne -> ManyToOne으로 수정
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "place_id", nullable = false)
   private Place place;
@@ -52,4 +53,13 @@ public class Contents extends BaseTimeEntity {
     this.place = place;
   }
 
+  //테스트용
+  public void addContentsMenus(ContentsMenu menu) {
+    contentsMenus.add(menu);
+  }
+
+  //테스트용
+  public void addContentsFiles(ContentsFile contentsFile) {
+    contentsFiles.add(contentsFile);
+  }
 }
