@@ -3,9 +3,9 @@ package com.example.tripKo.domain.contents.application;
 import com.example.tripKo.domain.contents.dao.ContentsRepository;
 import com.example.tripKo.domain.contents.dto.response.FestivalResponse;
 import com.example.tripKo.domain.contents.entity.Contents;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +20,9 @@ public class ContentsService {
   @Transactional
   public List<FestivalResponse> getFestivalInfo(long id) {
     Optional<Contents> contents = contentsRepository.findAllById(id);
-    List<FestivalResponse> festivalResponses = mapContentsToResponses(contents);
-    return festivalResponses;
+    return contents.map(FestivalResponse::from)
+        .map(Collections::singletonList)
+        .orElseGet(Collections::emptyList);
   }
 
-  private List<FestivalResponse> mapContentsToResponses(Optional<Contents> contents) {
-    return contents.stream()
-        .map(c->FestivalResponse.builder().build())
-        .collect(Collectors.toList());
-  }
 }

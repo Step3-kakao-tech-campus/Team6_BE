@@ -27,17 +27,20 @@ public class FestivalResponse {
   private String startDate;
   private String endDate;
 
-  @Builder
-  public FestivalResponse(Contents contents) {
-    this.id = contents.getId();
-    this.name = contents.getPlace().getName();
-    this.averageScore = contents.getPlace().getAverageRating();
-    this.mainImage = contents.getPlace().getFile().getName();
-    this.address = contents.addressToString(contents.getPlace().getAddress());
-    this.description = contents.getDescription();
-    this.isWished = false;
-    this.isReservable = contents.getPlace().getPlaceFestival().getReservationAvailable();
-    this.startDate = contents.getPlace().getPlaceFestival().getStartDate();
-    this.endDate = contents.getPlace().getPlaceFestival().getEndDate();
+  public static FestivalResponse from(Contents contents) {
+    return FestivalResponse.builder()
+        .id(contents.getId())
+        .name(contents.getPlace().getName())
+        .averageScore(contents.getPlace().getAverageRating())
+        .mainImage(contents.getPlace().getFile().getName())
+        .images(contents.getContentsFiles())
+        .address(contents.addressToString(contents.getPlace().getAddress()))
+        .description(contents.getDescription())
+        .isWished(false)
+        .isReservable(contents.getPlace().getPlaceFestival().getReservationAvailable())
+        .startDate(contents.getPlace().getPlaceFestival().getStartDate())
+        .endDate(contents.getPlace().getPlaceFestival().getEndDate())
+        .build();
   }
+
 }
