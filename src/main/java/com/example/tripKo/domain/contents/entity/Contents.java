@@ -3,6 +3,8 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+import com.example.tripKo.domain.address.entity.Address;
+import com.example.tripKo.domain.address.entity.AddressCategory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -57,6 +59,13 @@ public class Contents extends BaseTimeEntity {
     this.page = page;
     this.description = description;
     this.place = place;
+  }
+
+  public String addressToString(Address address) {
+    String addressToString = address.getBuildingName() + " " + address.getRoadName();
+    AddressCategory addressCategory = address.getAddressCategory();
+    String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
+    return addressToString + " " + addressCategoryToString;
   }
 
 }

@@ -41,6 +41,9 @@ public class Place extends BaseTimeEntity {
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
+    @OneToOne(mappedBy = "place")
+    private PlaceFestival placeFestival;
+
     @Builder
     public Place(String name, String summary, int count, float averageRating, File file, Address address) {
         this.name = name;
