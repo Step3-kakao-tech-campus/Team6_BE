@@ -47,9 +47,6 @@ public class Place extends BaseTimeEntity {
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @OneToOne(mappedBy = "place")
-    private PlaceFestival placeFestival;
-
     @OneToMany(fetch = LAZY, mappedBy = "place")
     private final List<Contents> contents = new ArrayList<>();
 
