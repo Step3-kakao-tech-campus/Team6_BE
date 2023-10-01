@@ -11,7 +11,6 @@ public interface ContentsRepository extends JpaRepository<Contents, Long> {
 
 //  Optional<Contents> findByIdAndIdNot(Long id, Long virtualId);
 
-  @Query("SELECT c FROM Contents c WHERE c.id = :id")
-  Optional<Contents> findFestivalById(@Param("id") Long id);
+  Optional<Contents> findById(Long id);
 
 }

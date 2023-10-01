@@ -17,7 +17,7 @@ public class ContentsService {
 
   @Transactional
   public FestivalResponse getFestivalInfo(long id) {
-    Optional<Contents> contents = contentsRepository.findFestivalById(id);
+    Optional<Contents> contents = contentsRepository.findById(id);
     return contents.map(FestivalResponse::from)
         .orElse(null);
   }
