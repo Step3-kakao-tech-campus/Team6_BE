@@ -10,6 +10,7 @@ import com.example.tripKo.domain.contents.entity.Contents;
 import javax.persistence.*;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @DynamicUpdate
 @Entity
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "contents_has_file")
 public class ContentsFile extends BaseTimeEntity {

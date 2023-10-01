@@ -5,6 +5,7 @@ import static lombok.AccessLevel.PRIVATE;
 import com.example.tripKo.domain.contents.entity.Contents;
 import com.example.tripKo.domain.file.entity.ContentsFile;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class FestivalResponse {
   private String name;
   private Float averageScore;
   private String mainImage;
-  private List<ContentsFile> images;
+  private List<String> images;
   private String address;
   private String description;
   private String imagesPath;
@@ -33,7 +34,9 @@ public class FestivalResponse {
         .name(contents.getPlace().getName())
         .averageScore(contents.getPlace().getAverageRating())
         .mainImage(contents.getPlace().getFile().getName())
-        .images(contents.getContentsFiles())
+        .images(contents.getContentsFiles().stream()
+            .map(c->c.getFile().getName())
+            .collect(Collectors.toList()))
         .address(contents.addressToString(contents.getPlace().getAddress()))
         .description(contents.getDescription())
         .isWished(false)
