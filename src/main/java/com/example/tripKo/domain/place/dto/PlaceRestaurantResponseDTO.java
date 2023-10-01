@@ -14,7 +14,7 @@ public class PlaceRestaurantResponseDTO {
     private String image;
     private String address;
     private float averageRating;
-    private Boolean liked;
+    private Boolean isWished;
     @Builder
     public PlaceRestaurantResponseDTO(PlaceRestaurant placeRestaurant) {
         this.id = placeRestaurant.getId();
@@ -23,7 +23,7 @@ public class PlaceRestaurantResponseDTO {
         this.image = placeRestaurant.getPlace().getFile().getName();;
         this.address = addressToString(placeRestaurant.getPlace().getAddress());
         this.averageRating = placeRestaurant.getPlace().getAverageRating();
-        this.liked = false;
+        this.isWished = false;
     }
     public String addressToString(Address address) {
         String addressToString = address.getBuildingName() + " " + address.getRoadName();

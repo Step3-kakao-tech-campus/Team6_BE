@@ -33,26 +33,9 @@ public class PlaceService {
     private final PlaceRestaurantJPARepository placeRestaurantJPARepository;
     private final PlaceFestivalJPARepository placeFestivalJPARepository;
     private final PlaceTouristSpotJPARepository placeTouristSpotJPARepository;
-    private final PlaceJPARepository placeJPARepository;
-    private final AddressCategoryRepository addressCategoryRepository;
-    private final AddressRepository addressRepository;
-    private final FileRepository fileRepository;
-
-//    @Transactional
-//    public void test() {
-//        AddressCategory addressCategory = addressCategoryRepository.saveAndFlush(new AddressCategory("hadan", "saha", "Busan"));
-//        Address address = addressRepository.saveAndFlush(Address.builder().buildingName("6공학관").roadName("busan university street").zipCode("11111").addressCategory(addressCategory).build());
-//        File file = fileRepository.saveAndFlush(new File("jpg", "test"));
-//        Place tmp = Place.builder().name("맛도리 짜장").count(10).averageRating(4.1f).summary("완전 맛도리예요!").file(file).address(address).build();
-//        placeJPARepository.saveAndFlush(tmp);
-//        placeRestaurantJPARepository.saveAndFlush(PlaceRestaurant.builder().place(tmp).build());
-//        placeFestivalJPARepository.saveAndFlush(PlaceFestival.builder().endDate("20-12-25").startDate("20-09-20").reservationAvailable(true).place(tmp).build());
-//        placeTouristSpotJPARepository.saveAndFlush(PlaceTouristSpot.builder().place(tmp).build());
-//    }
 
     @Transactional
     public PlaceResponseDTO findAllByLocation(String location) {
-//        test();
         List<PlaceRestaurant> placeRestaurants = placeRestaurantJPARepository.findAllByLocation(location);
         List<PlaceFestival> placeFestivals = placeFestivalJPARepository.findAllByLocation(location);
         List<PlaceTouristSpot> placeTouristSpots = placeTouristSpotJPARepository.findAllByLocation(location);

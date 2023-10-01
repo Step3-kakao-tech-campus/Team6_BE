@@ -14,7 +14,7 @@ public class PlaceFestivalResponseDTO {
     private String image;
     private String address;
     private float averageRating;
-    private Boolean liked;
+    private Boolean isWished;
     @Builder
     public PlaceFestivalResponseDTO(PlaceFestival placeFestival) {
         this.id = placeFestival.getId();
@@ -23,7 +23,7 @@ public class PlaceFestivalResponseDTO {
         this.image = placeFestival.getPlace().getFile().getName();
         this.address = addressToString(placeFestival.getPlace().getAddress());
         this.averageRating = placeFestival.getPlace().getAverageRating();
-        this.liked = false;
+        this.isWished = false;
     }
 
     public String addressToString(Address address) {

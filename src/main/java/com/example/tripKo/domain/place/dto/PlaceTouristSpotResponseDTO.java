@@ -14,7 +14,7 @@ public class PlaceTouristSpotResponseDTO {
     private String image;
     private String address;
     private float averageRating;
-    private Boolean liked;
+    private Boolean isWished;
     @Builder
     public PlaceTouristSpotResponseDTO(PlaceTouristSpot placeTouristSpot) {
         this.id = placeTouristSpot.getId();
@@ -23,7 +23,7 @@ public class PlaceTouristSpotResponseDTO {
         this.image = placeTouristSpot.getPlace().getFile().getName();
         this.address = addressToString(placeTouristSpot.getPlace().getAddress());
         this.averageRating = placeTouristSpot.getPlace().getAverageRating();
-        this.liked = false;
+        this.isWished = false;
     }
 
     public String addressToString(Address address) {
