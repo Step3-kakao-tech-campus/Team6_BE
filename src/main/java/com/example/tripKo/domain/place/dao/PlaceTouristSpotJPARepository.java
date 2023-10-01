@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PlaceTouristSpotJPARepository extends JpaRepository<PlaceTouristSpot, Integer> {
+public interface PlaceTouristSpotJPARepository extends JpaRepository<PlaceTouristSpot, Long> {
     @Query("SELECT p FROM PlaceTouristSpot p WHERE UPPER(p.place.address.addressCategory.sidoName) = UPPER(:location)")
     List<PlaceTouristSpot> findAllByLocation(@Param("location") String location);
 
