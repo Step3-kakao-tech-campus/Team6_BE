@@ -3,8 +3,19 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+import com.example.tripKo.domain.address.entity.Address;
+import com.example.tripKo.domain.address.entity.AddressCategory;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.*;
 
 import com.example.tripKo.domain.BaseTimeEntity;
@@ -35,7 +46,6 @@ public class Contents extends BaseTimeEntity {
   @Column(nullable = false)
   private String description;
 
-  //OneToOne -> ManyToOne으로 수정
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "place_id", nullable = false)
   private Place place;
@@ -62,4 +72,5 @@ public class Contents extends BaseTimeEntity {
   public void addContentsFiles(ContentsFile contentsFile) {
     contentsFiles.add(contentsFile);
   }
+
 }
