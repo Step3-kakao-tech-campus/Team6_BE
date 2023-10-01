@@ -3,7 +3,7 @@ package com.example.tripKo.domain.contents.api;
 import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.contents.application.ContentsService;
 import com.example.tripKo.domain.contents.dto.response.FestivalResponse;
-import java.util.List;
+import com.example.tripKo.domain.place.dto.PlaceRestaurantDetailsResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +18,13 @@ public class ContentsController {
 
   private final ContentsService contentsService;
 
+    @GetMapping("/restaurant/{id}")
+    public ResponseEntity<?> getRestaurantDetails(@PathVariable Long id) {
+        PlaceRestaurantDetailsResponseDTO responseDTO = contentsService.findRestaurantDetailsById(id);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
+        return ResponseEntity.ok(apiResult);
+    }
+
   @GetMapping("/festival/{id}")
   public ResponseEntity<?> getFestivalInfo(
       @PathVariable long id
@@ -26,5 +33,4 @@ public class ContentsController {
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
     return ResponseEntity.ok(apiResult);
   }
-
 }

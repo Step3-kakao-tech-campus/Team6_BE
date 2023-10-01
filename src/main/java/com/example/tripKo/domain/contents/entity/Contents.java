@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.example.tripKo.domain.BaseTimeEntity;
 import com.example.tripKo.domain.file.entity.ContentsFile;
@@ -67,6 +68,16 @@ public class Contents extends BaseTimeEntity {
     AddressCategory addressCategory = address.getAddressCategory();
     String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
     return addressToString + " " + addressCategoryToString;
+  }
+
+  //테스트용
+  public void addContentsMenus(ContentsMenu menu) {
+    contentsMenus.add(menu);
+  }
+
+  //테스트용
+  public void addContentsFiles(ContentsFile contentsFile) {
+    contentsFiles.add(contentsFile);
   }
 
 }

@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static javax.persistence.FetchType.LAZY;
 
 @Getter
@@ -47,7 +50,7 @@ public class Place extends BaseTimeEntity {
     @OneToOne(mappedBy = "place")
     private PlaceFestival placeFestival;
 
-    @OneToMany(mappedBy = "place")
+    @OneToMany(fetch = LAZY, mappedBy = "place")
     private final List<Contents> contents = new ArrayList<>();
 
     @Builder

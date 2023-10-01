@@ -43,5 +43,5 @@ public class FestivalResponse {
             .getEndDate())
         .build();
   }
-
+  
 }
