@@ -22,7 +22,7 @@ public class ContentsController {
   public ResponseEntity<?> getFestivalInfo(
       @PathVariable long id
   ) {
-    List<FestivalResponse> response = contentsService.getFestivalInfo(id);
+    FestivalResponse response = contentsService.getFestivalInfo(id);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
     return ResponseEntity.ok(apiResult);
   }
