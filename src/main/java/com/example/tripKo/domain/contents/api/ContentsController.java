@@ -26,9 +26,7 @@ public class ContentsController {
     }
 
   @GetMapping("/festival/{id}")
-  public ResponseEntity<?> getFestivalInfo(
-      @PathVariable long id
-  ) {
+  public ResponseEntity<?> getFestivalInfo(@PathVariable Long id) {
     FestivalResponse response = contentsService.getFestivalInfo(id);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
     return ResponseEntity.ok(apiResult);

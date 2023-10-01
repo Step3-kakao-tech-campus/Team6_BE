@@ -2,7 +2,10 @@ package com.example.tripKo.domain.contents.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.example.tripKo.domain.address.entity.Address;
+import com.example.tripKo.domain.address.entity.AddressCategory;
 import com.example.tripKo.domain.contents.entity.Contents;
+import com.example.tripKo.domain.place.entity.PlaceFestival;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -26,22 +29,27 @@ public class FestivalResponse {
   private Boolean isReservable;
   private String period;
 
-  public static FestivalResponse from(Contents contents) {
-    return FestivalResponse.builder()
-        .id(contents.getId())
-        .name(contents.getPlace().getName())
-        .averageScore(contents.getPlace().getAverageRating())
-        .mainImage(contents.getPlace().getFile().getName())
-        .images(contents.getContentsFiles().stream()
-            .map(c->c.getFile().getName())
-            .collect(Collectors.toList()))
-        .address(contents.addressToString(contents.getPlace().getAddress()))
-        .description(contents.getDescription())
-        .isWished(false)
-        .isReservable(contents.getPlace().getPlaceFestival().getReservationAvailable())
-        .period(contents.getPlace().getPlaceFestival().getStartDate() + "~" + contents.getPlace().getPlaceFestival()
-            .getEndDate())
-        .build();
+  public FestivalResponse(PlaceFestival placeFestival) {
+    this.id = placeFestival.getId();
+    this.name = placeFestival.getPlace().getName();
+    this.averageScore = placeFestival.getPlace().getAverageRating();
+    this.mainImage = placeFestival.getPlace().getFile().getName();
+    this.images = placeFestival.getPlace().getContents().stream()
+        .flatMap(c -> c.getContentsFiles().stream())
+        .map(c -> c.getFile().getName())
+        .collect(Collectors.toList());
+    this.address = addressToString(placeFestival.getPlace().getAddress());
+    this.description = placeFestival.getPlace().getSummary();
+    this.isWished = false;
+    this.isReservable = placeFestival.getReservationAvailable();
+    this.period = placeFestival.getStartDate() + " ~ " + placeFestival.getEndDate();
   }
-  
+
+  public String addressToString(Address address) {
+    String addressToString = address.getBuildingName() + " " + address.getRoadName();
+    AddressCategory addressCategory = address.getAddressCategory();
+    String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
+    return addressToString + " " + addressCategoryToString;
+  }
+
 }

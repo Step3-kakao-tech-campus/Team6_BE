@@ -63,13 +63,6 @@ public class Contents extends BaseTimeEntity {
     this.place = place;
   }
 
-  public String addressToString(Address address) {
-    String addressToString = address.getBuildingName() + " " + address.getRoadName();
-    AddressCategory addressCategory = address.getAddressCategory();
-    String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
-    return addressToString + " " + addressCategoryToString;
-  }
-
   //테스트용
   public void addContentsMenus(ContentsMenu menu) {
     contentsMenus.add(menu);
