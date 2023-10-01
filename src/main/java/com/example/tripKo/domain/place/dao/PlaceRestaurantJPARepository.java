@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PlaceRestaurantJPARepository extends JpaRepository<PlaceRestaurant, Integer> {
+public interface PlaceRestaurantJPARepository extends JpaRepository<PlaceRestaurant, Long> {
     @Query("SELECT p FROM PlaceRestaurant p WHERE UPPER(p.place.address.addressCategory.sidoName) = UPPER(:location)")
     List<PlaceRestaurant> findAllByLocation(@Param("location") String location);
 
@@ -28,5 +28,6 @@ public interface PlaceRestaurantJPARepository extends JpaRepository<PlaceRestaur
 //            "LEFT JOIN FETCH c.contentsMenus m " +
 //            "LEFT JOIN FETCH c.contentsFiles cf " +
             "WHERE r.id = :id")
-    PlaceRestaurant findRestaurantDetailsById(@Param("id")long id);
+    PlaceRestaurant findRestaurantDetailsById(@Param("id")Long id);
+
 }

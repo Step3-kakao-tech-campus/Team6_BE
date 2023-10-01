@@ -23,7 +23,7 @@ public class PlaceRestaurant extends BaseTimeEntity {
     //int -> long으로 변경
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private Category category;

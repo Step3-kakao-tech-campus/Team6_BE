@@ -71,13 +71,6 @@ public class PlaceService {
         return placeRestaurantResponseDTOs;
     }
 
-    public PlaceRestaurantDetailsResponseDTO findRestaurantDetailsById(long id) {
-//        test();
-        PlaceRestaurant placeRestaurant = placeRestaurantJPARepository.findRestaurantDetailsById(id);
-        PlaceRestaurantDetailsResponseDTO ResponseDTO = new PlaceRestaurantDetailsResponseDTO(placeRestaurant);
-        return ResponseDTO;
-    }
-
     @Transactional
     public List<PlaceFestivalResponseDTO> findFestivalByLocation(String location, int page) {
         Pageable pageable = PageRequest.of(page,10);
