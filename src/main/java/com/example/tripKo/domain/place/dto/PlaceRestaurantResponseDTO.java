@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Getter
 public class PlaceRestaurantResponseDTO {
-    private int id;
+    private long id;
     private String name;
     private String summary;
     private String image;
