@@ -22,7 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 public class PlaceTouristSpot extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private Category category;
