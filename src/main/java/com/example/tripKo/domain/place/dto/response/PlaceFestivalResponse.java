@@ -2,12 +2,12 @@ package com.example.tripKo.domain.place.dto.response;
 
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
-import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
+import com.example.tripKo.domain.place.entity.PlaceFestival;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PlaceTouristSpotResponseDTO {
+public class PlaceFestivalResponse {
     private Long id;
     private String name;
     private String summary;
@@ -16,13 +16,13 @@ public class PlaceTouristSpotResponseDTO {
     private float averageRating;
     private Boolean isWished;
     @Builder
-    public PlaceTouristSpotResponseDTO(PlaceTouristSpot placeTouristSpot) {
-        this.id = placeTouristSpot.getId();
-        this.name = placeTouristSpot.getPlace().getName();
-        this.summary = placeTouristSpot.getPlace().getSummary();
-        this.image = placeTouristSpot.getPlace().getFile().getName();
-        this.address = addressToString(placeTouristSpot.getPlace().getAddress());
-        this.averageRating = placeTouristSpot.getPlace().getAverageRating();
+    public PlaceFestivalResponse(PlaceFestival placeFestival) {
+        this.id = placeFestival.getId();
+        this.name = placeFestival.getPlace().getName();
+        this.summary = placeFestival.getPlace().getSummary();
+        this.image = placeFestival.getPlace().getFile().getName();
+        this.address = addressToString(placeFestival.getPlace().getAddress());
+        this.averageRating = placeFestival.getPlace().getAverageRating();
         this.isWished = false;
     }
 
@@ -32,4 +32,5 @@ public class PlaceTouristSpotResponseDTO {
         String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
         return addressToString + " " + addressCategoryToString;
     }
+
 }

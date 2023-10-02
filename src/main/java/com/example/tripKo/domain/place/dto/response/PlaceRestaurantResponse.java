@@ -2,13 +2,13 @@ package com.example.tripKo.domain.place.dto.response;
 
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
-import com.example.tripKo.domain.place.entity.PlaceFestival;
+import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PlaceFestivalResponseDTO {
-    private Long id;
+public class PlaceRestaurantResponse {
+    private long id;
     private String name;
     private String summary;
     private String image;
@@ -16,21 +16,19 @@ public class PlaceFestivalResponseDTO {
     private float averageRating;
     private Boolean isWished;
     @Builder
-    public PlaceFestivalResponseDTO(PlaceFestival placeFestival) {
-        this.id = placeFestival.getId();
-        this.name = placeFestival.getPlace().getName();
-        this.summary = placeFestival.getPlace().getSummary();
-        this.image = placeFestival.getPlace().getFile().getName();
-        this.address = addressToString(placeFestival.getPlace().getAddress());
-        this.averageRating = placeFestival.getPlace().getAverageRating();
+    public PlaceRestaurantResponse(PlaceRestaurant placeRestaurant) {
+        this.id = placeRestaurant.getId();
+        this.name = placeRestaurant.getPlace().getName();
+        this.summary = placeRestaurant.getPlace().getSummary();
+        this.image = placeRestaurant.getPlace().getFile().getName();;
+        this.address = addressToString(placeRestaurant.getPlace().getAddress());
+        this.averageRating = placeRestaurant.getPlace().getAverageRating();
         this.isWished = false;
     }
-
     public String addressToString(Address address) {
         String addressToString = address.getBuildingName() + " " + address.getRoadName();
         AddressCategory addressCategory = address.getAddressCategory();
         String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
         return addressToString + " " + addressCategoryToString;
     }
-
 }

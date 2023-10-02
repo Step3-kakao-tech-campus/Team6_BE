@@ -1,15 +1,15 @@
 package com.example.tripKo.domain.place.application;
 
-import com.example.tripKo.domain.place.dto.response.PlaceFestivalResponseDTO;
-import com.example.tripKo.domain.place.dto.response.PlaceResponseDTO;
-import com.example.tripKo.domain.place.dto.response.PlaceRestaurantResponseDTO;
-import com.example.tripKo.domain.place.dto.response.PlaceTouristSpotResponseDTO;
+import com.example.tripKo.domain.place.dto.response.PlaceFestivalResponse;
+import com.example.tripKo.domain.place.dto.response.PlaceResponse;
+import com.example.tripKo.domain.place.dto.response.PlaceRestaurantResponse;
+import com.example.tripKo.domain.place.dto.response.PlaceTouristSpotResponse;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
-import com.example.tripKo.domain.place.dao.PlaceFestivalJPARepository;
+import com.example.tripKo.domain.place.dao.PlaceFestivalRepository;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
-import com.example.tripKo.domain.place.dao.PlaceRestaurantJPARepository;
+import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
 import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
-import com.example.tripKo.domain.place.dao.PlaceTouristSpotJPARepository;
+import com.example.tripKo.domain.place.dao.PlaceTouristSpotRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,43 +24,43 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class PlaceService {
-    private final PlaceRestaurantJPARepository placeRestaurantJPARepository;
-    private final PlaceFestivalJPARepository placeFestivalJPARepository;
-    private final PlaceTouristSpotJPARepository placeTouristSpotJPARepository;
+    private final PlaceRestaurantRepository placeRestaurantRepository;
+    private final PlaceFestivalRepository placeFestivalRepository;
+    private final PlaceTouristSpotRepository placeTouristSpotRepository;
 
     @Transactional
-    public PlaceResponseDTO findAllByLocation(String location) {
-        List<PlaceRestaurant> placeRestaurants = placeRestaurantJPARepository.findAllByLocation(location);
-        List<PlaceFestival> placeFestivals = placeFestivalJPARepository.findAllByLocation(location);
-        List<PlaceTouristSpot> placeTouristSpots = placeTouristSpotJPARepository.findAllByLocation(location);
-        PlaceResponseDTO placeResponseDTO = PlaceResponseDTO.builder()
+    public PlaceResponse findAllByLocation(String location) {
+        List<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findAllByLocation(location);
+        List<PlaceFestival> placeFestivals = placeFestivalRepository.findAllByLocation(location);
+        List<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findAllByLocation(location);
+        PlaceResponse placeResponse = PlaceResponse.builder()
                                                             .placeRestaurants(placeRestaurants)
                                                             .placeFestivals(placeFestivals)
                                                             .placeTouristSpots(placeTouristSpots).build();
-        return placeResponseDTO;
+        return placeResponse;
     }
 
     @Transactional
-    public List<PlaceRestaurantResponseDTO> findRestaurantByLocation(String location, int page) {
+    public List<PlaceRestaurantResponse> findRestaurantByLocation(String location, int page) {
         Pageable pageable = PageRequest.of(page,10);
-        Page<PlaceRestaurant> placeRestaurants = placeRestaurantJPARepository.findRestaurantByLocation(location, pageable);
-        List<PlaceRestaurantResponseDTO> placeRestaurantResponseDTOs = placeRestaurants.getContent().stream().map(p->PlaceRestaurantResponseDTO.builder().placeRestaurant(p).build()).collect(Collectors.toList());
-        return placeRestaurantResponseDTOs;
+        Page<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findRestaurantByLocation(location, pageable);
+        List<PlaceRestaurantResponse> placeRestaurantResponses = placeRestaurants.getContent().stream().map(p-> PlaceRestaurantResponse.builder().placeRestaurant(p).build()).collect(Collectors.toList());
+        return placeRestaurantResponses;
     }
 
     @Transactional
-    public List<PlaceFestivalResponseDTO> findFestivalByLocation(String location, int page) {
+    public List<PlaceFestivalResponse> findFestivalByLocation(String location, int page) {
         Pageable pageable = PageRequest.of(page,10);
-        Page<PlaceFestival> placeFestivals = placeFestivalJPARepository.findFestivalByLocation(location, pageable);
-        List<PlaceFestivalResponseDTO> placeFestivalResponseDTOS = placeFestivals.getContent().stream().map(p-> PlaceFestivalResponseDTO.builder().placeFestival(p).build()).collect(Collectors.toList());
-        return placeFestivalResponseDTOS;
+        Page<PlaceFestival> placeFestivals = placeFestivalRepository.findFestivalByLocation(location, pageable);
+        List<PlaceFestivalResponse> placeFestivalResponses = placeFestivals.getContent().stream().map(p-> PlaceFestivalResponse.builder().placeFestival(p).build()).collect(Collectors.toList());
+        return placeFestivalResponses;
     }
 
     @Transactional
-    public List<PlaceTouristSpotResponseDTO> findTouristSpotByLocation(String location, int page) {
+    public List<PlaceTouristSpotResponse> findTouristSpotByLocation(String location, int page) {
         Pageable pageable = PageRequest.of(page,10);
-        Page<PlaceTouristSpot> placeTouristSpots = placeTouristSpotJPARepository.findTouristSpotByLocation(location, pageable);
-        List<PlaceTouristSpotResponseDTO> placeTouristSpotResponseDTOS = placeTouristSpots.getContent().stream().map(p-> PlaceTouristSpotResponseDTO.builder().placeTouristSpot(p).build()).collect(Collectors.toList());
-        return placeTouristSpotResponseDTOS;
+        Page<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findTouristSpotByLocation(location, pageable);
+        List<PlaceTouristSpotResponse> placeTouristSpotResponses = placeTouristSpots.getContent().stream().map(p-> PlaceTouristSpotResponse.builder().placeTouristSpot(p).build()).collect(Collectors.toList());
+        return placeTouristSpotResponses;
     }
 }

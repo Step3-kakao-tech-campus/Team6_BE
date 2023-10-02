@@ -3,9 +3,9 @@ package com.example.tripKo.domain.contents.application;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo.domain.contents.dto.response.FestivalResponse;
 import com.example.tripKo.domain.contents.dto.response.TouristSpotResponse;
-import com.example.tripKo.domain.place.dao.PlaceFestivalJPARepository;
-import com.example.tripKo.domain.place.dao.PlaceRestaurantJPARepository;
-import com.example.tripKo.domain.place.dao.PlaceTouristSpotJPARepository;
+import com.example.tripKo.domain.place.dao.PlaceFestivalRepository;
+import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
+import com.example.tripKo.domain.place.dao.PlaceTouristSpotRepository;
 import com.example.tripKo.domain.contents.dto.response.RestaurantResponse;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
@@ -20,13 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class ContentsService {
 
-  private final PlaceRestaurantJPARepository placeRestaurantJPARepository;
-  private final PlaceFestivalJPARepository placeFestivalJPARepository;
-  private final PlaceTouristSpotJPARepository placeTouristSpotJPARepository;
+  private final PlaceRestaurantRepository placeRestaurantRepository;
+  private final PlaceFestivalRepository placeFestivalRepository;
+  private final PlaceTouristSpotRepository placeTouristSpotRepository;
 
   @Transactional
   public RestaurantResponse findRestaurantDetailsById(Long id) {
-        PlaceRestaurant placeRestaurant = placeRestaurantJPARepository.findById(id)
+        PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(id)
                 .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + id));
         RestaurantResponse ResponseDTO = new RestaurantResponse(placeRestaurant);
         return ResponseDTO;
@@ -34,7 +34,7 @@ public class ContentsService {
 
   @Transactional
   public FestivalResponse getFestivalInfo(Long id) {
-    PlaceFestival placeFestival = placeFestivalJPARepository.findById(id)
+    PlaceFestival placeFestival = placeFestivalRepository.findById(id)
         .orElseThrow(() -> new Exception404("해당하는 컨텐츠를 찾을 수 없습니다. id: " + id));
     FestivalResponse festivalResponse = new FestivalResponse(placeFestival);
     return festivalResponse;
@@ -42,7 +42,7 @@ public class ContentsService {
 
   @Transactional
   public TouristSpotResponse getTouristSpotInfo(Long id) {
-    PlaceTouristSpot placeTouristSpot = placeTouristSpotJPARepository.findById(id)
+    PlaceTouristSpot placeTouristSpot = placeTouristSpotRepository.findById(id)
             .orElseThrow(() -> new Exception404("해당하는 컨텐츠를 찾을 수 없습니다. id: " + id));
     TouristSpotResponse touristSpotResponse = new TouristSpotResponse(placeTouristSpot);
     return touristSpotResponse;
