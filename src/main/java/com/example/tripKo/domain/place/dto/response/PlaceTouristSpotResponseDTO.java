@@ -1,14 +1,14 @@
-package com.example.tripKo.domain.place.dto;
+package com.example.tripKo.domain.place.dto.response;
 
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
-import com.example.tripKo.domain.place.entity.PlaceRestaurant;
+import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PlaceRestaurantResponseDTO {
-    private long id;
+public class PlaceTouristSpotResponseDTO {
+    private Long id;
     private String name;
     private String summary;
     private String image;
@@ -16,15 +16,16 @@ public class PlaceRestaurantResponseDTO {
     private float averageRating;
     private Boolean isWished;
     @Builder
-    public PlaceRestaurantResponseDTO(PlaceRestaurant placeRestaurant) {
-        this.id = placeRestaurant.getId();
-        this.name = placeRestaurant.getPlace().getName();
-        this.summary = placeRestaurant.getPlace().getSummary();
-        this.image = placeRestaurant.getPlace().getFile().getName();;
-        this.address = addressToString(placeRestaurant.getPlace().getAddress());
-        this.averageRating = placeRestaurant.getPlace().getAverageRating();
+    public PlaceTouristSpotResponseDTO(PlaceTouristSpot placeTouristSpot) {
+        this.id = placeTouristSpot.getId();
+        this.name = placeTouristSpot.getPlace().getName();
+        this.summary = placeTouristSpot.getPlace().getSummary();
+        this.image = placeTouristSpot.getPlace().getFile().getName();
+        this.address = addressToString(placeTouristSpot.getPlace().getAddress());
+        this.averageRating = placeTouristSpot.getPlace().getAverageRating();
         this.isWished = false;
     }
+
     public String addressToString(Address address) {
         String addressToString = address.getBuildingName() + " " + address.getRoadName();
         AddressCategory addressCategory = address.getAddressCategory();

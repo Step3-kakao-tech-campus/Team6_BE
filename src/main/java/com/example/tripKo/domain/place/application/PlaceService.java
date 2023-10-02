@@ -1,15 +1,9 @@
 package com.example.tripKo.domain.place.application;
 
-import com.example.tripKo.domain.address.dao.AddressCategoryRepository;
-import com.example.tripKo.domain.address.dao.AddressRepository;
-import com.example.tripKo.domain.address.entity.Address;
-import com.example.tripKo.domain.address.entity.AddressCategory;
-import com.example.tripKo.domain.file.dao.FileRepository;
-import com.example.tripKo.domain.file.entity.File;
-import com.example.tripKo.domain.place.Category;
-import com.example.tripKo.domain.place.dao.PlaceJPARepository;
-import com.example.tripKo.domain.place.dto.*;
-import com.example.tripKo.domain.place.entity.Place;
+import com.example.tripKo.domain.place.dto.response.PlaceFestivalResponseDTO;
+import com.example.tripKo.domain.place.dto.response.PlaceResponseDTO;
+import com.example.tripKo.domain.place.dto.response.PlaceRestaurantResponseDTO;
+import com.example.tripKo.domain.place.dto.response.PlaceTouristSpotResponseDTO;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
 import com.example.tripKo.domain.place.dao.PlaceFestivalJPARepository;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
