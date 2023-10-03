@@ -1,34 +1,36 @@
-package com.example.tripKo.domain.place.dto;
+package com.example.tripKo.domain.place.dto.response;
 
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
-import com.example.tripKo.domain.place.entity.PlaceRestaurant;
+import com.example.tripKo.domain.place.entity.PlaceFestival;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PlaceRestaurantResponseDTO {
-    private long id;
+public class PlaceFestivalResponse {
+    private Long id;
     private String name;
     private String summary;
     private String image;
     private String address;
     private float averageRating;
-    private Boolean liked;
+    private Boolean isWished;
     @Builder
-    public PlaceRestaurantResponseDTO(PlaceRestaurant placeRestaurant) {
-        this.id = placeRestaurant.getId();
-        this.name = placeRestaurant.getPlace().getName();
-        this.summary = placeRestaurant.getPlace().getSummary();
-        this.image = placeRestaurant.getPlace().getFile().getName();;
-        this.address = addressToString(placeRestaurant.getPlace().getAddress());
-        this.averageRating = placeRestaurant.getPlace().getAverageRating();
-        this.liked = false;
+    public PlaceFestivalResponse(PlaceFestival placeFestival) {
+        this.id = placeFestival.getId();
+        this.name = placeFestival.getPlace().getName();
+        this.summary = placeFestival.getPlace().getSummary();
+        this.image = placeFestival.getPlace().getFile().getName();
+        this.address = addressToString(placeFestival.getPlace().getAddress());
+        this.averageRating = placeFestival.getPlace().getAverageRating();
+        this.isWished = false;
     }
+
     public String addressToString(Address address) {
         String addressToString = address.getBuildingName() + " " + address.getRoadName();
         AddressCategory addressCategory = address.getAddressCategory();
         String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
         return addressToString + " " + addressCategoryToString;
     }
+
 }

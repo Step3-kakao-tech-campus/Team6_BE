@@ -1,4 +1,4 @@
-package com.example.tripKo.domain.place.dto;
+package com.example.tripKo.domain.place.dto.response;
 
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
@@ -7,23 +7,23 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PlaceTouristSpotResponseDTO {
+public class PlaceTouristSpotResponse {
     private Long id;
     private String name;
     private String summary;
     private String image;
     private String address;
     private float averageRating;
-    private Boolean liked;
+    private Boolean isWished;
     @Builder
-    public PlaceTouristSpotResponseDTO(PlaceTouristSpot placeTouristSpot) {
+    public PlaceTouristSpotResponse(PlaceTouristSpot placeTouristSpot) {
         this.id = placeTouristSpot.getId();
         this.name = placeTouristSpot.getPlace().getName();
         this.summary = placeTouristSpot.getPlace().getSummary();
         this.image = placeTouristSpot.getPlace().getFile().getName();
         this.address = addressToString(placeTouristSpot.getPlace().getAddress());
         this.averageRating = placeTouristSpot.getPlace().getAverageRating();
-        this.liked = false;
+        this.isWished = false;
     }
 
     public String addressToString(Address address) {

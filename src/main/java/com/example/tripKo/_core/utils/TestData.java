@@ -12,10 +12,10 @@ import com.example.tripKo.domain.file.dao.ContentsFileRepository;
 import com.example.tripKo.domain.file.dao.FileRepository;
 import com.example.tripKo.domain.file.entity.ContentsFile;
 import com.example.tripKo.domain.file.entity.File;
-import com.example.tripKo.domain.place.dao.PlaceFestivalJPARepository;
-import com.example.tripKo.domain.place.dao.PlaceJPARepository;
-import com.example.tripKo.domain.place.dao.PlaceRestaurantJPARepository;
-import com.example.tripKo.domain.place.dao.PlaceTouristSpotJPARepository;
+import com.example.tripKo.domain.place.dao.PlaceFestivalRepository;
+import com.example.tripKo.domain.place.dao.PlaceRepository;
+import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
+import com.example.tripKo.domain.place.dao.PlaceTouristSpotRepository;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
@@ -33,10 +33,10 @@ import java.util.List;
 @Profile("test")
 @RequiredArgsConstructor
 public class TestData implements CommandLineRunner {
-    private final PlaceJPARepository placeJPARepository;
-    private final PlaceRestaurantJPARepository placeRestaurantJPARepository;
-    private final PlaceFestivalJPARepository placeFestivalJPARepository;
-    private final PlaceTouristSpotJPARepository placeTouristSpotJPARepository;
+    private final PlaceRepository placeRepository;
+    private final PlaceRestaurantRepository placeRestaurantRepository;
+    private final PlaceFestivalRepository placeFestivalRepository;
+    private final PlaceTouristSpotRepository placeTouristSpotRepository;
     private final ContentsFileRepository contentsFileRepository;
     private final FileRepository fileRepository;
     private final ContentsRepository contentsRepository;
@@ -92,25 +92,25 @@ public class TestData implements CommandLineRunner {
                 Place.builder().name("Signiel Busan").summary("부산 시그니엘은..").count(100).averageRating((float)4.5).address(addresses.get(4)).file(files.get(6)).build(),
                 Place.builder().name("전포 카페 거리").summary("전포 카페 거리는..").count(200).averageRating((float)4.3).address(addresses.get(5)).file(files.get(7)).build()
         );
-        placeJPARepository.saveAll(places);
+        placeRepository.saveAll(places);
 
         List<PlaceRestaurant> placeRestaurants = Arrays.asList(
                 new PlaceRestaurant(null, "051-111-2222", "11:00", "22:00", "15:00", "17:00", "Monday", places.get(0)),
                 new PlaceRestaurant(null, "051-222-3333", "12:00", "22:00", "14:00", "17:00", null, places.get(1))
         );
-        placeRestaurantJPARepository.saveAll(placeRestaurants);
+        placeRestaurantRepository.saveAll(placeRestaurants);
 
         List<PlaceFestival> placeFestivals = Arrays.asList(
                 new PlaceFestival("16:00", "21:00", places.get(2), false),
                 new PlaceFestival("18:00", "23:00", places.get(3), false)
         );
-        placeFestivalJPARepository.saveAll(placeFestivals);
+        placeFestivalRepository.saveAll(placeFestivals);
 
         List<PlaceTouristSpot> placeTouristSpots = Arrays.asList(
                 new PlaceTouristSpot(places.get(4)),
                 new PlaceTouristSpot(places.get(5))
         );
-        placeTouristSpotJPARepository.saveAll(placeTouristSpots);
+        placeTouristSpotRepository.saveAll(placeTouristSpots);
 
         List<Contents> contents = new ArrayList<>();
         List<ContentsMenu> contentsMenus = new ArrayList<>();

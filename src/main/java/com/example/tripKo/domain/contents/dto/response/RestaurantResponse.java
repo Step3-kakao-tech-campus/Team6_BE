@@ -1,4 +1,4 @@
-package com.example.tripKo.domain.place.dto;
+package com.example.tripKo.domain.contents.dto.response;
 
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class PlaceRestaurantDetailsResponseDTO {
+public class RestaurantResponse {
     private long id;
     private String name;
     private String description;
@@ -45,7 +45,7 @@ public class PlaceRestaurantDetailsResponseDTO {
         }
     }
 
-    public PlaceRestaurantDetailsResponseDTO(PlaceRestaurant placeRestaurant) {
+    public RestaurantResponse(PlaceRestaurant placeRestaurant) {
         id = placeRestaurant.getId();
 
         name = placeRestaurant.getPlace().getName();
