@@ -3,8 +3,6 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
-import com.example.tripKo.domain.address.entity.Address;
-import com.example.tripKo.domain.address.entity.AddressCategory;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -14,12 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.*;
 
 import com.example.tripKo.domain.BaseTimeEntity;
-import com.example.tripKo.domain.file.entity.ContentsFile;
+import com.example.tripKo.domain.file.entity.ContentsHasFile;
 import com.example.tripKo.domain.place.entity.Place;
 import lombok.Builder;
 import lombok.Getter;
@@ -54,7 +50,7 @@ public class Contents extends BaseTimeEntity {
   private final List<ContentsMenu> contentsMenus = new ArrayList<>();
 
   @OneToMany(mappedBy = "contents")
-  private final List<ContentsFile> contentsFiles = new ArrayList<>();
+  private final List<ContentsHasFile> contentsHasFiles = new ArrayList<>();
 
   @Builder
   private Contents(Long page, String description, Place place) {
@@ -69,8 +65,8 @@ public class Contents extends BaseTimeEntity {
   }
 
   //테스트용
-  public void addContentsFiles(ContentsFile contentsFile) {
-    contentsFiles.add(contentsFile);
+  public void addContentsFiles(ContentsHasFile contentsHasFile) {
+    contentsHasFiles.add(contentsHasFile);
   }
 
 }

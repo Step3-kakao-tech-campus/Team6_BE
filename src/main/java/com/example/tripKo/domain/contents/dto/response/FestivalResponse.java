@@ -4,7 +4,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
-import com.example.tripKo.domain.contents.entity.Contents;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +34,7 @@ public class FestivalResponse {
     this.averageScore = placeFestival.getPlace().getAverageRating();
     this.mainImage = placeFestival.getPlace().getFile().getName();
     this.images = placeFestival.getPlace().getContents().stream()
-        .flatMap(c -> c.getContentsFiles().stream())
+        .flatMap(c -> c.getContentsHasFiles().stream())
         .map(c -> c.getFile().getName())
         .collect(Collectors.toList());
     this.address = addressToString(placeFestival.getPlace().getAddress());
