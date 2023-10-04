@@ -31,6 +31,7 @@ public class FestivalResponse {
   @Builder
   @Getter
   public static class Content {
+
     private Long page;
     private String description;
     private List<String> image;
@@ -55,7 +56,7 @@ public class FestivalResponse {
         .page(contents.getPage())
         .description(contents.getDescription())
         .image(contents.getContentsHasFiles().stream()
-            .map(c->c.getFile().getName())
+            .map(c -> c.getFile().getName())
             .collect(Collectors.toList()))
         .build();
   }
