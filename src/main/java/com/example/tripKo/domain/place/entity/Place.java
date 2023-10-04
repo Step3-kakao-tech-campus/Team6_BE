@@ -5,6 +5,7 @@ import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.contents.entity.Contents;
 import com.example.tripKo.domain.contents.entity.ContentsMenu;
 import com.example.tripKo.domain.file.entity.File;
+import com.example.tripKo.domain.member.entity.MemberReservationInfo;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -50,6 +51,9 @@ public class Place extends BaseTimeEntity {
 
     @OneToMany(fetch = LAZY, mappedBy = "place")
     private final List<Contents> contents = new ArrayList<>();
+
+    @OneToMany(mappedBy = "place")
+    private final List<MemberReservationInfo> memberReservationInfos = new ArrayList<>();
 
     @Builder
     public Place(String name, String summary, int count, float averageRating, File file, Address address) {
