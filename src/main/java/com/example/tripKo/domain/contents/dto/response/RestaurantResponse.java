@@ -2,6 +2,7 @@ package com.example.tripKo.domain.contents.dto.response;
 
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
+import com.example.tripKo.domain.contents.entity.Contents;
 import com.example.tripKo.domain.contents.entity.ContentsMenu;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import lombok.Builder;
@@ -14,9 +15,8 @@ import java.util.stream.Collectors;
 public class RestaurantResponse {
     private long id;
     private String name;
-    private String description;
     private String mainImage;
-    private List<String> images;
+    private List<Content> contents;
     private float averageScore;
     private String address;
     private String holidayDate;
@@ -45,19 +45,24 @@ public class RestaurantResponse {
         }
     }
 
+    @Builder
+    @Getter
+    public static class Content {
+        private Long page;
+        private String description;
+        private List<String> image;
+    }
+
     public RestaurantResponse(PlaceRestaurant placeRestaurant) {
         id = placeRestaurant.getId();
 
         name = placeRestaurant.getPlace().getName();
 
-        description = placeRestaurant.getPlace().getSummary();
-
         mainImage = placeRestaurant.getPlace().getFile().getName();
 
-        images = placeRestaurant.getPlace().getContents().stream()
-                .flatMap(c -> c.getContentsHasFiles().stream())
-                .map(c -> c.getFile().getName())
-                .collect(Collectors.toList());
+        contents = placeRestaurant.getPlace().getContents().stream()
+            .map(this::mapContent)
+            .collect(Collectors.toList());
 
         averageScore = placeRestaurant.getPlace().getAverageRating();
 
@@ -75,6 +80,16 @@ public class RestaurantResponse {
                 .flatMap(c -> c.getContentsMenus().stream())
                 .map(MenuDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    private Content mapContent(Contents contents) {
+        return Content.builder()
+            .page(contents.getPage())
+            .description(contents.getDescription())
+            .image(contents.getContentsHasFiles().stream()
+                .map(c->c.getFile().getName())
+                .collect(Collectors.toList()))
+            .build();
     }
 
     public String addressToString(Address address) {
