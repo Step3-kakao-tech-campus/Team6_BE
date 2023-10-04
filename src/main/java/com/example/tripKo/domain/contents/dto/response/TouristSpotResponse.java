@@ -42,7 +42,7 @@ public class TouristSpotResponse {
         this.contents = placeTouristSpot.getPlace().getContents().stream()
             .map(this::mapContent)
             .collect(Collectors.toList());
-        this.address = addressToString(placeTouristSpot.getPlace().getAddress());
+        this.address = placeTouristSpot.getPlace().addressToString(placeTouristSpot.getPlace().getAddress());
         this.isWished = false;
     }
 
@@ -54,13 +54,6 @@ public class TouristSpotResponse {
                 .map(c->c.getFile().getName())
                 .collect(Collectors.toList()))
             .build();
-    }
-
-    public String addressToString(Address address) {
-        String addressToString = address.getBuildingName() + " " + address.getRoadName();
-        AddressCategory addressCategory = address.getAddressCategory();
-        String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
-        return addressToString + " " + addressCategoryToString;
     }
 
 }

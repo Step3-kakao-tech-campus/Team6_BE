@@ -44,7 +44,7 @@ public class FestivalResponse {
     this.contents = placeFestival.getPlace().getContents().stream()
         .map(this::mapContent)
         .collect(Collectors.toList());
-    this.address = addressToString(placeFestival.getPlace().getAddress());
+    this.address = placeFestival.getPlace().addressToString(placeFestival.getPlace().getAddress());
     this.liked = false;
     this.isReservable = placeFestival.getReservationAvailable();
     this.period = placeFestival.getStartDate() + " ~ " + placeFestival.getEndDate();
@@ -58,13 +58,6 @@ public class FestivalResponse {
             .map(c->c.getFile().getName())
             .collect(Collectors.toList()))
         .build();
-  }
-
-  public String addressToString(Address address) {
-    String addressToString = address.getBuildingName() + " " + address.getRoadName();
-    AddressCategory addressCategory = address.getAddressCategory();
-    String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
-    return addressToString + " " + addressCategoryToString;
   }
 
 }
