@@ -2,8 +2,6 @@ package com.example.tripKo.domain.contents.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.example.tripKo.domain.address.entity.Address;
-import com.example.tripKo.domain.address.entity.AddressCategory;
 import com.example.tripKo.domain.contents.entity.Contents;
 import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
 import java.util.List;
