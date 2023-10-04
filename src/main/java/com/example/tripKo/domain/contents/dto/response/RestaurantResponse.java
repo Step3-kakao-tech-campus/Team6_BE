@@ -66,7 +66,7 @@ public class RestaurantResponse {
 
         averageScore = placeRestaurant.getPlace().getAverageRating();
 
-        address = addressToString(placeRestaurant.getPlace().getAddress());
+        address = placeRestaurant.getPlace().addressToString(placeRestaurant.getPlace().getAddress());
 
         holidayDate = placeRestaurant.getHolidayDate();
 
@@ -92,10 +92,4 @@ public class RestaurantResponse {
             .build();
     }
 
-    public String addressToString(Address address) {
-        String addressToString = address.getBuildingName() + " " + address.getRoadName();
-        AddressCategory addressCategory = address.getAddressCategory();
-        String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
-        return addressToString + " " + addressCategoryToString;
-    }
 }
