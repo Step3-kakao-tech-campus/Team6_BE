@@ -1,7 +1,5 @@
 package com.example.tripKo.domain.contents.dto.response;
 
-import com.example.tripKo.domain.address.entity.Address;
-import com.example.tripKo.domain.address.entity.AddressCategory;
 import com.example.tripKo.domain.contents.entity.Contents;
 import com.example.tripKo.domain.contents.entity.ContentsMenu;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;

@@ -2,11 +2,8 @@ package com.example.tripKo.domain.contents.dto.response;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.example.tripKo.domain.address.entity.Address;
-import com.example.tripKo.domain.address.entity.AddressCategory;
 import com.example.tripKo.domain.contents.entity.Contents;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
