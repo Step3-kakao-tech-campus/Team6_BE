@@ -32,7 +32,7 @@ public class TouristSpotResponse {
         this.averageScore = placeTouristSpot.getPlace().getAverageRating();
         this.mainImage = placeTouristSpot.getPlace().getFile().getName();
         this.images = placeTouristSpot.getPlace().getContents().stream()
-                .flatMap(c -> c.getContentsFiles().stream())
+                .flatMap(c -> c.getContentsHasFiles().stream())
                 .map(c -> c.getFile().getName())
                 .collect(Collectors.toList());
         this.address = addressToString(placeTouristSpot.getPlace().getAddress());

@@ -55,7 +55,7 @@ public class RestaurantResponse {
         mainImage = placeRestaurant.getPlace().getFile().getName();
 
         images = placeRestaurant.getPlace().getContents().stream()
-                .flatMap(c -> c.getContentsFiles().stream())
+                .flatMap(c -> c.getContentsHasFiles().stream())
                 .map(c -> c.getFile().getName())
                 .collect(Collectors.toList());
 

@@ -21,7 +21,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "contents_has_file")
-public class ContentsFile extends BaseTimeEntity {
+public class ContentsHasFile extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -37,7 +37,7 @@ public class ContentsFile extends BaseTimeEntity {
     private File file;
 
     @Builder
-    private ContentsFile(Contents contents, File file) {
+    private ContentsHasFile(Contents contents, File file) {
         this.contents = contents;
         this.file = file;
     }
