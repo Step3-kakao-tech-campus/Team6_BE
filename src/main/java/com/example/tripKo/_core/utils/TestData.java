@@ -161,8 +161,8 @@ public class TestData implements CommandLineRunner {
                 foodContentsList.add(foodContents);
                 FoodContentsHasFile foodContentsHasFile = FoodContentsHasFile.builder().foodContents(foodContents).file(files.get(16 + i)).build();
                 foodContentsHasFiles.add(foodContentsHasFile);
-                foodContents.addContentsFoodFile(foodContentsHasFiles.get(i+j));
-                foods.get(i).addContentsFood(foodContents);
+                foodContents.addFoodContentsFile(foodContentsHasFiles.get(i+j));
+                foods.get(i).addFoodContents(foodContents);
             }
         }
 

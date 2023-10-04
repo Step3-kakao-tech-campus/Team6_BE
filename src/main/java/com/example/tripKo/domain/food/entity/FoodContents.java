@@ -48,7 +48,7 @@ public class FoodContents extends BaseTimeEntity {
     this.food = food;
   }
 
-  public void addContentsFoodFile(FoodContentsHasFile foodContentsHasFile) {
+  public void addFoodContentsFile(FoodContentsHasFile foodContentsHasFile) {
     foodContentsHasFiles.add(foodContentsHasFile);
   }
 }

@@ -45,7 +45,7 @@ public class Food {
         this.file = file;
     }
 
-    public void addContentsFood(FoodContents foodContents) {
+    public void addFoodContents(FoodContents foodContents) {
         this.foodContents.add(foodContents);
     }
 }
