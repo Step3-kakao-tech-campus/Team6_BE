@@ -4,17 +4,17 @@ import com.example.tripKo.domain.address.dao.AddressCategoryRepository;
 import com.example.tripKo.domain.address.dao.AddressRepository;
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
-import com.example.tripKo.domain.contents.dao.ContentsFoodRepository;
+import com.example.tripKo.domain.food.dao.FoodContentsRepository;
 import com.example.tripKo.domain.contents.dao.ContentsMenuRepository;
 import com.example.tripKo.domain.contents.dao.ContentsRepository;
 import com.example.tripKo.domain.contents.entity.Contents;
-import com.example.tripKo.domain.contents.entity.ContentsFood;
+import com.example.tripKo.domain.food.entity.FoodContents;
 import com.example.tripKo.domain.contents.entity.ContentsMenu;
 import com.example.tripKo.domain.file.dao.ContentsFileRepository;
-import com.example.tripKo.domain.file.dao.ContentsFoodFileRepository;
+import com.example.tripKo.domain.food.dao.FoodContentsHadFileRepository;
 import com.example.tripKo.domain.file.dao.FileRepository;
-import com.example.tripKo.domain.file.entity.ContentsFile;
-import com.example.tripKo.domain.file.entity.ContentsFoodFile;
+import com.example.tripKo.domain.file.entity.ContentsHasFile;
+import com.example.tripKo.domain.food.entity.FoodContentsHasFile;
 import com.example.tripKo.domain.file.entity.File;
 import com.example.tripKo.domain.food.dao.FoodRepository;
 import com.example.tripKo.domain.food.entity.Food;
@@ -51,8 +51,8 @@ public class TestData implements CommandLineRunner {
     private final AddressRepository addressRepository;
 
     private final FoodRepository foodRepository;
-    private final ContentsFoodRepository contentsFoodRepository;
-    private final ContentsFoodFileRepository contentsFoodFileRepository;
+    private final FoodContentsRepository foodContentsRepository;
+    private final FoodContentsHadFileRepository foodContentsHadFileRepository;
 
 
     @Override
@@ -139,12 +139,12 @@ public class TestData implements CommandLineRunner {
         contentsRepository.saveAll(contents);
         contentsMenuRepository.saveAll(contentsMenus);
 
-        List<ContentsFile> contentsFiles = Arrays.asList(
-                ContentsFile.builder().contents(contents.get(0)).file(files.get(0)).build(),
-                ContentsFile.builder().contents(contents.get(0)).file(files.get(1)).build(),
-                ContentsFile.builder().contents(contents.get(1)).file(files.get(2)).build()
+        List<ContentsHasFile> contentsHasFiles = Arrays.asList(
+                ContentsHasFile.builder().contents(contents.get(0)).file(files.get(0)).build(),
+                ContentsHasFile.builder().contents(contents.get(0)).file(files.get(1)).build(),
+                ContentsHasFile.builder().contents(contents.get(1)).file(files.get(2)).build()
         );
-        contentsFileRepository.saveAll(contentsFiles);
+        contentsFileRepository.saveAll(contentsHasFiles);
 
         ///////
         List<Food> foods = Arrays.asList(
@@ -153,21 +153,21 @@ public class TestData implements CommandLineRunner {
                 Food.builder().name("bibimbap").keyword("bibimbap KOREAN MIXED RICE").summary("비빔밥은 ...").file(files.get(15)).build()
         );
 
-        List<ContentsFood> contentsFoods = new ArrayList<>();
-        List<ContentsFoodFile> contentsFoodFiles = new ArrayList<>();
+        List<FoodContents> foodContentsList = new ArrayList<>();
+        List<FoodContentsHasFile> foodContentsHasFiles = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
-                ContentsFood contentsFood = ContentsFood.builder().page(Long.valueOf(j)).food(foods.get(i)).description("컨텐츠 설명 " + j).build();
-                contentsFoods.add(contentsFood);
-                ContentsFoodFile contentsFoodFile = ContentsFoodFile.builder().contentsFood(contentsFood).file(files.get(16 + i)).build();
-                contentsFoodFiles.add(contentsFoodFile);
-                contentsFood.addContentsFoodFile(contentsFoodFiles.get(i+j));
-                foods.get(i).addContentsFood(contentsFood);
+                FoodContents foodContents = FoodContents.builder().page(Long.valueOf(j)).food(foods.get(i)).description("컨텐츠 설명 " + j).build();
+                foodContentsList.add(foodContents);
+                FoodContentsHasFile foodContentsHasFile = FoodContentsHasFile.builder().foodContents(foodContents).file(files.get(16 + i)).build();
+                foodContentsHasFiles.add(foodContentsHasFile);
+                foodContents.addContentsFoodFile(foodContentsHasFiles.get(i+j));
+                foods.get(i).addContentsFood(foodContents);
             }
         }
 
         foodRepository.saveAll(foods);
-        contentsFoodRepository.saveAll(contentsFoods);
-        contentsFoodFileRepository.saveAll(contentsFoodFiles);
+        foodContentsRepository.saveAll(foodContentsList);
+        foodContentsHadFileRepository.saveAll(foodContentsHasFiles);
     }
 }

@@ -1,8 +1,5 @@
 package com.example.tripKo.domain.food.entity;
 
-import com.example.tripKo.domain.address.entity.Address;
-import com.example.tripKo.domain.contents.entity.Contents;
-import com.example.tripKo.domain.contents.entity.ContentsFood;
 import com.example.tripKo.domain.file.entity.File;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -38,7 +35,7 @@ public class Food {
     private File file;
 
     @OneToMany(fetch = LAZY, mappedBy = "food")
-    private final List<ContentsFood> contentsFood = new ArrayList<>();
+    private final List<FoodContents> foodContents = new ArrayList<>();
 
     @Builder
     public Food(String name, String summary, String keyword, File file) {
@@ -48,7 +45,7 @@ public class Food {
         this.file = file;
     }
 
-    public void addContentsFood(ContentsFood contentsFood) {
-        this.contentsFood.add(contentsFood);
+    public void addContentsFood(FoodContents foodContents) {
+        this.foodContents.add(foodContents);
     }
 }

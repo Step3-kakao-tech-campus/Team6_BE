@@ -1,11 +1,6 @@
-package com.example.tripKo.domain.contents.entity;
+package com.example.tripKo.domain.food.entity;
 
 import com.example.tripKo.domain.BaseTimeEntity;
-import com.example.tripKo.domain.file.dao.ContentsFoodFileRepository;
-import com.example.tripKo.domain.file.entity.ContentsFile;
-import com.example.tripKo.domain.file.entity.ContentsFoodFile;
-import com.example.tripKo.domain.food.entity.Food;
-import com.example.tripKo.domain.place.entity.Place;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,8 +20,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@Table(name = "contents_food")
-public class ContentsFood extends BaseTimeEntity {
+@Table(name = "food_contents")
+public class FoodContents extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
@@ -43,17 +38,17 @@ public class ContentsFood extends BaseTimeEntity {
   @JoinColumn(name = "food_id", nullable = false)
   private Food food;
 
-  @OneToMany(mappedBy = "contentsFood")
-  private final List<ContentsFoodFile> contentsFoodFiles = new ArrayList<>();
+  @OneToMany(mappedBy = "foodContents")
+  private final List<FoodContentsHasFile> foodContentsHasFiles = new ArrayList<>();
 
   @Builder
-  public ContentsFood(Long page, String description, Food food) {
+  public FoodContents(Long page, String description, Food food) {
     this.page = page;
     this.description = description;
     this.food = food;
   }
 
-  public void addContentsFoodFile(ContentsFoodFile contentsFoodFile) {
-    contentsFoodFiles.add(contentsFoodFile);
+  public void addContentsFoodFile(FoodContentsHasFile foodContentsHasFile) {
+    foodContentsHasFiles.add(foodContentsHasFile);
   }
 }

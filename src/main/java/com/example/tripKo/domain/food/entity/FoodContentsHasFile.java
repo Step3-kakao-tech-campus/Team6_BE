@@ -1,7 +1,7 @@
-package com.example.tripKo.domain.file.entity;
+package com.example.tripKo.domain.food.entity;
 
 import com.example.tripKo.domain.BaseTimeEntity;
-import com.example.tripKo.domain.contents.entity.ContentsFood;
+import com.example.tripKo.domain.file.entity.File;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +19,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@Table(name = "contents_food_has_file")
-public class ContentsFoodFile extends BaseTimeEntity {
+@Table(name = "food_contents_has_file")
+public class FoodContentsHasFile extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -28,16 +28,16 @@ public class ContentsFoodFile extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "contents_food_id", nullable = false)
-    private ContentsFood contentsFood;
+    @JoinColumn(name = "food_contents_id", nullable = false)
+    private FoodContents foodContents;
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "file_id", nullable = false)
     private File file;
 
     @Builder
-    public ContentsFoodFile(ContentsFood contentsFood, File file) {
-        this.contentsFood = contentsFood;
+    public FoodContentsHasFile(FoodContents foodContents, File file) {
+        this.foodContents = foodContents;
         this.file = file;
     }
 
