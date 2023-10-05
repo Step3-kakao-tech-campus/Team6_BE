@@ -4,6 +4,7 @@ import com.example.tripKo.domain.address.dao.AddressCategoryRepository;
 import com.example.tripKo.domain.address.dao.AddressRepository;
 import com.example.tripKo.domain.address.entity.Address;
 import com.example.tripKo.domain.address.entity.AddressCategory;
+import com.example.tripKo.domain.food.FoodCategory;
 import com.example.tripKo.domain.food.dao.FoodContentsRepository;
 import com.example.tripKo.domain.contents.dao.ContentsMenuRepository;
 import com.example.tripKo.domain.contents.dao.ContentsRepository;
@@ -148,9 +149,9 @@ public class TestData implements CommandLineRunner {
 
         ///////
         List<Food> foods = Arrays.asList(
-                Food.builder().name("Beef Tartare").keyword("Beef Tartare six times raw meat").summary("육회는 ...").file(files.get(13)).build(),
-                Food.builder().name("Gimbap").keyword("Gimbap kimbap futomaki norimaki").summary("김밥은 ...").file(files.get(14)).build(),
-                Food.builder().name("bibimbap").keyword("bibimbap KOREAN MIXED RICE").summary("비빔밥은 ...").file(files.get(15)).build()
+                Food.builder().name("Beef Tartare").keyword("Beef Tartare six times raw meat").summary("육회는 ...").foodCategory(FoodCategory.KOREAN).file(files.get(13)).build(),
+                Food.builder().name("Gimbap").keyword("Gimbap kimbap futomaki norimaki").summary("김밥은 ...").foodCategory(FoodCategory.KOREAN).file(files.get(14)).build(),
+                Food.builder().name("bibimbap").keyword("bibimbap KOREAN MIXED RICE").summary("비빔밥은 ...").foodCategory(FoodCategory.KOREAN).file(files.get(15)).build()
         );
 
         List<FoodContents> foodContentsList = new ArrayList<>();
