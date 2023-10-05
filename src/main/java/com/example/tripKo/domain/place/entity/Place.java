@@ -2,9 +2,11 @@ package com.example.tripKo.domain.place.entity;
 
 import com.example.tripKo.domain.BaseTimeEntity;
 import com.example.tripKo.domain.address.entity.Address;
+import com.example.tripKo.domain.address.entity.AddressCategory;
 import com.example.tripKo.domain.contents.entity.Contents;
 import com.example.tripKo.domain.contents.entity.ContentsMenu;
 import com.example.tripKo.domain.file.entity.File;
+import com.example.tripKo.domain.member.entity.MemberReservationInfo;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -51,6 +53,9 @@ public class Place extends BaseTimeEntity {
     @OneToMany(fetch = LAZY, mappedBy = "place")
     private final List<Contents> contents = new ArrayList<>();
 
+    @OneToMany(mappedBy = "place")
+    private final List<MemberReservationInfo> memberReservationInfos = new ArrayList<>();
+
     @Builder
     public Place(String name, String summary, int count, float averageRating, File file, Address address) {
         this.name = name;
@@ -63,6 +68,13 @@ public class Place extends BaseTimeEntity {
 
     public void addContents(Contents contents) {
         this.contents.add(contents);
+    }
+
+    public String addressToString(Address address) {
+        String addressToString = address.getBuildingName() + " " + address.getRoadName();
+        AddressCategory addressCategory = address.getAddressCategory();
+        String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
+        return addressToString + " " + addressCategoryToString;
     }
 
 }
