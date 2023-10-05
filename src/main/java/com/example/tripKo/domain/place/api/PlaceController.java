@@ -14,7 +14,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class PlaceRestController {
+public class PlaceController {
     private final PlaceService placeService;
 
     @RequestMapping(value = "/{location:^.*(?!h2-console)}", method = RequestMethod.GET)
