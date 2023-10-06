@@ -1,7 +1,7 @@
-package com.example.tripKo.domain.contents.dto.response;
+package com.example.tripKo.domain.place.dto.response.info;
 
-import com.example.tripKo.domain.contents.entity.Contents;
-import com.example.tripKo.domain.contents.entity.ContentsMenu;
+import com.example.tripKo.domain.place.entity.Contents;
+import com.example.tripKo.domain.place.entity.ContentsMenu;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import lombok.Builder;
 import lombok.Getter;

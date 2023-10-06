@@ -1,12 +1,12 @@
-package com.example.tripKo.domain.contents.application;
+package com.example.tripKo.domain.place.application;
 
 import com.example.tripKo._core.errors.exception.Exception404;
-import com.example.tripKo.domain.contents.dto.response.FestivalResponse;
-import com.example.tripKo.domain.contents.dto.response.TouristSpotResponse;
+import com.example.tripKo.domain.place.dto.response.info.FestivalResponse;
+import com.example.tripKo.domain.place.dto.response.info.TouristSpotResponse;
 import com.example.tripKo.domain.place.dao.PlaceFestivalRepository;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
 import com.example.tripKo.domain.place.dao.PlaceTouristSpotRepository;
-import com.example.tripKo.domain.contents.dto.response.RestaurantResponse;
+import com.example.tripKo.domain.place.dto.response.info.RestaurantResponse;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import com.example.tripKo.domain.place.entity.PlaceTouristSpot;

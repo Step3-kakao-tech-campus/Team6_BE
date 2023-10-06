@@ -1,9 +1,9 @@
-package com.example.tripKo.domain.contents.dto.response;
+package com.example.tripKo.domain.place.dto.response.info;
 
 import static lombok.AccessLevel.PRIVATE;
 
-import com.example.tripKo.domain.contents.entity.Contents;
-import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
+import com.example.tripKo.domain.place.entity.Contents;
+import com.example.tripKo.domain.place.entity.PlaceFestival;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor(access = PRIVATE)
-public class TouristSpotResponse {
+public class FestivalResponse {
 
   private Long id;
   private String name;
@@ -21,7 +21,9 @@ public class TouristSpotResponse {
   private String mainImage;
   private List<Content> contents;
   private String address;
-  private Boolean isWished;
+  private Boolean liked;
+  private Boolean isReservable;
+  private String period;
 
   @Builder
   @Getter
@@ -32,17 +34,18 @@ public class TouristSpotResponse {
     private List<String> image;
   }
 
-
-  public TouristSpotResponse(PlaceTouristSpot placeTouristSpot) {
-    this.id = placeTouristSpot.getId();
-    this.name = placeTouristSpot.getPlace().getName();
-    this.averageScore = placeTouristSpot.getPlace().getAverageRating();
-    this.mainImage = placeTouristSpot.getPlace().getFile().getName();
-    this.contents = placeTouristSpot.getPlace().getContents().stream()
+  public FestivalResponse(PlaceFestival placeFestival) {
+    this.id = placeFestival.getId();
+    this.name = placeFestival.getPlace().getName();
+    this.averageScore = placeFestival.getPlace().getAverageRating();
+    this.mainImage = placeFestival.getPlace().getFile().getName();
+    this.contents = placeFestival.getPlace().getContents().stream()
         .map(this::mapContent)
         .collect(Collectors.toList());
-    this.address = placeTouristSpot.getPlace().addressToString(placeTouristSpot.getPlace().getAddress());
-    this.isWished = false;
+    this.address = placeFestival.getPlace().addressToString(placeFestival.getPlace().getAddress());
+    this.liked = false;
+    this.isReservable = placeFestival.getReservationAvailable();
+    this.period = placeFestival.getStartDate() + " ~ " + placeFestival.getEndDate();
   }
 
   private Content mapContent(Contents contents) {

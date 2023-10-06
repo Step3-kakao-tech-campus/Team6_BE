@@ -1,11 +1,12 @@
-package com.example.tripKo.domain.file.entity;
+package com.example.tripKo.domain.place.entity;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import com.example.tripKo.domain.BaseTimeEntity;
-import com.example.tripKo.domain.contents.entity.Contents;
+import com.example.tripKo.domain.file.entity.File;
+import com.example.tripKo.domain.place.entity.Contents;
 
 import javax.persistence.*;
 

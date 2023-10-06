@@ -1,7 +1,7 @@
-package com.example.tripKo.domain.place.dto.response;
+package com.example.tripKo.domain.place.dto.response.search;
 
-import com.example.tripKo.domain.address.entity.Address;
-import com.example.tripKo.domain.address.entity.AddressCategory;
+import com.example.tripKo.domain.place.entity.Address;
+import com.example.tripKo.domain.place.entity.AddressCategory;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import lombok.Builder;
 import lombok.Getter;

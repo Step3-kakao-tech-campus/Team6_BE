@@ -1,4 +1,4 @@
-package com.example.tripKo.domain.place.dto.response;
+package com.example.tripKo.domain.place.dto.response.search;
 
 import com.example.tripKo.domain.place.entity.PlaceFestival;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;

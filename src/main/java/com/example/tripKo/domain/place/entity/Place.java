@@ -1,10 +1,6 @@
 package com.example.tripKo.domain.place.entity;
 
 import com.example.tripKo.domain.BaseTimeEntity;
-import com.example.tripKo.domain.address.entity.Address;
-import com.example.tripKo.domain.address.entity.AddressCategory;
-import com.example.tripKo.domain.contents.entity.Contents;
-import com.example.tripKo.domain.contents.entity.ContentsMenu;
 import com.example.tripKo.domain.file.entity.File;
 import com.example.tripKo.domain.member.entity.MemberReservationInfo;
 import java.util.ArrayList;
@@ -15,9 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
