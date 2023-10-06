@@ -1,4 +1,4 @@
-package com.example.tripKo.domain.address.application;
+package com.example.tripKo.domain.place.application;
 
 import org.springframework.stereotype.Service;
 

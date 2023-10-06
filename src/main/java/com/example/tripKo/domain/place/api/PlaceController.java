@@ -2,10 +2,10 @@ package com.example.tripKo.domain.place.api;
 
 import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.place.application.PlaceService;
-import com.example.tripKo.domain.place.dto.response.PlaceFestivalResponse;
-import com.example.tripKo.domain.place.dto.response.PlaceResponse;
-import com.example.tripKo.domain.place.dto.response.PlaceRestaurantResponse;
-import com.example.tripKo.domain.place.dto.response.PlaceTouristSpotResponse;
+import com.example.tripKo.domain.place.dto.response.search.PlaceFestivalResponse;
+import com.example.tripKo.domain.place.dto.response.search.PlaceResponse;
+import com.example.tripKo.domain.place.dto.response.search.PlaceRestaurantResponse;
+import com.example.tripKo.domain.place.dto.response.search.PlaceTouristSpotResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

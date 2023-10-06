@@ -1,10 +1,10 @@
-package com.example.tripKo.domain.contents.api;
+package com.example.tripKo.domain.place.api;
 
 import com.example.tripKo._core.utils.ApiUtils;
-import com.example.tripKo.domain.contents.application.ContentsService;
-import com.example.tripKo.domain.contents.dto.response.FestivalResponse;
-import com.example.tripKo.domain.contents.dto.response.TouristSpotResponse;
-import com.example.tripKo.domain.contents.dto.response.RestaurantResponse;
+import com.example.tripKo.domain.place.application.ContentsService;
+import com.example.tripKo.domain.place.dto.response.info.FestivalResponse;
+import com.example.tripKo.domain.place.dto.response.info.TouristSpotResponse;
+import com.example.tripKo.domain.place.dto.response.info.RestaurantResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

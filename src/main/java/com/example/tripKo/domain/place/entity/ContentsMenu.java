@@ -1,4 +1,4 @@
-package com.example.tripKo.domain.contents.entity;
+package com.example.tripKo.domain.place.entity;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;

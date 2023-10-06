@@ -1,4 +1,4 @@
-package com.example.tripKo.domain.address.entity;
+package com.example.tripKo.domain.place.entity;
 
 
 import com.example.tripKo.domain.BaseTimeEntity;
