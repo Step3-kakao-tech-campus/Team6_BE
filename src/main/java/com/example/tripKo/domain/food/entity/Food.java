@@ -31,6 +31,9 @@ public class Food {
     @Column(length = 1000, nullable = false)
     private String keyword;
 
+    @Column
+    private int view;
+
     @Enumerated(EnumType.STRING)
     private FoodCategory foodCategory;
 
@@ -48,9 +51,14 @@ public class Food {
         this.keyword = keyword;
         this.foodCategory = foodCategory;
         this.file = file;
+        this.view = 0;
     }
 
     public void addFoodContents(FoodContents foodContents) {
         this.foodContents.add(foodContents);
+    }
+
+    public void updateView() {
+        this.view++;
     }
 }
