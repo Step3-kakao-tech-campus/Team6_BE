@@ -1,20 +1,20 @@
 package com.example.tripKo._core.utils;
 
-import com.example.tripKo.domain.address.dao.AddressCategoryRepository;
-import com.example.tripKo.domain.address.dao.AddressRepository;
-import com.example.tripKo.domain.address.entity.Address;
-import com.example.tripKo.domain.address.entity.AddressCategory;
+import com.example.tripKo.domain.place.dao.AddressCategoryRepository;
+import com.example.tripKo.domain.place.dao.AddressRepository;
+import com.example.tripKo.domain.place.entity.Address;
+import com.example.tripKo.domain.place.entity.AddressCategory;
 import com.example.tripKo.domain.food.FoodCategory;
 import com.example.tripKo.domain.food.dao.FoodContentsRepository;
-import com.example.tripKo.domain.contents.dao.ContentsMenuRepository;
-import com.example.tripKo.domain.contents.dao.ContentsRepository;
-import com.example.tripKo.domain.contents.entity.Contents;
+import com.example.tripKo.domain.place.dao.ContentsMenuRepository;
+import com.example.tripKo.domain.place.dao.ContentsRepository;
+import com.example.tripKo.domain.place.entity.Contents;
 import com.example.tripKo.domain.food.entity.FoodContents;
-import com.example.tripKo.domain.contents.entity.ContentsMenu;
-import com.example.tripKo.domain.file.dao.ContentsFileRepository;
+import com.example.tripKo.domain.place.entity.ContentsMenu;
+import com.example.tripKo.domain.place.dao.ContentsFileRepository;
 import com.example.tripKo.domain.food.dao.FoodContentsHadFileRepository;
 import com.example.tripKo.domain.file.dao.FileRepository;
-import com.example.tripKo.domain.file.entity.ContentsHasFile;
+import com.example.tripKo.domain.place.entity.ContentsHasFile;
 import com.example.tripKo.domain.food.entity.FoodContentsHasFile;
 import com.example.tripKo.domain.file.entity.File;
 import com.example.tripKo.domain.food.dao.FoodRepository;
@@ -76,9 +76,11 @@ public class TestData implements CommandLineRunner {
                 File.builder().name("/image/food/1").type("image/png").build(),
                 File.builder().name("/image/food/2").type("image/png").build(),
                 File.builder().name("/image/food/3").type("image/png").build(),
+                File.builder().name("/image/food/4").type("image/png").build(),
                 File.builder().name("/image/contentsFood/1").type("image/png").build(),
                 File.builder().name("/image/contentsFood/2").type("image/png").build(),
-                File.builder().name("/image/contentsFood/3").type("image/png").build()
+                File.builder().name("/image/contentsFood/3").type("image/png").build(),
+                File.builder().name("/image/contentsFood/4").type("image/png").build()
 
         );
         fileRepository.saveAll(files);
@@ -149,18 +151,29 @@ public class TestData implements CommandLineRunner {
 
         ///////
         List<Food> foods = Arrays.asList(
-                Food.builder().name("Beef Tartare").keyword("Beef Tartare six times raw meat").summary("육회는 ...").foodCategory(FoodCategory.KOREAN).file(files.get(13)).build(),
+                Food.builder().name("Beef Tartare").keyword("BeefTartare sixtimes rawmeat").summary("육회는 ...").foodCategory(FoodCategory.KOREAN).file(files.get(13)).build(),
                 Food.builder().name("Gimbap").keyword("Gimbap kimbap futomaki norimaki").summary("김밥은 ...").foodCategory(FoodCategory.KOREAN).file(files.get(14)).build(),
-                Food.builder().name("bibimbap").keyword("bibimbap KOREAN MIXED RICE").summary("비빔밥은 ...").foodCategory(FoodCategory.KOREAN).file(files.get(15)).build()
+                Food.builder().name("bibimbap").keyword("bibimbap KOREANMIXEDRICE").summary("비빔밥은 ...").foodCategory(FoodCategory.KOREAN).file(files.get(15)).build(),
+                Food.builder().name("bibimnoodle").keyword("bibimnoodle bibimmyeon KOREANMIXEDNOODLE").summary("비빔국수는 ...").foodCategory(FoodCategory.KOREAN).file(files.get(16)).build()
         );
+
+        foods.get(2).updateView();
+        foods.get(2).updateView();
+        foods.get(2).updateView();
+        foods.get(2).updateView();
+        foods.get(2).updateView();
+
+        foods.get(1).updateView();
+        foods.get(1).updateView();
+        foods.get(1).updateView();
 
         List<FoodContents> foodContentsList = new ArrayList<>();
         List<FoodContentsHasFile> foodContentsHasFiles = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 2; j++) {
                 FoodContents foodContents = FoodContents.builder().page(Long.valueOf(j)).food(foods.get(i)).description("컨텐츠 설명 " + j).build();
                 foodContentsList.add(foodContents);
-                FoodContentsHasFile foodContentsHasFile = FoodContentsHasFile.builder().foodContents(foodContents).file(files.get(16 + i)).build();
+                FoodContentsHasFile foodContentsHasFile = FoodContentsHasFile.builder().foodContents(foodContents).file(files.get(17 + i)).build();
                 foodContentsHasFiles.add(foodContentsHasFile);
                 foodContents.addFoodContentsFile(foodContentsHasFiles.get(i+j));
                 foods.get(i).addFoodContents(foodContents);
