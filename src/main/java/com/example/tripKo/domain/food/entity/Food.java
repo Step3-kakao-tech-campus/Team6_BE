@@ -1,6 +1,7 @@
 package com.example.tripKo.domain.food.entity;
 
 import com.example.tripKo.domain.file.entity.File;
+import com.example.tripKo.domain.food.FoodCategory;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,6 +31,12 @@ public class Food {
     @Column(length = 1000, nullable = false)
     private String keyword;
 
+    @Column
+    private int view;
+
+    @Enumerated(EnumType.STRING)
+    private FoodCategory foodCategory;
+
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "file_id", nullable = false)
     private File file;
@@ -38,14 +45,20 @@ public class Food {
     private final List<FoodContents> foodContents = new ArrayList<>();
 
     @Builder
-    public Food(String name, String summary, String keyword, File file) {
+    public Food(String name, String summary, String keyword, FoodCategory foodCategory, File file) {
         this.name = name;
         this.summary = summary;
         this.keyword = keyword;
+        this.foodCategory = foodCategory;
         this.file = file;
+        this.view = 0;
     }
 
     public void addFoodContents(FoodContents foodContents) {
         this.foodContents.add(foodContents);
+    }
+
+    public void updateView() {
+        this.view++;
     }
 }
