@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -34,14 +36,14 @@ public class MemberController {
   }
 
   @PostMapping("/restaurant/bookings/calendar")
-  public ResponseEntity<?> selectReservationDate(@RequestBody @Validated RestaurantReservationSelectRequest requestDTOs) {
+  public ResponseEntity<?> selectReservationDate(@RequestBody @Valid RestaurantReservationSelectRequest requestDTOs) {
     RestaurantReservationSelectResponse responseDTO = memberService.selectRestaurantReservationDate(requestDTOs);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
   }
 
   @PostMapping("/restaurant/bookings")
-  public ResponseEntity<?> confirmReservation(@RequestBody @Validated RestaurantReservationConfirmRequest requestDTOs) {
+  public ResponseEntity<?> confirmReservation(@RequestBody @Valid RestaurantReservationConfirmRequest requestDTOs) {
     RestaurantReservationConfirmResponse responseDTO = memberService.confirmRestaurantReservation(requestDTOs);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
