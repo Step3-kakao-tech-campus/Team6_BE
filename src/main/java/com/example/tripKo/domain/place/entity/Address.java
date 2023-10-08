@@ -39,4 +39,11 @@ public class Address extends BaseTimeEntity {
         this.zipCode = zipCode;
         this.addressCategory = addressCategory;
     }
+
+    @Override
+    public String toString() {
+        String addressToString = buildingName + " " + roadName;
+        String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
+        return addressToString + " " + addressCategoryToString;
+    }
 }

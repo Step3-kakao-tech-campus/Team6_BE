@@ -65,7 +65,7 @@ public class FoodDetailsResponse {
     private RestaurantDTO mapRestaurant(FoodHasPlaceRestaurants foodHasPlaceRestaurants) {
         return RestaurantDTO.builder()
                 .name(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getName())
-                .location(addressToString(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAddress()))
+                .location(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAddress().toString())
                 .averageRating(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAverageRating())
                 .build();
     }

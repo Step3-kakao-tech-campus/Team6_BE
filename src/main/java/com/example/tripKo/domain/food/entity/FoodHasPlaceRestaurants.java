@@ -11,6 +11,7 @@ import javax.persistence.*;
 
 import static lombok.AccessLevel.PROTECTED;
 import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.FetchType.LAZY;
 
 @DynamicInsert
 @DynamicUpdate
@@ -24,11 +25,11 @@ public class FoodHasPlaceRestaurants {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "food_id", nullable = false)
     private Food food;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "place_restaurant_id", nullable = false)
     private PlaceRestaurant placeRestaurant;
 
