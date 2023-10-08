@@ -1,0 +1,10 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= CONTENTS API 문서
+:icons: font
+:source-highlighter: highlight.js
+:toc: left
+:toclevels: 1
+:sectlinks:
