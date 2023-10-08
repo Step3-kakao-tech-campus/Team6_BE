@@ -1,19 +1,15 @@
 package com.example.tripKo.domain.place.dto.request;
 
-
 import com.sun.istack.NotNull;
 import lombok.Getter;
 
-public class RestaurantReservationRequest {
+@Getter
+public class RestaurantReservationConfirmRequest {
+
+    private Reservation reservation;
 
     @Getter
-    public static class SelectDTO {
-        @NotNull
-        private Long id;
-    }
-
-    @Getter
-    public static class ResultDTO {
+    public static class Reservation {
         @NotNull
         private Long id;
         @NotNull

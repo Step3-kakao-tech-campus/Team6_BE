@@ -1,5 +1,8 @@
 package com.example.tripKo._core.utils;
 
+import com.example.tripKo.domain.member.MemberRoleType;
+import com.example.tripKo.domain.member.dao.MemberRepository;
+import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.place.dao.AddressCategoryRepository;
 import com.example.tripKo.domain.place.dao.AddressRepository;
 import com.example.tripKo.domain.place.entity.Address;
@@ -54,6 +57,8 @@ public class TestData implements CommandLineRunner {
     private final FoodRepository foodRepository;
     private final FoodContentsRepository foodContentsRepository;
     private final FoodContentsHadFileRepository foodContentsHadFileRepository;
+
+    private final MemberRepository memberRepository;
 
 
     @Override
@@ -185,6 +190,10 @@ public class TestData implements CommandLineRunner {
         foodContentsHadFileRepository.saveAll(foodContentsHasFiles);
 
 
-
+        List<Member> members = Arrays.asList(
+                Member.builder().role(MemberRoleType.정회원).realName("가나다").nickName("쿠키").emailAddress("1234@gmail.com").memberId("1").password("1234qwer").birthday("2023-01-01").build(),
+                Member.builder().role(MemberRoleType.정회원).realName("라마바").nickName("키키").emailAddress("1234@gmail.com").memberId("2").password("1234qwer").birthday("2023-01-01").build()
+        );
+        memberRepository.saveAll(members);
     }
 }
