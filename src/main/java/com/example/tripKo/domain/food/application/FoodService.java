@@ -2,10 +2,10 @@ package com.example.tripKo.domain.food.application;
 
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo.domain.food.dao.FoodRepository;
+import com.example.tripKo.domain.food.dto.response.FoodDetailsResponse;
 import com.example.tripKo.domain.food.dto.response.FoodResponse;
 import com.example.tripKo.domain.food.entity.Food;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.SortComparator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,5 +92,13 @@ public class FoodService {
         List<FoodResponse> foodResponses = foodSet.stream().map(f->FoodResponse.builder().food(f).build()).collect(Collectors.toList());
 
         return foodResponses;
+    }
+
+    @Transactional
+    public FoodDetailsResponse getFoodInfo(Long id) {
+        Food food = foodRepository.findById(id)
+                .orElseThrow(() -> new Exception404("해당하는 컨텐츠를 찾을 수 없습니다. id: " + id));
+        FoodDetailsResponse foodDetailsResponse = new FoodDetailsResponse(food);
+        return foodDetailsResponse;
     }
 }
