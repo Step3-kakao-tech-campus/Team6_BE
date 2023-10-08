@@ -44,6 +44,15 @@ public class Food {
     @OneToMany(fetch = LAZY, mappedBy = "food")
     private final List<FoodContents> foodContents = new ArrayList<>();
 
+    @OneToMany(fetch = LAZY, mappedBy = "food")
+    private final List<FoodHasPlaceRestaurants> foodHasPlaceRestaurants = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "food_ingredients", joinColumns = @JoinColumn(name = "food_id"))
+    @Column(name = "ingredients_name")
+    private final List<String> ingredients = new ArrayList<>();
+
+
     @Builder
     public Food(String name, String summary, String keyword, FoodCategory foodCategory, File file) {
         this.name = name;
@@ -57,6 +66,9 @@ public class Food {
     public void addFoodContents(FoodContents foodContents) {
         this.foodContents.add(foodContents);
     }
+
+
+    public void addIngredients(String ingredients) { this.ingredients.add(ingredients);}
 
     public void updateView() {
         this.view++;

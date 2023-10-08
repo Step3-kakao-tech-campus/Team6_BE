@@ -3,6 +3,8 @@ package com.example.tripKo._core.utils;
 import com.example.tripKo.domain.member.MemberRoleType;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.entity.Member;
+import com.example.tripKo.domain.food.dao.FoodHasPlaceRestaurantRepository;
+import com.example.tripKo.domain.food.entity.FoodHasPlaceRestaurants;
 import com.example.tripKo.domain.place.dao.AddressCategoryRepository;
 import com.example.tripKo.domain.place.dao.AddressRepository;
 import com.example.tripKo.domain.place.entity.Address;
@@ -57,6 +59,7 @@ public class TestData implements CommandLineRunner {
     private final FoodRepository foodRepository;
     private final FoodContentsRepository foodContentsRepository;
     private final FoodContentsHadFileRepository foodContentsHadFileRepository;
+    private final FoodHasPlaceRestaurantRepository foodHasPlaceRestaurantRepository;
 
     private final MemberRepository memberRepository;
 
@@ -168,6 +171,20 @@ public class TestData implements CommandLineRunner {
         foods.get(2).updateView();
         foods.get(2).updateView();
 
+        //food 식당 연관 추가
+        List<FoodHasPlaceRestaurants> foodHasPlaceRestaurants = Arrays.asList(
+                FoodHasPlaceRestaurants.builder().placeRestaurant(placeRestaurants.get(0)).food(foods.get(2)).build(),
+                FoodHasPlaceRestaurants.builder().placeRestaurant(placeRestaurants.get(1)).food(foods.get(2)).build()
+        );
+
+        //food 재료 추가
+        foods.get(2).addIngredients("gochujang(red chill paste)");
+        foods.get(2).addIngredients("namul(seasoned vegetables)");
+        foods.get(2).addIngredients("egg");
+        foods.get(2).addIngredients("rice");
+        foods.get(2).addIngredients("meat");
+
+
         foods.get(1).updateView();
         foods.get(1).updateView();
         foods.get(1).updateView();
@@ -188,8 +205,9 @@ public class TestData implements CommandLineRunner {
         foodRepository.saveAll(foods);
         foodContentsRepository.saveAll(foodContentsList);
         foodContentsHadFileRepository.saveAll(foodContentsHasFiles);
-
-
+        foodHasPlaceRestaurantRepository.saveAll(foodHasPlaceRestaurants);
+      
+      
         List<Member> members = Arrays.asList(
                 Member.builder().role(MemberRoleType.정회원).realName("가나다").nickName("쿠키").emailAddress("1234@gmail.com").memberId("1").password("1234qwer").birthday("2023-01-01").build(),
                 Member.builder().role(MemberRoleType.정회원).realName("라마바").nickName("키키").emailAddress("1234@gmail.com").memberId("2").password("1234qwer").birthday("2023-01-01").build()
