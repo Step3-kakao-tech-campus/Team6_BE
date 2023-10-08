@@ -26,6 +26,7 @@ public class FoodController {
         return ResponseEntity.ok(apiResult);
     }
 
+
     @GetMapping("/foods/{foodId}")
     public ResponseEntity<?> findByFoodId(@PathVariable Long foodId) {
         FoodDetailsResponse responseDTO = foodService.getFoodInfo(foodId);

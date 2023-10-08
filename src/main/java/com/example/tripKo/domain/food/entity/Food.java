@@ -67,6 +67,7 @@ public class Food {
         this.foodContents.add(foodContents);
     }
 
+
     public void addIngredients(String ingredients) { this.ingredients.add(ingredients);}
 
     public void updateView() {
