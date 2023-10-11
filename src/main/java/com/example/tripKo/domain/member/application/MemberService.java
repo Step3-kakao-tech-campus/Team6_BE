@@ -57,12 +57,9 @@ public class MemberService {
             .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
     MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
             memberInfo,
-            requestDTO.getReservation().getHeadCount(),
             MemberReservationStatus.예약완료,
             place,
-            requestDTO.getReservation().getReservationDate(),
-            requestDTO.getReservation().getReservationTime(),
-            requestDTO.getReservation().getMessage());
+            requestDTO);
     memberReservationInfoRepository.save(saveMemberReservationInfo);
 
     MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(requestDTO.getReservation().getId())
