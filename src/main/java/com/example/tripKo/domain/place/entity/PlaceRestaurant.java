@@ -44,7 +44,7 @@ public class PlaceRestaurant extends BaseTimeEntity {
     private String breakEndTime;
 
     @Column(length = 100)
-    private String holidayDate;
+    private Integer holiday;
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "place_id", nullable = false)
@@ -56,14 +56,14 @@ public class PlaceRestaurant extends BaseTimeEntity {
     }
 
     //test용
-    public PlaceRestaurant(Category category, String contact_info, String openingTime, String closingTime, String breakStartTime, String breakEndTime, String holidayDate, Place place) {
+    public PlaceRestaurant(Category category, String contact_info, String openingTime, String closingTime, String breakStartTime, String breakEndTime, Integer holiday, Place place) {
         this.category = category;
         this.contact_info = contact_info;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
         this.breakStartTime = breakStartTime;
         this.breakEndTime = breakEndTime;
-        this.holidayDate = holidayDate;
+        this.holiday = holiday;
         this.place = place;
     }
 }

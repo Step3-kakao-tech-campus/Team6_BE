@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import com.example.tripKo.domain.place.dao.PlaceRepository;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
-import com.example.tripKo.domain.place.dto.request.RestaurantReservationSelectRequest;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationConfirmResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSelectResponse;
 import com.example.tripKo.domain.place.entity.Place;
@@ -42,9 +41,9 @@ public class MemberService {
   }
 
   @Transactional
-  public RestaurantReservationSelectResponse selectRestaurantReservationDate(RestaurantReservationSelectRequest requestDTO) {
-    PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(requestDTO.getId())
-            .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + requestDTO.getId()));
+  public RestaurantReservationSelectResponse selectRestaurantReservationDate(Long id) {
+    PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(id)
+            .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + id));
     RestaurantReservationSelectResponse ResponseDTO = new RestaurantReservationSelectResponse(placeRestaurant);
     return ResponseDTO;
   }
@@ -57,12 +56,9 @@ public class MemberService {
             .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
     MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
             memberInfo,
-            requestDTO.getReservation().getHeadCount(),
             MemberReservationStatus.예약완료,
             place,
-            requestDTO.getReservation().getReservationDate(),
-            requestDTO.getReservation().getReservationTime(),
-            requestDTO.getReservation().getMessage());
+            requestDTO);
     memberReservationInfoRepository.save(saveMemberReservationInfo);
 
     MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(requestDTO.getReservation().getId())

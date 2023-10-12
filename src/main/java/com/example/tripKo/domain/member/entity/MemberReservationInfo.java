@@ -5,6 +5,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import com.example.tripKo.domain.member.MemberReservationStatus;
+import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
 import com.example.tripKo.domain.place.entity.Place;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,14 +60,13 @@ public class MemberReservationInfo {
   private String message;
 
   @Builder
-  public MemberReservationInfo(Member member, Long headCount, MemberReservationStatus status, Place place,
-      String reservationDate, String reservationTime, String message) {
+  public MemberReservationInfo(Member member, MemberReservationStatus status, Place place, RestaurantReservationConfirmRequest reservationConfirm) {
     this.member = member;
-    this.headCount = headCount;
+    this.headCount = reservationConfirm.getReservation().getHeadCount();
     this.status = status;
     this.place = place;
-    this.reservationDate = reservationDate;
-    this.reservationTime = reservationTime;
-    this.message = message;
+    this.reservationDate = reservationConfirm.getReservation().getReservationDate();
+    this.reservationTime = reservationConfirm.getReservation().getReservationTime();
+    this.message = reservationConfirm.getReservation().getMessage();
   }
 }
