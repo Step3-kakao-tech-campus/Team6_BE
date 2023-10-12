@@ -27,7 +27,7 @@ public class Review {
     private Long id;
 
     @Column(nullable = false)
-    private Float score;
+    private int score;//float가 아니라 int가 되야한다.
 
     private String description;
 
@@ -35,11 +35,11 @@ public class Review {
     private String usage_date;
 
     @ManyToOne(fetch = LAZY)
-    @Column(name = "member", nullable = false)
+    @JoinColumn(name = "member", nullable = false)
     private Member member;
 
     @ManyToOne(fetch = LAZY)
-    @Column(name = "place", nullable = false)
+    @JoinColumn(name = "place", nullable = false)
     private Place place;
 
     @Column(nullable = false)
@@ -48,4 +48,12 @@ public class Review {
     @Enumerated(value = STRING)
     @Column(nullable = false)
     private PlaceType type;
+
+    public Review(PlaceRestaurant placeRestaurant, Member member, String description, int score) {
+        this.type = PlaceType.RESTAURANT;
+        this.place = placeRestaurant.getPlace();
+        this.member = member;
+        this.description = description;
+        this.score = score;
+    }
 }
