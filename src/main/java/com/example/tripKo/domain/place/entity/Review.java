@@ -2,12 +2,16 @@ package com.example.tripKo.domain.place.entity;
 
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.place.PlaceType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static lombok.AccessLevel.PROTECTED;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -32,7 +36,7 @@ public class Review {
     private String description;
 
     @Column(nullable = false)
-    private String usage_date;
+    private String usageDate;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member", nullable = false)
@@ -49,11 +53,14 @@ public class Review {
     @Column(nullable = false)
     private PlaceType type;
 
+    @Builder
     public Review(PlaceRestaurant placeRestaurant, Member member, String description, int score) {
         this.type = PlaceType.RESTAURANT;
         this.place = placeRestaurant.getPlace();
         this.member = member;
         this.description = description;
         this.score = score;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        this.usageDate = LocalDate.now().format(formatter);
     }
 }
