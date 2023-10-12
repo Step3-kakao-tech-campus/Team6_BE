@@ -18,7 +18,7 @@ public class RestaurantResponse {
   private List<Content> contents;
   private float averageScore;
   private String address;
-  private String holidayDate;
+  private Integer holiday;
   private String open;
   private String breakTime;
   private String contactInfo;
@@ -63,7 +63,7 @@ public class RestaurantResponse {
         .collect(Collectors.toList());
     averageScore = placeRestaurant.getPlace().getAverageRating();
     address = placeRestaurant.getPlace().addressToString(placeRestaurant.getPlace().getAddress());
-    holidayDate = placeRestaurant.getHolidayDate();
+    holiday = placeRestaurant.getHoliday();
     open = placeRestaurant.getOpeningTime() + "~" + placeRestaurant.getClosingTime();
     breakTime = placeRestaurant.getBreakStartTime() + "~" + placeRestaurant.getBreakEndTime();
     contactInfo = placeRestaurant.getContact_info();
