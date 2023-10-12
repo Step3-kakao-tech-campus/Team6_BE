@@ -10,11 +10,14 @@ import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
 import com.example.tripKo.domain.place.dao.ReviewFileRepository;
 import com.example.tripKo.domain.place.dao.ReviewRepository;
 import com.example.tripKo.domain.place.dto.request.ReviewRequest;
+import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import com.example.tripKo.domain.place.entity.Review;
 import com.example.tripKo.domain.place.entity.ReviewHasFile;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,11 +40,11 @@ public class ReviewService {
     private final ReviewFileRepository reviewFileRepository;
 
     @Transactional
-    public void createReview(ReviewRequest reviewRequest, Member member) {
+    public void createPlaceRestaurantReview(ReviewRequest reviewRequest, Member member) {
         //API에서는 placeId로 되어 있는데 placeRestaurantId으로 받아야 할 것 같다.
         //리뷰에 저장할 placeRestaurant을 가져오는 부분
         Long placeRestaurantId = reviewRequest.getPlaceId();
-        PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(reviewRequest.getPlaceId())
+        PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(placeRestaurantId)
                 .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + placeRestaurantId));
 
         //usageDate는 일단 review를 작성한 날짜로 하였다. 나중에 로직 수정 필요
@@ -77,12 +80,27 @@ public class ReviewService {
         int reviewNumbers = place.getReviewNumbers();
         float average = place.getAverageRating();
 
-        //실수 -> 정수 과정에서 데이터가 손실될 지 걱정딘다.
+        //실수 -> 정수 과정에서 데이터가 손실될 수도 있을 것 같다.
         average = ((float)reviewRequest.getRating() + average * reviewNumbers) / (reviewNumbers + 1);
         place.setReviewNumbers(reviewNumbers + 1);
         place.setAverageRating(average);
 
         placeRestaurantRepository.save(placeRestaurant);
+    }
+
+    public ReviewsResponse getPlaceRestaurantReviewsByPlaceRestaurantId(Long placeRestaurantId, int page) {
+        //리뷰에 저장할 placeRestaurant을 가져오는 부분
+        PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(placeRestaurantId)
+                .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + placeRestaurantId));
+
+        Pageable pageable = PageRequest.of(page, 10);
+        List<Review> reviews = reviewRepository.findAllByPlaceId(placeRestaurant.getPlace().getId(), pageable);
+
+        if (reviews.isEmpty()) throw new Exception404("현재 이 식당은 리뷰가 없습니다. id : " + placeRestaurantId);
+
+        ReviewsResponse reviewsResponse = new ReviewsResponse(reviews, placeRestaurant.getPlace());
+
+        return reviewsResponse;
     }
 
     private List<ReviewHasFile> createReviewHasFile(List<com.example.tripKo.domain.file.entity.File> fileEntities, Review review) {
@@ -100,6 +118,7 @@ public class ReviewService {
     private List<com.example.tripKo.domain.file.entity.File> saveImages(List<MultipartFile> images) {
         List<com.example.tripKo.domain.file.entity.File> fileEntities = new ArrayList<>();
 
+        //이미지가 저장될 경로는 /src/main/resources/reviews/images/
         String imagesPath = new File("").getAbsolutePath() + File.separator
                 + "src" + File.separator
                 + "main" + File.separator
@@ -109,7 +128,7 @@ public class ReviewService {
 
         File imageFile = new File(imagesPath);
 
-        //resources/revew/images에 디렉토리 생성
+        //resources/review/images에 디렉토리 생성
         if (!imageFile.exists()) {
             boolean isExists = imageFile.mkdirs();
             if (!isExists) {

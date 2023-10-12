@@ -12,6 +12,8 @@ import javax.persistence.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import static lombok.AccessLevel.PROTECTED;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -53,6 +55,9 @@ public class Review {
     @Column(nullable = false)
     private PlaceType type;
 
+    @OneToMany(mappedBy = "review")
+    private List<ReviewHasFile> reviewHasFiles = new ArrayList<>();
+
     @Builder
     public Review(PlaceRestaurant placeRestaurant, Member member, String description, int score) {
         this.type = PlaceType.RESTAURANT;
@@ -60,6 +65,8 @@ public class Review {
         this.member = member;
         this.description = description;
         this.score = score;
+
+        //일단 방문 날짜를 리뷰 작성 날짜로 하였다.
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         this.usageDate = LocalDate.now().format(formatter);
     }

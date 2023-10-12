@@ -37,5 +37,7 @@ public class ReviewHasFile {
     public ReviewHasFile(Review review, File file){
         this.review = review;
         this.file = file;
+
+        review.getReviewHasFiles().add(this);
     }
 }

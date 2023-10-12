@@ -30,5 +30,4 @@ public class ReviewRequest {
 
     @Size(max = 10)
     List<MultipartFile> images = new ArrayList<>();
-
 }
