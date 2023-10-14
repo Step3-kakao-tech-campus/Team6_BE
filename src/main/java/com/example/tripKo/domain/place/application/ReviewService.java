@@ -5,7 +5,6 @@ import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.errors.exception.Exception500;
 import com.example.tripKo.domain.file.dao.FileRepository;
 import com.example.tripKo.domain.member.entity.Member;
-import com.example.tripKo.domain.place.dao.PlaceRepository;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
 import com.example.tripKo.domain.place.dao.ReviewFileRepository;
 import com.example.tripKo.domain.place.dao.ReviewRepository;
@@ -135,6 +134,26 @@ public class ReviewService {
         average = ((float)reviewUpdateRequest.getRating() + average * reviewNumbers) / (reviewNumbers + 1);
         place.setReviewNumbers(reviewNumbers + 1);
         place.setAverageRating(average);
+    }
+
+    @Transactional
+    public void deletePlaceRestaurantReview(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
+
+        deleteImages(reviewId);
+
+        //평균 별점 업데이트
+        Place place = review.getPlace();
+
+        int reviewNumbers = place.getReviewNumbers();
+        float average = place.getAverageRating();
+
+        average = ((float) average * reviewNumbers - review.getScore()) / (reviewNumbers - 1);
+        place.setReviewNumbers(reviewNumbers - 1);
+        place.setAverageRating(average);
+
+        reviewRepository.deleteById(reviewId);
     }
 
 
