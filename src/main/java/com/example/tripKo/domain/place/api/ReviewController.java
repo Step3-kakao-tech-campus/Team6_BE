@@ -5,6 +5,7 @@ import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.place.application.ReviewService;
+import com.example.tripKo.domain.place.dto.request.ReviewUpdateRequest;
 import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.place.dto.response.search.PlaceResponse;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,13 @@ public class ReviewController {
     public ResponseEntity<?> getPlaceRestaurantReviews(@PathVariable Long placeRestaurantId, @RequestParam(value = "page", defaultValue = "0") Integer page) {
         ReviewsResponse response = reviewService.getPlaceRestaurantReviewsByPlaceRestaurantId(placeRestaurantId, page);
         ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @PatchMapping(path="/restaurant/reviews/{reviewId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> updatePlaceRestaurantReviews(@PathVariable Long reviewId, @ModelAttribute @Valid ReviewUpdateRequest reviewUpdateRequest) {
+        reviewService.updatePlaceRestaurantReview(reviewId, reviewUpdateRequest);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
         return ResponseEntity.ok(apiResult);
     }
 }
