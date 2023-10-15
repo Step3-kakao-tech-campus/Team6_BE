@@ -10,6 +10,7 @@ import com.example.tripKo.domain.place.dao.ReviewFileRepository;
 import com.example.tripKo.domain.place.dao.ReviewRepository;
 import com.example.tripKo.domain.place.dto.request.ReviewRequest;
 import com.example.tripKo.domain.place.dto.request.ReviewUpdateRequest;
+import com.example.tripKo.domain.place.dto.response.review.ReviewUpdateResponse;
 import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
@@ -102,7 +103,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public void updatePlaceRestaurantReview(Long reviewId, ReviewUpdateRequest reviewUpdateRequest) {
+    public ReviewUpdateResponse updatePlaceRestaurantReview(Long reviewId, ReviewUpdateRequest reviewUpdateRequest) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
 
@@ -134,6 +135,10 @@ public class ReviewService {
         average = ((float)reviewUpdateRequest.getRating() + average * reviewNumbers) / (reviewNumbers + 1);
         place.setReviewNumbers(reviewNumbers + 1);
         place.setAverageRating(average);
+
+        //Response 생성
+        ReviewUpdateResponse reviewUpdateResponse = new ReviewUpdateResponse(review);
+        return reviewUpdateResponse;
     }
 
     @Transactional

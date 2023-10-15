@@ -6,6 +6,7 @@ import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.place.application.ReviewService;
 import com.example.tripKo.domain.place.dto.request.ReviewUpdateRequest;
+import com.example.tripKo.domain.place.dto.response.review.ReviewUpdateResponse;
 import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -41,8 +42,8 @@ public class ReviewController {
 
     @PatchMapping(path="/restaurant/reviews/{reviewId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> updatePlaceRestaurantReviews(@PathVariable Long reviewId, @ModelAttribute @Valid ReviewUpdateRequest reviewUpdateRequest) {
-        reviewService.updatePlaceRestaurantReview(reviewId, reviewUpdateRequest);
-        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
+        ReviewUpdateResponse reviewUpdateResponse = reviewService.updatePlaceRestaurantReview(reviewId, reviewUpdateRequest);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(reviewUpdateResponse);
         return ResponseEntity.ok(apiResult);
     }
 
