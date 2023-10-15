@@ -25,64 +25,68 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class PlaceService {
-    private final PlaceRestaurantRepository placeRestaurantRepository;
-    private final PlaceFestivalRepository placeFestivalRepository;
-    private final PlaceTouristSpotRepository placeTouristSpotRepository;
 
-    @Transactional
-    public PlaceResponse findAllByLocation(String location) {
-        List<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findAllByLocation(location);
-        List<PlaceFestival> placeFestivals = placeFestivalRepository.findAllByLocation(location);
-        List<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findAllByLocation(location);
+  private final PlaceRestaurantRepository placeRestaurantRepository;
+  private final PlaceFestivalRepository placeFestivalRepository;
+  private final PlaceTouristSpotRepository placeTouristSpotRepository;
 
-        if(placeRestaurants.isEmpty() && placeFestivals.isEmpty() && placeTouristSpots.isEmpty()) {
-            throw new Exception404("해당 지역의 정보를 찾을 수 없습니다. location : " + location);
-        }
+  @Transactional
+  public PlaceResponse findAllByLocation(String location) {
+    List<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findAllByLocation(location);
+    List<PlaceFestival> placeFestivals = placeFestivalRepository.findAllByLocation(location);
+    List<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findAllByLocation(location);
 
-        PlaceResponse placeResponse = PlaceResponse.builder()
-                                                            .placeRestaurants(placeRestaurants)
-                                                            .placeFestivals(placeFestivals)
-                                                            .placeTouristSpots(placeTouristSpots).build();
-
-        return placeResponse;
+    if (placeRestaurants.isEmpty() && placeFestivals.isEmpty() && placeTouristSpots.isEmpty()) {
+      throw new Exception404("해당 지역의 정보를 찾을 수 없습니다. location : " + location);
     }
 
-    @Transactional
-    public List<PlaceRestaurantResponse> findRestaurantByLocation(String location, int page) {
-        Pageable pageable = PageRequest.of(page,10);
-        Page<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findRestaurantByLocation(location, pageable);
+    PlaceResponse placeResponse = PlaceResponse.builder()
+        .placeRestaurants(placeRestaurants)
+        .placeFestivals(placeFestivals)
+        .placeTouristSpots(placeTouristSpots).build();
 
-        if(placeRestaurants.isEmpty()) {
-            throw new Exception404("해당 지역의 식당 정보를 찾을 수 없습니다. location : " + location);
-        }
+    return placeResponse;
+  }
 
-        List<PlaceRestaurantResponse> placeRestaurantResponses = placeRestaurants.getContent().stream().map(p-> PlaceRestaurantResponse.builder().placeRestaurant(p).build()).collect(Collectors.toList());
-        return placeRestaurantResponses;
+  @Transactional
+  public List<PlaceRestaurantResponse> findRestaurantByLocation(String location, int page) {
+    Pageable pageable = PageRequest.of(page, 10);
+    Page<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findRestaurantByLocation(location, pageable);
+
+    if (placeRestaurants.isEmpty()) {
+      throw new Exception404("해당 지역의 식당 정보를 찾을 수 없습니다. location : " + location);
     }
 
-    @Transactional
-    public List<PlaceFestivalResponse> findFestivalByLocation(String location, int page) {
-        Pageable pageable = PageRequest.of(page,10);
-        Page<PlaceFestival> placeFestivals = placeFestivalRepository.findFestivalByLocation(location, pageable);
+    List<PlaceRestaurantResponse> placeRestaurantResponses = placeRestaurants.getContent().stream()
+        .map(p -> PlaceRestaurantResponse.builder().placeRestaurant(p).build()).collect(Collectors.toList());
+    return placeRestaurantResponses;
+  }
 
-        if(placeFestivals.isEmpty()) {
-            throw new Exception404("해당 지역의 식당 정보를 찾을 수 없습니다. location : " + location);
-        }
+  @Transactional
+  public List<PlaceFestivalResponse> findFestivalByLocation(String location, int page) {
+    Pageable pageable = PageRequest.of(page, 10);
+    Page<PlaceFestival> placeFestivals = placeFestivalRepository.findFestivalByLocation(location, pageable);
 
-        List<PlaceFestivalResponse> placeFestivalResponses = placeFestivals.getContent().stream().map(p-> PlaceFestivalResponse.builder().placeFestival(p).build()).collect(Collectors.toList());
-        return placeFestivalResponses;
+    if (placeFestivals.isEmpty()) {
+      throw new Exception404("해당 지역의 식당 정보를 찾을 수 없습니다. location : " + location);
     }
 
-    @Transactional
-    public List<PlaceTouristSpotResponse> findTouristSpotByLocation(String location, int page) {
-        Pageable pageable = PageRequest.of(page,10);
-        Page<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findTouristSpotByLocation(location, pageable);
+    List<PlaceFestivalResponse> placeFestivalResponses = placeFestivals.getContent().stream()
+        .map(p -> PlaceFestivalResponse.builder().placeFestival(p).build()).collect(Collectors.toList());
+    return placeFestivalResponses;
+  }
 
-        if(placeTouristSpots.isEmpty()) {
-            throw new Exception404("해당 지역의 식당 정보를 찾을 수 없습니다. location : " + location);
-        }
+  @Transactional
+  public List<PlaceTouristSpotResponse> findTouristSpotByLocation(String location, int page) {
+    Pageable pageable = PageRequest.of(page, 10);
+    Page<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findTouristSpotByLocation(location, pageable);
 
-        List<PlaceTouristSpotResponse> placeTouristSpotResponses = placeTouristSpots.getContent().stream().map(p-> PlaceTouristSpotResponse.builder().placeTouristSpot(p).build()).collect(Collectors.toList());
-        return placeTouristSpotResponses;
+    if (placeTouristSpots.isEmpty()) {
+      throw new Exception404("해당 지역의 식당 정보를 찾을 수 없습니다. location : " + location);
     }
+
+    List<PlaceTouristSpotResponse> placeTouristSpotResponses = placeTouristSpots.getContent().stream()
+        .map(p -> PlaceTouristSpotResponse.builder().placeTouristSpot(p).build()).collect(Collectors.toList());
+    return placeTouristSpotResponses;
+  }
 }
