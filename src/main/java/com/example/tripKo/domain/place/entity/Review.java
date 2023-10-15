@@ -2,6 +2,7 @@ package com.example.tripKo.domain.place.entity;
 
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.place.PlaceType;
+import com.example.tripKo.domain.place.dto.request.ReviewUpdateRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -69,5 +70,10 @@ public class Review {
         //일단 방문 날짜를 리뷰 작성 날짜로 하였다.
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         this.usageDate = LocalDate.now().format(formatter);
+    }
+
+    public void update(ReviewUpdateRequest reviewUpdateRequest) {
+        this.score = reviewUpdateRequest.getRating();
+        this.description = reviewUpdateRequest.getDescription();
     }
 }

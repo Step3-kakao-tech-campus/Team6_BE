@@ -5,18 +5,16 @@ import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.place.application.ReviewService;
+import com.example.tripKo.domain.place.dto.request.ReviewUpdateRequest;
+import com.example.tripKo.domain.place.dto.response.review.ReviewUpdateResponse;
 import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
-import com.example.tripKo.domain.place.dto.response.search.PlaceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.tripKo.domain.place.dto.request.ReviewRequest;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Size;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,6 +37,20 @@ public class ReviewController {
     public ResponseEntity<?> getPlaceRestaurantReviews(@PathVariable Long placeRestaurantId, @RequestParam(value = "page", defaultValue = "0") Integer page) {
         ReviewsResponse response = reviewService.getPlaceRestaurantReviewsByPlaceRestaurantId(placeRestaurantId, page);
         ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @PatchMapping(path="/restaurant/reviews/{reviewId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> updatePlaceRestaurantReviews(@PathVariable Long reviewId, @ModelAttribute @Valid ReviewUpdateRequest reviewUpdateRequest) {
+        ReviewUpdateResponse reviewUpdateResponse = reviewService.updatePlaceRestaurantReview(reviewId, reviewUpdateRequest);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(reviewUpdateResponse);
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @DeleteMapping("/restaurant/reviews/{reviewId}")
+    public ResponseEntity<?> deletePlaceRestaurantReviews(@PathVariable Long reviewId) {
+        reviewService.deletePlaceRestaurantReview(reviewId);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
         return ResponseEntity.ok(apiResult);
     }
 }

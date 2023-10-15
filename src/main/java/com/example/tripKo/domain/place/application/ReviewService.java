@@ -5,11 +5,12 @@ import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.errors.exception.Exception500;
 import com.example.tripKo.domain.file.dao.FileRepository;
 import com.example.tripKo.domain.member.entity.Member;
-import com.example.tripKo.domain.place.dao.PlaceRepository;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
 import com.example.tripKo.domain.place.dao.ReviewFileRepository;
 import com.example.tripKo.domain.place.dao.ReviewRepository;
 import com.example.tripKo.domain.place.dto.request.ReviewRequest;
+import com.example.tripKo.domain.place.dto.request.ReviewUpdateRequest;
+import com.example.tripKo.domain.place.dto.response.review.ReviewUpdateResponse;
 import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
@@ -84,8 +85,6 @@ public class ReviewService {
         average = ((float)reviewRequest.getRating() + average * reviewNumbers) / (reviewNumbers + 1);
         place.setReviewNumbers(reviewNumbers + 1);
         place.setAverageRating(average);
-
-        placeRestaurantRepository.save(placeRestaurant);
     }
 
     public ReviewsResponse getPlaceRestaurantReviewsByPlaceRestaurantId(Long placeRestaurantId, int page) {
@@ -102,6 +101,66 @@ public class ReviewService {
 
         return reviewsResponse;
     }
+
+    @Transactional
+    public ReviewUpdateResponse updatePlaceRestaurantReview(Long reviewId, ReviewUpdateRequest reviewUpdateRequest) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
+
+        Long placeRestaurantId = reviewUpdateRequest.getPlaceId();
+        PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(placeRestaurantId)
+                .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + placeRestaurantId));
+
+        review.update(reviewUpdateRequest);
+
+
+        // 이미지 파일을 업로드한 시간 정보가 들어간 이름으로 저장해서 업데이트한 사진이 기존 사진과 같은지 알 수 없음 -> 다 지우고 다시 저장
+        deleteImages(reviewId);
+
+        if (!reviewUpdateRequest.getImages().isEmpty()) {
+            List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewUpdateRequest.getImages());
+
+            List<ReviewHasFile> reviewHasFiles = createReviewHasFile(fileEntities, review);
+
+            fileRepository.saveAll(fileEntities);
+            reviewFileRepository.saveAll(reviewHasFiles);
+        }
+
+        //평균 별점 업데이트
+        Place place = placeRestaurant.getPlace();
+
+        int reviewNumbers = place.getReviewNumbers();
+        float average = place.getAverageRating();
+
+        average = ((float)reviewUpdateRequest.getRating() + average * reviewNumbers) / (reviewNumbers + 1);
+        place.setReviewNumbers(reviewNumbers + 1);
+        place.setAverageRating(average);
+
+        //Response 생성
+        ReviewUpdateResponse reviewUpdateResponse = new ReviewUpdateResponse(review);
+        return reviewUpdateResponse;
+    }
+
+    @Transactional
+    public void deletePlaceRestaurantReview(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
+
+        deleteImages(reviewId);
+
+        //평균 별점 업데이트
+        Place place = review.getPlace();
+
+        int reviewNumbers = place.getReviewNumbers();
+        float average = place.getAverageRating();
+
+        average = ((float) average * reviewNumbers - review.getScore()) / (reviewNumbers - 1);
+        place.setReviewNumbers(reviewNumbers - 1);
+        place.setAverageRating(average);
+
+        reviewRepository.deleteById(reviewId);
+    }
+
 
     private List<ReviewHasFile> createReviewHasFile(List<com.example.tripKo.domain.file.entity.File> fileEntities, Review review) {
         List<ReviewHasFile> reviewHasFiles = new ArrayList<>();
@@ -174,4 +233,50 @@ public class ReviewService {
 
         return fileEntities;
     }
+
+    private void deleteImages(Long reviewId) {
+
+
+        String imagesPath = new File("").getAbsolutePath() + File.separator
+                + "src" + File.separator
+                + "main" + File.separator
+                + "resources" + File.separator
+                + "reviews" + File.separator
+                + "images";
+
+        File imageFile = new File(imagesPath);
+
+        if (!imageFile.exists()) {
+            throw new Exception500("삭제할 이미지가 없습니다.");
+        }
+
+
+        List<ReviewHasFile> reviewHasFiles = reviewFileRepository.findAllByReviewId(reviewId);
+
+        // 파일 엔티티들 먼저 지우고
+        for(ReviewHasFile reviewHasFile : reviewHasFiles) {
+            com.example.tripKo.domain.file.entity.File fileEntity = fileRepository.findById(reviewHasFile.getFile().getId())
+                    .orElseThrow(() -> new Exception404("지울 파일이 없습니다. id : " + reviewHasFile.getFile().getId()));
+
+            String fileName = fileEntity.getName();
+
+            String imagePath = imagesPath + File.separator + fileName;
+            File imageToDelete = new File(imagePath);
+
+            if (imageToDelete.exists()) {
+                if (imageToDelete.delete()) {
+                    System.out.println("File deleted successfully: " + imageToDelete.getAbsolutePath());
+                } else {
+                    throw new Exception500("이미지를 삭제하는 중 문제가 발생하였습니다.");
+                }
+            } else {
+                throw new Exception500("삭제하려는 이미지가 없습니다.");
+            }
+
+            fileRepository.deleteById(reviewHasFile.getFile().getId());
+        }
+        // 리뷰 파일 엔티티들 지우기
+        reviewFileRepository.deleteAllByReviewId(reviewId);
+    }
+
 }
