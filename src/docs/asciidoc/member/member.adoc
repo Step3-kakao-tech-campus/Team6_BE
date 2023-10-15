@@ -1,0 +1,24 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= MEMBER API 문서
+:icons: font
+:source-highlighter: highlight.js
+:toc: left
+:toclevels: 1
+:sectlinks:
+// 예시
+// == *식당 예약 불러오기*
+//
+// === 요청
+//
+// ==== Request
+//
+// include::{snippets}/get-restaurant-reservation-test/should_success_get_restaurant_reservation_info/http-request.adoc[]
+//
+// === 응답
+//
+// ==== Response
+//
+// include::{snippets}/get-restaurant-reservation-test/should_success_get_restaurant_reservation_info/http-response.adoc[]
