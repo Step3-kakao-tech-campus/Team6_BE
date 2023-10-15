@@ -19,12 +19,12 @@ public class ContentsController {
 
   private final ContentsService contentsService;
 
-    @GetMapping("/restaurant/{id}")
-    public ResponseEntity<?> getRestaurantDetails(@PathVariable Long id) {
-        RestaurantResponse responseDTO = contentsService.findRestaurantDetailsById(id);
-        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
-        return ResponseEntity.ok(apiResult);
-    }
+  @GetMapping("/restaurant/{id}")
+  public ResponseEntity<?> getRestaurantDetails(@PathVariable Long id) {
+    RestaurantResponse responseDTO = contentsService.findRestaurantDetailsById(id);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
+    return ResponseEntity.ok(apiResult);
+  }
 
   @GetMapping("/festival/{id}")
   public ResponseEntity<?> getFestivalInfo(@PathVariable Long id) {
@@ -33,10 +33,10 @@ public class ContentsController {
     return ResponseEntity.ok(apiResult);
   }
 
-    @GetMapping("/touristSpot/{id}")
-    public ResponseEntity<?> getTouristSpotInfo(@PathVariable Long id) {
-        TouristSpotResponse response = contentsService.getTouristSpotInfo(id);
-        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
-        return ResponseEntity.ok(apiResult);
-    }
+  @GetMapping("/touristSpot/{id}")
+  public ResponseEntity<?> getTouristSpotInfo(@PathVariable Long id) {
+    TouristSpotResponse response = contentsService.getTouristSpotInfo(id);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+    return ResponseEntity.ok(apiResult);
+  }
 }

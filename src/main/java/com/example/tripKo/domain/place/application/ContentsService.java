@@ -26,10 +26,10 @@ public class ContentsService {
 
   @Transactional
   public RestaurantResponse findRestaurantDetailsById(Long id) {
-        PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(id)
-                .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + id));
-        RestaurantResponse ResponseDTO = new RestaurantResponse(placeRestaurant);
-        return ResponseDTO;
+    PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(id)
+        .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + id));
+    RestaurantResponse ResponseDTO = new RestaurantResponse(placeRestaurant);
+    return ResponseDTO;
   }
 
   @Transactional
@@ -43,7 +43,7 @@ public class ContentsService {
   @Transactional
   public TouristSpotResponse getTouristSpotInfo(Long id) {
     PlaceTouristSpot placeTouristSpot = placeTouristSpotRepository.findById(id)
-            .orElseThrow(() -> new Exception404("해당하는 컨텐츠를 찾을 수 없습니다. id: " + id));
+        .orElseThrow(() -> new Exception404("해당하는 컨텐츠를 찾을 수 없습니다. id: " + id));
     TouristSpotResponse touristSpotResponse = new TouristSpotResponse(placeTouristSpot);
     return touristSpotResponse;
   }
