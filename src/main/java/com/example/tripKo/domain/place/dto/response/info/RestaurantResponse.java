@@ -19,7 +19,7 @@ public class RestaurantResponse {
   private List<Content> contents;
   private float averageScore;
   private String address;
-  private String holidayDate;
+  private Integer holiday;
   private String open;
   private String breakTime;
   private String contactInfo;
