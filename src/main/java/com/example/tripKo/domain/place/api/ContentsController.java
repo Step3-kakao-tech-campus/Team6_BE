@@ -6,13 +6,10 @@ import com.example.tripKo.domain.place.dto.response.info.FestivalResponse;
 import com.example.tripKo.domain.place.dto.response.info.TouristSpotResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Validated
