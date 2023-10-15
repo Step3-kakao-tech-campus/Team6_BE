@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class ValidContentsService {
 
-  private static final long VIRTUAL_CONTENTS_ID = 1;
+  private static final long VIRTUAL_FESTIVAL_ID = 1;
 
   private final ContentsRepository contentsRepository;
   private final PlaceRestaurantRepository placeRestaurantRepository;
@@ -24,7 +24,7 @@ public class ValidContentsService {
   private final PlaceTouristSpotRepository placeTouristSpotRepository;
 
   public PlaceFestival findByFestivalId(long festivalId) {
-    return placeFestivalRepository.findByIdAndIdNot(festivalId, VIRTUAL_CONTENTS_ID)
+    return placeFestivalRepository.findByIdAndIdNot(festivalId, VIRTUAL_FESTIVAL_ID)
         .orElseThrow(() -> new Exception404("해당 축제를 찾을 수 없습니다. id: " + festivalId));
   }
 }
