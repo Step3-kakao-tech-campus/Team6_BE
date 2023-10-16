@@ -32,21 +32,20 @@ public class TouristSpotResponse {
     private List<String> image;
   }
 
-  public static TouristSpotResponse from(PlaceTouristSpot placeTouristSpot) {
-    return TouristSpotResponse.builder()
-        .id(placeTouristSpot.getId())
-        .name(placeTouristSpot.getPlace().getName())
-        .averageScore(placeTouristSpot.getPlace().getAverageRating())
-        .mainImage(placeTouristSpot.getPlace().getFile().getName())
-        .contents(placeTouristSpot.getPlace().getContents().stream()
-            .map(TouristSpotResponse::mapContent)
-            .collect(Collectors.toList()))
-        .address(placeTouristSpot.getPlace().addressToString(placeTouristSpot.getPlace().getAddress()))
-        .isWished(false)
-        .build();
+
+  public TouristSpotResponse(PlaceTouristSpot placeTouristSpot) {
+    this.id = placeTouristSpot.getId();
+    this.name = placeTouristSpot.getPlace().getName();
+    this.averageScore = placeTouristSpot.getPlace().getAverageRating();
+    this.mainImage = placeTouristSpot.getPlace().getFile().getName();
+    this.contents = placeTouristSpot.getPlace().getContents().stream()
+        .map(this::mapContent)
+        .collect(Collectors.toList());
+    this.address = placeTouristSpot.getPlace().addressToString(placeTouristSpot.getPlace().getAddress());
+    this.isWished = false;
   }
 
-  private static Content mapContent(Contents contents) {
+  private Content mapContent(Contents contents) {
     return Content.builder()
         .page(contents.getPage())
         .description(contents.getDescription())

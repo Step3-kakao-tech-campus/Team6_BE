@@ -14,16 +14,16 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 public class RestaurantReservationSelectResponse {
-    private Integer holiday;
-    private String reservableStartTime;
-    private String reservableEndTime;
+    private String holidayDate;
+    private String reservationAvailableStartTime;
+    private String reservationAvailableEndTime;
     private String breakStartTime;
     private String breakEndTime;
 
     public RestaurantReservationSelectResponse (PlaceRestaurant placeRestaurant) {
-        this.holiday = placeRestaurant.getHoliday();
-        this.reservableStartTime = placeRestaurant.getOpeningTime();
-        this.reservableEndTime = placeRestaurant.getClosingTime();
+        this.holidayDate = placeRestaurant.getHolidayDate();
+        this.reservationAvailableStartTime = placeRestaurant.getOpeningTime();
+        this.reservationAvailableEndTime = placeRestaurant.getClosingTime();
         this.breakStartTime = placeRestaurant.getBreakStartTime();
         this.breakEndTime = placeRestaurant.getBreakEndTime();
     }

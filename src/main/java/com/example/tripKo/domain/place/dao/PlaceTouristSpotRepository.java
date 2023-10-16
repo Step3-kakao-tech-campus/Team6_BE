@@ -1,7 +1,6 @@
 package com.example.tripKo.domain.place.dao;
 
 import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
-import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,7 +18,5 @@ public interface PlaceTouristSpotRepository extends JpaRepository<PlaceTouristSp
             countQuery = "SELECT COUNT(*) FROM PlaceTouristSpot"
     )
     Page<PlaceTouristSpot> findTouristSpotByLocation(@Param("location") String location, Pageable pageable);
-
-    Optional<PlaceTouristSpot> findByIdAndIdNot(Long id, Long virtualId);
 
 }
