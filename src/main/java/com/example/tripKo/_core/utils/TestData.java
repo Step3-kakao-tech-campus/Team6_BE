@@ -122,7 +122,7 @@ public class TestData implements CommandLineRunner {
         placeRepository.saveAll(places);
 
         List<PlaceRestaurant> placeRestaurants = Arrays.asList(
-                new PlaceRestaurant(null, "051-111-2222", "11:00", "22:00", "15:00", "17:00", 1, places.get(0)),
+                new PlaceRestaurant(null, "051-111-2222", "11:00", "22:00", "15:00", "17:00", "Monday", places.get(0)),
                 new PlaceRestaurant(null, "051-222-3333", "12:00", "22:00", "14:00", "17:00", null, places.get(1))
         );
         placeRestaurantRepository.saveAll(placeRestaurants);

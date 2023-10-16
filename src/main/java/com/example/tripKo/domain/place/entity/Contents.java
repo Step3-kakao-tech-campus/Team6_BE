@@ -55,8 +55,6 @@ public class Contents extends BaseTimeEntity {
     this.page = page;
     this.description = description;
     this.place = place;
-
-    place.addContents(this);
   }
 
   //테스트용

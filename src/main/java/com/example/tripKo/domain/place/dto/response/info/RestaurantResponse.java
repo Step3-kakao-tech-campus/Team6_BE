@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@Builder
 public class RestaurantResponse {
 
   private long id;
@@ -19,7 +18,7 @@ public class RestaurantResponse {
   private List<Content> contents;
   private float averageScore;
   private String address;
-  private Integer holiday;
+  private String holidayDate;
   private String open;
   private String breakTime;
   private String contactInfo;
@@ -55,28 +54,26 @@ public class RestaurantResponse {
     private List<String> image;
   }
 
-  public static RestaurantResponse from(PlaceRestaurant placeRestaurant) {
-    return RestaurantResponse.builder()
-        .id(placeRestaurant.getId())
-        .name(placeRestaurant.getPlace().getName())
-        .mainImage(placeRestaurant.getPlace().getFile().getName())
-        .contents(placeRestaurant.getPlace().getContents().stream()
-            .map(RestaurantResponse::mapContent)
-            .collect(Collectors.toList()))
-        .averageScore(placeRestaurant.getPlace().getAverageRating())
-        .address(placeRestaurant.getPlace().addressToString(placeRestaurant.getPlace().getAddress()))
-        .holidayDate(placeRestaurant.getHolidayDate())
-        .open(placeRestaurant.getOpeningTime() + "~" + placeRestaurant.getClosingTime())
-        .breakTime(placeRestaurant.getBreakStartTime() + "~" + placeRestaurant.getBreakEndTime())
-        .contactInfo(placeRestaurant.getContact_info())
-        .menus(placeRestaurant.getPlace().getContents().stream()
-            .flatMap(contents -> contents.getContentsMenus().stream()
-                .map(MenuDTO::new))
-            .collect(Collectors.toList()))
-        .build();
+  public RestaurantResponse(PlaceRestaurant placeRestaurant) {
+    id = placeRestaurant.getId();
+    name = placeRestaurant.getPlace().getName();
+    mainImage = placeRestaurant.getPlace().getFile().getName();
+    contents = placeRestaurant.getPlace().getContents().stream()
+        .map(this::mapContent)
+        .collect(Collectors.toList());
+    averageScore = placeRestaurant.getPlace().getAverageRating();
+    address = placeRestaurant.getPlace().addressToString(placeRestaurant.getPlace().getAddress());
+    holidayDate = placeRestaurant.getHolidayDate();
+    open = placeRestaurant.getOpeningTime() + "~" + placeRestaurant.getClosingTime();
+    breakTime = placeRestaurant.getBreakStartTime() + "~" + placeRestaurant.getBreakEndTime();
+    contactInfo = placeRestaurant.getContact_info();
+    menus = placeRestaurant.getPlace().getContents().stream()
+        .flatMap(c -> c.getContentsMenus().stream())
+        .map(MenuDTO::new)
+        .collect(Collectors.toList());
   }
 
-  private static Content mapContent(Contents contents) {
+  private Content mapContent(Contents contents) {
     return Content.builder()
         .page(contents.getPage())
         .description(contents.getDescription())

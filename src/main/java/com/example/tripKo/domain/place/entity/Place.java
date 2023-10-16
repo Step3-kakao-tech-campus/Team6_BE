@@ -49,8 +49,6 @@ public class Place extends BaseTimeEntity {
     @OneToMany(mappedBy = "place")
     private final List<MemberReservationInfo> memberReservationInfos = new ArrayList<>();
 
-    private int reviewNumbers;
-
     @Builder
     public Place(String name, String summary, int count, float averageRating, File file, Address address) {
         this.name = name;
@@ -72,11 +70,4 @@ public class Place extends BaseTimeEntity {
         return addressToString + " " + addressCategoryToString;
     }
 
-    public void setAverageRating(float averageRating) {
-        this.averageRating = averageRating;
-    }
-
-    public void setReviewNumbers(int reviewNumbers) {
-        this.reviewNumbers = reviewNumbers;
-    }
 }
