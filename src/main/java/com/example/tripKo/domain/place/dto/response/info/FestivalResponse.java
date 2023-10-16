@@ -34,21 +34,23 @@ public class FestivalResponse {
     private List<String> image;
   }
 
-  public FestivalResponse(PlaceFestival placeFestival) {
-    this.id = placeFestival.getId();
-    this.name = placeFestival.getPlace().getName();
-    this.averageScore = placeFestival.getPlace().getAverageRating();
-    this.mainImage = placeFestival.getPlace().getFile().getName();
-    this.contents = placeFestival.getPlace().getContents().stream()
-        .map(this::mapContent)
-        .collect(Collectors.toList());
-    this.address = placeFestival.getPlace().addressToString(placeFestival.getPlace().getAddress());
-    this.liked = false;
-    this.isReservable = placeFestival.getReservationAvailable();
-    this.period = placeFestival.getStartDate() + " ~ " + placeFestival.getEndDate();
+  public static FestivalResponse from(PlaceFestival placeFestival) {
+    return FestivalResponse.builder()
+        .id(placeFestival.getId())
+        .name(placeFestival.getPlace().getName())
+        .averageScore(placeFestival.getPlace().getAverageRating())
+        .mainImage(placeFestival.getPlace().getFile().getName())
+        .contents(placeFestival.getPlace().getContents().stream()
+            .map(FestivalResponse::mapContent)
+            .collect(Collectors.toList()))
+        .address(placeFestival.getPlace().addressToString(placeFestival.getPlace().getAddress()))
+        .liked(false)
+        .isReservable(placeFestival.getReservationAvailable())
+        .period(placeFestival.getStartDate() + " ~ " + placeFestival.getEndDate())
+        .build();
   }
 
-  private Content mapContent(Contents contents) {
+  private static Content mapContent(Contents contents) {
     return Content.builder()
         .page(contents.getPage())
         .description(contents.getDescription())
