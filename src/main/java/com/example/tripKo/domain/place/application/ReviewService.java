@@ -14,7 +14,6 @@ import com.example.tripKo.domain.place.dto.request.ReviewUpdateRequest;
 import com.example.tripKo.domain.place.dto.response.review.ReviewUpdateResponse;
 import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.place.entity.Place;
-import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import com.example.tripKo.domain.place.entity.Review;
 import com.example.tripKo.domain.place.entity.ReviewHasFile;
 import lombok.RequiredArgsConstructor;
@@ -42,11 +41,11 @@ public class ReviewService {
     private final ReviewFileRepository reviewFileRepository;
 
     @Transactional
-    public void createPlaceRestaurantReview(ReviewRequest reviewRequest, Member member) {
+    public void createPlaceReview(ReviewRequest reviewRequest, PlaceType placeType, Member member) {
         //place 불러오기
-        //만약 받은 placeId가 Restaurant이 아니면 리뷰 작성 불가능
+        //만약 받은 placeId가 URL의 PlaceType과 다르면 리뷰 작성 불가능
         Place place = placeRepository.findById(reviewRequest.getPlaceId()).orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + reviewRequest.getPlaceId()));
-        if (place.getPlaceType() != PlaceType.RESTAURANT) throw new Exception400("이 플레이스는 식당이 아닙니다. id : " + reviewRequest.getPlaceId());
+        if (place.getPlaceType() != placeType) throw new Exception400("요청한 URL의 Place 타입과 요청한 id의 Place 타입이 다릅니다. 요청한 URL : " + placeType + ", id의 Place 타입 : " + place.getPlaceType());
 
         //usageDate는 일단 review를 작성한 날짜로 하였다. 나중에 로직 수정 필요
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -85,16 +84,17 @@ public class ReviewService {
         place.setAverageRating(average);
     }
 
-    public ReviewsResponse getPlaceRestaurantReviewsByPlaceId(Long placeId, int page) {
+    public ReviewsResponse getReviewsByPlaceId(Long placeId, PlaceType placeType, int page) {
         //리뷰에 저장할 placeRestaurant을 가져오는 부분
         Place place = placeRepository.findById(placeId)
                 .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + placeId));
+        if (place.getPlaceType() != placeType) throw new Exception400("요청한 URL의 Place 타입과 요청한 id의 Place 타입이 다릅니다. 요청한 URL : " + placeType + ", id의 Place 타입 : " + place.getPlaceType());
 
         Pageable pageable = PageRequest.of(page, 10);
         List<Review> reviews = reviewRepository.findAllByPlaceId(place.getId(), pageable);
 
         if (reviews.isEmpty()) {
-            if (page == 0) throw new Exception404("현재 이 식당은 리뷰가 없습니다. id : " + placeId);
+            if (page == 0) throw new Exception404("현재 이 플레이스는 리뷰가 없습니다. id : " + placeId);
             else throw new Exception404("더이상 리뷰가 없습니다. page : " + page);
         }
 
@@ -104,7 +104,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewUpdateResponse updatePlaceRestaurantReview(Long reviewId, ReviewUpdateRequest reviewUpdateRequest) {
+    public ReviewUpdateResponse updateReview(Long reviewId, ReviewUpdateRequest reviewUpdateRequest) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
 
@@ -127,7 +127,6 @@ public class ReviewService {
         }
 
         //평균 별점 업데이트
-        //별점 업데이트의 결과가 이상하다.
         int reviewNumbers = place.getReviewNumbers();
         float average = place.getAverageRating();
 
@@ -136,13 +135,12 @@ public class ReviewService {
         place.setAverageRating(average);
 
         //Response 생성
-        //Response에서 동일한 이미지 이름이 두번 출력됨
         ReviewUpdateResponse reviewUpdateResponse = new ReviewUpdateResponse(review);
         return reviewUpdateResponse;
     }
 
     @Transactional
-    public void deletePlaceRestaurantReview(Long reviewId) {
+    public void deleteReview(Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
 
@@ -171,8 +169,6 @@ public class ReviewService {
 
         return reviewHasFiles;
     }
-
-
 
     private List<com.example.tripKo.domain.file.entity.File> saveImages(List<MultipartFile> images) {
         List<com.example.tripKo.domain.file.entity.File> fileEntities = new ArrayList<>();
