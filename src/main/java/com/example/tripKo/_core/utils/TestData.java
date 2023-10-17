@@ -5,6 +5,7 @@ import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.food.dao.FoodHasPlaceRestaurantRepository;
 import com.example.tripKo.domain.food.entity.FoodHasPlaceRestaurants;
+import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.dao.AddressCategoryRepository;
 import com.example.tripKo.domain.place.dao.AddressRepository;
 import com.example.tripKo.domain.place.entity.Address;
@@ -112,12 +113,12 @@ public class TestData implements CommandLineRunner {
         addressRepository.saveAll(addresses);
 
         List<Place> places = Arrays.asList(
-                Place.builder().name("정문토스트").summary("정문토스트는..").count(100).averageRating((float)4.4).address(addresses.get(0)).file(files.get(0)).build(),
-                Place.builder().name("명물토스트").summary("명물토스트는..").count(200).averageRating((float)4.2).address(addresses.get(1)).file(files.get(1)).build(),
-                Place.builder().name("2023 부산 국제 락 페스티벌").summary("부락페는..").count(300).averageRating((float)4.3).address(addresses.get(2)).file(files.get(3)).build(),
-                Place.builder().name("2023 대동제").summary("대동제는..").count(200).averageRating((float)4.0).address(addresses.get(0)).file(files.get(3)).build(),
-                Place.builder().name("Signiel Busan").summary("부산 시그니엘은..").count(100).averageRating((float)4.5).address(addresses.get(4)).file(files.get(6)).build(),
-                Place.builder().name("전포 카페 거리").summary("전포 카페 거리는..").count(200).averageRating((float)4.3).address(addresses.get(5)).file(files.get(7)).build()
+                Place.builder().name("정문토스트").summary("정문토스트는..").count(100).averageRating((float)4.4).address(addresses.get(0)).file(files.get(0)).placeType(PlaceType.RESTAURANT).build(),
+                Place.builder().name("명물토스트").summary("명물토스트는..").count(200).averageRating((float)4.2).address(addresses.get(1)).file(files.get(1)).placeType(PlaceType.RESTAURANT).build(),
+                Place.builder().name("2023 부산 국제 락 페스티벌").summary("부락페는..").count(300).averageRating((float)4.3).address(addresses.get(2)).file(files.get(3)).placeType(PlaceType.FESTIVAL).build(),
+                Place.builder().name("2023 대동제").summary("대동제는..").count(200).averageRating((float)4.0).address(addresses.get(0)).file(files.get(3)).placeType(PlaceType.FESTIVAL).build(),
+                Place.builder().name("Signiel Busan").summary("부산 시그니엘은..").count(100).averageRating((float)4.5).address(addresses.get(4)).file(files.get(6)).placeType(PlaceType.TOURIST_SPOT).build(),
+                Place.builder().name("전포 카페 거리").summary("전포 카페 거리는..").count(200).averageRating((float)4.3).address(addresses.get(5)).file(files.get(7)).placeType(PlaceType.TOURIST_SPOT).build()
         );
         placeRepository.saveAll(places);
 

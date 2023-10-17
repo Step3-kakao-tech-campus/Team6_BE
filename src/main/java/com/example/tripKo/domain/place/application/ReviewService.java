@@ -5,7 +5,8 @@ import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.errors.exception.Exception500;
 import com.example.tripKo.domain.file.dao.FileRepository;
 import com.example.tripKo.domain.member.entity.Member;
-import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
+import com.example.tripKo.domain.place.PlaceType;
+import com.example.tripKo.domain.place.dao.PlaceRepository;
 import com.example.tripKo.domain.place.dao.ReviewFileRepository;
 import com.example.tripKo.domain.place.dao.ReviewRepository;
 import com.example.tripKo.domain.place.dto.request.ReviewRequest;
@@ -37,27 +38,26 @@ import java.util.Objects;
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final FileRepository fileRepository;
-    private final PlaceRestaurantRepository placeRestaurantRepository;
+    private final PlaceRepository placeRepository;
     private final ReviewFileRepository reviewFileRepository;
 
     @Transactional
     public void createPlaceRestaurantReview(ReviewRequest reviewRequest, Member member) {
-        //API에서는 placeId로 되어 있는데 placeRestaurantId으로 받아야 할 것 같다.
-        //리뷰에 저장할 placeRestaurant을 가져오는 부분
-        Long placeRestaurantId = reviewRequest.getPlaceId();
-        PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(placeRestaurantId)
-                .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + placeRestaurantId));
+        //place 불러오기
+        //만약 받은 placeId가 Restaurant이 아니면 리뷰 작성 불가능
+        Place place = placeRepository.findById(reviewRequest.getPlaceId()).orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + reviewRequest.getPlaceId()));
+        if (place.getPlaceType() != PlaceType.RESTAURANT) throw new Exception400("이 플레이스는 식당이 아닙니다. id : " + reviewRequest.getPlaceId());
 
         //usageDate는 일단 review를 작성한 날짜로 하였다. 나중에 로직 수정 필요
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         String usageDate = LocalDate.now().format(formatter);
 
         //같은 날짜에 동일한 가게를 리뷰했었다면 더이상 리뷰 작성 불가능
-        Review sameReview = reviewRepository.findReviewByMemberIdAndPlaceIdAndUsageDate(reviewRequest.getMemberId(), placeRestaurant.getPlace().getId(), usageDate);
+        Review sameReview = reviewRepository.findReviewByMemberIdAndPlaceIdAndUsageDate(reviewRequest.getMemberId(), reviewRequest.getPlaceId(), usageDate);
         if (!Objects.isNull(sameReview)) throw new Exception400("이미 작성한 리뷰가 존재합니다.");
 
         Review review = Review.builder()
-                .placeRestaurant(placeRestaurant)
+                .place(place)
                 .member(member)
                 .score(reviewRequest.getRating())
                 .description(reviewRequest.getDescription())
@@ -76,8 +76,6 @@ public class ReviewService {
         }
 
         //업데이트 된 평균 별점 저장
-        Place place = placeRestaurant.getPlace();
-
         int reviewNumbers = place.getReviewNumbers();
         float average = place.getAverageRating();
 
@@ -87,17 +85,20 @@ public class ReviewService {
         place.setAverageRating(average);
     }
 
-    public ReviewsResponse getPlaceRestaurantReviewsByPlaceRestaurantId(Long placeRestaurantId, int page) {
+    public ReviewsResponse getPlaceRestaurantReviewsByPlaceId(Long placeId, int page) {
         //리뷰에 저장할 placeRestaurant을 가져오는 부분
-        PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(placeRestaurantId)
-                .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + placeRestaurantId));
+        Place place = placeRepository.findById(placeId)
+                .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + placeId));
 
         Pageable pageable = PageRequest.of(page, 10);
-        List<Review> reviews = reviewRepository.findAllByPlaceId(placeRestaurant.getPlace().getId(), pageable);
+        List<Review> reviews = reviewRepository.findAllByPlaceId(place.getId(), pageable);
 
-        if (reviews.isEmpty()) throw new Exception404("현재 이 식당은 리뷰가 없습니다. id : " + placeRestaurantId);
+        if (reviews.isEmpty()) {
+            if (page == 0) throw new Exception404("현재 이 식당은 리뷰가 없습니다. id : " + placeId);
+            else throw new Exception404("더이상 리뷰가 없습니다. page : " + page);
+        }
 
-        ReviewsResponse reviewsResponse = new ReviewsResponse(reviews, placeRestaurant.getPlace());
+        ReviewsResponse reviewsResponse = new ReviewsResponse(reviews, place);
 
         return reviewsResponse;
     }
@@ -107,9 +108,8 @@ public class ReviewService {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
 
-        Long placeRestaurantId = reviewUpdateRequest.getPlaceId();
-        PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(placeRestaurantId)
-                .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + placeRestaurantId));
+        Place place = placeRepository.findById(reviewUpdateRequest.getPlaceId())
+                .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + reviewUpdateRequest.getPlaceId()));
 
         review.update(reviewUpdateRequest);
 
@@ -127,8 +127,7 @@ public class ReviewService {
         }
 
         //평균 별점 업데이트
-        Place place = placeRestaurant.getPlace();
-
+        //별점 업데이트의 결과가 이상하다.
         int reviewNumbers = place.getReviewNumbers();
         float average = place.getAverageRating();
 
@@ -137,6 +136,7 @@ public class ReviewService {
         place.setAverageRating(average);
 
         //Response 생성
+        //Response에서 동일한 이미지 이름이 두번 출력됨
         ReviewUpdateResponse reviewUpdateResponse = new ReviewUpdateResponse(review);
         return reviewUpdateResponse;
     }

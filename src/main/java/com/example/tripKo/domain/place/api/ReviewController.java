@@ -33,9 +33,9 @@ public class ReviewController {
         return ResponseEntity.ok(apiResult);
     }
 
-    @GetMapping("/restaurant/reviews/{placeRestaurantId}")
-    public ResponseEntity<?> getPlaceRestaurantReviews(@PathVariable Long placeRestaurantId, @RequestParam(value = "page", defaultValue = "0") Integer page) {
-        ReviewsResponse response = reviewService.getPlaceRestaurantReviewsByPlaceRestaurantId(placeRestaurantId, page);
+    @GetMapping("/restaurant/reviews/{placeId}")
+    public ResponseEntity<?> getPlaceRestaurantReviews(@PathVariable Long placeId, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+        ReviewsResponse response = reviewService.getPlaceRestaurantReviewsByPlaceId(placeId, page);
         ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
         return ResponseEntity.ok(apiResult);
     }

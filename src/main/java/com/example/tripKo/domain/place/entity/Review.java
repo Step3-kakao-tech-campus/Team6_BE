@@ -60,9 +60,9 @@ public class Review {
     private List<ReviewHasFile> reviewHasFiles = new ArrayList<>();
 
     @Builder
-    public Review(PlaceRestaurant placeRestaurant, Member member, String description, int score) {
+    public Review(Place place, Member member, String description, int score) {
         this.type = PlaceType.RESTAURANT;
-        this.place = placeRestaurant.getPlace();
+        this.place = place;
         this.member = member;
         this.description = description;
         this.score = score;
