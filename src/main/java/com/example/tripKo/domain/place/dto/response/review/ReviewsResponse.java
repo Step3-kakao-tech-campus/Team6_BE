@@ -2,7 +2,6 @@ package com.example.tripKo.domain.place.dto.response.review;
 
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.Review;
-import com.example.tripKo.domain.place.entity.ReviewHasFile;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,6 +1,7 @@
 package com.example.tripKo.domain.place.dao;
 
 import com.example.tripKo.domain.member.entity.Member;
+import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.Review;
 import org.springframework.data.domain.Pageable;

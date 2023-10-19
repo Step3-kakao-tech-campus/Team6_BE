@@ -65,7 +65,7 @@ public class RestaurantResponse {
             .collect(Collectors.toList()))
         .averageScore(placeRestaurant.getPlace().getAverageRating())
         .address(placeRestaurant.getPlace().addressToString(placeRestaurant.getPlace().getAddress()))
-        .holidayDate(placeRestaurant.getHolidayDate())
+        .holiday(placeRestaurant.getHoliday())
         .open(placeRestaurant.getOpeningTime() + "~" + placeRestaurant.getClosingTime())
         .breakTime(placeRestaurant.getBreakStartTime() + "~" + placeRestaurant.getBreakEndTime())
         .contactInfo(placeRestaurant.getContact_info())
