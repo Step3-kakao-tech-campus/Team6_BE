@@ -7,7 +7,6 @@ import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.application.ReviewService;
 import com.example.tripKo.domain.place.dto.request.ReviewUpdateRequest;
-import com.example.tripKo.domain.place.dto.response.review.ReviewUpdateResponse;
 import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -43,8 +42,8 @@ public class ReviewController {
 
     @PatchMapping(path="/restaurant/reviews/{reviewId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> updatePlaceRestaurantReviews(@PathVariable Long reviewId, @ModelAttribute @Valid ReviewUpdateRequest reviewUpdateRequest) {
-        ReviewUpdateResponse reviewUpdateResponse = reviewService.updateReview(reviewId, reviewUpdateRequest);
-        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(reviewUpdateResponse);
+        reviewService.updateReview(reviewId, reviewUpdateRequest);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
         return ResponseEntity.ok(apiResult);
     }
 
@@ -79,8 +78,8 @@ public class ReviewController {
 
     @PatchMapping(path="/festival/reviews/{reviewId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> updateFestivalReviews(@PathVariable Long reviewId, @ModelAttribute @Valid ReviewUpdateRequest reviewUpdateRequest) {
-        ReviewUpdateResponse reviewUpdateResponse = reviewService.updateReview(reviewId, reviewUpdateRequest);
-        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(reviewUpdateResponse);
+        reviewService.updateReview(reviewId, reviewUpdateRequest);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
         return ResponseEntity.ok(apiResult);
     }
 
