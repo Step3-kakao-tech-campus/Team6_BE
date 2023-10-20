@@ -1,16 +1,16 @@
 package com.example.tripKo.domain.member;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@Getter
+@RequiredArgsConstructor
 public enum MemberRoleType {
-  비회원(1),
-  정회원(2),
-  휴면회원(3);
+  비회원(1, "ROLE_ANONYMOUS"),
+  정회원(2, "ROLE_MEMBER"),
+  휴면회원(3, "ROLE_DORMANT");
 
-  @Getter
+
   private final long id;
-
-  MemberRoleType(long id) {
-    this.id = id;
-  }
+  private final String key;
 }
