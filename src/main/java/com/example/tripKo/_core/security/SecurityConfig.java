@@ -48,10 +48,9 @@ public class SecurityConfig {
         .exceptionHandling().accessDeniedHandler(((request, response, accessDeniedException) -> {
           FilterResponseUtils.forbidden(response, new Exception403("권한이 없습니다"));
         }))
-//        .and()
-//        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-//        .addFilterBefore(refreshTokenFilter, JwtAuthFilter.class)
-        ;
+        .and()
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(refreshTokenFilter, JwtAuthFilter.class);
 
     return http.build();
   }
