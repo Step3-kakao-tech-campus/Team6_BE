@@ -90,4 +90,41 @@ public class ReviewController {
         return ResponseEntity.ok(apiResult);
 
     }
+
+    /*
+    TouristSpot
+    */
+    @PostMapping(path ="/touristSpot/reviews", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> createTouristSpotReview(/*@AuthenticationPrincipal MyUserDetails userDetails, */ @ModelAttribute @Valid ReviewRequest reviewRequest) {
+        //Spring Security 개발되면 삭제
+        //원래 userDetails에서 Member를 가져오므로 현재 userDetails에서 Member를 가져왔다고 가정합니다.
+        Member member = memberRepository.findById(reviewRequest.getMemberId()).orElseThrow(() -> new Exception404("해당 id를 가진 회원을 찾을 수 없습니다: " + reviewRequest.getMemberId()));
+        //Member member = userDetails.getMember()
+
+        reviewService.createPlaceReview(reviewRequest, PlaceType.TOURIST_SPOT, member);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @GetMapping("/touristSpot/reviews/{placeId}")
+    public ResponseEntity<?> getTouristSpotReviews(@PathVariable Long placeId, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+        ReviewsResponse response = reviewService.getReviewsByPlaceId(placeId, PlaceType.TOURIST_SPOT, page);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @PatchMapping(path="/touristSpot/reviews/{reviewId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> updateTouristSpotReviews(@PathVariable Long reviewId, @ModelAttribute @Valid ReviewUpdateRequest reviewUpdateRequest) {
+        reviewService.updateReview(reviewId, reviewUpdateRequest);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @DeleteMapping("/touristSpot/reviews/{reviewId}")
+    public ResponseEntity<?> deleteTouristSpotReviews(@PathVariable Long reviewId) {
+        reviewService.deleteReview(reviewId);
+        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
+        return ResponseEntity.ok(apiResult);
+
+    }
 }
