@@ -81,7 +81,7 @@ public class JwtProvider {
 
         // Access Token 생성
         Date now = new Date();
-        Date accessTokenExpiresIn = new Date(now.getTime() + ACCESS_TOKEN.getExpiredMillis();
+        Date accessTokenExpiresIn = new Date(now.getTime() + ACCESS_TOKEN.getExpiredMillis());
 
         return Jwts.builder()
                 .setClaims(claims)  //데이터
