@@ -21,45 +21,42 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
-@Slf4j
-@Component
 @RequiredArgsConstructor
 public class RefreshTokenFilter extends GenericFilterBean {
 
-  private final JwtProvider jwtProvider;
-  private final RedisUtil redisUtil;
-
-  @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-      throws IOException, ServletException {
-    HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-    final var accessToken = jwtProvider.validateToken(httpServletRequest, ACCESS_TOKEN);
-    final var refreshToken = jwtProvider.validateToken(httpServletRequest, REFRESH_TOKEN);
-    boolean isAccessExpiredAndRefreshValid =
-        isAccessTokenExpired(accessToken.getJwtValidationType()) && isRefreshTokenValid(refreshToken)
-            && isTokenInRedis(refreshToken);
-
-    if (isAccessExpiredAndRefreshValid) {
-      Authentication authentication = jwtProvider.getAuthentication(refreshToken.getToken());
-      SecurityContextHolder.getContext().setAuthentication(authentication);
+//    private final JwtProvider jwtProvider;
+//    private final RedisUtil redisUtil;
+//
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+//        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+//        final var accessToken = jwtProvider.validateToken(httpServletRequest, ACCESS_TOKEN);
+//        final var refreshToken = jwtProvider.validateToken(httpServletRequest, REFRESH_TOKEN);
+//        boolean isAccessExpiredAndRefreshValid =
+//                isAccessTokenExpired(accessToken.getJwtValidationType()) && isRefreshTokenValid(refreshToken)
+//                        && isTokenInRedis(refreshToken);
+//
+//        if (isAccessExpiredAndRefreshValid) {
+//            Authentication authentication = jwtProvider.getAuthentication(refreshToken.getToken());
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//        }
+//
+        chain.doFilter(request, response);
     }
-
-    chain.doFilter(request, response);
-  }
-
-  private static boolean isAccessTokenExpired(JwtValidationType jwtValidationType) {
-    return EXPIRED.equals(jwtValidationType);
-  }
-
-  private static boolean isRefreshTokenValid(TokenValidationDTO tokenValidationDTO) {
-    return tokenValidationDTO.isValid();
-  }
-
-  private boolean isTokenInRedis(TokenValidationDTO tokenValidationDTO) {
-    long id = jwtProvider.getAuthId(tokenValidationDTO.getToken());
-    String tokenInRedis = redisUtil.getData(String.valueOf(id));
-    return tokenInRedis.equals(tokenValidationDTO.getToken());
-  }
+//
+//    private static boolean isAccessTokenExpired(JwtValidationType jwtValidationType) {
+//        return EXPIRED.equals(jwtValidationType);
+//    }
+//
+//    private static boolean isRefreshTokenValid(TokenValidationDTO tokenValidationDTO) {
+//        return tokenValidationDTO.isValid();
+//    }
+//
+//    private boolean isTokenInRedis(TokenValidationDTO tokenValidationDTO) {
+//        long id = jwtProvider.getAuthId(tokenValidationDTO.getToken());
+//        String tokenInRedis = redisUtil.getData(String.valueOf(id));
+//        return tokenInRedis.equals(tokenValidationDTO.getToken());
+//    }
 
 }
-
