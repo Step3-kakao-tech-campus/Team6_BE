@@ -1,6 +1,7 @@
 package com.example.tripKo.domain.place.dao;
 
 import com.example.tripKo.domain.member.entity.Member;
+import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.Review;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Review findReviewByMemberIdAndPlaceIdAndUsageDate(@Param("memberId") Long memberId,
                                                   @Param("placeId") Long placeId,
                                                   @Param("usageDate") String usageDate);
+
+
 
     @Query(value = "select r from Review r where r.place.id = :placeId",
             countQuery = "SELECT COUNT(*) FROM PlaceRestaurant")

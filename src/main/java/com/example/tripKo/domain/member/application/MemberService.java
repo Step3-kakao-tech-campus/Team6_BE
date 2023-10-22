@@ -1,9 +1,13 @@
 package com.example.tripKo.domain.member.application;
 
 import com.example.tripKo._core.errors.exception.Exception404;
+import com.example.tripKo._core.errors.exception.Exception500;
+import com.example.tripKo._core.security.JwtProvider;
+import com.example.tripKo._core.security.data.JwtToken;
 import com.example.tripKo.domain.member.MemberReservationStatus;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
+import com.example.tripKo.domain.member.dto.request.MemberRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.member.entity.MemberReservationInfo;
@@ -18,6 +22,11 @@ import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSe
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +39,10 @@ public class MemberService {
   private final MemberRepository memberRepository;
   private final PlaceRestaurantRepository placeRestaurantRepository;
   private final PlaceRepository placeRepository;
+  private final JwtProvider jwtProvider;
+  private final PasswordEncoder passwordEncoder;
+  private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
 
   @Transactional
   public List<RestaurantReservationResponse> getRestaurantReservationInfo() {
@@ -65,5 +78,21 @@ public class MemberService {
             .orElseThrow(() -> new Exception404("예약이 완료되지 않았습니다. id : " + requestDTO.getReservation().getId()));
     RestaurantReservationConfirmResponse ResponseDTO = new RestaurantReservationConfirmResponse(memberReservationInfo);
     return ResponseDTO;
+  }
+
+  @Transactional
+  public void join(MemberRequest.JoinDTO requestDTO) {
+    requestDTO.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
+    try {
+      memberRepository.save(requestDTO.toEntity());
+    } catch (Exception e) {
+      throw new Exception500("unknown server error");
+    }
+  }
+
+  public JwtToken login(MemberRequest.LoginDTO requestDTO) {
+    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(requestDTO.getMemberId(), requestDTO.getPassword());
+    Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+    return jwtProvider.generateToken(authentication);
   }
 }

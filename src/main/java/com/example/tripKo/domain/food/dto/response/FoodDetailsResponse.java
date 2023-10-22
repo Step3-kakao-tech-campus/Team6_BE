@@ -37,6 +37,7 @@ public class FoodDetailsResponse {
         private String name;
         private String location;
         private float averageRating;
+        private String restaurantImage;
     }
 
     public FoodDetailsResponse(Food food) {
@@ -67,13 +68,7 @@ public class FoodDetailsResponse {
                 .name(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getName())
                 .location(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAddress().toString())
                 .averageRating(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAverageRating())
+                .restaurantImage(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getFile().getName())
                 .build();
-    }
-
-    private String addressToString(Address address) {
-        String addressToString = address.getBuildingName() + " " + address.getRoadName();
-        AddressCategory addressCategory = address.getAddressCategory();
-        String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
-        return addressToString + " " + addressCategoryToString;
     }
 }

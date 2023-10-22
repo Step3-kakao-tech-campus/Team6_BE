@@ -5,6 +5,8 @@ import com.example.tripKo.domain.file.entity.File;
 import com.example.tripKo.domain.member.entity.MemberReservationInfo;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.tripKo.domain.place.PlaceType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,14 +53,17 @@ public class Place extends BaseTimeEntity {
 
     private int reviewNumbers;
 
+    private PlaceType placeType;
+
     @Builder
-    public Place(String name, String summary, int count, float averageRating, File file, Address address) {
+    public Place(String name, String summary, int count, float averageRating, File file, Address address, PlaceType placeType) {
         this.name = name;
         this.summary = summary;
         this.count = count;
         this.averageRating = averageRating;
         this.file = file;
         this.address = address;
+        this.placeType = placeType;
     }
 
     public void addContents(Contents contents) {
