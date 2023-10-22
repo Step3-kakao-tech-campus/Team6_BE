@@ -54,13 +54,15 @@ public class JwtProvider {
     }
 
     // JWT 토큰 생성
-    public JwtToken generateToken(String userPK) {
+    public JwtToken generateToken(Authentication authentication) {
         Date now = new Date();
 
-        Member member = memberRepository.findByMemberId(userPK)
-                .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + userPK));
+        String userPK = authentication.getName();
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
 
-        String accessToken = createAccessToken(userPK, member.getRole().toString());
+        String accessToken = createAccessToken(userPK, authorities);
 
         String refreshToken = createRefreshToken();
 

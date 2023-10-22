@@ -22,6 +22,9 @@ import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSe
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,7 @@ public class MemberService {
   private final PlaceRepository placeRepository;
   private final JwtProvider jwtProvider;
   private final PasswordEncoder passwordEncoder;
+  private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
 
   @Transactional
@@ -87,8 +91,8 @@ public class MemberService {
   }
 
   public JwtToken login(MemberRequest.LoginDTO requestDTO) {
-    // 이메일 비밀번호 검증 과정 생략... => 바빠서ㅜㅜ
-    requestDTO.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
-    return jwtProvider.generateToken(requestDTO.getMemberId());
+    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(requestDTO.getMemberId(), requestDTO.getPassword());
+    Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+    return jwtProvider.generateToken(authentication);
   }
 }
