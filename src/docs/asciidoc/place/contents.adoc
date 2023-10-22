@@ -1,0 +1,24 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= CONTENTS API 문서
+:icons: font
+:source-highlighter: highlight.js
+:toc: left
+:toclevels: 1
+:sectlinks:
+
+== *축제 상세정보 조회하기*
+
+=== 요청
+
+==== Request
+
+include::{snippets}/place-controller-test/should_success_get_festival_info_exist/http-request.adoc[]
+
+=== 응답
+
+==== Response
+
+include::{snippets}/place-controller-test/should_success_get_festival_info_exist/http-response.adoc[]
