@@ -1,4 +1,4 @@
-package com.example.tripKo._core.security.dto;
+package com.example.tripKo._core.security.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

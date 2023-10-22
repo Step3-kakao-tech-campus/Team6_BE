@@ -1,4 +1,4 @@
-package com.example.tripKo._core.security;
+package com.example.tripKo._core.security.data;
 
 import com.example.tripKo.domain.member.MemberRoleType;
 import com.example.tripKo.domain.member.dao.MemberRepository;
