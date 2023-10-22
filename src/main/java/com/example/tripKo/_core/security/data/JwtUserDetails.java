@@ -1,39 +1,51 @@
 package com.example.tripKo._core.security.data;
 
-import java.util.List;
+import com.example.tripKo.domain.member.entity.Member;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 
+@Builder
 @Data
-@RequiredArgsConstructor
 public class JwtUserDetails implements UserDetails {
+  private final Member member;
 
-  private final String memberId;
-  private final List<String> memberJobs;
+  public JwtUserDetails(Member member) {
+    this.member = member;
+  }
 
+  public final Member getMember() {
+    return member;
+  }
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    List<SimpleGrantedAuthority> roles = new ArrayList<>();
-    for (String memberJob : memberJobs) {
-      roles.add(new SimpleGrantedAuthority(memberJob));
-    }
-    return roles;
+    Collection<GrantedAuthority> authorities = new ArrayList<>();
+    authorities.add(() -> this.member.getRole().getKey());
+    return authorities;
   }
 
   @Override
-  public String getPassword() { return ""; }
+  public String getPassword() {
+    return member.getPassword();
+  }
 
   @Override
-  public String getUsername() { return memberId; }
+  public String getUsername() {
+    return member.getMemberId();
+  }
 
   @Override
-  public boolean isAccountNonExpired() {return true; }
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
   @Override
   public boolean isAccountNonLocked() {

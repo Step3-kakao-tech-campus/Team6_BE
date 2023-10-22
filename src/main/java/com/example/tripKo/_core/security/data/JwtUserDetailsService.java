@@ -1,5 +1,6 @@
 package com.example.tripKo._core.security.data;
 
+import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo.domain.member.MemberRoleType;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.entity.Member;
@@ -27,14 +28,12 @@ public class JwtUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
         return memberRepository.findByMemberId(memberId)
             .map(this::createUserDetails)
-            .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+            .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + memberId));
     }
 
     private UserDetails createUserDetails(Member member) {
-           return User.builder()
-                .username(member.getMemberId())
-                .password(member.getPassword())
-                .roles(member.getRole().getKey().toString())
-                .build();
+           return JwtUserDetails.builder()
+                   .member(member)
+                   .build();
     }
 }
