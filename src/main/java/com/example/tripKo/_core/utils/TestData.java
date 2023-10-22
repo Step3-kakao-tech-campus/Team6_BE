@@ -210,8 +210,8 @@ public class TestData implements CommandLineRunner {
       
       
         List<Member> members = Arrays.asList(
-                Member.builder().role(MemberRoleType.정회원).realName("가나다").nickName("쿠키").emailAddress("1234@gmail.com").memberId("1").password("1234qwer").birthday("2023-01-01").build(),
-                Member.builder().role(MemberRoleType.정회원).realName("라마바").nickName("키키").emailAddress("1234@gmail.com").memberId("2").password("1234qwer").birthday("2023-01-01").build()
+                Member.builder().role(MemberRoleType.MEMBER).realName("가나다").nickName("쿠키").emailAddress("1234@gmail.com").memberId("1").password("1234qwer").birthday("2023-01-01").build(),
+                Member.builder().role(MemberRoleType.MEMBER).realName("라마바").nickName("키키").emailAddress("1234@gmail.com").memberId("2").password("1234qwer").birthday("2023-01-01").build()
         );
         memberRepository.saveAll(members);
     }

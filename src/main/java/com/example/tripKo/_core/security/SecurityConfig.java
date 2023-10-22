@@ -2,9 +2,13 @@ package com.example.tripKo._core.security;
 
 import com.example.tripKo._core.errors.exception.Exception401;
 import com.example.tripKo._core.errors.exception.Exception403;
+import com.example.tripKo._core.security.data.JwtToken;
 import com.example.tripKo._core.security.filter.JwtAuthFilter;
 import com.example.tripKo._core.security.filter.RefreshTokenFilter;
 import com.example.tripKo._core.utils.FilterResponseUtils;
+import com.example.tripKo._core.utils.RedisUtil;
+import com.example.tripKo.domain.member.MemberRoleType;
+import com.example.tripKo.domain.member.dao.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,11 +16,15 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
@@ -24,16 +32,23 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  private final JwtAuthFilter jwtAuthFilter;
-  private final RefreshTokenFilter refreshTokenFilter;
+  private final JwtProvider jwtProvider;
+  private final RedisUtil redisUtil;
+
+  // 암호화에 필요한 PasswordEncoder 를 Bean 등록합니다.
+  @Bean
+  public BCryptPasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests()
-        .antMatchers("/sign-up/**", "/sign-in/**") // 허용하는 것들 (추가 예정)
+        .antMatchers("/sign-up/**", "/sign-in/**", "/h2-console/**") // 허용하는 것들 (추가 예정)
         .permitAll()
-        .anyRequest().hasRole("정회원")
+        .anyRequest().hasRole(MemberRoleType.MEMBER.name())
         .and()
+        .formLogin().disable()
         .httpBasic().disable()
         .csrf().disable()
         .logout().disable()
@@ -49,8 +64,10 @@ public class SecurityConfig {
           FilterResponseUtils.forbidden(response, new Exception403("권한이 없습니다"));
         }))
         .and()
-        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-        .addFilterBefore(refreshTokenFilter, JwtAuthFilter.class);
+        .addFilterBefore(new JwtAuthFilter(jwtProvider, redisUtil), UsernamePasswordAuthenticationFilter.class);
+//        .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
+    //h2-console 접속을 위해 허용
+    http.headers().frameOptions().sameOrigin();
 
     return http.build();
   }

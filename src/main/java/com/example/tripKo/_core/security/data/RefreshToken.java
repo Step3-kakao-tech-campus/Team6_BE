@@ -1,4 +1,4 @@
-package com.example.tripKo._core.security.refreshToken.entity;
+package com.example.tripKo._core.security.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,14 +9,11 @@ import javax.persistence.Id;
 
 @AllArgsConstructor
 @Getter
-@RedisHash(value = "refreshToken", timeToLive = 60*60*24*3)
 public class RefreshToken {
 
+    // memberId
     @Id
     private String id;
 
     private String refreshToken;
-
-    @Indexed
-    private String accessToken;
 }
