@@ -1,17 +1,12 @@
 package com.example.tripKo._core.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import static com.example.tripKo._core.security.data.JwtType.REFRESH_TOKEN;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import com.example.tripKo._core.security.data.RefreshToken;
 
