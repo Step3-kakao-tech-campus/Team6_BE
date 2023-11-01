@@ -80,23 +80,23 @@ public class MemberService {
     return ResponseDTO;
   }
 
-  @Transactional
-  public void signUp(String memberId, String password, String nickName, String realName, String email,
-      String nationality) {
-    checkIsDuplicateEmail(email);
-    checkIsDuplicateLoginId(memberId);
-
-    Member member = Member.builder()
-        .memberId(memberId)
-        .password(password)
-        .nickName(nickName)
-        .realName(realName)
-        .emailAddress(email)
-        .nationality(nationality)
-        .build();
-
-    memberRepository.save(member);
-  }
+//  @Transactional
+//  public void signUp(String memberId, String password, String nickName, String realName, String email,
+//      String nationality) {
+//    checkIsDuplicateEmail(email);
+//    checkIsDuplicateLoginId(memberId);
+//
+//    Member member = Member.builder()
+//        .memberId(memberId)
+//        .password(password)
+//        .nickName(nickName)
+//        .realName(realName)
+//        .emailAddress(email)
+//        .nationality(nationality)
+//        .build();
+//
+//    memberRepository.save(member);
+//  }
 
   public JwtToken signIn(SignInRequest request) {
     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -105,15 +105,15 @@ public class MemberService {
     return jwtProvider.generateToken(authentication);
   }
 
-  private void checkIsDuplicateEmail(String email) {
-    if (checkDuplicateService.isDuplicateEmail(email)) {
-      throw new Exception404("동일한 이메일이 존재합니다.");
-    }
-  }
-
-  private void checkIsDuplicateLoginId(String memberId) {
-    if (checkDuplicateService.isDuplicateLoginId(memberId)) {
-      throw new Exception404("동일한 아이디가 존재합니다.");
-    }
-  }
+//  private void checkIsDuplicateEmail(String email) {
+//    if (checkDuplicateService.isDuplicateEmail(email)) {
+//      throw new Exception404("동일한 이메일이 존재합니다.");
+//    }
+//  }
+//
+//  private void checkIsDuplicateLoginId(String memberId) {
+//    if (checkDuplicateService.isDuplicateLoginId(memberId)) {
+//      throw new Exception404("동일한 아이디가 존재합니다.");
+//    }
+//  }
 }
