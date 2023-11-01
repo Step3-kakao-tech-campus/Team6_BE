@@ -64,8 +64,8 @@ public class SecurityConfig {
           FilterResponseUtils.forbidden(response, new Exception403("권한이 없습니다"));
         }))
         .and()
-        .addFilterBefore(new JwtAuthFilter(jwtProvider, redisUtil), UsernamePasswordAuthenticationFilter.class);
-//        .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
+        .addFilterBefore(new JwtAuthFilter(jwtProvider, redisUtil), UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
     //h2-console 접속을 위해 허용
     http.headers().frameOptions().sameOrigin();
 

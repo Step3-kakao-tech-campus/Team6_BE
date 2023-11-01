@@ -1,7 +1,9 @@
 package com.example.tripKo._core.security.filter;
 
+import static com.example.tripKo._core.security.data.JwtValidationType.EXPIRED;
 
 import com.example.tripKo._core.security.JwtProvider;
+import com.example.tripKo._core.security.data.JwtValidationType;
 import com.example.tripKo._core.utils.RedisUtil;
 import java.io.IOException;
 import java.util.Optional;
@@ -29,11 +31,12 @@ public class RefreshTokenFilter extends GenericFilterBean {
 
         if (accessToken != null) {
         String id = jwtProvider.getAuthId(accessToken);
+        JwtValidationType jwtValidationType = JwtValidationType.valueOf(accessToken);
 
         final var refreshToken = jwtProvider.resolveRefreshToken(httpServletRequest);
         boolean isRefreshTokenValid = jwtProvider.validateToken(refreshToken);
-
-        boolean isAccessExpiredAndRefreshValid = isRefreshTokenValid && isTokenInRedis(id, refreshToken);
+        boolean isAccessExpiredAndRefreshValid = isAccessTokenExpired(jwtValidationType) && isRefreshTokenValid
+            && isTokenInRedis(id, refreshToken);
 
         if (isAccessExpiredAndRefreshValid) {
             String newAccessToken = jwtProvider.createAccessToken(id);
@@ -42,6 +45,10 @@ public class RefreshTokenFilter extends GenericFilterBean {
             }
         }
         chain.doFilter(request, response);
+    }
+
+    private static boolean isAccessTokenExpired(JwtValidationType jwtValidationType) {
+        return EXPIRED.equals(jwtValidationType);
     }
 
     private boolean isTokenInRedis(String id, String refreshToken) {

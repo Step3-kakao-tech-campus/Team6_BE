@@ -1,6 +1,9 @@
 package com.example.tripKo._core.security.filter;
 
+import static com.example.tripKo._core.security.data.JwtType.ACCESS_TOKEN;
+
 import com.example.tripKo._core.security.JwtProvider;
+import com.example.tripKo._core.utils.RedisUtil;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -17,6 +20,7 @@ import org.springframework.web.filter.GenericFilterBean;
 public class JwtAuthFilter extends GenericFilterBean {
 
     private final JwtProvider jwtProvider;
+    private final RedisUtil redisUtil;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
