@@ -1,10 +1,12 @@
 package com.example.tripKo._core.security;
 
+import com.example.tripKo._core.security.data.JwtUserDetails;
 import com.example.tripKo._core.security.data.JwtUserDetailsService;
 import com.example.tripKo._core.security.data.JwtToken;
 import static com.example.tripKo._core.security.data.JwtType.ACCESS_TOKEN;
 import static com.example.tripKo._core.security.data.JwtType.REFRESH_TOKEN;
 
+import com.example.tripKo.domain.member.MemberRoleType;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,8 @@ public class JwtProvider {
     @Value("${jwt.secret.key}")
     private String salt;
 
-    private Key secretKey;
+    //Test를 위해서 public으로 열었습니다.
+    public Key secretKey;
 
     @PostConstruct
     protected void init() {
@@ -60,6 +63,12 @@ public class JwtProvider {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
+    }
+
+    public String createAccessToken(Long userPk, MemberRoleType... roles) {
+        return createAccessToken(String.valueOf(userPk), Arrays.stream(roles)
+            .map(MemberRoleType::name)
+            .toArray(String[]::new));
     }
 
     public String createAccessToken(String userPK,  String... roleTypes) {
@@ -151,26 +160,8 @@ public class JwtProvider {
         }
     }
 
-    // 토큰이 만료되었는지
-    public boolean isTokenExpired(String token) {
-        return parseClaims(token).getExpiration().after(new Date());
-    }
-
-    // Claim 에서 username 가져오기
-//    public String getUsernameFromToken(String token) {
-//        String username = String.valueOf(parseClaims(token).get("username"));
-//        log.info("getUsernameFormToken subject = {}", username);
-//        return username;
-//    }
-
     public String getAuthId(String token) {
         return parseClaims(token).getSubject();
-    }
-
-    private static List<String> getRolesBy(Claims claims) {
-        return List.of(claims.get(ROLES)
-                .toString()
-                .split(SEPARATOR));
     }
 
     private static void setRoles(Claims claims, String[] roles) {
