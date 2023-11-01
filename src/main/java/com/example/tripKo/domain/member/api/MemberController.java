@@ -3,11 +3,9 @@ package com.example.tripKo.domain.member.api;
 import com.example.tripKo._core.security.data.JwtToken;
 import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.member.application.MemberService;
-import com.example.tripKo.domain.member.dao.MemberRepository;
-import com.example.tripKo.domain.member.dto.request.MemberRequest;
+import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.request.SignUpRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
-import java.net.URI;
 import java.util.List;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationConfirmResponse;
@@ -16,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,8 +55,8 @@ public class MemberController {
   }
 
   @PostMapping("/sign-in")
-  public ResponseEntity<Void> login(@RequestBody MemberRequest.LoginDTO loginDTO, Errors errors) {
-    JwtToken jwtToken = memberService.login(loginDTO);
+  public ResponseEntity<Void> signIn(@RequestBody @Valid SignInRequest request) {
+    JwtToken jwtToken = memberService.signIn(request);
     return ResponseEntity.ok()
             .header(HttpHeaders.AUTHORIZATION, jwtToken.getGrantType() + jwtToken.getAccessToken())
             .header("Refresh-Token", jwtToken.getRefreshToken())

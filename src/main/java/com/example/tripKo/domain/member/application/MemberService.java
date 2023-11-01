@@ -1,14 +1,13 @@
 package com.example.tripKo.domain.member.application;
 
 import com.example.tripKo._core.errors.exception.Exception404;
-import com.example.tripKo._core.errors.exception.Exception500;
 import com.example.tripKo._core.security.JwtProvider;
 import com.example.tripKo._core.security.data.JwtToken;
 import com.example.tripKo.domain.member.MemberReservationStatus;
 import com.example.tripKo.domain.member.application.convenience.CheckDuplicateService;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
-import com.example.tripKo.domain.member.dto.request.MemberRequest;
+import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.member.entity.MemberReservationInfo;
@@ -26,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,8 +99,9 @@ public class MemberService {
     memberRepository.save(member);
   }
 
-  public JwtToken login(MemberRequest.LoginDTO requestDTO) {
-    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(requestDTO.getMemberId(), requestDTO.getPassword());
+  public JwtToken signIn(SignInRequest request) {
+    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+        request.getMemberId(), request.getRawPassword());
     Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
     return jwtProvider.generateToken(authentication);
   }
