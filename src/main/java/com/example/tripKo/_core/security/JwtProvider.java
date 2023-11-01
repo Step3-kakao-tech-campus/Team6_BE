@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final JwtUserDetailsService jwtUserDetailsService;
-    private final MemberRepository memberRepository;
+
     private static final String ROLES = "roles";
     private static final String SEPARATOR = ",";
 
@@ -47,7 +47,6 @@ public class JwtProvider {
 
     private Key secretKey;
 
-    private final RedisUtil redisUtil;
     @PostConstruct
     protected void init() {
         secretKey = Keys.hmacShaKeyFor(DatatypeConverter.parseBase64Binary(salt));
@@ -55,15 +54,12 @@ public class JwtProvider {
 
     // JWT 토큰 생성
     public JwtToken generateToken(Authentication authentication) {
-        Date now = new Date();
-
         String userPK = authentication.getName();
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         String accessToken = createAccessToken(userPK, authorities);
-
         String refreshToken = createRefreshToken();
 
         //redis 설치 필요
@@ -91,9 +87,9 @@ public class JwtProvider {
                 .compact();
     }
 
+    // Refresh Token 생성
+    // Refresh 토큰은 유효기간이 길기에 탈취될 확률이 상대적으로 높아 사용자의 정보가 노출될 수 있으므로 페이로드에 포함하지 않는다.
     public String createRefreshToken() {
-        // Refresh Token 생성
-        // Refresh 토큰은 유효기간이 길기에 탈취될 확률이 상대적으로 높아 사용자의 정보가 노출될 수 있으므로 페이로드에 포함하지 않는다.
         Date now = new Date();
         Date refreshTokenExpiresIn = new Date(now.getTime() + REFRESH_TOKEN.getExpiredMillis());
 
