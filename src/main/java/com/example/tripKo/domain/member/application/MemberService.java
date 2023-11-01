@@ -85,7 +85,6 @@ public class MemberService {
       String nationality) {
     checkIsDuplicateEmail(email);
     checkIsDuplicateLoginId(memberId);
-    checkDuplicateService.isDuplicateLoginId(memberId);
 
     Member member = Member.builder()
         .memberId(memberId)
