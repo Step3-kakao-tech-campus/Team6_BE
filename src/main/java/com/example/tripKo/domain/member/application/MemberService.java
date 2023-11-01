@@ -5,6 +5,7 @@ import com.example.tripKo._core.errors.exception.Exception500;
 import com.example.tripKo._core.security.JwtProvider;
 import com.example.tripKo._core.security.data.JwtToken;
 import com.example.tripKo.domain.member.MemberReservationStatus;
+import com.example.tripKo.domain.member.application.convenience.CheckDuplicateService;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
 import com.example.tripKo.domain.member.dto.request.MemberRequest;
@@ -42,6 +43,7 @@ public class MemberService {
   private final JwtProvider jwtProvider;
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManagerBuilder authenticationManagerBuilder;
+  private final CheckDuplicateService checkDuplicateService;
 
 
   @Transactional
@@ -81,18 +83,39 @@ public class MemberService {
   }
 
   @Transactional
-  public void join(MemberRequest.JoinDTO requestDTO) {
-    requestDTO.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
-    try {
-      memberRepository.save(requestDTO.toEntity());
-    } catch (Exception e) {
-      throw new Exception500("unknown server error");
-    }
+  public void signUp(String memberId, String password, String nickName, String realName, String email,
+      String nationality) {
+    checkIsDuplicateEmail(email);
+    checkIsDuplicateLoginId(memberId);
+    checkDuplicateService.isDuplicateLoginId(memberId);
+
+    Member member = Member.builder()
+        .memberId(memberId)
+        .password(password)
+        .nickName(nickName)
+        .realName(realName)
+        .emailAddress(email)
+        .nationality(nationality)
+        .build();
+
+    memberRepository.save(member);
   }
 
   public JwtToken login(MemberRequest.LoginDTO requestDTO) {
     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(requestDTO.getMemberId(), requestDTO.getPassword());
     Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
     return jwtProvider.generateToken(authentication);
+  }
+
+  private void checkIsDuplicateEmail(String email) {
+    if (checkDuplicateService.isDuplicateEmail(email)) {
+      throw new Exception404("동일한 이메일이 존재합니다.");
+    }
+  }
+
+  private void checkIsDuplicateLoginId(String memberId) {
+    if (checkDuplicateService.isDuplicateLoginId(memberId)) {
+      throw new Exception404("동일한 아이디가 존재합니다.");
+    }
   }
 }

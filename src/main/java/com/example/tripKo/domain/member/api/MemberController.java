@@ -5,13 +5,16 @@ import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.member.application.MemberService;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.dto.request.MemberRequest;
+import com.example.tripKo.domain.member.dto.request.SignUpRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
+import java.net.URI;
 import java.util.List;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationConfirmResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSelectResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -24,9 +27,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class MemberController {
 
-
   private final MemberService memberService;
-
 
   @GetMapping("/userinfo/reservations/restaurant")
   public ResponseEntity<?> getRestaurantReservationInfo() {
@@ -50,10 +51,10 @@ public class MemberController {
   }
 
   @PostMapping("/sign-up")
-  public ResponseEntity<?> join(@RequestBody MemberRequest.JoinDTO requestDTO, Errors errors) {
-    memberService.join(requestDTO);
-    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
-    return ResponseEntity.ok().body(apiResult);
+  public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest request) {
+    memberService.signUp(request.getMemberId(), request.getPassword(), request.getNickName(),
+        request.getRealName(), request.getEmail(), request.getNationality());
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @PostMapping("/sign-in")
