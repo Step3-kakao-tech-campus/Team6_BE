@@ -1,30 +1,24 @@
 package com.example.tripKo._core.utils;
 
+import com.example.tripKo.domain.food.dao.*;
+import com.example.tripKo.domain.food.entity.*;
 import com.example.tripKo.domain.member.MemberRoleType;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.entity.Member;
-import com.example.tripKo.domain.food.dao.FoodHasPlaceRestaurantRepository;
-import com.example.tripKo.domain.food.entity.FoodHasPlaceRestaurants;
 import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.dao.AddressCategoryRepository;
 import com.example.tripKo.domain.place.dao.AddressRepository;
 import com.example.tripKo.domain.place.entity.Address;
 import com.example.tripKo.domain.place.entity.AddressCategory;
 import com.example.tripKo.domain.food.FoodCategory;
-import com.example.tripKo.domain.food.dao.FoodContentsRepository;
 import com.example.tripKo.domain.place.dao.ContentsMenuRepository;
 import com.example.tripKo.domain.place.dao.ContentsRepository;
 import com.example.tripKo.domain.place.entity.Contents;
-import com.example.tripKo.domain.food.entity.FoodContents;
 import com.example.tripKo.domain.place.entity.ContentsMenu;
 import com.example.tripKo.domain.place.dao.ContentsFileRepository;
-import com.example.tripKo.domain.food.dao.FoodContentsHadFileRepository;
 import com.example.tripKo.domain.file.dao.FileRepository;
 import com.example.tripKo.domain.place.entity.ContentsHasFile;
-import com.example.tripKo.domain.food.entity.FoodContentsHasFile;
 import com.example.tripKo.domain.file.entity.File;
-import com.example.tripKo.domain.food.dao.FoodRepository;
-import com.example.tripKo.domain.food.entity.Food;
 import com.example.tripKo.domain.place.dao.PlaceFestivalRepository;
 import com.example.tripKo.domain.place.dao.PlaceRepository;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
@@ -36,6 +30,7 @@ import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -58,8 +53,7 @@ public class TestData implements CommandLineRunner {
     private final AddressRepository addressRepository;
 
     private final FoodRepository foodRepository;
-    private final FoodContentsRepository foodContentsRepository;
-    private final FoodContentsHadFileRepository foodContentsHadFileRepository;
+    private final FoodHasFileRepository foodHasFileRepository;
     private final FoodHasPlaceRestaurantRepository foodHasPlaceRestaurantRepository;
 
     private final MemberRepository memberRepository;
@@ -160,10 +154,10 @@ public class TestData implements CommandLineRunner {
 
         ///////
         List<Food> foods = Arrays.asList(
-                Food.builder().name("Beef Tartare").keyword("BeefTartare sixtimes rawmeat").summary("육회는 ...").foodCategory(FoodCategory.KOREAN).file(files.get(13)).build(),
-                Food.builder().name("Gimbap").keyword("Gimbap kimbap futomaki norimaki").summary("김밥은 ...").foodCategory(FoodCategory.KOREAN).file(files.get(14)).build(),
-                Food.builder().name("bibimbap").keyword("bibimbap KOREANMIXEDRICE").summary("비빔밥은 ...").foodCategory(FoodCategory.KOREAN).file(files.get(15)).build(),
-                Food.builder().name("bibimnoodle").keyword("bibimnoodle bibimmyeon KOREANMIXEDNOODLE").summary("비빔국수는 ...").foodCategory(FoodCategory.KOREAN).file(files.get(16)).build()
+                Food.builder().name("Beef Tartare").keyword("BeefTartare sixtimes rawmeat").summary("육회는 ...").foodCategory(FoodCategory.KOREAN).file(files.get(13)).description("육회 자세한 설명").build(),
+                Food.builder().name("Gimbap").keyword("Gimbap kimbap futomaki norimaki").summary("김밥은 ...").foodCategory(FoodCategory.KOREAN).file(files.get(14)).description("김밥 자세한 설명").build(),
+                Food.builder().name("bibimbap").keyword("bibimbap KOREANMIXEDRICE").summary("비빔밥은 ...").foodCategory(FoodCategory.KOREAN).file(files.get(15)).description("비빔밥 자세한 설명").build(),
+                Food.builder().name("bibimnoodle").keyword("bibimnoodle bibimmyeon KOREANMIXEDNOODLE").summary("비빔국수는 ...").foodCategory(FoodCategory.KOREAN).file(files.get(16)).description("비빔국수 자세한 설명").build()
         );
 
         foods.get(2).updateView();
@@ -190,6 +184,7 @@ public class TestData implements CommandLineRunner {
         foods.get(1).updateView();
         foods.get(1).updateView();
 
+        /*
         List<FoodContents> foodContentsList = new ArrayList<>();
         List<FoodContentsHasFile> foodContentsHasFiles = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -202,10 +197,22 @@ public class TestData implements CommandLineRunner {
                 foods.get(i).addFoodContents(foodContents);
             }
         }
+         */
+
+        List<FoodHasFile> foodHasFiles = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 2; j++) {
+                FoodHasFile foodHasFile = FoodHasFile.builder().food(foods.get(i)).file(files.get(17 + j)).build();
+                foodHasFiles.add(foodHasFile);
+                foods.get(i).addFoodHasFile(foodHasFile);
+            }
+        }
+
 
         foodRepository.saveAll(foods);
-        foodContentsRepository.saveAll(foodContentsList);
-        foodContentsHadFileRepository.saveAll(foodContentsHasFiles);
+        foodHasFileRepository.saveAll(foodHasFiles);
+        //foodContentsRepository.saveAll(foodContentsList);
+        //foodContentsHadFileRepository.saveAll(foodContentsHasFiles);
         foodHasPlaceRestaurantRepository.saveAll(foodHasPlaceRestaurants);
       
       
