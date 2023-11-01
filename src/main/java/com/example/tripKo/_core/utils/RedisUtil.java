@@ -18,9 +18,9 @@ import com.example.tripKo._core.security.data.RefreshToken;
 @Repository
 public class RedisUtil {
 
-    private final RedisTemplate redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
-    public RedisUtil(final RedisTemplate redisTemplate) {
+    public RedisUtil(final StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
