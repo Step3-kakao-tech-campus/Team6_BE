@@ -84,8 +84,8 @@ public class MemberService {
   @Transactional
   public void signUp(String memberId, String password, String nickName, String realName, String email,
       String nationality) {
-//    checkIsDuplicateEmail(email);
-//    checkIsDuplicateLoginId(memberId);
+    checkIsDuplicateEmail(email);
+    checkIsDuplicateLoginId(memberId);
 
     Member member = Member.builder()
         .memberId(memberId)
@@ -108,15 +108,15 @@ public class MemberService {
     return jwtProvider.generateToken(authentication);
   }
 
-//  private void checkIsDuplicateEmail(String email) {
-//    if (checkDuplicateService.isDuplicateEmail(email)) {
-//      throw new Exception404("동일한 이메일이 존재합니다.");
-//    }
-//  }
-//
-//  private void checkIsDuplicateLoginId(String memberId) {
-//    if (checkDuplicateService.isDuplicateLoginId(memberId)) {
-//      throw new Exception404("동일한 아이디가 존재합니다.");
-//    }
-//  }
+  private void checkIsDuplicateEmail(String email) {
+    if (checkDuplicateService.isDuplicateEmail(email)) {
+      throw new Exception404("동일한 이메일이 존재합니다.");
+    }
+  }
+
+  private void checkIsDuplicateLoginId(String memberId) {
+    if (checkDuplicateService.isDuplicateLoginId(memberId)) {
+      throw new Exception404("동일한 아이디가 존재합니다.");
+    }
+  }
 }
