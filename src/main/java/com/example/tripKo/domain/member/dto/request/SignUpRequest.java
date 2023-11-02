@@ -37,6 +37,4 @@ public class SignUpRequest {
 
   private String nationality;
 
-
-
 }

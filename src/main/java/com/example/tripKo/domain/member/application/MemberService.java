@@ -4,6 +4,7 @@ import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.security.JwtProvider;
 import com.example.tripKo._core.security.data.JwtToken;
 import com.example.tripKo.domain.member.MemberReservationStatus;
+import com.example.tripKo.domain.member.MemberRoleType;
 import com.example.tripKo.domain.member.application.convenience.CheckDuplicateService;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
@@ -80,23 +81,24 @@ public class MemberService {
     return ResponseDTO;
   }
 
-//  @Transactional
-//  public void signUp(String memberId, String password, String nickName, String realName, String email,
-//      String nationality) {
+  @Transactional
+  public void signUp(String memberId, String password, String nickName, String realName, String email,
+      String nationality) {
 //    checkIsDuplicateEmail(email);
 //    checkIsDuplicateLoginId(memberId);
-//
-//    Member member = Member.builder()
-//        .memberId(memberId)
-//        .password(password)
-//        .nickName(nickName)
-//        .realName(realName)
-//        .emailAddress(email)
-//        .nationality(nationality)
-//        .build();
-//
-//    memberRepository.save(member);
-//  }
+
+    Member member = Member.builder()
+        .memberId(memberId)
+        .password(passwordEncoder.encode(password))
+        .nickName(nickName)
+        .realName(realName)
+        .emailAddress(email)
+        .nationality(nationality)
+        .role(MemberRoleType.MEMBER)
+        .build();
+
+    memberRepository.save(member);
+  }
 
   public JwtToken signIn(SignInRequest request) {
     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
