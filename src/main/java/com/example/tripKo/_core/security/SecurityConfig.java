@@ -8,7 +8,6 @@ import com.example.tripKo._core.security.filter.RefreshTokenFilter;
 import com.example.tripKo._core.utils.FilterResponseUtils;
 import com.example.tripKo._core.utils.RedisUtil;
 import com.example.tripKo.domain.member.MemberRoleType;
-import com.example.tripKo.domain.member.dao.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +16,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -64,8 +61,8 @@ public class SecurityConfig {
           FilterResponseUtils.forbidden(response, new Exception403("권한이 없습니다"));
         }))
         .and()
-        .addFilterBefore(new JwtAuthFilter(jwtProvider, redisUtil), UsernamePasswordAuthenticationFilter.class);
-//        .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
+        .addFilterBefore(new JwtAuthFilter(jwtProvider, redisUtil), UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
     //h2-console 접속을 위해 허용
     http.headers().frameOptions().sameOrigin();
 

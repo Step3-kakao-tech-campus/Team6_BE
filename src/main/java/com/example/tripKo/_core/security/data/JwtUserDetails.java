@@ -3,19 +3,16 @@ package com.example.tripKo._core.security.data;
 import com.example.tripKo.domain.member.entity.Member;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 
 @Builder
 @Data
 public class JwtUserDetails implements UserDetails {
+
   private final Member member;
 
   public JwtUserDetails(Member member) {
