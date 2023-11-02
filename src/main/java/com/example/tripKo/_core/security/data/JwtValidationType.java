@@ -12,5 +12,7 @@ public enum JwtValidationType {
 
   private final String message;
 
-  JwtValidationType(String message) {this.message = message;}
+  JwtValidationType(String message) {
+    this.message = message;
+  }
 }

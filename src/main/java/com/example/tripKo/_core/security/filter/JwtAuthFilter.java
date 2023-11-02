@@ -19,22 +19,22 @@ import org.springframework.web.filter.GenericFilterBean;
 @RequiredArgsConstructor
 public class JwtAuthFilter extends GenericFilterBean {
 
-    private final JwtProvider jwtProvider;
-    private final RedisUtil redisUtil;
+  private final JwtProvider jwtProvider;
+  private final RedisUtil redisUtil;
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String accessToken = jwtProvider.resolveAccessToken(httpServletRequest);
+  @Override
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
+    HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+    String accessToken = jwtProvider.resolveAccessToken(httpServletRequest);
 
-        if (accessToken != null) {
-            if (jwtProvider.validateToken(accessToken)) {
-                Authentication authentication = jwtProvider.getAuthentication(accessToken);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-        }
-        chain.doFilter(request, response);
+    if (accessToken != null) {
+      if (jwtProvider.validateToken(accessToken)) {
+        Authentication authentication = jwtProvider.getAuthentication(accessToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+      }
     }
+    chain.doFilter(request, response);
+  }
 
 }

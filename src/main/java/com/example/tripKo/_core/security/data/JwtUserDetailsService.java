@@ -12,18 +12,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
-    private final MemberRepository memberRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
-        return memberRepository.findByMemberId(memberId)
-            .map(this::createUserDetails)
-            .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + memberId));
-    }
+  private final MemberRepository memberRepository;
 
-    private UserDetails createUserDetails(Member member) {
-           return JwtUserDetails.builder()
-                   .member(member)
-                   .build();
-    }
+  @Override
+  public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
+    return memberRepository.findByMemberId(memberId)
+        .map(this::createUserDetails)
+        .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + memberId));
+  }
+
+  private UserDetails createUserDetails(Member member) {
+    return JwtUserDetails.builder()
+        .member(member)
+        .build();
+  }
 }

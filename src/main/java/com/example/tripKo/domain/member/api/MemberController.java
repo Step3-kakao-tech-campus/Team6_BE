@@ -58,9 +58,9 @@ public class MemberController {
   public ResponseEntity<Void> signIn(@RequestBody @Valid SignInRequest request) {
     JwtToken jwtToken = memberService.signIn(request);
     return ResponseEntity.ok()
-            .header(HttpHeaders.AUTHORIZATION, jwtToken.getGrantType() + jwtToken.getAccessToken())
-            .header("Refresh-Token", jwtToken.getRefreshToken())
-            .build();
+        .header(HttpHeaders.AUTHORIZATION, jwtToken.getGrantType() + jwtToken.getAccessToken())
+        .header("Refresh-Token", jwtToken.getRefreshToken())
+        .build();
   }
 
 }

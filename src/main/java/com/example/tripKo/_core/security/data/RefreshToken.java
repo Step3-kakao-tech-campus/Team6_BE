@@ -9,9 +9,9 @@ import javax.persistence.Id;
 @Getter
 public class RefreshToken {
 
-    // memberId
-    @Id
-    private String id;
+  // memberId
+  @Id
+  private String id;
 
-    private String refreshToken;
+  private String refreshToken;
 }

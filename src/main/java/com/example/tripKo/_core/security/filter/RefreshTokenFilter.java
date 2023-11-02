@@ -20,40 +20,40 @@ import org.springframework.web.filter.GenericFilterBean;
 @RequiredArgsConstructor
 public class RefreshTokenFilter extends GenericFilterBean {
 
-    private final JwtProvider jwtProvider;
-    private final RedisUtil redisUtil;
+  private final JwtProvider jwtProvider;
+  private final RedisUtil redisUtil;
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String accessToken = jwtProvider.resolveAccessToken(httpServletRequest);
+  @Override
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
+    HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+    String accessToken = jwtProvider.resolveAccessToken(httpServletRequest);
 
-        if (accessToken != null) {
-        String id = jwtProvider.getAuthId(accessToken);
-        JwtValidationType jwtValidationType = JwtValidationType.valueOf(accessToken);
+    if (accessToken != null) {
+      String id = jwtProvider.getAuthId(accessToken);
+      JwtValidationType jwtValidationType = JwtValidationType.valueOf(accessToken);
 
-        final var refreshToken = jwtProvider.resolveRefreshToken(httpServletRequest);
-        boolean isRefreshTokenValid = jwtProvider.validateToken(refreshToken);
-        boolean isAccessExpiredAndRefreshValid = isAccessTokenExpired(jwtValidationType) && isRefreshTokenValid
-            && isTokenInRedis(id, refreshToken);
+      final var refreshToken = jwtProvider.resolveRefreshToken(httpServletRequest);
+      boolean isRefreshTokenValid = jwtProvider.validateToken(refreshToken);
+      boolean isAccessExpiredAndRefreshValid = isAccessTokenExpired(jwtValidationType) && isRefreshTokenValid
+          && isTokenInRedis(id, refreshToken);
 
-        if (isAccessExpiredAndRefreshValid) {
-            String newAccessToken = jwtProvider.createAccessToken(id);
-            Authentication authentication = jwtProvider.getAuthentication(newAccessToken);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-        }
-        chain.doFilter(request, response);
+      if (isAccessExpiredAndRefreshValid) {
+        String newAccessToken = jwtProvider.createAccessToken(id);
+        Authentication authentication = jwtProvider.getAuthentication(newAccessToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+      }
     }
+    chain.doFilter(request, response);
+  }
 
-    private static boolean isAccessTokenExpired(JwtValidationType jwtValidationType) {
-        return EXPIRED.equals(jwtValidationType);
-    }
+  private static boolean isAccessTokenExpired(JwtValidationType jwtValidationType) {
+    return EXPIRED.equals(jwtValidationType);
+  }
 
-    private boolean isTokenInRedis(String id, String refreshToken) {
-        Optional<String> tokenInRedis = redisUtil.getData(id);
-        return tokenInRedis.orElseThrow(() -> new RuntimeException("Token not found in Redis")).equals(refreshToken);
-    }
+  private boolean isTokenInRedis(String id, String refreshToken) {
+    Optional<String> tokenInRedis = redisUtil.getData(id);
+    return tokenInRedis.orElseThrow(() -> new RuntimeException("Token not found in Redis")).equals(refreshToken);
+  }
 
 }

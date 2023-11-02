@@ -12,6 +12,7 @@ import java.util.Collection;
 @Builder
 @Data
 public class JwtUserDetails implements UserDetails {
+
   private final Member member;
 
   public JwtUserDetails(Member member) {

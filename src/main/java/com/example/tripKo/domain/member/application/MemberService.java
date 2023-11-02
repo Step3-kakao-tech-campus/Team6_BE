@@ -57,26 +57,28 @@ public class MemberService {
   @Transactional
   public RestaurantReservationSelectResponse selectRestaurantReservationDate(Long id) {
     PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(id)
-            .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + id));
+        .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + id));
     RestaurantReservationSelectResponse ResponseDTO = new RestaurantReservationSelectResponse(placeRestaurant);
     return ResponseDTO;
   }
 
   @Transactional
-  public RestaurantReservationConfirmResponse confirmRestaurantReservation(RestaurantReservationConfirmRequest requestDTO) {
+  public RestaurantReservationConfirmResponse confirmRestaurantReservation(
+      RestaurantReservationConfirmRequest requestDTO) {
     Member memberInfo = memberRepository.findById(requestDTO.getReservation().getMemberId())
-            .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + requestDTO.getReservation().getMemberId()));
+        .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + requestDTO.getReservation().getMemberId()));
     Place place = placeRepository.findById(requestDTO.getReservation().getPlaceId())
-            .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
+        .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
     MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
-            memberInfo,
-            MemberReservationStatus.예약완료,
-            place,
-            requestDTO);
+        memberInfo,
+        MemberReservationStatus.예약완료,
+        place,
+        requestDTO);
     memberReservationInfoRepository.save(saveMemberReservationInfo);
 
-    MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(requestDTO.getReservation().getId())
-            .orElseThrow(() -> new Exception404("예약이 완료되지 않았습니다. id : " + requestDTO.getReservation().getId()));
+    MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(
+            requestDTO.getReservation().getId())
+        .orElseThrow(() -> new Exception404("예약이 완료되지 않았습니다. id : " + requestDTO.getReservation().getId()));
     RestaurantReservationConfirmResponse ResponseDTO = new RestaurantReservationConfirmResponse(memberReservationInfo);
     return ResponseDTO;
   }

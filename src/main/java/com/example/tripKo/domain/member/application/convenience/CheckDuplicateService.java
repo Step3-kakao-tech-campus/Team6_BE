@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class CheckDuplicateService {
+
   private final MemberRepository memberRepository;
 
   public boolean isDuplicateEmail(String email) {
