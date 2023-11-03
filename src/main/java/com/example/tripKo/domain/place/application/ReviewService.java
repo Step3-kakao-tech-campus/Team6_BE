@@ -149,11 +149,6 @@ public class ReviewService {
         place.setReviewNumbers(reviewNumbers - 1);
         place.setAverageRating(average);
 
-        List<ReviewHasFile> reviewFiles = review.getReviewHasFiles();
-        for (ReviewHasFile reviewFile : reviewFiles) {
-            fileRepository.delete(reviewFile.getFile());
-        }
-
         reviewRepository.deleteById(reviewId);
     }
 

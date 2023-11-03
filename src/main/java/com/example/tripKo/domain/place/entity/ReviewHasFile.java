@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.REMOVE;
 import static lombok.AccessLevel.PROTECTED;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.FetchType.LAZY;
@@ -29,7 +30,7 @@ public class ReviewHasFile {
     @JoinColumn(name = "review_id", nullable = false)
     private Review review;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY, cascade = REMOVE)
     @JoinColumn(name = "file_id", nullable = false)
     private File file;
 
