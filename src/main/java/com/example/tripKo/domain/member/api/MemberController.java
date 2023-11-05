@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Validated
@@ -61,6 +62,14 @@ public class MemberController {
         .header(HttpHeaders.AUTHORIZATION, jwtToken.getGrantType() + jwtToken.getAccessToken())
         .header("Refresh-Token", jwtToken.getRefreshToken())
         .build();
+  }
+
+  @GetMapping("/sign-in")
+  public ResponseEntity<Void> socialSignIn(@RequestParam(value = "grantType") String grantType, @RequestParam(value = "accessToken") String accessToken, @RequestParam(value = "refreshToken") String refreshToken) {
+    return ResponseEntity.ok()
+            .header(HttpHeaders.AUTHORIZATION, grantType + accessToken)
+            .header("Refresh-Token", refreshToken)
+            .build();
   }
 
 }
