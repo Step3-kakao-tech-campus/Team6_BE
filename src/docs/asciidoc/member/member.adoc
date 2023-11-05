@@ -22,3 +22,15 @@ endif::[]
 // ==== Response
 //
 // include::{snippets}/get-restaurant-reservation-test/should_success_get_restaurant_reservation_info/http-response.adoc[]
+
+== *회원가입*
+
+=== 요청
+
+==== Request
+
+include::{snippets}/sign-up-test/success_sign-up_valid_request/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/sign-up-test/success_sign-up_valid_request/http-response.adoc[]

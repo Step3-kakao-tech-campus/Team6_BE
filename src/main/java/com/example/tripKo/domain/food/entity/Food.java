@@ -39,10 +39,18 @@ public class Food {
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "file_id", nullable = false)
-    private File file;
+    private File file; //메인 이미지
 
+    /*
     @OneToMany(fetch = LAZY, mappedBy = "food")
     private final List<FoodContents> foodContents = new ArrayList<>();
+     */
+
+    @Column
+    private String description;
+
+    @OneToMany(fetch = LAZY, mappedBy = "food")
+    private final List<FoodHasFile> foodImages = new ArrayList<>();
 
     @OneToMany(fetch = LAZY, mappedBy = "food")
     private final List<FoodHasPlaceRestaurants> foodHasPlaceRestaurants = new ArrayList<>();
@@ -54,17 +62,18 @@ public class Food {
 
 
     @Builder
-    public Food(String name, String summary, String keyword, FoodCategory foodCategory, File file) {
+    public Food(String name, String summary, String keyword, FoodCategory foodCategory, File file, String description) {
         this.name = name;
         this.summary = summary;
         this.keyword = keyword;
         this.foodCategory = foodCategory;
         this.file = file;
+        this.description = description;
         this.view = 0;
     }
 
-    public void addFoodContents(FoodContents foodContents) {
-        this.foodContents.add(foodContents);
+    public void addFoodHasFile(FoodHasFile foodHasFile) {
+        this.foodImages.add(foodHasFile);
     }
 
 

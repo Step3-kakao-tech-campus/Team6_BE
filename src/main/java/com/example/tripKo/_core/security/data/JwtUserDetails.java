@@ -3,19 +3,18 @@ package com.example.tripKo._core.security.data;
 import com.example.tripKo.domain.member.entity.Member;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 
 @Builder
 @Data
-public class JwtUserDetails implements UserDetails {
+public class JwtUserDetails implements UserDetails, OAuth2User {
+
   private final Member member;
 
   public JwtUserDetails(Member member) {
@@ -62,5 +61,14 @@ public class JwtUserDetails implements UserDetails {
     return true;
   }
 
+  @Override
+  public Map<String, Object> getAttributes() {
+    return null;
+  }
+
+  @Override
+  public String getName() {
+    return String.valueOf(member.getNickName());
+  }
 
 }
