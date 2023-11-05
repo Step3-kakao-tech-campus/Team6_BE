@@ -1,5 +1,6 @@
 package com.example.tripKo.domain.place.dto.request;
 
+import com.example.tripKo.domain.place.PlaceType;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 

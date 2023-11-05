@@ -1,5 +1,6 @@
 package com.example.tripKo.domain.place.dto.response.review;
 
+import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.Review;
 import lombok.Builder;
@@ -17,6 +18,7 @@ public class ReviewsResponse {
     static class ReviewDTO {
         private Long reviewId;
         private Long placeId;
+        private PlaceType type;
         private String visitTime;
         private int rating;
         private String description;
@@ -39,6 +41,7 @@ public class ReviewsResponse {
         return ReviewDTO.builder()
                 .reviewId(review.getId())
                 .placeId(review.getPlace().getId())
+                .type(review.getPlace().getPlaceType())
                 .visitTime(review.getUsageDate())
                 .rating(review.getScore())
                 .description(review.getDescription())
