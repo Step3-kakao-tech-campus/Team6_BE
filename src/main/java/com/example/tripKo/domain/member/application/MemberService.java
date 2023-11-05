@@ -105,7 +105,7 @@ public class MemberService {
 
   public JwtToken signIn(SignInRequest request) {
     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-        request.getMemberId(), request.getRawPassword());
+        request.getMemberId(), request.getPassword());
     Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
     return jwtProvider.generateToken(authentication);
   }

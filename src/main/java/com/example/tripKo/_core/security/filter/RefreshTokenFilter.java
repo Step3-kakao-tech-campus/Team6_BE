@@ -31,11 +31,11 @@ public class RefreshTokenFilter extends GenericFilterBean {
 
     if (accessToken != null) {
       String id = jwtProvider.getAuthId(accessToken);
-      JwtValidationType jwtValidationType = JwtValidationType.valueOf(accessToken);
+      boolean isAccessTokenExpired = jwtProvider.isTokenExpired(accessToken);
 
       final var refreshToken = jwtProvider.resolveRefreshToken(httpServletRequest);
       boolean isRefreshTokenValid = jwtProvider.validateToken(refreshToken);
-      boolean isAccessExpiredAndRefreshValid = isAccessTokenExpired(jwtValidationType) && isRefreshTokenValid
+      boolean isAccessExpiredAndRefreshValid = isAccessTokenExpired && isRefreshTokenValid
           && isTokenInRedis(id, refreshToken);
 
       if (isAccessExpiredAndRefreshValid) {
@@ -47,9 +47,9 @@ public class RefreshTokenFilter extends GenericFilterBean {
     chain.doFilter(request, response);
   }
 
-  private static boolean isAccessTokenExpired(JwtValidationType jwtValidationType) {
-    return EXPIRED.equals(jwtValidationType);
-  }
+//  private static boolean isAccessTokenExpired(JwtValidationType jwtValidationType) {
+//    return EXPIRED.equals(jwtValidationType);
+//  }
 
   private boolean isTokenInRedis(String id, String refreshToken) {
     Optional<String> tokenInRedis = redisUtil.getData(id);
