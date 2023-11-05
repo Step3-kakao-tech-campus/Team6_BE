@@ -46,7 +46,7 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests()
-        .antMatchers("/", "/sign-up/**", "/sign-in/**", "/social-sign-in/**", "/h2-console/**", "/login/**", "/oauth2/**") // 허용하는 것들 (추가 예정)
+        .antMatchers("/", "/sign-up/**", "/sign-in/**", "/social-sign-in/**", "/h2-console/**", "/login/**", "/oauth2/**", "/favicon.ico") // 허용하는 것들 (추가 예정)
         .permitAll()
         .anyRequest().hasRole(MemberRoleType.MEMBER.name())
         .and()
@@ -63,7 +63,7 @@ public class SecurityConfig {
         .userService(customOAuth2UserService)
         .and()
         .successHandler(oAuth2SuccessHandler)
-            .and()
+        .and()
         .exceptionHandling().authenticationEntryPoint(((request, response, authException) -> {
           FilterResponseUtils.unAuthorized(response, new Exception401("인증되지 않았습니다"));
         }))

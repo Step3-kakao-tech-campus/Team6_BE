@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class SignInRequest {
 
   private String memberId;
-  private String rawPassword;
+  private String password;
 
 }
