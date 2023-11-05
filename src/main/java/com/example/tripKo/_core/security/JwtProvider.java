@@ -170,4 +170,9 @@ public class JwtProvider {
   private static void setRoles(Claims claims, String[] roles) {
     claims.put(ROLES, String.join(SEPARATOR, roles));
   }
+
+  // 토큰이 만료되었는지
+  public boolean isTokenExpired(String token) {
+    return !parseClaims(token).getExpiration().after(new Date());
+  }
 }
