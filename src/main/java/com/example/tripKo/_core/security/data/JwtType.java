@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum JwtType {
-  ACCESS_TOKEN  ("accessToken", 30 * 60 * 1000L),
-  REFRESH_TOKEN ("refreshToken", 60 * 24 * 3 * 60 * 1000L);
+  ACCESS_TOKEN("accessToken", 30 * 60 * 1000L),
+  REFRESH_TOKEN("refreshToken", 60 * 24 * 3 * 60 * 1000L);
 
   private final String tokenName;
   private final long expiredMillis;
