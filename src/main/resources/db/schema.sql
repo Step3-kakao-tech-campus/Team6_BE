@@ -2,6 +2,7 @@ CREATE SCHEMA IF NOT EXISTS `tripKo` DEFAULT CHARACTER SET utf8mb4;
 
 USE `tripKo`;
 
+DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
                                          `id` bigint not null AUTO_INCREMENT,
                                          `created_date` timestamp,
@@ -13,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `address` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `address_category`;
 CREATE TABLE IF NOT EXISTS `address_category`  (
                                                    `id` bigint not null AUTO_INCREMENT,
                                                    `created_date` timestamp,
@@ -23,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `address_category`  (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `contents`;
 CREATE TABLE IF NOT EXISTS `contents` (
                                           `id` bigint not null AUTO_INCREMENT,
                                           `created_date` timestamp,
@@ -33,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `contents` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `contents_has_file`;
 CREATE TABLE IF NOT EXISTS `contents_has_file` (
                                                    `id` bigint not null AUTO_INCREMENT,
                                                    `created_date` timestamp,
@@ -42,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `contents_has_file` (
                                                    primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `contents_menu`;
 CREATE TABLE IF NOT EXISTS `contents_menu` (
                                                `id` bigint not null AUTO_INCREMENT,
                                                `created_date` timestamp,
@@ -55,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `contents_menu` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `file`;
 CREATE TABLE IF NOT EXISTS `file` (
                                       `id` bigint not null AUTO_INCREMENT,
                                       `created_date` timestamp,
@@ -64,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `file` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `food`;
 CREATE TABLE IF NOT EXISTS `food` (
                                       `id` bigint not null AUTO_INCREMENT,
                                       `description` varchar(1000),
@@ -76,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `food` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `food_has_file`;
 CREATE TABLE IF NOT EXISTS `food_has_file` (
                                                `id` bigint not null AUTO_INCREMENT,
                                                `file_id` bigint not null,
@@ -83,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `food_has_file` (
                                                primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `food_has_place_restaurants`;
 CREATE TABLE IF NOT EXISTS `food_has_place_restaurants` (
                                                             `id` bigint not null AUTO_INCREMENT,
                                                             `food_id` bigint not null,
@@ -90,11 +99,13 @@ CREATE TABLE IF NOT EXISTS `food_has_place_restaurants` (
                                                             primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `food_ingredients`;
 CREATE TABLE IF NOT EXISTS `food_ingredients` (
                                                   `food_id` bigint not null,
                                                   `ingredients_name` varchar(255)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `member`;
 CREATE TABLE IF NOT EXISTS `member` (
                                         `id` bigint not null AUTO_INCREMENT,
                                         `created_date` timestamp,
@@ -111,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `member` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `member_reservation_info`;
 CREATE TABLE IF NOT EXISTS `member_reservation_info` (
                                                          `id` bigint not null AUTO_INCREMENT,
                                                          `head_count` bigint not null,
@@ -123,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `member_reservation_info` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `place`;
 CREATE TABLE IF NOT EXISTS `place` (
                                        `id` bigint not null AUTO_INCREMENT,
                                        `created_date` timestamp,
@@ -138,6 +151,7 @@ CREATE TABLE IF NOT EXISTS `place` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `place_festival`;
 CREATE TABLE IF NOT EXISTS `place_festival` (
                                                 `id` bigint not null AUTO_INCREMENT,
                                                 `created_date` timestamp,
@@ -150,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `place_festival` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `place_restaurant`;
 CREATE TABLE IF NOT EXISTS `place_restaurant` (
                                                   `id` bigint not null AUTO_INCREMENT,
                                                   `created_date` timestamp,
@@ -165,6 +180,7 @@ CREATE TABLE IF NOT EXISTS `place_restaurant` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `place_tourist_spot`;
 CREATE TABLE IF NOT EXISTS `place_tourist_spot` (
                                                     `id` bigint not null AUTO_INCREMENT,
                                                     `created_date` timestamp,
@@ -174,6 +190,7 @@ CREATE TABLE IF NOT EXISTS `place_tourist_spot` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `review`;
 CREATE TABLE IF NOT EXISTS `review` (
                                         `id` bigint not null AUTO_INCREMENT,
                                         `description` varchar(255),
@@ -186,6 +203,7 @@ CREATE TABLE IF NOT EXISTS `review` (
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `review_has_file`;
 CREATE TABLE IF NOT EXISTS `review_has_file` (
                                                  `id` bigint not null AUTO_INCREMENT,
                                                  `file_id` bigint not null,

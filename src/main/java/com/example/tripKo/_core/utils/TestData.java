@@ -39,7 +39,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-@Profile("test")
+@Profile("prod")
 @RequiredArgsConstructor
 public class TestData implements CommandLineRunner {
     private final PlaceRepository placeRepository;
