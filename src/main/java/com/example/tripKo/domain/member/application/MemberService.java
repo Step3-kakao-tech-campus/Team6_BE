@@ -46,8 +46,8 @@ public class MemberService {
 
 
   @Transactional
-  public List<RestaurantReservationResponse> getRestaurantReservationInfo() {
-    List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAll();
+  public List<RestaurantReservationResponse> getRestaurantReservationInfo(Member member) {
+    List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAllByMember(member);
     List<RestaurantReservationResponse> responseList = memberReservationInfoList.stream()
         .map(memberReservationInfo -> RestaurantReservationResponse.from(memberReservationInfo))
         .collect(Collectors.toList());

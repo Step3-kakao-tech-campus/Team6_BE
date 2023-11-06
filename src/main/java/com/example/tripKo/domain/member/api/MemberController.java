@@ -1,12 +1,15 @@
 package com.example.tripKo.domain.member.api;
 
 import com.example.tripKo._core.security.data.JwtToken;
+import com.example.tripKo._core.security.data.JwtUserDetails;
 import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.member.application.MemberService;
 import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.request.SignUpRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import java.util.List;
+
+import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationConfirmResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSelectResponse;
@@ -14,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +32,9 @@ public class MemberController {
   private final MemberService memberService;
 
   @GetMapping("/userinfo/reservations/restaurant")
-  public ResponseEntity<?> getRestaurantReservationInfo() {
-    List<RestaurantReservationResponse> response = memberService.getRestaurantReservationInfo();
+  public ResponseEntity<?> getRestaurantReservationInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+    Member member = jwtUserDetails.getMember();
+    List<RestaurantReservationResponse> response = memberService.getRestaurantReservationInfo(member);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
     return ResponseEntity.ok(apiResult);
   }
