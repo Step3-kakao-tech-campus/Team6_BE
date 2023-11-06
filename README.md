@@ -5,6 +5,14 @@
 </br>
 
 ## 배포와 관련하여
+```
+kubectl get ingress
+kubectl get pods
+kubectl delete -k k8s/
+kubectl apply -k k8s/
+
+```
+
 
 ```
 
