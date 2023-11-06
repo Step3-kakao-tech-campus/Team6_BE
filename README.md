@@ -5,6 +5,8 @@
 </br>
 
 ## 배포와 관련하여
+kubectl apply -f secret.yml 한 다음 배포해야 한다.
+
 ```
 kubectl get ingress
 kubectl get pods
