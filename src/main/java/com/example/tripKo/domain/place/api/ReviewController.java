@@ -25,9 +25,6 @@ public class ReviewController {
     private final MemberRepository memberRepository;
     @PostMapping(path ="/restaurant/reviews", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> createPlaceRestaurantReview(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @ModelAttribute @Valid ReviewRequest reviewRequest) {
-        //Spring Security 개발되면 삭제
-        //원래 userDetails에서 Member를 가져오므로 현재 userDetails에서 Member를 가져왔다고 가정합니다.
-//        Member member = memberRepository.findById(reviewRequest.getMemberId()).orElseThrow(() -> new Exception404("해당 id를 가진 회원을 찾을 수 없습니다: " + reviewRequest.getMemberId()));
         Member member = jwtUserDetails.getMember();
 
         reviewService.createPlaceReview(reviewRequest, PlaceType.RESTAURANT, member);
@@ -61,9 +58,6 @@ public class ReviewController {
     */
     @PostMapping(path ="/festival/reviews", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> createFestivalReview(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @ModelAttribute @Valid ReviewRequest reviewRequest) {
-        //Spring Security 개발되면 삭제
-        //원래 userDetails에서 Member를 가져오므로 현재 userDetails에서 Member를 가져왔다고 가정합니다.
-//        Member member = memberRepository.findById(reviewRequest.getMemberId()).orElseThrow(() -> new Exception404("해당 id를 가진 회원을 찾을 수 없습니다: " + reviewRequest.getMemberId()));
         Member member = jwtUserDetails.getMember();
 
         reviewService.createPlaceReview(reviewRequest, PlaceType.FESTIVAL, member);
@@ -98,9 +92,6 @@ public class ReviewController {
     */
     @PostMapping(path ="/touristSpot/reviews", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> createTouristSpotReview(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @ModelAttribute @Valid ReviewRequest reviewRequest) {
-        //Spring Security 개발되면 삭제
-        //원래 userDetails에서 Member를 가져오므로 현재 userDetails에서 Member를 가져왔다고 가정합니다.
-//        Member member = memberRepository.findById(reviewRequest.getMemberId()).orElseThrow(() -> new Exception404("해당 id를 가진 회원을 찾을 수 없습니다: " + reviewRequest.getMemberId()));
         Member member = jwtUserDetails.getMember();
 
         reviewService.createPlaceReview(reviewRequest, PlaceType.TOURIST_SPOT, member);
