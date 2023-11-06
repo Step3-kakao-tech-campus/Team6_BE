@@ -6,7 +6,8 @@ import lombok.Getter;
 @Getter
 public class RestaurantReservationConfirmRequest {
 
-    private Reservation reservation;
+    //for test(private -> public)
+    public Reservation reservation;
 
     @Getter
     public static class Reservation {
