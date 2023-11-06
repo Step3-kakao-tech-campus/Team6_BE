@@ -24,8 +24,8 @@ spec:
               value: root
             - name: MYSQL_DATABASE
               value: tripko
-            #- name: MARIADB_DISABLE_UPGRADE_BACKUP
-            #  value: '1'
+            - name: MYSQL_DISABLE_UPGRADE_BACKUP
+              value: '1'
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: data
