@@ -17,7 +17,7 @@ public class TouristSpotResponse {
 
   private Long id;
   private String name;
-  private Float averageScore;
+  private double averageScore;
   private String mainImage;
   private List<Content> contents;
   private String address;
