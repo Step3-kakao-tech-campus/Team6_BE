@@ -126,6 +126,7 @@ public class ReviewService {
 
         // 이미지 파일을 업로드한 시간 정보가 들어간 이름으로 저장해서 업데이트한 사진이 기존 사진과 같은지 알 수 없음 -> 다 지우고 다시 저장
         deleteImages(reviewId);
+        reviewFileRepository.deleteAllByReviewId(reviewId);
 
         if (!reviewUpdateRequest.getImages().isEmpty()) {
             List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewUpdateRequest.getImages());
