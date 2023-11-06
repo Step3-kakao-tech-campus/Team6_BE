@@ -22,7 +22,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService reviewService;
-    private final MemberRepository memberRepository;
     @PostMapping(path ="/restaurant/reviews", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> createPlaceRestaurantReview(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @ModelAttribute @Valid ReviewRequest reviewRequest) {
         Member member = jwtUserDetails.getMember();
