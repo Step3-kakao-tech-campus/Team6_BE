@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: redis
 spec:
@@ -19,11 +19,6 @@ spec:
           image: redis:latest
           ports:
             - containerPort: 6379
-              name: redis
-              volumes:
-        - name: redis-data
-          persistentVolumneClamin:
-          claimName: redis-pvc
       #    env:
             #- name: TZ
             #  value: Asia/Seoul
@@ -49,15 +44,15 @@ spec:
       #   - name: init-db
       #     configMap:
       #       name: init-db
-  volumeClaimTemplates:
-    - metadata:
-        name: redis-pvc
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
+      #volumeClaimTemplates:
+      # - metadata:
+      #  name: redis-pvc
+      # spec:
+      #  accessModes:
+      #    - ReadWriteOnce
+      #  resources:
+      #    requests:
+      #      storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
