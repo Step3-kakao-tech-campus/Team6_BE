@@ -47,8 +47,9 @@ public class MemberController {
   }
 
   @PostMapping("/restaurant/bookings")
-  public ResponseEntity<?> confirmReservation(@RequestBody @Valid RestaurantReservationConfirmRequest requestDTOs) {
-    RestaurantReservationConfirmResponse responseDTO = memberService.confirmRestaurantReservation(requestDTOs);
+  public ResponseEntity<?> confirmReservation(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody @Valid RestaurantReservationConfirmRequest requestDTOs) {
+    Member member = jwtUserDetails.getMember();
+    RestaurantReservationConfirmResponse responseDTO = memberService.confirmRestaurantReservation(member, requestDTOs);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
   }

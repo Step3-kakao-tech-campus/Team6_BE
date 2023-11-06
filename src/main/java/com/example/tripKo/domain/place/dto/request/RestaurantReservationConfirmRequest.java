@@ -6,8 +6,7 @@ import lombok.Getter;
 @Getter
 public class RestaurantReservationConfirmRequest {
 
-    //for test(private -> public)
-    public Reservation reservation;
+    private Reservation reservation;
 
     @Getter
     public static class Reservation {
@@ -21,8 +20,6 @@ public class RestaurantReservationConfirmRequest {
         private String reservationTime;
         @NotNull
         private Long headCount;
-        @NotNull
-        private Long memberId;
         private String message;
     }
 }
