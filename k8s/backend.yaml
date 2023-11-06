@@ -20,7 +20,7 @@ spec:
             - name: TZ
               value: Asia/Seoul
             - name: DATABASE_URL
-              value: jdbc:mysql://mysql/tripko
+              value: jdbc:mysql://mysql/tripko?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false
           resources:
             requests:
               memory: 1Gi
