@@ -41,7 +41,6 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 }
 
-/*
 tasks.named('test') {
 	useJUnitPlatform()
 }
@@ -55,7 +54,7 @@ tasks.named('test') {
 	systemProperty 'file.encoding', 'UTF-8'
 	useJUnitPlatform()
 }
-*/
+
 /*
 tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
