@@ -20,14 +20,14 @@ spec:
             - name: TZ
               value: Asia/Seoul
             - name: DATABASE_URL
-              value: jdbc:mysql://mysql:3306/tripko
+              value: jdbc:mysql://mysql/tripko
           resources:
             requests:
               memory: 1Gi
-          readinessProbe:
-            httpGet:
-              path: /api/test
-              port: 8080
+      #    readinessProbe:
+      #      httpGet:
+      #        path: /api/test
+      #        port: 8080
 ---
 apiVersion: v1
 kind: Service
