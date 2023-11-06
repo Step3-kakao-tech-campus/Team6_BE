@@ -84,10 +84,11 @@ public class ReviewService {
 
         //업데이트 된 평균 별점 저장
         int reviewNumbers = place.getReviewNumbers();
-        float average = place.getAverageRating();
+        double average = place.getAverageRating();
 
         //실수 -> 정수 과정에서 데이터가 손실될 수도 있을 것 같다.
-        average = ((float)reviewRequest.getRating() + average * reviewNumbers) / (reviewNumbers + 1);
+        average = ((double)reviewRequest.getRating() + average * reviewNumbers) / (reviewNumbers + 1);
+        average = Math.round(average * 10)/10.0;
         place.setReviewNumbers(reviewNumbers + 1);
         place.setAverageRating(average);
     }
@@ -119,6 +120,7 @@ public class ReviewService {
         Place place = placeRepository.findById(reviewUpdateRequest.getPlaceId())
                 .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + reviewUpdateRequest.getPlaceId()));
 
+        int originalRate = review.getScore();
         review.update(reviewUpdateRequest);
 
 
@@ -136,10 +138,12 @@ public class ReviewService {
 
         //평균 별점 업데이트
         int reviewNumbers = place.getReviewNumbers();
-        float average = place.getAverageRating();
+        double average = place.getAverageRating();
 
-        average = ((float)reviewUpdateRequest.getRating() + average * reviewNumbers) / (reviewNumbers + 1);
-        place.setReviewNumbers(reviewNumbers + 1);
+
+        average = ((double)reviewUpdateRequest.getRating() + (average * reviewNumbers) - originalRate) / (reviewNumbers);
+        average = Math.round(average * 10)/10.0;
+        place.setReviewNumbers(reviewNumbers);
         place.setAverageRating(average);
 
     }
@@ -150,10 +154,13 @@ public class ReviewService {
                 .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
         Place place = placeRepository.findById(review.getPlace().getId()).orElseThrow();
 
-        int reviewNumbers = place.getReviewNumbers();
-        float average = place.getAverageRating();
+        deleteImages(reviewId);
 
-        average = ((float) average * reviewNumbers - review.getScore()) / (reviewNumbers - 1);
+        int reviewNumbers = place.getReviewNumbers();
+        double average = place.getAverageRating();
+
+        average = ((double) average * reviewNumbers - review.getScore()) / (reviewNumbers - 1);
+        average = Math.round(average * 10)/10.0;
         place.setReviewNumbers(reviewNumbers - 1);
         place.setAverageRating(average);
 
@@ -231,6 +238,7 @@ public class ReviewService {
         return fileEntities;
     }
 
+
     private void deleteImages(Long reviewId) {
 
 
@@ -250,6 +258,7 @@ public class ReviewService {
 
         List<ReviewHasFile> reviewHasFiles = reviewFileRepository.findAllByReviewId(reviewId);
 
+        // cascade로 대체
         // 파일 엔티티들 먼저 지우고
         for(ReviewHasFile reviewHasFile : reviewHasFiles) {
             com.example.tripKo.domain.file.entity.File fileEntity = fileRepository.findById(reviewHasFile.getFile().getId())
@@ -270,10 +279,10 @@ public class ReviewService {
                 throw new Exception500("삭제하려는 이미지가 없습니다.");
             }
 
-            fileRepository.deleteById(reviewHasFile.getFile().getId());
+//            fileRepository.deleteById(reviewHasFile.getFile().getId());
         }
         // 리뷰 파일 엔티티들 지우기
-        reviewFileRepository.deleteAllByReviewId(reviewId);
+//        reviewFileRepository.deleteAllByReviewId(reviewId);
     }
 
 }

@@ -26,7 +26,7 @@ public class ReviewsResponse {
         private List<String> images = new ArrayList<>();
     }
 
-    private float averageRating;
+    private double averageRating;
     private List<ReviewDTO> reviews = new ArrayList<>();
 
     public ReviewsResponse(List<Review> reviewEntities, Place place) {

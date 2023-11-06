@@ -26,7 +26,7 @@ public class FoodDetailsResponse {
         private String name;
         private String location;
         private String image;
-        private float averageRating;
+        private double averageRating;
     }
 
     public FoodDetailsResponse(Food food) {
