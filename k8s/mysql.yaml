@@ -21,7 +21,10 @@ spec:
             - name: TZ
               value: Asia/Seoul
             - name: MYSQL_ROOT_PASSWORD
-              value: root
+              valueFrom:
+                  secretKeyRef:
+                      name: env-secret
+                      key: mysql_root_password
             - name: MYSQL_DATABASE
               value: tripko
             - name: MYSQL_DISABLE_UPGRADE_BACKUP

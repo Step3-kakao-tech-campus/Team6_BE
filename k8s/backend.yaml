@@ -20,7 +20,17 @@ spec:
             - name: TZ
               value: Asia/Seoul
             - name: DATABASE_URL
-              value: jdbc:mysql://mysql:3306/tripko?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false
+              value: jdbc:mysql://mysql:3306/tripko
+            - name: CLIENT_ID
+              valueFrom:
+                  secretKeyRef:
+                      name: env-secret
+                      key: client_id
+            - name: CLIENT_SECRET
+              valueFrom:
+                  secretKeyRef:
+                      name: env-secret
+                      key: client_secret
           resources:
             requests:
               memory: 1Gi

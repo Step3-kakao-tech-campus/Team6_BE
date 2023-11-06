@@ -38,4 +38,5 @@ out/
 
 src/main/resources/reviews/
 
-application-oauth.properties
+secret.yaml
+
