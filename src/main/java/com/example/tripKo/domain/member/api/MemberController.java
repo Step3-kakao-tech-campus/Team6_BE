@@ -40,10 +40,10 @@ public class MemberController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @PostMapping("/userinfo/isReviewed")
-  public ResponseEntity<?> getReviewCreated(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, Long placeId) {
+  @PostMapping("/userinfo/isReviewed/{type}/{placeId}")
+  public ResponseEntity<?> getReviewCreated(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @PathVariable String type, @PathVariable Long placeId) {
     Member member = jwtUserDetails.getMember();
-    IsReviewedResponse response = new IsReviewedResponse(memberService.getReviewCreated(member, placeId));
+    IsReviewedResponse response = memberService.getReviewCreated(member, placeId);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
     return ResponseEntity.ok(apiResult);
   }

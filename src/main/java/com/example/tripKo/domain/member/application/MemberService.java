@@ -10,6 +10,7 @@ import com.example.tripKo.domain.member.application.convenience.CheckDuplicateSe
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
 import com.example.tripKo.domain.member.dto.request.SignInRequest;
+import com.example.tripKo.domain.member.dto.response.IsReviewedResponse;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.member.entity.MemberReservationInfo;
@@ -116,9 +117,9 @@ public class MemberService {
     return jwtProvider.generateToken(authentication);
   }
 
-  public boolean getReviewCreated(Member member, Long placeId) {
+  public IsReviewedResponse getReviewCreated(Member member, Long placeId) {
     Review sameReview = reviewRepository.findReviewByMemberIdAndPlaceId(member.getId(), placeId);
-    return !Objects.isNull(sameReview);
+    return IsReviewedResponse.builder().isReviewed(!Objects.isNull(sameReview)).reviewId(sameReview.getId()).build();
   }
 
   private void checkIsDuplicateEmail(String email) {
