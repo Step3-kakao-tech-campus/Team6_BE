@@ -55,7 +55,7 @@ public class MemberController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<Void> signUp(@RequestBody SignUpRequest request) {
+  public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest request) {
     memberService.signUp(request.getMemberId(), request.getPassword(), request.getNickName(), request.getRealName(),
         request.getEmail(), request.getNationality());
     return ResponseEntity.status(HttpStatus.CREATED).build();
