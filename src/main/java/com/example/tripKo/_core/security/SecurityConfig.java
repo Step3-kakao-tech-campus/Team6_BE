@@ -46,7 +46,7 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests()
-        .antMatchers("/", "/sign-up/**", "/sign-in/**", "/social-sign-in/**", "/h2-console/**", "/login/**", "/oauth2/**", "/favicon.ico") // 허용하는 것들 (추가 예정)
+        .antMatchers("/", "/home", "/register/**", "/login/**", "/social-sign-in/**", "/h2-console/**", "/oauth2/**", "/favicon.ico") // 허용하는 것들 (추가 예정)
         .permitAll()
         .anyRequest().hasRole(MemberRoleType.MEMBER.name())
         .and()

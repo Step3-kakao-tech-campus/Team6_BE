@@ -54,28 +54,20 @@ public class MemberController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @PostMapping("/sign-up")
+  @PostMapping("/register")
   public ResponseEntity<Void> signUp(@RequestBody SignUpRequest request) {
     memberService.signUp(request.getMemberId(), request.getPassword(), request.getNickName(), request.getRealName(),
         request.getEmail(), request.getNationality());
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
-  @PostMapping("/sign-in")
+  @PostMapping("/login")
   public ResponseEntity<Void> signIn(@RequestBody @Valid SignInRequest request) {
     JwtToken jwtToken = memberService.signIn(request);
     return ResponseEntity.ok()
         .header(HttpHeaders.AUTHORIZATION, jwtToken.getGrantType() + jwtToken.getAccessToken())
         .header("Refresh-Token", jwtToken.getRefreshToken())
         .build();
-  }
-
-  @GetMapping("/sign-in")
-  public ResponseEntity<Void> socialSignIn(@RequestParam(value = "grantType") String grantType, @RequestParam(value = "accessToken") String accessToken, @RequestParam(value = "refreshToken") String refreshToken) {
-    return ResponseEntity.ok()
-            .header(HttpHeaders.AUTHORIZATION, grantType + accessToken)
-            .header("Refresh-Token", refreshToken)
-            .build();
   }
 
 }
