@@ -19,7 +19,7 @@ public class PlaceFestivalResponse {
 
   @Builder
   public PlaceFestivalResponse(PlaceFestival placeFestival) {
-    this.id = placeFestival.getId();
+    this.id = placeFestival.getPlace().getId();
     this.name = placeFestival.getPlace().getName();
     this.summary = placeFestival.getPlace().getSummary();
     this.image = placeFestival.getPlace().getFile().getName();

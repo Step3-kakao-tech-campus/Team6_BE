@@ -19,7 +19,7 @@ public class PlaceRestaurantResponse {
 
   @Builder
   public PlaceRestaurantResponse(PlaceRestaurant placeRestaurant) {
-    this.id = placeRestaurant.getId();
+    this.id = placeRestaurant.getPlace().getId();
     this.name = placeRestaurant.getPlace().getName();
     this.summary = placeRestaurant.getPlace().getSummary();
     this.image = placeRestaurant.getPlace().getFile().getName();
