@@ -12,12 +12,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    @Query("select r from Review r where r.member.id = :memberId" +
-            " and r.place.id = :placeId" +
-            " and r.usageDate = :usageDate")
-    Review findReviewByMemberIdAndPlaceIdAndUsageDate(@Param("memberId") Long memberId,
-                                                  @Param("placeId") Long placeId,
-                                                  @Param("usageDate") String usageDate);
+
+    Review findReviewByMemberIdAndPlaceId(Long memberId, Long placeId);
 
 
 

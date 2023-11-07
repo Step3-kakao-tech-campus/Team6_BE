@@ -6,6 +6,7 @@ import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.member.application.MemberService;
 import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.request.SignUpRequest;
+import com.example.tripKo.domain.member.dto.response.IsReviewedResponse;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import java.util.List;
 
@@ -35,6 +36,14 @@ public class MemberController {
   public ResponseEntity<?> getRestaurantReservationInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Member member = jwtUserDetails.getMember();
     List<RestaurantReservationResponse> response = memberService.getRestaurantReservationInfo(member);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @PostMapping("/userinfo/isReviewed")
+  public ResponseEntity<?> getReviewCreated(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, Long placeId) {
+    Member member = jwtUserDetails.getMember();
+    IsReviewedResponse response = new IsReviewedResponse(memberService.getReviewCreated(member, placeId));
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
     return ResponseEntity.ok(apiResult);
   }

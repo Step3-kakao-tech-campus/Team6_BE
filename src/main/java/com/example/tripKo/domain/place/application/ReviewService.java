@@ -53,15 +53,15 @@ public class ReviewService {
 
         MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findByMemberAndPlaceAndStatus(member, place, MemberReservationStatus.예약완료);
 
-        //usageDate는 일단 review를 작성한 날짜로 하였다. 나중에 로직 수정 필요
+        //usageDate는 일단 review를 작성한 날짜로 하였다.
         String usageDate = memberReservationInfo.getReservationDate();
 //        LocalDate usageDate = LocalDate.parse(usageDate, DateTimeFormatter.ISO_DATE);
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
         //리뷰 완료 상태일 경우 리뷰 작성 불가
         String status = memberReservationInfo.getStatus().name();
-        //같은 날짜에 동일한 가게를 리뷰했었다면 더이상 리뷰 작성 불가능
-        Review sameReview = reviewRepository.findReviewByMemberIdAndPlaceIdAndUsageDate(member.getId(), reviewRequest.getPlaceId(), usageDate);
+        //동일한 가게를 리뷰했었다면 더이상 리뷰 작성 불가능
+        Review sameReview = reviewRepository.findReviewByMemberIdAndPlaceId(member.getId(), reviewRequest.getPlaceId());
         if (!Objects.isNull(sameReview) || status.equals(MemberReservationStatus.리뷰완료.name())) throw new Exception400("이미 작성한 리뷰가 존재합니다.");
 
         Review review = Review.builder()

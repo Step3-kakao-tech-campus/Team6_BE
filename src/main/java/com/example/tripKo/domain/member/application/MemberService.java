@@ -1,5 +1,6 @@
 package com.example.tripKo.domain.member.application;
 
+import com.example.tripKo._core.errors.exception.Exception400;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.security.JwtProvider;
 import com.example.tripKo._core.security.data.JwtToken;
@@ -13,15 +14,18 @@ import com.example.tripKo.domain.member.dto.response.RestaurantReservationRespon
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.member.entity.MemberReservationInfo;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.example.tripKo.domain.place.dao.PlaceRepository;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
+import com.example.tripKo.domain.place.dao.ReviewRepository;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationConfirmResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSelectResponse;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
+import com.example.tripKo.domain.place.entity.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -39,6 +43,7 @@ public class MemberService {
   private final MemberRepository memberRepository;
   private final PlaceRestaurantRepository placeRestaurantRepository;
   private final PlaceRepository placeRepository;
+  private final ReviewRepository reviewRepository;
   private final JwtProvider jwtProvider;
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -111,6 +116,11 @@ public class MemberService {
     return jwtProvider.generateToken(authentication);
   }
 
+  public boolean getReviewCreated(Member member, Long placeId) {
+    Review sameReview = reviewRepository.findReviewByMemberIdAndPlaceId(member.getId(), placeId);
+    return !Objects.isNull(sameReview);
+  }
+
   private void checkIsDuplicateEmail(String email) {
     if (checkDuplicateService.isDuplicateEmail(email)) {
       throw new Exception404("동일한 이메일이 존재합니다.");
@@ -122,4 +132,6 @@ public class MemberService {
       throw new Exception404("동일한 아이디가 존재합니다.");
     }
   }
+
+
 }
