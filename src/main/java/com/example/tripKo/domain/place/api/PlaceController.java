@@ -18,7 +18,7 @@ public class PlaceController {
 
   private final PlaceService placeService;
 
-  @RequestMapping(value = "/{location:^(?:(?!h2-console$|login$|register).)}", method = RequestMethod.GET)
+  @RequestMapping(value = "/{location:^(?:(?!h2-console$|login$|register).)*}", method = RequestMethod.GET)
   public ResponseEntity<?> findAllByLocation(@PathVariable String location) {
     PlaceResponse responseDTO = placeService.findAllByLocation(location);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
