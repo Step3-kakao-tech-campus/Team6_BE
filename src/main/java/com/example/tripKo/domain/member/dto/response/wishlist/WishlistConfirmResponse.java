@@ -1,4 +1,4 @@
-package com.example.tripKo.domain.member.dto.response;
+package com.example.tripKo.domain.member.dto.response.wishlist;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Builder
 @AllArgsConstructor(access = PRIVATE)
-public class WishlistResponse {
+public class WishlistConfirmResponse {
     private Long id;
     private String placeName;
 }
