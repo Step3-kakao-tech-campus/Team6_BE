@@ -16,9 +16,6 @@ public class ReviewRequest {
     private Long placeId;
 
     @NotNull
-    private Long memberId; //Spring Security 개발되면 삭제
-
-    @NotNull
     private int rating;
 
     private String description;

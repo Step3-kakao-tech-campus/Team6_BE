@@ -20,8 +20,6 @@ public class RestaurantReservationConfirmRequest {
         private String reservationTime;
         @NotNull
         private Long headCount;
-        @NotNull
-        private Long memberId;
         private String message;
     }
 }

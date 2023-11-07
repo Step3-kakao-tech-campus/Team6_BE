@@ -46,8 +46,8 @@ public class MemberService {
 
 
   @Transactional
-  public List<RestaurantReservationResponse> getRestaurantReservationInfo() {
-    List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAll();
+  public List<RestaurantReservationResponse> getRestaurantReservationInfo(Member member) {
+    List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAllByMember(member);
     List<RestaurantReservationResponse> responseList = memberReservationInfoList.stream()
         .map(memberReservationInfo -> RestaurantReservationResponse.from(memberReservationInfo))
         .collect(Collectors.toList());
@@ -64,13 +64,14 @@ public class MemberService {
 
   @Transactional
   public RestaurantReservationConfirmResponse confirmRestaurantReservation(
+      Member member,
       RestaurantReservationConfirmRequest requestDTO) {
-    Member memberInfo = memberRepository.findById(requestDTO.getReservation().getMemberId())
-        .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + requestDTO.getReservation().getMemberId()));
+//    Member memberInfo = memberRepository.findById(requestDTO.getReservation().getMemberId())
+//        .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + requestDTO.getReservation().getMemberId()));
     Place place = placeRepository.findById(requestDTO.getReservation().getPlaceId())
         .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
     MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
-        memberInfo,
+        member,
         MemberReservationStatus.예약완료,
         place,
         requestDTO);

@@ -59,7 +59,6 @@ public class MemberReservationInfo {
   @Column
   private String message;
 
-  @Builder
   public MemberReservationInfo(Member member, MemberReservationStatus status, Place place, RestaurantReservationConfirmRequest reservationConfirm) {
     this.member = member;
     this.headCount = reservationConfirm.getReservation().getHeadCount();
@@ -68,5 +67,20 @@ public class MemberReservationInfo {
     this.reservationDate = reservationConfirm.getReservation().getReservationDate();
     this.reservationTime = reservationConfirm.getReservation().getReservationTime();
     this.message = reservationConfirm.getReservation().getMessage();
+  }
+
+  @Builder
+  public MemberReservationInfo(Member member, Long headCount, MemberReservationStatus status, Place place, String reservationDate, String reservationTime, String message) {
+    this.member = member;
+    this.headCount = headCount;
+    this.status = status;
+    this.place = place;
+    this.reservationDate = reservationDate;
+    this.reservationTime = reservationTime;
+    this.message = message;
+  }
+
+  public void setStatus(MemberReservationStatus status) {
+    this.status = status;
   }
 }

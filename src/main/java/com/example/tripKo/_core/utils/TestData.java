@@ -2,12 +2,16 @@ package com.example.tripKo._core.utils;
 
 import com.example.tripKo.domain.food.dao.*;
 import com.example.tripKo.domain.food.entity.*;
+import com.example.tripKo.domain.member.MemberReservationStatus;
 import com.example.tripKo.domain.member.MemberRoleType;
 import com.example.tripKo.domain.member.dao.MemberRepository;
+import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
 import com.example.tripKo.domain.member.entity.Member;
+import com.example.tripKo.domain.member.entity.MemberReservationInfo;
 import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.dao.AddressCategoryRepository;
 import com.example.tripKo.domain.place.dao.AddressRepository;
+import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
 import com.example.tripKo.domain.place.entity.Address;
 import com.example.tripKo.domain.place.entity.AddressCategory;
 import com.example.tripKo.domain.food.FoodCategory;
@@ -58,7 +62,7 @@ public class TestData implements CommandLineRunner {
     private final FoodHasPlaceRestaurantRepository foodHasPlaceRestaurantRepository;
 
     private final MemberRepository memberRepository;
-
+    private final MemberReservationInfoRepository memberReservationInfoRepository;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -225,5 +229,19 @@ public class TestData implements CommandLineRunner {
                 Member.builder().role(MemberRoleType.MEMBER).realName("라마바").nickName("키키").emailAddress("1234@gmail.com").memberId("2").password(passwordEncoder.encode("1234qwer")).birthday("2023-01-01").build()
         );
         memberRepository.saveAll(members);
+
+        MemberReservationInfo memberReservationInfo = MemberReservationInfo.builder()
+                .member(members.get(0))
+                .headCount(2L)
+                .status(MemberReservationStatus.예약완료)
+                .place(places.get(0))
+                .reservationDate("2023-10-10")
+                .reservationTime("17:00")
+                .message("test")
+                .build();
+
+        memberReservationInfoRepository.save(memberReservationInfo);
+
     }
+
 }
