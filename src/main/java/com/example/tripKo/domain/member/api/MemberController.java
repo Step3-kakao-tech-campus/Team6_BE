@@ -6,15 +6,11 @@ import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.member.application.MemberService;
 import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.request.SignUpRequest;
-import com.example.tripKo.domain.member.dto.response.FestivalReservationResponse;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import java.util.List;
 
 import com.example.tripKo.domain.member.entity.Member;
-import com.example.tripKo.domain.place.dto.request.FestivalReservationConfirmRequest;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
-import com.example.tripKo.domain.place.dto.response.info.FestivalReservationConfirmResponse;
-import com.example.tripKo.domain.place.dto.response.info.FestivalReservationSelectResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationConfirmResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSelectResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +30,22 @@ import javax.validation.Valid;
 public class MemberController {
 
   private final MemberService memberService;
+
+  @GetMapping("/userinfo")
+  public ResponseEntity<?> getUserInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+    Member member = jwtUserDetails.getMember();
+    UserInfoResponse response = memberService.getUserInfo(member);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @PatchMapping("/userinfo/edit")
+  public ResponseEntity<?> setUserInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody @Valid UserInfoRequest userInfoRequest) {
+    Member member = jwtUserDetails.getMember();
+    memberService.setUserInfo(member, userInfoRequest);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
+    return ResponseEntity.ok(apiResult);
+  }
 
   @GetMapping("/userinfo/reservations/restaurant")
   public ResponseEntity<?> getRestaurantReservationInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {

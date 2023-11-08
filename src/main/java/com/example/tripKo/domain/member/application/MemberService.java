@@ -10,7 +10,9 @@ import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
 import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.response.FestivalReservationResponse;
+import com.example.tripKo.domain.member.dto.request.userInfo.UserInfoRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
+import com.example.tripKo.domain.member.dto.response.userInfo.UserInfoResponse;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.member.entity.MemberReservationInfo;
 import java.util.List;
@@ -32,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +54,16 @@ public class MemberService {
   private final AuthenticationManagerBuilder authenticationManagerBuilder;
   private final CheckDuplicateService checkDuplicateService;
 
+  @Transactional
+  public UserInfoResponse getUserInfo(Member member) {
+    UserInfoResponse userInfoResponse = UserInfoResponse.builder().member(member).build();
+    return userInfoResponse;
+  }
+
+  @Transactional
+  public void setUserInfo(Member member, UserInfoRequest userInfoRequest) {
+    member.updateUserInfo(userInfoRequest);
+  }
 
   @Transactional
   public List<RestaurantReservationResponse> getRestaurantReservationInfo(Member member) {
