@@ -57,18 +57,20 @@ public class ReviewService {
 
 
         //관광지 -> usageDate 작성 기준
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-        String usageDate = date.format(new Date());
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String usageDate = date.format(new Date()).split(" ")[0];
 
         //식당 & 축제 -> usageDate 예약 기준, 리뷰 제한
         if(placeType == PlaceType.RESTAURANT || placeType == PlaceType.FESTIVAL) {
             //예약 완료인 내역 검색
             MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findByMemberAndPlaceAndStatus(member, place, MemberReservationStatus.예약완료);
             String reservedDate = memberReservationInfo.getReservationDate();
+            String reservedTime = memberReservationInfo.getReservationTime();
 
             //리뷰 작성 날짜가 예약 날짜보다 앞인 경우 예외 처리
-            Timestamp ts1 = Timestamp.valueOf(usageDate);
-            Timestamp ts2 = Timestamp.valueOf(reservedDate);
+            Timestamp ts1 = Timestamp.valueOf(date.format(new Date()));
+            Timestamp ts2 = Timestamp.valueOf(reservedDate + " " + reservedTime);
+            //시간도 체크
             if(ts1.before(ts2)) {
                 throw new Exception404("리뷰는 예약 시간 이후에 작성 가능합니다.");
             } else {

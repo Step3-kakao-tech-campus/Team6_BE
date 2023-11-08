@@ -27,7 +27,7 @@ public class HomeResponse {
     private String summary;
     private String image;
     private String address;
-    private Float averageRating;
+    private double averageRating;
     private Boolean liked;
   }
 
