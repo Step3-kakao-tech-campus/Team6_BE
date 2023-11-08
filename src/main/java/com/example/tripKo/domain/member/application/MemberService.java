@@ -55,7 +55,13 @@ public class MemberService {
 
   @Transactional
   public void setUserInfo(Member member, UserInfoRequest userInfoRequest) {
+    //이메일 중복 여부 체크
+    Member emailCheck = memberRepository.findByEmailAddressAndMemberIdNot(userInfoRequest.getEmail(), member.getMemberId()).orElse(null);
+    if (emailCheck != null) {
+      throw new Exception404("이미 다른 사람이 사용 중인 이메일입니다. email : " + userInfoRequest.getEmail());
+    }
     member.updateUserInfo(userInfoRequest);
+    memberRepository.save(member);
   }
 
   @Transactional
