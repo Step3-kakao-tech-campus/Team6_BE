@@ -1,5 +1,6 @@
 package com.example.tripKo.domain.place.dao;
 
+import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -21,5 +22,7 @@ public interface PlaceTouristSpotRepository extends JpaRepository<PlaceTouristSp
     Page<PlaceTouristSpot> findTouristSpotByLocation(@Param("location") String location, Pageable pageable);
 
     Optional<PlaceTouristSpot> findByIdAndIdNot(Long id, Long virtualId);
+
+    Optional<PlaceTouristSpot> findByPlace(Place place);
 
 }
