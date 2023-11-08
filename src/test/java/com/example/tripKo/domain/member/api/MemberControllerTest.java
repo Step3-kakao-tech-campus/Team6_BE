@@ -24,13 +24,13 @@ public class MemberControllerTest extends IntegrationTest {
       SignUpRequest request = SignUpRequest.builder()
           .memberId("tripko123")
           .password("tripko1234!")
-          .nickName("트립코")
+          .nickName("트립코트립코")
           .realName("김철수")
           .email("tripko@tripko.com")
           .nationality("한국")
           .build();
 
-      mockMvc.perform(post("/sign-up")
+      mockMvc.perform(post("/register")
               .content(objectMapper.writeValueAsString(request))
               .contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().isCreated())
@@ -38,5 +38,94 @@ public class MemberControllerTest extends IntegrationTest {
           .andDo(document);
     }
 
+    @Test
+    @DisplayName("유효하지 않은 아이디면 테스트는 실패한다.")
+    public void fail_signUp_invalidId() throws Exception {
+      SignUpRequest request = SignUpRequest.builder()
+          .memberId("3")
+          .password("tripko1234!")
+          .nickName("트립코트립코")
+          .realName("김철수")
+          .email("tripko@tripko.com")
+          .nationality("한국")
+          .build();
+
+      mockMvc.perform(post("/register")
+              .content(objectMapper.writeValueAsString(request))
+              .contentType(MediaType.APPLICATION_JSON))
+          .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 비밀번호라면 테스트는 실패한다.")
+    public void fail_signUp_invalidPassword() throws Exception {
+      SignUpRequest request = SignUpRequest.builder()
+          .memberId("tripko123")
+          .password("tripko1234")
+          .nickName("트립코트립코")
+          .realName("김철수")
+          .email("tripko@tripko.com")
+          .nationality("한국")
+          .build();
+
+      mockMvc.perform(post("/register")
+              .content(objectMapper.writeValueAsString(request))
+              .contentType(MediaType.APPLICATION_JSON))
+          .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 닉네임이라면 테스트는 실패한다.")
+    public void fail_signUp_invalidNickname() throws Exception {
+      SignUpRequest request = SignUpRequest.builder()
+          .memberId("tripko123")
+          .password("tripko1234!")
+          .nickName("트립코")
+          .realName("김철수")
+          .email("tripko@tripko.com")
+          .nationality("한국")
+          .build();
+
+      mockMvc.perform(post("/register")
+              .content(objectMapper.writeValueAsString(request))
+              .contentType(MediaType.APPLICATION_JSON))
+          .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 이름 테스트는 실패한다.")
+    public void fail_signUp_invalidRealName() throws Exception {
+      SignUpRequest request = SignUpRequest.builder()
+          .memberId("tripko123")
+          .password("tripko1234!")
+          .nickName("트립코트립코")
+          .realName("김철수1")
+          .email("tripko@tripko.com")
+          .nationality("한국")
+          .build();
+
+      mockMvc.perform(post("/register")
+              .content(objectMapper.writeValueAsString(request))
+              .contentType(MediaType.APPLICATION_JSON))
+          .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    @DisplayName("유효하지 않은 이메일 양식이라면 테스트는 실패한다.")
+    public void fail_signUp_invalidEmail() throws Exception {
+      SignUpRequest request = SignUpRequest.builder()
+          .memberId("tripko123")
+          .password("tripko1234!")
+          .nickName("트립코트립코")
+          .realName("김철수")
+          .email("tripkotripko.com")
+          .nationality("한국")
+          .build();
+
+      mockMvc.perform(post("/register")
+              .content(objectMapper.writeValueAsString(request))
+              .contentType(MediaType.APPLICATION_JSON))
+          .andExpect(status().is5xxServerError());
+    }
   }
 }
