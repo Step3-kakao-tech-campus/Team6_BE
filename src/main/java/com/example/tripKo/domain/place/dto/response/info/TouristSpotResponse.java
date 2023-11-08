@@ -21,7 +21,7 @@ public class TouristSpotResponse {
   private String mainImage;
   private List<Content> contents;
   private String address;
-  private Boolean isWished;
+  private Boolean liked = false;
 
   @Builder
   @Getter
@@ -42,7 +42,7 @@ public class TouristSpotResponse {
             .map(TouristSpotResponse::mapContent)
             .collect(Collectors.toList()))
         .address(placeTouristSpot.getPlace().addressToString(placeTouristSpot.getPlace().getAddress()))
-        .isWished(false)
+        .liked(false)
         .build();
   }
 
