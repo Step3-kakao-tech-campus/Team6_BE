@@ -14,6 +14,7 @@ import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
 import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.request.userInfo.UserInfoRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
+import com.example.tripKo.domain.member.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.member.dto.response.userInfo.UserInfoResponse;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.member.entity.MemberReservationInfo;
@@ -25,14 +26,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.dao.PlaceRepository;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
+import com.example.tripKo.domain.place.dao.ReviewRepository;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
+import com.example.tripKo.domain.place.dto.request.ReviewUpdateRequest;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationConfirmResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSelectResponse;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
+import com.example.tripKo.domain.place.entity.Review;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -56,6 +63,7 @@ public class MemberService {
   private final AuthenticationManagerBuilder authenticationManagerBuilder;
   private final CheckDuplicateService checkDuplicateService;
   private final FileRepository fileRepository;
+  private final ReviewRepository reviewRepository;
 
   @Transactional
   public UserInfoResponse getUserInfo(Member member) {
@@ -81,7 +89,30 @@ public class MemberService {
 
     member.updateFile(file);
     memberRepository.save(member);
+  }
 
+  @Transactional
+  public List<ReviewsResponse> getRestaurantReviews(Member member, int page) {
+    Pageable pageable = PageRequest.of(page, 10);
+    List<Review> reviews = reviewRepository.findAllByMemberAndPlaceType(member, PlaceType.RESTAURANT, pageable);
+    List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build()).collect(Collectors.toList());
+    return reviewsResponses;
+  }
+
+  @Transactional
+  public List<ReviewsResponse> getFestivalReviews(Member member, int page) {
+    Pageable pageable = PageRequest.of(page, 10);
+    List<Review> reviews = reviewRepository.findAllByMemberAndPlaceType(member, PlaceType.FESTIVAL, pageable);
+    List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build()).collect(Collectors.toList());
+    return reviewsResponses;
+  }
+
+  @Transactional
+  public List<ReviewsResponse> getTouristSpotReviews(Member member, int page) {
+    Pageable pageable = PageRequest.of(page, 10);
+    List<Review> reviews = reviewRepository.findAllByMemberAndPlaceType(member, PlaceType.TOURIST_SPOT, pageable);
+    List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build()).collect(Collectors.toList());
+    return reviewsResponses;
   }
 
   @Transactional

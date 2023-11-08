@@ -10,6 +10,7 @@ import com.example.tripKo.domain.member.dto.request.userInfo.UserInfoRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import java.util.List;
 
+import com.example.tripKo.domain.member.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.member.dto.response.userInfo.UserInfoResponse;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
@@ -63,6 +64,30 @@ public class MemberController {
   public ResponseEntity<?> getRestaurantReservationInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Member member = jwtUserDetails.getMember();
     List<RestaurantReservationResponse> response = memberService.getRestaurantReservationInfo(member);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @GetMapping("/userinfo/reviews/restaurant")
+  public ResponseEntity<?> getRestaurantReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+    Member member = jwtUserDetails.getMember();
+    List<ReviewsResponse> response = memberService.getRestaurantReviews(member, page);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @GetMapping("/userinfo/reviews/festival")
+  public ResponseEntity<?> getFestivalReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+    Member member = jwtUserDetails.getMember();
+    List<ReviewsResponse> response = memberService.getFestivalReviews(member, page);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @GetMapping("/userinfo/reviews/touristSpot")
+  public ResponseEntity<?> getTouristSpotReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+    Member member = jwtUserDetails.getMember();
+    List<ReviewsResponse> response = memberService.getTouristSpotReviews(member, page);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
     return ResponseEntity.ok(apiResult);
   }
