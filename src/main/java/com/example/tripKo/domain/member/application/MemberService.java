@@ -9,18 +9,24 @@ import com.example.tripKo.domain.member.application.convenience.CheckDuplicateSe
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
 import com.example.tripKo.domain.member.dto.request.SignInRequest;
+import com.example.tripKo.domain.member.dto.response.FestivalReservationResponse;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import com.example.tripKo.domain.member.entity.Member;
 import com.example.tripKo.domain.member.entity.MemberReservationInfo;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.tripKo.domain.place.dao.PlaceFestivalRepository;
 import com.example.tripKo.domain.place.dao.PlaceRepository;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
+import com.example.tripKo.domain.place.dto.request.FestivalReservationConfirmRequest;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
+import com.example.tripKo.domain.place.dto.response.info.FestivalReservationConfirmResponse;
+import com.example.tripKo.domain.place.dto.response.info.FestivalReservationSelectResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationConfirmResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSelectResponse;
 import com.example.tripKo.domain.place.entity.Place;
+import com.example.tripKo.domain.place.entity.PlaceFestival;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,6 +44,7 @@ public class MemberService {
   private final MemberReservationInfoRepository memberReservationInfoRepository;
   private final MemberRepository memberRepository;
   private final PlaceRestaurantRepository placeRestaurantRepository;
+  private final PlaceFestivalRepository placeFestivalRepository;
   private final PlaceRepository placeRepository;
   private final JwtProvider jwtProvider;
   private final PasswordEncoder passwordEncoder;
@@ -71,10 +78,14 @@ public class MemberService {
     Place place = placeRepository.findById(requestDTO.getReservation().getPlaceId())
         .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
     MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
-        member,
-        MemberReservationStatus.예약완료,
-        place,
-        requestDTO);
+            member,
+            requestDTO.getReservation().getHeadCount(),
+            MemberReservationStatus.예약완료,
+            place,
+            requestDTO.getReservation().getReservationDate(),
+            requestDTO.getReservation().getReservationTime(),
+            requestDTO.getReservation().getMessage()
+    );
     memberReservationInfoRepository.save(saveMemberReservationInfo);
 
     MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(
@@ -83,6 +94,50 @@ public class MemberService {
     RestaurantReservationConfirmResponse ResponseDTO = new RestaurantReservationConfirmResponse(memberReservationInfo);
     return ResponseDTO;
   }
+
+  @Transactional
+  public List<FestivalReservationResponse> getFestivalReservationInfo(Member member) {
+    List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAllByMember(member);
+    List<FestivalReservationResponse> responseList = memberReservationInfoList.stream()
+            .map(memberReservationInfo -> FestivalReservationResponse.from(memberReservationInfo))
+            .collect(Collectors.toList());
+    return responseList;
+  }
+
+  @Transactional
+  public FestivalReservationSelectResponse selectFestivalReservationDate(Long id) {
+    PlaceFestival placeFestival = placeFestivalRepository.findById(id)
+            .orElseThrow(() -> new Exception404("해당하는 축제를 찾을 수 없습니다. id : " + id));
+    FestivalReservationSelectResponse ResponseDTO = new FestivalReservationSelectResponse(placeFestival);
+    return ResponseDTO;
+  }
+
+  @Transactional
+  public FestivalReservationConfirmResponse confirmFestivalReservation(
+          Member member,
+          FestivalReservationConfirmRequest requestDTO) {
+//    Member memberInfo = memberRepository.findById(requestDTO.getReservation().getMemberId())
+//        .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + requestDTO.getReservation().getMemberId()));
+    Place place = placeRepository.findById(requestDTO.getReservation().getPlaceId())
+            .orElseThrow(() -> new Exception404("해당하는 축제를 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
+    MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
+            member,
+            requestDTO.getReservation().getHeadCount(),
+            MemberReservationStatus.예약완료,
+            place,
+            requestDTO.getReservation().getReservationDate(),
+            "", // 축제 예약은 시간 선택 기능이 없으니 빈 string으로 넘겨줌
+            requestDTO.getReservation().getMessage()
+    );
+    memberReservationInfoRepository.save(saveMemberReservationInfo);
+
+    MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(
+                    requestDTO.getReservation().getId())
+            .orElseThrow(() -> new Exception404("예약이 완료되지 않았습니다. id : " + requestDTO.getReservation().getId()));
+    FestivalReservationConfirmResponse ResponseDTO = new FestivalReservationConfirmResponse(memberReservationInfo);
+    return ResponseDTO;
+  }
+
 
   @Transactional
   public void signUp(String memberId, String password, String nickName, String realName, String email,
