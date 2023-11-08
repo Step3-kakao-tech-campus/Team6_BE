@@ -24,7 +24,7 @@ public class RestaurantResponse {
   private String breakTime;
   private String contactInfo;
   private Boolean isWished = false; //좋아요 기능 개발되면 수정
-  private Boolean reservable = false; //예약 기능 개발되면 수정
+  private Boolean reservable = true; //예약 기능 개발되면 수정
   private List<MenuDTO> menus;
 
   @Getter
@@ -55,7 +55,7 @@ public class RestaurantResponse {
     private List<String> image;
   }
 
-  public static RestaurantResponse from(PlaceRestaurant placeRestaurant) {
+  public static RestaurantResponse from(PlaceRestaurant placeRestaurant, boolean isWished) {
     return RestaurantResponse.builder()
         .id(placeRestaurant.getId())
         .name(placeRestaurant.getPlace().getName())
@@ -69,6 +69,7 @@ public class RestaurantResponse {
         .open(placeRestaurant.getOpeningTime() + "~" + placeRestaurant.getClosingTime())
         .breakTime(placeRestaurant.getBreakStartTime() + "~" + placeRestaurant.getBreakEndTime())
         .contactInfo(placeRestaurant.getContact_info())
+        .isWished(isWished)
         .menus(placeRestaurant.getPlace().getContents().stream()
             .flatMap(contents -> contents.getContentsMenus().stream()
                 .map(MenuDTO::new))

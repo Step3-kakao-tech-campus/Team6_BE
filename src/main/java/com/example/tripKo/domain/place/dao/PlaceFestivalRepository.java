@@ -24,5 +24,7 @@ public interface PlaceFestivalRepository extends JpaRepository<PlaceFestival, Lo
 
   Optional<PlaceFestival> findByIdAndIdNot(Long id, Long virtualId);
 
+  Optional<PlaceFestival> findByPlaceId(Long placeId);
+
   Optional<PlaceFestival> findByPlace(Place place);
 }

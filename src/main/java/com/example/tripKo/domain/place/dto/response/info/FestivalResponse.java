@@ -34,7 +34,7 @@ public class FestivalResponse {
     private List<String> image;
   }
 
-  public static FestivalResponse from(PlaceFestival placeFestival) {
+  public static FestivalResponse from(PlaceFestival placeFestival, boolean isWished) {
     return FestivalResponse.builder()
         .id(placeFestival.getId())
         .name(placeFestival.getPlace().getName())
@@ -44,7 +44,7 @@ public class FestivalResponse {
             .map(FestivalResponse::mapContent)
             .collect(Collectors.toList()))
         .address(placeFestival.getPlace().addressToString(placeFestival.getPlace().getAddress()))
-        .isWished(false)
+        .isWished(isWished)
         .isReservable(placeFestival.getReservationAvailable())
         .period(placeFestival.getStartDate() + " ~ " + placeFestival.getEndDate())
         .build();
