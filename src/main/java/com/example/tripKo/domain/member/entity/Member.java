@@ -108,4 +108,8 @@ public class Member extends BaseTimeEntity {
     this.nickName = userInfoRequest.getNickName();
     this.emailAddress = userInfoRequest.getEmail();
   }
+
+  public void updateFile(File file) {
+    this.file = file;
+  }
 }

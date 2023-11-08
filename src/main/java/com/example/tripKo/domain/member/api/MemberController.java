@@ -18,10 +18,12 @@ import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSe
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -45,6 +47,14 @@ public class MemberController {
   public ResponseEntity<?> setUserInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody @Valid UserInfoRequest userInfoRequest) {
     Member member = jwtUserDetails.getMember();
     memberService.setUserInfo(member, userInfoRequest);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @PostMapping(value = "/userinfo/image")
+  public ResponseEntity<?> setUserInfoImage(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @Validated @RequestParam("image") MultipartFile image) {
+    Member member = jwtUserDetails.getMember();
+    memberService.setUserInfoImage(member, image);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
     return ResponseEntity.ok(apiResult);
   }
