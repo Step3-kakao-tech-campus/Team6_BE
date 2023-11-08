@@ -18,14 +18,14 @@ public class PlaceController {
 
   private final PlaceService placeService;
 
-  @RequestMapping(value = "/{location:^(?:(?!h2-console$|login$|register$|api).)*}", method = RequestMethod.GET)
-  public ResponseEntity<?> findAllByLocation(@PathVariable String location) {
+  @GetMapping(value = "/search")
+  public ResponseEntity<?> findAllByLocation(@RequestParam(value = "location") String location) {
     PlaceResponse responseDTO = placeService.findAllByLocation(location);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
   }
 
-  @GetMapping("/{location}/restaurant")
+  @GetMapping("/search/{location}/restaurant")
   public ResponseEntity<?> findRestaurantByLocation(@PathVariable String location,
       @RequestParam(value = "page", defaultValue = "0") Integer page) {
     List<PlaceRestaurantResponse> responseDTO = placeService.findRestaurantByLocation(location, page);
@@ -33,7 +33,7 @@ public class PlaceController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @GetMapping("/{location}/festival")
+  @GetMapping("/search/{location}/festival")
   public ResponseEntity<?> findFestivalByLocation(@PathVariable String location,
       @RequestParam(value = "page", defaultValue = "0") Integer page) {
     List<PlaceFestivalResponse> responseDTO = placeService.findFestivalByLocation(location, page);
@@ -41,7 +41,7 @@ public class PlaceController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @GetMapping("/{location}/touristSpot")
+  @GetMapping("/search/{location}/touristSpot")
   public ResponseEntity<?> findTouristSpotByLocation(@PathVariable String location,
       @RequestParam(value = "page", defaultValue = "0") Integer page) {
     List<PlaceTouristSpotResponse> responseDTO = placeService.findTouristSpotByLocation(location, page);
