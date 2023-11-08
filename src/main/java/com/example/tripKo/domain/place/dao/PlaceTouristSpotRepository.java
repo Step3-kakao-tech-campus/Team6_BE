@@ -22,6 +22,7 @@ public interface PlaceTouristSpotRepository extends JpaRepository<PlaceTouristSp
     Page<PlaceTouristSpot> findTouristSpotByLocation(@Param("location") String location, Pageable pageable);
 
     Optional<PlaceTouristSpot> findByIdAndIdNot(Long id, Long virtualId);
+    Optional<PlaceTouristSpot> findByPlaceId(Long placeId);
 
     Optional<PlaceTouristSpot> findByPlace(Place place);
 

@@ -28,7 +28,7 @@ public class HomeResponse {
     private String image;
     private String address;
     private Float averageRating;
-    private Boolean liked;
+    private Boolean isWished;
   }
 
   @Getter
@@ -41,7 +41,7 @@ public class HomeResponse {
     private String summary;
     private String image;
     private String address;
-    private Boolean liked;
+    private Boolean isWished;
   }
 
   @Getter
@@ -54,7 +54,7 @@ public class HomeResponse {
     private String summary;
     private String image;
     private String address;
-    private Boolean liked;
+    private Boolean isWished;
   }
 
   public static HomeResponse from(List<RestaurantResponse> restaurantResponses,
@@ -68,7 +68,7 @@ public class HomeResponse {
             .image(restaurantResponse.getMainImage())
             .address(restaurantResponse.getAddress())
             .averageRating(restaurantResponse.getAverageScore())
-            .liked(restaurantResponse.getLiked())
+            .isWished(restaurantResponse.getIsWished())
             .build())
         .collect(Collectors.toList());
 
@@ -78,7 +78,7 @@ public class HomeResponse {
             .name(festivalResponse.getName())
             .summary(festivalResponse.getContents().get(0).getDescription()) // 데이터 없으면 에러나요 주의!
             .address(festivalResponse.getAddress())
-            .liked(festivalResponse.getLiked())
+            .isWished(festivalResponse.getIsWished())
             .build())
         .collect(Collectors.toList());
 
@@ -88,7 +88,7 @@ public class HomeResponse {
             .name(touristSpotResponse.getName())
             .summary(touristSpotResponse.getContents().get(0).getDescription()) // 데이터 없으면 에러나요 주의!
             .address(touristSpotResponse.getAddress())
-            .liked(touristSpotResponse.getLiked())
+            .isWished(touristSpotResponse.getIsWished())
             .build())
         .collect(Collectors.toList());
 
