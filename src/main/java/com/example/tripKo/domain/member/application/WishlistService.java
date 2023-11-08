@@ -49,7 +49,7 @@ public class WishlistService {
 
             memberHasPlaceIsWishedRepository.save(memberHasPlaceIsWished);
 
-            WishlistConfirmResponse wishlistConfirmResponse = WishlistConfirmResponse.builder().id(memberHasPlaceIsWished.getId()).placeName(place.getName()).build();
+            WishlistConfirmResponse wishlistConfirmResponse = WishlistConfirmResponse.builder().id(memberHasPlaceIsWished.getId()).placeName(place.getName()).type(place.getPlaceType().name()).build();
             return wishlistConfirmResponse;
         }
     }
@@ -64,7 +64,7 @@ public class WishlistService {
 
         memberHasPlaceIsWishedRepository.delete(memberHasPlaceIsWished);
 
-        WishlistConfirmResponse wishlistConfirmResponse = WishlistConfirmResponse.builder().id(memberHasPlaceIsWished.getId()).placeName(place.getName()).build();
+        WishlistConfirmResponse wishlistConfirmResponse = WishlistConfirmResponse.builder().id(memberHasPlaceIsWished.getId()).placeName(place.getName()).type(place.getPlaceType().name()).build();
         return wishlistConfirmResponse;
     }
 

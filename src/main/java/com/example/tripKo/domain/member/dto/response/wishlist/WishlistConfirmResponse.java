@@ -12,4 +12,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class WishlistConfirmResponse {
     private Long id;
     private String placeName;
+    private String type;
 }
