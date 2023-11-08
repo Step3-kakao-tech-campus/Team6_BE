@@ -61,12 +61,15 @@ public class Review {
     private List<ReviewHasFile> reviewHasFiles = new ArrayList<>();
 
     @Builder
-    public Review(PlaceType placeType, Place place, Member member, String description, int score) {
+    public Review(PlaceType placeType, Place place, Member member, String description, int score
+    , String usageDate, boolean isAvailable) {
         this.type = PlaceType.RESTAURANT;
         this.place = place;
         this.member = member;
         this.description = description;
         this.score = score;
+        this.usageDate = usageDate;
+        this.isAvailable = isAvailable;
 
         //일단 방문 날짜를 리뷰 작성 날짜로 하였다.
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
