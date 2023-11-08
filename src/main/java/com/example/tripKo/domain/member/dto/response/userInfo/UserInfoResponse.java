@@ -2,10 +2,11 @@ package com.example.tripKo.domain.member.dto.response.userInfo;
 
 import com.example.tripKo.domain.member.entity.Member;
 import lombok.Builder;
-import org.springframework.security.core.userdetails.User;
+import lombok.Getter;
 
 import java.io.File;
 
+@Getter
 public class UserInfoResponse {
     private Long id;
     private String name;
@@ -21,7 +22,11 @@ public class UserInfoResponse {
         this.name = member.getRealName();
         this.nickName = member.getNickName();
         this.email = member.getEmailAddress();
-        this.image = createFileNameWithPaths(member.getFile().getName());
+        try {
+            this.image = createFileNameWithPaths(member.getFile().getName());
+        }
+        catch (Exception e) {
+        }
         this.nationality =member.getNationality();
         this.birthday = member.getBirthday();
     }
