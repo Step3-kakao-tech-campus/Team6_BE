@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS `tripko` DEFAULT CHARACTER SET utf8mb4;
 
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_root_password by `root`;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_root_password by 'root';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
 FLUSH PRIVILEGES;
 
