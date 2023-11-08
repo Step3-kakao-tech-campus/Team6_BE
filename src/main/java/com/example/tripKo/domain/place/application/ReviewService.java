@@ -18,6 +18,10 @@ import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.Review;
 import com.example.tripKo.domain.place.entity.ReviewHasFile;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -51,15 +55,36 @@ public class ReviewService {
         Place place = placeRepository.findById(reviewRequest.getPlaceId()).orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + reviewRequest.getPlaceId()));
         if (place.getPlaceType() != placeType) throw new Exception400("요청한 URL의 Place 타입과 요청한 id의 Place 타입이 다릅니다. 요청한 URL : " + placeType + ", id의 Place 타입 : " + place.getPlaceType());
 
-        MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findByMemberAndPlaceAndStatus(member, place, MemberReservationStatus.예약완료);
 
-        String usageDate = memberReservationInfo.getReservationDate();
+        //관광지 -> usageDate 작성 기준
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        String usageDate = date.format(new Date());
 
-        //리뷰 완료 상태일 경우 리뷰 작성 불가
-        String status = memberReservationInfo.getStatus().name();
-        //같은 날짜에 동일한 가게를 리뷰했었다면 더이상 리뷰 작성 불가능
-        Review sameReview = reviewRepository.findReviewByMemberIdAndPlaceIdAndUsageDate(member.getId(), reviewRequest.getPlaceId(), usageDate);
-        if (!Objects.isNull(sameReview) || status.equals(MemberReservationStatus.리뷰완료.name())) throw new Exception400("이미 작성한 리뷰가 존재합니다.");
+        //식당 & 축제 -> usageDate 예약 기준, 리뷰 제한
+        if(placeType == PlaceType.RESTAURANT || placeType == PlaceType.FESTIVAL) {
+            //예약 완료인 내역 검색
+            MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findByMemberAndPlaceAndStatus(member, place, MemberReservationStatus.예약완료);
+            String reservedDate = memberReservationInfo.getReservationDate();
+
+            //리뷰 작성 날짜가 예약 날짜보다 앞인 경우 예외 처리
+            Timestamp ts1 = Timestamp.valueOf(usageDate);
+            Timestamp ts2 = Timestamp.valueOf(reservedDate);
+            if(ts1.before(ts2)) {
+                throw new Exception404("리뷰는 예약 시간 이후에 작성 가능합니다.");
+            } else {
+                usageDate = reservedDate;
+            }
+
+            //리뷰 완료 상태일 경우 리뷰 작성 불가
+            String status = memberReservationInfo.getStatus().name();
+            //같은 날짜에 동일한 가게를 리뷰했었다면 더이상 리뷰 작성 불가능
+            Review sameReview = reviewRepository.findReviewByMemberIdAndPlaceIdAndUsageDate(member.getId(), reviewRequest.getPlaceId(), usageDate);
+            if (!Objects.isNull(sameReview) || status.equals(MemberReservationStatus.리뷰완료.name())) throw new Exception400("이미 작성한 리뷰가 존재합니다.");
+
+            memberReservationInfo.setStatus(MemberReservationStatus.리뷰완료);
+        }
+        //리뷰 별점 6점 이상일 경우 리뷰 작성 불가
+        if(reviewRequest.getRating() > 5 || reviewRequest.getRating() < 1) throw new Exception400("리뷰 별점은 1~5점 사이어야 합니다.");
 
         Review review = Review.builder()
                 .placeType(placeType)
@@ -71,7 +96,8 @@ public class ReviewService {
                 .build();
 
         reviewRepository.save(review);
-        memberReservationInfo.setStatus(MemberReservationStatus.리뷰완료);
+
+
         //리뷰에 이미지가 있다면 이미지를 리소스 폴더에 저장하고 정보를 File 테이블에 저장
         if (!reviewRequest.getImages().isEmpty()) {
             List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewRequest.getImages());
@@ -160,8 +186,13 @@ public class ReviewService {
         int reviewNumbers = place.getReviewNumbers();
         double average = place.getAverageRating();
 
-        average = ((double) average * reviewNumbers - review.getScore()) / (reviewNumbers - 1);
-        average = Math.round(average * 10)/10.0;
+        if (reviewNumbers == 1) {
+            average = 0;
+        } else {
+            average = ((double) average * reviewNumbers - review.getScore()) / (reviewNumbers - 1);
+            average = Math.round(average * 10)/10.0;
+        }
+
         place.setReviewNumbers(reviewNumbers - 1);
         place.setAverageRating(average);
 
@@ -249,13 +280,6 @@ public class ReviewService {
                 + "resources" + File.separator
                 + "reviews" + File.separator
                 + "images";
-
-        File imageFile = new File(imagesPath);
-
-        if (!imageFile.exists()) {
-            throw new Exception500("삭제할 이미지가 없습니다.");
-        }
-
 
         List<ReviewHasFile> reviewHasFiles = reviewFileRepository.findAllByReviewId(reviewId);
 
