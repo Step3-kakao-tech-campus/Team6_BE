@@ -43,11 +43,11 @@ public class Review {
     private String usageDate;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member", nullable = false)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "place", nullable = false)
+    @JoinColumn(name = "place_id", nullable = false)
     private Place place;
 //
 //    @Column(nullable = false)
