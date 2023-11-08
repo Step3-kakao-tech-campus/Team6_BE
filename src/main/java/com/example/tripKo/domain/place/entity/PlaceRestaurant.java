@@ -50,12 +50,14 @@ public class PlaceRestaurant extends BaseTimeEntity {
     @JoinColumn(name = "place_id", nullable = false)
     private Place place;
 
-    @Builder
+//    @Builder
+    // Controller test를 위해 주석처리
     public PlaceRestaurant(Place place) {
         this.place = place;
     }
 
     //test용
+    @Builder
     public PlaceRestaurant(Category category, String contact_info, String openingTime, String closingTime, String breakStartTime, String breakEndTime, Integer holiday, Place place) {
         this.category = category;
         this.contact_info = contact_info;
