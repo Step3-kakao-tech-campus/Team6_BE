@@ -5,7 +5,7 @@ resources:
   - backend.yaml
   - redis.yaml
   #- secret.yaml
-  #- frontend.yaml
+  - frontend.yaml
 configMapGenerator:
   - name: nginx
     files:
