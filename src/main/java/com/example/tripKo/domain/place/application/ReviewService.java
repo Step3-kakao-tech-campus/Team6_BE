@@ -104,8 +104,8 @@ public class ReviewService {
 
 
         //리뷰에 이미지가 있다면 이미지를 리소스 폴더에 저장하고 정보를 File 테이블에 저장
-        if (!reviewRequest.getImages().isEmpty()) {
-            List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewRequest.getImages());
+        if (!reviewRequest.getImage().isEmpty()) {
+            List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewRequest.getImage());
 
             List<ReviewHasFile> reviewHasFiles = createReviewHasFile(fileEntities, review);
 
@@ -159,8 +159,8 @@ public class ReviewService {
         deleteImages(reviewId);
         reviewFileRepository.deleteAllByReviewId(reviewId);
 
-        if (!reviewUpdateRequest.getImages().isEmpty()) {
-            List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewUpdateRequest.getImages());
+        if (!reviewUpdateRequest.getImage().isEmpty()) {
+            List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewUpdateRequest.getImage());
 
             List<ReviewHasFile> reviewHasFiles = createReviewHasFile(fileEntities, review);
 
