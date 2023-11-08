@@ -2,6 +2,8 @@ package com.example.tripKo;
 
 import com.example.tripKo.domain.file.FileTestHelper;
 import com.example.tripKo.domain.file.dao.FileRepository;
+import com.example.tripKo.domain.food.FoodTestHelper;
+import com.example.tripKo.domain.food.dao.FoodRepository;
 import com.example.tripKo.domain.member.MemberReservationInfoTestHelper;
 import com.example.tripKo.domain.member.MemberTestHelper;
 import com.example.tripKo.domain.member.application.MemberService;
@@ -86,6 +88,9 @@ public class IntegrationTest {
   @SpyBean
   protected ReviewRepository reviewRepository;
 
+  @SpyBean
+  protected FoodRepository foodRepository;
+
 
   /*** service ***/
   @Autowired
@@ -124,6 +129,9 @@ public class IntegrationTest {
 
   @Autowired
   protected PlaceTestHelper placeTestHelper;
+
+  @Autowired
+  protected FoodTestHelper foodTestHelper;
 
 
   /*** Spring Bean ***/
