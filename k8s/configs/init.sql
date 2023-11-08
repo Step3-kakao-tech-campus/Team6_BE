@@ -378,7 +378,7 @@ VALUES ('14', 'image/restaurant/eybDwajigukbap/menu1.png', 'image/png');
 
 -- Busan Fireworks Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
-VALUES ('5', '0', '1232', 'Busan Fireworks Festival', 'Festival','0',
+VALUES ('5', '0', '1232', 'Busan Fireworks Festival', 'FESTIVAL','0',
         'Autumn in Busan blooms with colorful lights. It’s the time for the Busan Fireworks Festival!',
         '5', '15');
 
@@ -404,7 +404,7 @@ VALUES ('16', 'image/festival/BusanFirework/content1.png', 'image/png');
 
 -- Busan International Rock Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
-VALUES ('6', '0', '843', 'Busan International Rock Festival', 'Festival','0',
+VALUES ('6', '0', '843', 'Busan International Rock Festival', 'FESTIVAL','0',
         'In the middle of summer, when it’s scorching hot, more and more people gather in a quiet and spacious park called Samnak Eco Park.',
         '6', '17');
 
@@ -433,7 +433,7 @@ VALUES ('18', 'image/festival/BusanRock/content1.png', 'image/png');
 
 -- Haeundae Lighting Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
-VALUES ('7', '0', '613', 'Haeundae Lighting Festival', 'Festival','0',
+VALUES ('7', '0', '613', 'Haeundae Lighting Festival', 'FESTIVAL','0',
         'The lighting festival transforms the cold winter street into a romantic world that even seems to warm up the cold season.',
         '7', '19');
 
