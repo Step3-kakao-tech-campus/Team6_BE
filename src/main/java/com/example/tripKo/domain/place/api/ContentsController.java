@@ -2,8 +2,13 @@ package com.example.tripKo.domain.place.api;
 
 import com.example.tripKo.domain.place.application.ContentsService;
 import com.example.tripKo.domain.place.dto.response.info.FestivalResponse;
+import com.example.tripKo.domain.place.dto.response.info.HomeResponse;
+import com.example.tripKo.domain.place.dto.response.info.HomeResponse.SelectFestivalResponse;
+import com.example.tripKo.domain.place.dto.response.info.HomeResponse.SelectRestaurantResponse;
+import com.example.tripKo.domain.place.dto.response.info.HomeResponse.SelectTouristSpotResponse;
 import com.example.tripKo.domain.place.dto.response.info.TouristSpotResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -34,5 +39,15 @@ public class ContentsController {
   public ResponseEntity<TouristSpotResponse> getTouristSpotInfo(@PathVariable Long id) {
     TouristSpotResponse response = contentsService.getTouristSpotInfo(id);
     return ResponseEntity.ok(response);
+  }
+
+  @GetMapping("/home")
+  public ResponseEntity<HomeResponse> getHomeInfo() {
+    List<SelectRestaurantResponse> restaurants = contentsService.getHomeInfo().getRestaurants();
+    List<SelectFestivalResponse> festivals = contentsService.getHomeInfo().getFestivals();
+    List<SelectTouristSpotResponse> touristSpots = contentsService.getHomeInfo().getTouristSpots();
+
+    HomeResponse homeResponse = new HomeResponse(restaurants, festivals, touristSpots);
+    return ResponseEntity.ok(homeResponse);
   }
 }
