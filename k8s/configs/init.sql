@@ -6,11 +6,11 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
 FLUSH PRIVILEGES;
 */
 
-/*
+
 GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root' WITH GRANT OPTION;
 GRANT ALL ON tripko.* TO 'root'@'localhost';
 FLUSH PRIVILEGES;
- */
+
 
 
 USE tripko;
