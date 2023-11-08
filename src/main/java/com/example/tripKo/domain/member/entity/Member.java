@@ -20,6 +20,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.example.tripKo.domain.member.dto.request.userInfo.UserInfoRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -104,5 +106,11 @@ public class Member extends BaseTimeEntity {
     this.memberId = memberId;
     this.birthday = birthday;
     this.nationality = nationality;
+  }
+
+  public void updateUserInfo(UserInfoRequest userInfoRequest) {
+    this.realName = userInfoRequest.getName();
+    this.nickName = userInfoRequest.getNickName();
+    this.emailAddress = userInfoRequest.getEmail();
   }
 }
