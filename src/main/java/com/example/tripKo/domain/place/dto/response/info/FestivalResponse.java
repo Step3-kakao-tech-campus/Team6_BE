@@ -21,7 +21,7 @@ public class FestivalResponse {
   private String mainImage;
   private List<Content> contents;
   private String address;
-  private Boolean liked;
+  private Boolean isWished;
   private Boolean isReservable;
   private String period;
 
@@ -44,7 +44,7 @@ public class FestivalResponse {
             .map(FestivalResponse::mapContent)
             .collect(Collectors.toList()))
         .address(placeFestival.getPlace().addressToString(placeFestival.getPlace().getAddress()))
-        .liked(false)
+        .isWished(false)
         .isReservable(placeFestival.getReservationAvailable())
         .period(placeFestival.getStartDate() + " ~ " + placeFestival.getEndDate())
         .build();

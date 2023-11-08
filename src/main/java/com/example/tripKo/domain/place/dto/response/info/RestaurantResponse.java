@@ -23,7 +23,7 @@ public class RestaurantResponse {
   private String open;
   private String breakTime;
   private String contactInfo;
-  private Boolean liked = false; //좋아요 기능 개발되면 수정
+  private Boolean isWished = false; //좋아요 기능 개발되면 수정
   private Boolean reservable = false; //예약 기능 개발되면 수정
   private List<MenuDTO> menus;
 

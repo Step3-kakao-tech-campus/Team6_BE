@@ -73,8 +73,8 @@ public class ReviewService {
         reviewRepository.save(review);
         memberReservationInfo.setStatus(MemberReservationStatus.리뷰완료);
         //리뷰에 이미지가 있다면 이미지를 리소스 폴더에 저장하고 정보를 File 테이블에 저장
-        if (!reviewRequest.getImages().isEmpty()) {
-            List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewRequest.getImages());
+        if (!reviewRequest.getImage().isEmpty()) {
+            List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewRequest.getImage());
 
             List<ReviewHasFile> reviewHasFiles = createReviewHasFile(fileEntities, review);
 
@@ -125,8 +125,8 @@ public class ReviewService {
         // 이미지 파일을 업로드한 시간 정보가 들어간 이름으로 저장해서 업데이트한 사진이 기존 사진과 같은지 알 수 없음 -> 다 지우고 다시 저장
         deleteImages(reviewId);
 
-        if (!reviewUpdateRequest.getImages().isEmpty()) {
-            List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewUpdateRequest.getImages());
+        if (!reviewUpdateRequest.getImage().isEmpty()) {
+            List<com.example.tripKo.domain.file.entity.File> fileEntities = saveImages(reviewUpdateRequest.getImage());
 
             List<ReviewHasFile> reviewHasFiles = createReviewHasFile(fileEntities, review);
 
