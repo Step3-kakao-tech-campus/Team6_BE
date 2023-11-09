@@ -51,21 +51,19 @@ public class MemberController {
   }
 
   @PatchMapping("/userinfo/edit")
-  public ResponseEntity<?> setUserInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+  public ResponseEntity<Void> setUserInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
       @RequestBody @Valid UserInfoRequest userInfoRequest) {
     Member member = jwtUserDetails.getMember();
     memberService.setUserInfo(member, userInfoRequest);
-    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
-    return ResponseEntity.ok(apiResult);
+    return ResponseEntity.noContent().build();
   }
 
   @PostMapping(value = "/userinfo/image")
-  public ResponseEntity<?> setUserInfoImage(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+  public ResponseEntity<Void> setUserInfoImage(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
       @Validated @RequestParam("image") MultipartFile image) {
     Member member = jwtUserDetails.getMember();
     memberService.setUserInfoImage(member, image);
-    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
-    return ResponseEntity.ok(apiResult);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @GetMapping("/userinfo/reservations/restaurant")

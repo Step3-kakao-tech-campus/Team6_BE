@@ -1,5 +1,12 @@
 package com.example.tripKo.domain.place.application;
 
+import static com.example.tripKo._core.errors.ErrorCode.LOCATION_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.LOCATION_FESTIVAL_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.LOCATION_RESTAURANT_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.LOCATION_TOURISTSPOT_CANNOT_FOUND;
+
+import com.example.tripKo._core.errors.ErrorCode;
+import com.example.tripKo._core.errors.exception.BusinessException;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.entity.Member;
@@ -43,7 +50,7 @@ public class PlaceService {
     List<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findAllByLocation(location);
 
     if (placeRestaurants.isEmpty() && placeFestivals.isEmpty() && placeTouristSpots.isEmpty()) {
-      throw new Exception404("해당 지역의 정보를 찾을 수 없습니다. location : " + location);
+      throw new BusinessException(location, "location", LOCATION_CANNOT_FOUND);
     }
 
     List<Place> places = new ArrayList<>();
@@ -70,7 +77,7 @@ public class PlaceService {
     Page<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findRestaurantByLocation(location, pageable);
 
     if (placeRestaurants.isEmpty()) {
-      throw new Exception404("해당 지역의 식당 정보를 찾을 수 없습니다. location : " + location);
+      throw new BusinessException(location, "location", LOCATION_RESTAURANT_CANNOT_FOUND);
     }
 
     List<Place> places = new ArrayList<>();
@@ -96,7 +103,7 @@ public class PlaceService {
     Page<PlaceFestival> placeFestivals = placeFestivalRepository.findFestivalByLocation(location, pageable);
 
     if (placeFestivals.isEmpty()) {
-      throw new Exception404("해당 지역의 식당 정보를 찾을 수 없습니다. location : " + location);
+      throw new BusinessException(location, "location", LOCATION_FESTIVAL_CANNOT_FOUND);
     }
 
     List<Place> places = new ArrayList<>();
@@ -122,7 +129,7 @@ public class PlaceService {
     Page<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findTouristSpotByLocation(location, pageable);
 
     if (placeTouristSpots.isEmpty()) {
-      throw new Exception404("해당 지역의 식당 정보를 찾을 수 없습니다. location : " + location);
+      throw new BusinessException(location, "location", LOCATION_TOURISTSPOT_CANNOT_FOUND);
     }
 
     List<Place> places = new ArrayList<>();

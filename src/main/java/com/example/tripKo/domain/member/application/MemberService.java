@@ -1,5 +1,15 @@
 package com.example.tripKo.domain.member.application;
 
+import static com.example.tripKo._core.errors.ErrorCode.EMAIL_ALREADY_EXIST;
+import static com.example.tripKo._core.errors.ErrorCode.FESTIVAL_ID_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.MEMBERID_ALREADY_EXIST;
+import static com.example.tripKo._core.errors.ErrorCode.RESERVATION_NOT_COMPLETE;
+import static com.example.tripKo._core.errors.ErrorCode.RESTAURANT_ID_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.REVIEW_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.REVIEW_NOT_MINE;
+
+import com.example.tripKo._core.errors.ErrorCode;
+import com.example.tripKo._core.errors.exception.BusinessException;
 import com.example.tripKo._core.errors.exception.Exception400;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.errors.exception.Exception500;
@@ -85,7 +95,7 @@ public class MemberService {
     Member emailCheck = memberRepository.findByEmailAddressAndMemberIdNot(userInfoRequest.getEmail(),
         member.getMemberId()).orElse(null);
     if (emailCheck != null) {
-      throw new Exception404("이미 다른 사람이 사용 중인 이메일입니다. email : " + userInfoRequest.getEmail());
+      throw new BusinessException(userInfoRequest.getEmail(), "Email", EMAIL_ALREADY_EXIST);
     }
     member.updateUserInfo(userInfoRequest);
     memberRepository.save(member);
@@ -130,9 +140,9 @@ public class MemberService {
   @Transactional
   public ReviewsResponse getReviewDetail(Member member, Long id) {
     Review review = reviewRepository.findById(id)
-        .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + id));
+        .orElseThrow(() -> new BusinessException(id, "id", REVIEW_CANNOT_FOUND));
     if (!review.getMember().equals(member)) {
-      new Exception404("본인의 리뷰가 아닙니다. id : " + id);
+      new BusinessException(id, "id", REVIEW_NOT_MINE);
     }
 
     ReviewsResponse reviewsResponse = ReviewsResponse.builder().review(review).build();
@@ -176,7 +186,7 @@ public class MemberService {
   @Transactional
   public RestaurantReservationSelectResponse selectRestaurantReservationDate(Long id) {
     PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(id)
-        .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + id));
+        .orElseThrow(() -> new BusinessException(id, "id", RESTAURANT_ID_CANNOT_FOUND));
     RestaurantReservationSelectResponse ResponseDTO = new RestaurantReservationSelectResponse(placeRestaurant);
     return ResponseDTO;
   }
@@ -188,7 +198,8 @@ public class MemberService {
 //    Member memberInfo = memberRepository.findById(requestDTO.getReservation().getMemberId())
 //        .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + requestDTO.getReservation().getMemberId()));
     Place place = placeRepository.findById(requestDTO.getReservation().getPlaceId())
-        .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
+        .orElseThrow(() -> new BusinessException(requestDTO.getReservation().getPlaceId(), "id",
+            RESTAURANT_ID_CANNOT_FOUND));
     MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
         member,
         requestDTO.getReservation().getHeadCount(),
@@ -202,7 +213,7 @@ public class MemberService {
 
     MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(
             requestDTO.getReservation().getId())
-        .orElseThrow(() -> new Exception404("예약이 완료되지 않았습니다. id : " + requestDTO.getReservation().getId()));
+        .orElseThrow(() -> new BusinessException(requestDTO.getReservation().getId(), "id", RESERVATION_NOT_COMPLETE));
     RestaurantReservationConfirmResponse ResponseDTO = new RestaurantReservationConfirmResponse(memberReservationInfo);
     return ResponseDTO;
   }
@@ -219,7 +230,7 @@ public class MemberService {
   @Transactional
   public FestivalReservationSelectResponse selectFestivalReservationDate(Long id) {
     PlaceFestival placeFestival = placeFestivalRepository.findById(id)
-        .orElseThrow(() -> new Exception404("해당하는 축제를 찾을 수 없습니다. id : " + id));
+        .orElseThrow(() -> new BusinessException(id, "id", FESTIVAL_ID_CANNOT_FOUND));
     FestivalReservationSelectResponse ResponseDTO = new FestivalReservationSelectResponse(placeFestival);
     return ResponseDTO;
   }
@@ -231,7 +242,8 @@ public class MemberService {
 //    Member memberInfo = memberRepository.findById(requestDTO.getReservation().getMemberId())
 //        .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + requestDTO.getReservation().getMemberId()));
     Place place = placeRepository.findById(requestDTO.getReservation().getPlaceId())
-        .orElseThrow(() -> new Exception404("해당하는 축제를 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
+        .orElseThrow(
+            () -> new BusinessException(requestDTO.getReservation().getPlaceId(), "id", FESTIVAL_ID_CANNOT_FOUND));
     MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
         member,
         requestDTO.getReservation().getHeadCount(),
@@ -245,7 +257,8 @@ public class MemberService {
 
     MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(
             requestDTO.getReservation().getId())
-        .orElseThrow(() -> new Exception404("예약이 완료되지 않았습니다. id : " + requestDTO.getReservation().getId()));
+        .orElseThrow(
+            () -> new BusinessException(requestDTO.getReservation().getPlaceId(), "id", RESERVATION_NOT_COMPLETE));
     FestivalReservationConfirmResponse ResponseDTO = new FestivalReservationConfirmResponse(memberReservationInfo);
     return ResponseDTO;
   }
@@ -280,13 +293,13 @@ public class MemberService {
 
   private void checkIsDuplicateEmail(String email) {
     if (checkDuplicateService.isDuplicateEmail(email)) {
-      throw new Exception404("동일한 이메일이 존재합니다.");
+      throw new BusinessException(email, "email", EMAIL_ALREADY_EXIST);
     }
   }
 
   private void checkIsDuplicateLoginId(String memberId) {
     if (checkDuplicateService.isDuplicateLoginId(memberId)) {
-      throw new Exception404("동일한 아이디가 존재합니다.");
+      throw new BusinessException(memberId, "memberId", MEMBERID_ALREADY_EXIST);
     }
   }
 

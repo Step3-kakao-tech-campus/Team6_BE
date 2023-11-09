@@ -1,5 +1,11 @@
 package com.example.tripKo.domain.member.application;
 
+import static com.example.tripKo._core.errors.ErrorCode.PLACE_ID_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.WISHLIST_ALREADY_DELETE;
+import static com.example.tripKo._core.errors.ErrorCode.WISHLIST_ALREADY_EXIST;
+
+import com.example.tripKo._core.errors.ErrorCode;
+import com.example.tripKo._core.errors.exception.BusinessException;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo.domain.member.dao.MemberHasPlaceIsWishedRepository;
 import com.example.tripKo.domain.member.dao.MemberRepository;
@@ -36,11 +42,11 @@ public class WishlistService {
   @Transactional
   public WishlistConfirmResponse setWishlist(Member member, Long placeId) {
     Place place = placeRepository.findById(placeId)
-        .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + placeId));
+        .orElseThrow(() -> new BusinessException(placeId, "placeId", PLACE_ID_CANNOT_FOUND));
 
     boolean isWished = memberHasPlaceIsWishedRepository.existsByMemberAndPlace(member, place);
     if (isWished) {
-      throw new Exception404("이미 추가되었습니다. id : " + placeId);
+      throw new BusinessException(placeId, "placeId", WISHLIST_ALREADY_EXIST);
     } else {
       MemberHasPlaceIsWished memberHasPlaceIsWished = MemberHasPlaceIsWished.builder()
           .member(member)
@@ -58,10 +64,10 @@ public class WishlistService {
   @Transactional
   public WishlistConfirmResponse deleteWishlist(Member member, Long placeId) {
     Place place = placeRepository.findById(placeId)
-        .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + placeId));
+        .orElseThrow(() -> new BusinessException(placeId, "placeId", PLACE_ID_CANNOT_FOUND));
 
     MemberHasPlaceIsWished memberHasPlaceIsWished = memberHasPlaceIsWishedRepository.findByMemberAndPlace(member, place)
-        .orElseThrow(() -> new Exception404("이미 삭제되었습니다."));
+        .orElseThrow(() -> new BusinessException(place, "place", WISHLIST_ALREADY_DELETE));
 
     memberHasPlaceIsWishedRepository.delete(memberHasPlaceIsWished);
 
@@ -81,14 +87,14 @@ public class WishlistService {
         wishlistResponses = memberHasPlaceIsWishedList.stream().map(m ->
             WishlistResponse.PlaceRestaurantBuilder()
                 .placeRestaurant(placeRestaurantRepository.findByPlace(m.getPlace())
-                    .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + m.getPlace().getId())))
+                    .orElseThrow(() -> new BusinessException(m.getPlace().getId(),"id", PLACE_ID_CANNOT_FOUND)))
                 .PlaceRestaurantBuild()
         ).collect(Collectors.toList());
         break;
       case "FESTIVAL":
         wishlistResponses = memberHasPlaceIsWishedList.stream().map(m ->
             WishlistResponse.PlaceFestivalBuilder().placeFestival(placeFestivalRepository.findByPlace(m.getPlace())
-                    .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + m.getPlace().getId())))
+                    .orElseThrow(() -> new BusinessException(m.getPlace().getId(),"id", PLACE_ID_CANNOT_FOUND)))
                 .PlaceFestivalBuild()
         ).collect(Collectors.toList());
         break;
@@ -96,7 +102,7 @@ public class WishlistService {
         wishlistResponses = memberHasPlaceIsWishedList.stream().map(m ->
             WishlistResponse.PlaceTouristSpotBuilder()
                 .placeTouristSpot(placeTouristSpotRepository.findByPlace(m.getPlace())
-                    .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + m.getPlace().getId())))
+                    .orElseThrow(() -> new BusinessException(m.getPlace().getId(),"id", PLACE_ID_CANNOT_FOUND)))
                 .PlaceTouristSpotBuild()
         ).collect(Collectors.toList());
         break;
