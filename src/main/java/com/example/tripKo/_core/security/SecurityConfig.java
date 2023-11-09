@@ -45,8 +45,49 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+            .csrf().disable()
+            .cors().configurationSource(configurationSource())
+            .and()
+            .authorizeHttpRequests()
+            .antMatchers("/userinfo/**", "/wishlist/**", "/**/reviews/**") // 허용하지 않는 것들 (추가 예정)
+            .hasRole(MemberRoleType.MEMBER.name())
+            .anyRequest()
+            .permitAll()
+            .and()
+            .formLogin().disable()
+            .httpBasic().disable()
+            .logout().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .oauth2Login()
+            .userInfoEndpoint()
+            .userService(customOAuth2UserService)
+            .and()
+            .successHandler(oAuth2SuccessHandler)
+            .and()
+            .exceptionHandling().authenticationEntryPoint(((request, response, authException) -> {
+              FilterResponseUtils.unAuthorized(response, new Exception401("인증되지 않았습니다"));
+            }))
+            .and()
+            .exceptionHandling().accessDeniedHandler(((request, response, accessDeniedException) -> {
+              FilterResponseUtils.forbidden(response, new Exception403("권한이 없습니다"));
+            }))
+            .and()
+            .addFilterBefore(new JwtAuthFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
+
+    //h2-console 접속을 위해 허용
+    http.headers().frameOptions().sameOrigin();
+
+    return http.build();
+  }
+
+  /*
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests()
-        .antMatchers("/userinfo/**", "/wishlist/**", "/**/reviews/**") // 허용하지 않는 것들 (추가 예정)
+        .antMatchers("/userinfo/**", "/wishlist/**", "/*/reviews/*") // 허용하지 않는 것들 (추가 예정)
         .hasRole(MemberRoleType.MEMBER.name())
         .anyRequest()
         .permitAll()
@@ -85,6 +126,7 @@ public class SecurityConfig {
 
     return http.build();
   }
+   */
 
   public CorsConfigurationSource configurationSource() {
     System.out.println("==========================================================================================================================");
@@ -99,5 +141,6 @@ public class SecurityConfig {
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }
+
 
 }
