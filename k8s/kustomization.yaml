@@ -27,7 +27,7 @@ patches:
           - name: frontend
             volumeMounts:
             - name: shared-data
-              mountPath: /images
+              mountPath: /image
 
 - target:
     kind: Deployment
@@ -40,4 +40,4 @@ patches:
           - name: backend
             volumeMounts:
             - name: shared-data
-              mountPath: /images
+              mountPath: /image
