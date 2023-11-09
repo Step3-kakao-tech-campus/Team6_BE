@@ -81,7 +81,7 @@ public class SecurityConfig {
 
 
     //h2-console 접속을 위해 허용
-    http.headers().frameOptions().sameOrigin();
+    //http.headers().frameOptions().sameOrigin();
 
     return http.build();
   }
