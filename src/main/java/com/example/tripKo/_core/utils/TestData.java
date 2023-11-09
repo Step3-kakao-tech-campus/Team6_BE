@@ -67,32 +67,32 @@ public class TestData implements CommandLineRunner {
   private final PasswordEncoder passwordEncoder;
 
 
+
   @Override
   public void run(String... args) throws Exception {
     //file table 데이터 입력
     List<File> files = Arrays.asList(
-        File.builder().name("/image/restaurant/1").type("image/png").build(),
-        File.builder().name("/image/restaurant/2").type("image/png").build(),
-        File.builder().name("/image/restaurant/3").type("image/png").build(),
-        File.builder().name("/image/festival/1").type("image/png").build(),
-        File.builder().name("/image/festival/2").type("image/png").build(),
-        File.builder().name("/image/festival/3").type("image/png").build(),
-        File.builder().name("/image/touristSpot/1").type("image/png").build(),
-        File.builder().name("/image/touristSpot/2").type("image/png").build(),
-        File.builder().name("/image/touristSpot/3").type("image/png").build(),
-        File.builder().name("/image/menu/1").type("image/png").build(),
-        File.builder().name("/image/menu/2").type("image/png").build(),
-        File.builder().name("/image/menu/3").type("image/png").build(),
-        File.builder().name("/image/menu/4").type("image/png").build(),
-        File.builder().name("/image/food/1").type("image/png").build(),
-        File.builder().name("/image/food/2").type("image/png").build(),
-        File.builder().name("/image/food/3").type("image/png").build(),
-        File.builder().name("/image/food/4").type("image/png").build(),
-        File.builder().name("/image/contentsFood/1").type("image/png").build(),
-        File.builder().name("/image/contentsFood/2").type("image/png").build(),
-        File.builder().name("/image/contentsFood/3").type("image/png").build(),
-        File.builder().name("/image/contentsFood/4").type("image/png").build()
-
+        File.builder().name("/image/restaurant/1").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/restaurant/2").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/restaurant/3").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/festival/1").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/festival/2").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/festival/3").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/touristSpot/1").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/touristSpot/2").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/touristSpot/3").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/menu/1").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/menu/2").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/menu/3").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/menu/4").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/food/1").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/food/2").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/food/3").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/food/4").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/contentsFood/1").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/contentsFood/2").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/contentsFood/3").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build(),
+        File.builder().name("/image/contentsFood/4").type("image/png").url("https://tripko-be6.s3.ap-northeast-2.amazonaws.com/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg").build()
     );
     fileRepository.saveAll(files);
 

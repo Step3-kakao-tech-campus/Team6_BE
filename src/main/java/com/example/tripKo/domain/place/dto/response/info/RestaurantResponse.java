@@ -82,7 +82,7 @@ public class RestaurantResponse {
         .page(contents.getPage())
         .description(contents.getDescription())
         .image(contents.getContentsHasFiles().stream()
-            .map(c -> c.getFile().getName())
+            .map(c -> c.getFile().getUrl())
             .collect(Collectors.toList()))
         .build();
   }

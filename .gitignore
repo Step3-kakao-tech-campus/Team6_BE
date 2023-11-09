@@ -39,3 +39,4 @@ out/
 src/main/resources/reviews/
 
 application-oauth.properties
+application-S3.properties
