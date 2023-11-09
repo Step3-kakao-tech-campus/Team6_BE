@@ -1,5 +1,7 @@
 package com.example.tripKo.domain.member.dto.response.review;
 
+import com.example.tripKo.domain.place.entity.Address;
+import com.example.tripKo.domain.place.entity.AddressCategory;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.Review;
 import lombok.Builder;
@@ -14,7 +16,9 @@ import java.util.stream.Collectors;
 public class ReviewsResponse {
     private Long reviewId;
     private Long placeId;
-    private String visitTime;
+    private String placeName;
+    private String address;
+    private String visitDay;
     private int rating;
     private String description;
     private List<String> image = new ArrayList<>();
@@ -23,7 +27,9 @@ public class ReviewsResponse {
     public ReviewsResponse (Review review) {
         this.reviewId = review.getId();
         this.placeId = review.getPlace().getId();
-        this.visitTime = review.getUsageDate();
+        this.placeName = review.getPlace().getName();
+        this.address = addressToString(review.getPlace().getAddress());
+        this.visitDay = review.getUsageDate();
         this.rating = review.getScore();
         this.description = review.getDescription();
         this.image = review.getReviewHasFiles().stream()
@@ -39,5 +45,14 @@ public class ReviewsResponse {
                 + "images" + File.separator
                 + filename;
     }
+
+    private String addressToString(Address address) {
+        String addressToString = address.getBuildingName() + " " + address.getRoadName();
+        AddressCategory addressCategory = address.getAddressCategory();
+        String addressCategoryToString =
+                addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
+        return addressToString + " " + addressCategoryToString;
+    }
+
 
 }

@@ -28,4 +28,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query(value = "select r from Review r where r.member = :member and r.place.placeType = :placeType",
             countQuery = "SELECT COUNT(*) FROM Review")
     List<Review> findAllByMemberAndPlaceType(Member member, PlaceType placeType, Pageable pageable);
+
+    @Query(value = "select r from Review r where r.member = :member",
+            countQuery = "SELECT COUNT(*) FROM Review")
+    List<Review> findAllByMember(Member member, Pageable pageable);
 }
