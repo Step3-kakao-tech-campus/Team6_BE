@@ -90,7 +90,7 @@ public class SecurityConfig {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
-    configuration.addAllowedOrigin("http://10.231.39.138:3000");
+    configuration.addAllowedOrigin("https://kd284b475c6e5a.user-app.krampoline.com:3000");
     configuration.addExposedHeader("authorization");
     configuration.addExposedHeader("refreshToken");
     configuration.setAllowCredentials(true);
