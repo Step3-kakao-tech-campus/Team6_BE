@@ -92,6 +92,7 @@ public class ReviewService {
         place.setAverageRating(average);
     }
 
+    @Transactional
     public ReviewsResponse getReviewsByPlaceId(Long placeId, PlaceType placeType, int page) {
         //리뷰에 저장할 placeRestaurant을 가져오는 부분
         Place place = placeRepository.findById(placeId)

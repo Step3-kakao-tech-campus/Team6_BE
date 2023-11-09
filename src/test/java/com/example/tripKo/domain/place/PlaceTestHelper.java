@@ -35,6 +35,7 @@ public class PlaceTestHelper {
     private float averageRating;
     private File file;
     private Address address;
+    private PlaceType placeType;
 
     public PlaceBuilder name(String name) {
       this.name = name;
@@ -66,6 +67,11 @@ public class PlaceTestHelper {
       return this;
     }
 
+    public PlaceBuilder placeType(PlaceType placeType) {
+      this.placeType = placeType;
+      return this;
+    }
+
     public Place build() {
       return placeRepository.save(Place.builder()
           .name(name != null ? name : "이름")
@@ -74,6 +80,7 @@ public class PlaceTestHelper {
           .averageRating(1.0F)
           .file(file != null ? file : fileTestHelper.generate())
           .address(address != null ? address : addressTestHelper.generate())
+          .placeType(placeType != null ? placeType : PlaceType.RESTAURANT)
           .build());
     }
   }
