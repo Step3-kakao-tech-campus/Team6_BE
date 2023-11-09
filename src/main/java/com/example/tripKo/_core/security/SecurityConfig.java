@@ -73,7 +73,7 @@ public class SecurityConfig {
           FilterResponseUtils.forbidden(response, new Exception403("권한이 없습니다"));
         }))
         .and()
-        .addFilterBefore(new JwtAuthFilter(jwtProvider, redisUtil), UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(new JwtAuthFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
 
 
