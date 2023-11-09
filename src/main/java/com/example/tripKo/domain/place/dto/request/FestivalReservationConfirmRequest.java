@@ -7,18 +7,19 @@ import lombok.Getter;
 @Getter
 public class FestivalReservationConfirmRequest {
 
-    private Reservation reservation;
+  private Reservation reservation;
 
-    @Getter
-    public static class Reservation {
-        @NotNull
-        private Long id;
-        @NotNull
-        private Long placeId;
-        @NotNull
-        private String reservationDate;
-        @NotNull
-        private Long headCount;
-        private String message;
-    }
+  @Getter
+  public static class Reservation {
+
+    @NotNull
+    private Long id;
+    @NotNull
+    private Long placeId;
+    @NotNull
+    private String reservationDate;
+    @NotNull
+    private Long headCount;
+    private String message;
+  }
 }

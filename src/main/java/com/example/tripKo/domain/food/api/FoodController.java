@@ -17,20 +17,22 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class FoodController {
-    private final FoodService foodService;
 
-    @GetMapping("/foods")
-    public ResponseEntity<?> findByKeyword(@RequestParam(value = "query", defaultValue = "") String query, @RequestParam(value = "sort", defaultValue = "True") String sort) {
-        List<FoodResponse> responseDTO = foodService.findByKeyword(query, sort);
-        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
-        return ResponseEntity.ok(apiResult);
-    }
+  private final FoodService foodService;
+
+  @GetMapping("/foods")
+  public ResponseEntity<?> findByKeyword(@RequestParam(value = "query", defaultValue = "") String query,
+      @RequestParam(value = "sort", defaultValue = "True") String sort) {
+    List<FoodResponse> responseDTO = foodService.findByKeyword(query, sort);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
+    return ResponseEntity.ok(apiResult);
+  }
 
 
-    @GetMapping("/foods/{foodId}")
-    public ResponseEntity<?> findByFoodId(@PathVariable Long foodId) {
-        FoodDetailsResponse responseDTO = foodService.getFoodInfo(foodId);
-        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
-        return ResponseEntity.ok(apiResult);
-    }
+  @GetMapping("/foods/{foodId}")
+  public ResponseEntity<?> findByFoodId(@PathVariable Long foodId) {
+    FoodDetailsResponse responseDTO = foodService.getFoodInfo(foodId);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
+    return ResponseEntity.ok(apiResult);
+  }
 }

@@ -76,7 +76,6 @@ public class SecurityConfig {
         .addFilterBefore(new JwtAuthFilter(jwtProvider, redisUtil), UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
 
-
     //h2-console 접속을 위해 허용
     http.headers().frameOptions().sameOrigin();
 

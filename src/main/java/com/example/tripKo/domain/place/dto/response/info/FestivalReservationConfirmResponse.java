@@ -13,35 +13,37 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @AllArgsConstructor(access = PRIVATE)
 public class FestivalReservationConfirmResponse {
-    private Long id;
-    private String reservationDate;
-    private Long placeId;
-    private Long headCount;
-    private String status;
-    private MemberDTO member;
+
+  private Long id;
+  private String reservationDate;
+  private Long placeId;
+  private Long headCount;
+  private String status;
+  private MemberDTO member;
 
 
-    @Getter
-    @Builder
-    public static class MemberDTO {
-        private String realName;
-        private String emailAddress;
-    }
+  @Getter
+  @Builder
+  public static class MemberDTO {
+
+    private String realName;
+    private String emailAddress;
+  }
 
 
-    public FestivalReservationConfirmResponse (MemberReservationInfo memberReservationInfo) {
-        this.id = memberReservationInfo.getId();
-        this.reservationDate = memberReservationInfo.getReservationDate();
-        this.placeId = memberReservationInfo.getPlace().getId();
-        this.headCount = memberReservationInfo.getHeadCount();
-        this.status = memberReservationInfo.getStatus().name();
-        this.member = mapMember(memberReservationInfo.getMember());
-    }
+  public FestivalReservationConfirmResponse(MemberReservationInfo memberReservationInfo) {
+    this.id = memberReservationInfo.getId();
+    this.reservationDate = memberReservationInfo.getReservationDate();
+    this.placeId = memberReservationInfo.getPlace().getId();
+    this.headCount = memberReservationInfo.getHeadCount();
+    this.status = memberReservationInfo.getStatus().name();
+    this.member = mapMember(memberReservationInfo.getMember());
+  }
 
-    private MemberDTO mapMember (Member member){
-        return MemberDTO.builder()
-                .realName(member.getRealName())
-                .emailAddress(member.getEmailAddress())
-                .build();
-    }
+  private MemberDTO mapMember(Member member) {
+    return MemberDTO.builder()
+        .realName(member.getRealName())
+        .emailAddress(member.getEmailAddress())
+        .build();
+  }
 }

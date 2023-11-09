@@ -13,52 +13,54 @@ import java.util.stream.Collectors;
 
 @Getter
 public class ReviewsResponse {
-    @Builder
-    @Getter
-    static class ReviewDTO {
-        private Long reviewId;
-        private Long placeId;
-        private PlaceType type;
-        private String visitTime;
-        private int rating;
-        private String description;
-        private String nickName;
-        private List<String> image = new ArrayList<>();
-    }
 
-    private double averageRating;
-    private List<ReviewDTO> reviews = new ArrayList<>();
+  @Builder
+  @Getter
+  static class ReviewDTO {
 
-    public ReviewsResponse(List<Review> reviewEntities, Place place) {
-        this.averageRating = place.getAverageRating();
+    private Long reviewId;
+    private Long placeId;
+    private PlaceType type;
+    private String visitTime;
+    private int rating;
+    private String description;
+    private String nickName;
+    private List<String> image = new ArrayList<>();
+  }
 
-        reviews = reviewEntities.stream()
-                .map(this::mapReview)
-                .collect(Collectors.toList());
-    }
+  private double averageRating;
+  private List<ReviewDTO> reviews = new ArrayList<>();
 
-    private ReviewDTO mapReview(Review review) {
-        return ReviewDTO.builder()
-                .reviewId(review.getId())
-                .placeId(review.getPlace().getId())
-                .type(review.getPlace().getPlaceType())
-                .visitTime(review.getUsageDate())
-                .rating(review.getScore())
-                .description(review.getDescription())
-                .nickName(review.getMember().getNickName())
-                .image(review.getReviewHasFiles().stream()
-                        .map(r -> createFileNameWithPaths(r.getFile().getName()))
-                        .collect(Collectors.toList()))
-                .build();
-    }
+  public ReviewsResponse(List<Review> reviewEntities, Place place) {
+    this.averageRating = place.getAverageRating();
 
-    private String createFileNameWithPaths(String filename) {
-        return "src" + File.separator
-                + "main" + File.separator
-                + "resources" + File.separator
-                + "reviews" + File.separator
-                + "images" + File.separator
-                + filename;
-    }
+    reviews = reviewEntities.stream()
+        .map(this::mapReview)
+        .collect(Collectors.toList());
+  }
+
+  private ReviewDTO mapReview(Review review) {
+    return ReviewDTO.builder()
+        .reviewId(review.getId())
+        .placeId(review.getPlace().getId())
+        .type(review.getPlace().getPlaceType())
+        .visitTime(review.getUsageDate())
+        .rating(review.getScore())
+        .description(review.getDescription())
+        .nickName(review.getMember().getNickName())
+        .image(review.getReviewHasFiles().stream()
+            .map(r -> createFileNameWithPaths(r.getFile().getName()))
+            .collect(Collectors.toList()))
+        .build();
+  }
+
+  private String createFileNameWithPaths(String filename) {
+    return "src" + File.separator
+        + "main" + File.separator
+        + "resources" + File.separator
+        + "reviews" + File.separator
+        + "images" + File.separator
+        + filename;
+  }
 
 }

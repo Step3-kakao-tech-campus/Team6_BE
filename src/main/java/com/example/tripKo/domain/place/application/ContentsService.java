@@ -46,7 +46,7 @@ public class ContentsService {
     }
 
     PlaceRestaurant placeRestaurant = placeRestaurantRepository.findByPlaceId(placeId)
-            .orElseThrow(() -> new Exception404("해당 식당을 찾을 수 없습니다. id : " + placeId));
+        .orElseThrow(() -> new Exception404("해당 식당을 찾을 수 없습니다. id : " + placeId));
 //    PlaceRestaurant placeRestaurant = validContentsService.findByRestaurantId(placeId);
     return RestaurantResponse.from(placeRestaurant, places.contains(placeRestaurant.getPlace()));
   }
@@ -63,7 +63,7 @@ public class ContentsService {
     }
 
     PlaceFestival placeFestival = placeFestivalRepository.findByPlaceId(placeId)
-            .orElseThrow(() -> new Exception404("해당 식당을 찾을 수 없습니다. id : " + placeId));
+        .orElseThrow(() -> new Exception404("해당 식당을 찾을 수 없습니다. id : " + placeId));
 //    PlaceFestival placeFestival = validContentsService.findByFestivalId(placeId);
     return FestivalResponse.from(placeFestival, places.contains(placeFestival.getPlace()));
   }
@@ -80,7 +80,7 @@ public class ContentsService {
     }
 
     PlaceTouristSpot placeTouristSpot = placeTouristSpotRepository.findByPlaceId(placeId)
-            .orElseThrow(() -> new Exception404("해당 식당을 찾을 수 없습니다. id : " + placeId));
+        .orElseThrow(() -> new Exception404("해당 식당을 찾을 수 없습니다. id : " + placeId));
 //    PlaceTouristSpot placeTouristSpot = validContentsService.findByTouristSpotId(placeId);
     return TouristSpotResponse.from(placeTouristSpot, places.contains(placeTouristSpot.getPlace()));
   }

@@ -13,14 +13,15 @@ import java.util.List;
 @Getter
 @Builder
 public class ReviewRequest {
-    @NotNull
-    private Long placeId;
 
-    @NotNull
-    private int rating;
+  @NotNull
+  private Long placeId;
 
-    private String description;
+  @NotNull
+  private int rating;
 
-    @Size(max = 10)
-    List<MultipartFile> image = new ArrayList<>();
+  private String description;
+
+  @Size(max = 10)
+  List<MultipartFile> image = new ArrayList<>();
 }
