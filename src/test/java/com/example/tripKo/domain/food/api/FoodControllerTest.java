@@ -13,19 +13,21 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 public class FoodControllerTest extends IntegrationTest {
 
-//  @Test
-//  @DisplayName("유효한 요청일 경우 음식 검색은 성공해야 한다.")
-//  public void success_get_foods_info() throws Exception {
-//
-//    foodTestHelper.generate();
-//    foodTestHelper.generate();
-//    foodTestHelper.generate();
-//
-//    mockMvc.perform(get("/foods"))
-//        .andExpect(status().isOk())
-//        .andDo(MockMvcResultHandlers.print())
-//        .andDo(document);
-//  }
+  @Test
+  @DisplayName("유효한 요청일 경우 음식 검색은 성공해야 한다.")
+  public void success_get_foods_info() throws Exception {
+
+    Food food = foodTestHelper.builder().keyword("pizza").build();
+    foodRepository.save(food);
+
+    mockMvc.perform(get("/foods")
+            .param("query", "pizza")
+            .param("sort", "views")
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andDo(MockMvcResultHandlers.print())
+        .andDo(document);
+  }
 
   @Test
   @DisplayName("유효한 요청일 경우 상세정보 보기는 성공해야 한다.")
