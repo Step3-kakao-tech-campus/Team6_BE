@@ -90,7 +90,7 @@ public class SecurityConfig {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
-    configuration.addAllowedOriginPattern("https://kd284b475c6e5a.user-app.krampoline.com");
+    configuration.addAllowedOrigin("https://kd284b475c6e5a.user-app.krampoline.com");
     configuration.addExposedHeader("authorization");
     configuration.addExposedHeader("refreshToken");
     configuration.setAllowCredentials(true);
