@@ -19,69 +19,72 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="place")
+@Table(name = "place")
 public class Place extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(length = 100, nullable = false)
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(length = 1000, nullable = false)
-    private String summary;
+  @Column(length = 100, nullable = false)
+  private String name;
 
-    @Column
-    private int count;
+  @Column(length = 1000, nullable = false)
+  private String summary;
 
-    @Column
-    private double averageRating;
+  @Column
+  private int count;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "file_id", nullable = false)
-    private File file;
+  @Column
+  private double averageRating;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "address_id", nullable = false)
-    private Address address;
+  @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "file_id", nullable = false)
+  private File file;
 
-    @OneToMany(fetch = LAZY, mappedBy = "place")
-    private final List<Contents> contents = new ArrayList<>();
+  @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "address_id", nullable = false)
+  private Address address;
 
-    @OneToMany(mappedBy = "place")
-    private final List<MemberReservationInfo> memberReservationInfos = new ArrayList<>();
+  @OneToMany(fetch = LAZY, mappedBy = "place")
+  private final List<Contents> contents = new ArrayList<>();
 
-    private int reviewNumbers;
+  @OneToMany(mappedBy = "place")
+  private final List<MemberReservationInfo> memberReservationInfos = new ArrayList<>();
 
-    private PlaceType placeType;
+  private int reviewNumbers;
 
-    @Builder
-    public Place(String name, String summary, int count, float averageRating, File file, Address address, PlaceType placeType) {
-        this.name = name;
-        this.summary = summary;
-        this.count = count;
-        this.averageRating = averageRating;
-        this.file = file;
-        this.address = address;
-        this.placeType = placeType;
-    }
+  private PlaceType placeType;
 
-    public void addContents(Contents contents) {
-        this.contents.add(contents);
-    }
+  @Builder
+  public Place(String name, String summary, int count, float averageRating, File file, Address address,
+      PlaceType placeType) {
+    this.name = name;
+    this.summary = summary;
+    this.count = count;
+    this.averageRating = averageRating;
+    this.file = file;
+    this.address = address;
+    this.placeType = placeType;
+  }
 
-    public String addressToString(Address address) {
-        String addressToString = address.getBuildingName() + " " + address.getRoadName();
-        AddressCategory addressCategory = address.getAddressCategory();
-        String addressCategoryToString = addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
-        return addressToString + " " + addressCategoryToString;
-    }
+  public void addContents(Contents contents) {
+    this.contents.add(contents);
+  }
 
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
-    }
+  public String addressToString(Address address) {
+    String addressToString = address.getBuildingName() + " " + address.getRoadName();
+    AddressCategory addressCategory = address.getAddressCategory();
+    String addressCategoryToString =
+        addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
+    return addressToString + " " + addressCategoryToString;
+  }
 
-    public void setReviewNumbers(int reviewNumbers) {
-        this.reviewNumbers = reviewNumbers;
-    }
+  public void setAverageRating(double averageRating) {
+    this.averageRating = averageRating;
+  }
+
+  public void setReviewNumbers(int reviewNumbers) {
+    this.reviewNumbers = reviewNumbers;
+  }
 }

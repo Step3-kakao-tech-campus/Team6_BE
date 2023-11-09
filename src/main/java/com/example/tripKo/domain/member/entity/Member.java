@@ -95,7 +95,8 @@ public class Member extends BaseTimeEntity {
     this.nationality = nationality;
   }
 
-  public void addInfoForGoogleLogin(String password, String realName, String memberId, String birthday, String nationality) {
+  public void addInfoForGoogleLogin(String password, String realName, String memberId, String birthday,
+      String nationality) {
     this.password = password;
     this.realName = realName;
     this.memberId = memberId;

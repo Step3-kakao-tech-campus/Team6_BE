@@ -26,28 +26,34 @@ public class ContentsController {
   private final ContentsService contentsService;
 
   @GetMapping("/restaurant/{id}")
-  public ResponseEntity<RestaurantResponse> getRestaurantDetails(@PathVariable Long id, @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+  public ResponseEntity<RestaurantResponse> getRestaurantInfo(@PathVariable Long id,
+      @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long memberId = null;
-    if (jwtUserDetails != null)
+    if (jwtUserDetails != null) {
       memberId = jwtUserDetails.getMember().getId();
-    RestaurantResponse response = contentsService.findRestaurantDetailsById(id, memberId);
+    }
+    RestaurantResponse response = contentsService.getRestaurantInfo(id, memberId);
     return ResponseEntity.ok(response);
   }
 
   @GetMapping("/festival/{id}")
-  public ResponseEntity<FestivalResponse> getFestivalInfo(@PathVariable Long id, @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+  public ResponseEntity<FestivalResponse> getFestivalInfo(@PathVariable Long id,
+      @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long memberId = null;
-    if (jwtUserDetails != null)
+    if (jwtUserDetails != null) {
       memberId = jwtUserDetails.getMember().getId();
+    }
     FestivalResponse response = contentsService.getFestivalInfo(id, memberId);
     return ResponseEntity.ok(response);
   }
 
   @GetMapping("/touristSpot/{id}")
-  public ResponseEntity<TouristSpotResponse> getTouristSpotInfo(@PathVariable Long id, @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+  public ResponseEntity<TouristSpotResponse> getTouristSpotInfo(@PathVariable Long id,
+      @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long memberId = null;
-    if (jwtUserDetails != null)
+    if (jwtUserDetails != null) {
       memberId = jwtUserDetails.getMember().getId();
+    }
     TouristSpotResponse response = contentsService.getTouristSpotInfo(id, memberId);
     return ResponseEntity.ok(response);
   }
@@ -55,8 +61,9 @@ public class ContentsController {
   @GetMapping("/home")
   public ResponseEntity<HomeResponse> getHomeInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long memberId = null;
-    if (jwtUserDetails != null)
+    if (jwtUserDetails != null) {
       memberId = jwtUserDetails.getMember().getId();
+    }
     List<SelectRestaurantResponse> restaurants = contentsService.getHomeInfo(memberId).getRestaurants();
     List<SelectFestivalResponse> festivals = contentsService.getHomeInfo(memberId).getFestivals();
     List<SelectTouristSpotResponse> touristSpots = contentsService.getHomeInfo(memberId).getTouristSpots();

@@ -35,6 +35,7 @@ public class PlaceService {
   private final PlaceFestivalRepository placeFestivalRepository;
   private final PlaceTouristSpotRepository placeTouristSpotRepository;
   private final MemberRepository memberRepository;
+
   @Transactional
   public PlaceResponse findAllByLocation(String location, Long id) {
     List<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findAllByLocation(location);
@@ -82,8 +83,9 @@ public class PlaceService {
     }
 
     List<PlaceRestaurantResponse> placeRestaurantResponses = new ArrayList<>();
-    for (PlaceRestaurant p: placeRestaurants) {
-      placeRestaurantResponses.add(PlaceRestaurantResponse.builder().placeRestaurant(p).isWished(places.contains(p.getPlace())).build());
+    for (PlaceRestaurant p : placeRestaurants) {
+      placeRestaurantResponses.add(
+          PlaceRestaurantResponse.builder().placeRestaurant(p).isWished(places.contains(p.getPlace())).build());
     }
     return placeRestaurantResponses;
   }
@@ -107,8 +109,9 @@ public class PlaceService {
     }
 
     List<PlaceFestivalResponse> placeFestivalResponses = new ArrayList<>();
-    for (PlaceFestival p: placeFestivals) {
-      placeFestivalResponses.add(PlaceFestivalResponse.builder().placeFestival(p).isWished(places.contains(p.getPlace())).build());
+    for (PlaceFestival p : placeFestivals) {
+      placeFestivalResponses.add(
+          PlaceFestivalResponse.builder().placeFestival(p).isWished(places.contains(p.getPlace())).build());
     }
     return placeFestivalResponses;
   }
@@ -132,8 +135,9 @@ public class PlaceService {
     }
 
     List<PlaceTouristSpotResponse> placeTouristSpotResponses = new ArrayList<>();
-    for (PlaceTouristSpot p: placeTouristSpots) {
-      placeTouristSpotResponses.add(PlaceTouristSpotResponse.builder().placeTouristSpot(p).isWished(places.contains(p.getPlace())).build());
+    for (PlaceTouristSpot p : placeTouristSpots) {
+      placeTouristSpotResponses.add(
+          PlaceTouristSpotResponse.builder().placeTouristSpot(p).isWished(places.contains(p.getPlace())).build());
     }
     return placeTouristSpotResponses;
   }

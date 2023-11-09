@@ -23,31 +23,32 @@ import java.util.Collections;
 @RequiredArgsConstructor
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-    private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    //구글로부터 받은 userRequest 데이터에 대한 후처리
-    @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
-        OAuth2User oAuth2User = delegate.loadUser(userRequest);
+  private final MemberRepository memberRepository;
+  private final PasswordEncoder passwordEncoder;
 
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
-                .getUserInfoEndpoint().getUserNameAttributeName();
+  //구글로부터 받은 userRequest 데이터에 대한 후처리
+  @Override
+  public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+    OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
+    OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
-        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+    String registrationId = userRequest.getClientRegistration().getRegistrationId();
+    String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
+        .getUserInfoEndpoint().getUserNameAttributeName();
 
-        Member member = saveOrUpdate(attributes);
+    OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        return new JwtUserDetails(member);
-    }
+    Member member = saveOrUpdate(attributes);
+
+    return new JwtUserDetails(member);
+  }
 
 
-    private Member saveOrUpdate(OAuthAttributes attributes) {
-        Member member = memberRepository.findByEmailAddress(attributes.getEmailAddress())
-                .orElse(attributes.toEntity(passwordEncoder));
+  private Member saveOrUpdate(OAuthAttributes attributes) {
+    Member member = memberRepository.findByEmailAddress(attributes.getEmailAddress())
+        .orElse(attributes.toEntity(passwordEncoder));
 
-        return memberRepository.save(member);
-    }
+    return memberRepository.save(member);
+  }
 }

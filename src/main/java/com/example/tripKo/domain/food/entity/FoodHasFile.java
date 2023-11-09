@@ -20,22 +20,23 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "food_has_file")
 public class FoodHasFile {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "food_id", nullable = false)
-    private Food food;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  @Column(nullable = false, updatable = false)
+  private Long id;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "file_id", nullable = false)
-    private File file;
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "food_id", nullable = false)
+  private Food food;
 
-    @Builder
-    public FoodHasFile(Food food, File file) {
-        this.food = food;
-        this.file = file;
-    }
+  @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "file_id", nullable = false)
+  private File file;
+
+  @Builder
+  public FoodHasFile(Food food, File file) {
+    this.food = food;
+    this.file = file;
+  }
 }

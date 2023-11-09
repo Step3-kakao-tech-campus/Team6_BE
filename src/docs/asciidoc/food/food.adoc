@@ -1,0 +1,38 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= FOOD API 문서
+:icons: font
+:source-highlighter: highlight.js
+:toc: left
+:toclevels: 1
+:sectlinks:
+
+== *음식 키워드 검색 기능*
+
+=== 요청
+
+==== Request
+
+include::{snippets}/food-controller-test/success_get_foods_info/http-request.adoc[]
+
+=== 응답
+
+==== Response
+
+include::{snippets}/food-controller-test/success_get_foods_info/http-response.adoc[]
+
+== *음식 상세정보 불러오기*
+
+=== 요청
+
+==== Request
+
+include::{snippets}/food-controller-test/success_get_foods_info_details/http-request.adoc[]
+
+=== 응답
+
+==== Response
+
+include::{snippets}/food-controller-test/success_get_foods_info_details/http-response.adoc[]
