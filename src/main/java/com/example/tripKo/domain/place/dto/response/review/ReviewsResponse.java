@@ -23,7 +23,7 @@ public class ReviewsResponse {
         private int rating;
         private String description;
         private String nickName;
-        private List<String> images = new ArrayList<>();
+        private List<String> image = new ArrayList<>();
     }
 
     private double averageRating;
@@ -46,7 +46,7 @@ public class ReviewsResponse {
                 .rating(review.getScore())
                 .description(review.getDescription())
                 .nickName(review.getMember().getNickName())
-                .images(review.getReviewHasFiles().stream()
+                .image(review.getReviewHasFiles().stream()
                         .map(r -> createFileNameWithPaths(r.getFile().getName()))
                         .collect(Collectors.toList()))
                 .build();
