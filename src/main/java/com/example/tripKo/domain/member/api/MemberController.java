@@ -38,6 +38,7 @@ import javax.validation.Valid;
 @Validated
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "https://kd284b475c6e5a.user-app.krampoline.com:3000")
 public class MemberController {
 
   private final MemberService memberService;

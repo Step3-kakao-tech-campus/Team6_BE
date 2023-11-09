@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Validated
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "https://kd284b475c6e5a.user-app.krampoline.com:3000")
 public class ContentsController {
 
   private final ContentsService contentsService;
@@ -53,7 +54,7 @@ public class ContentsController {
     return ResponseEntity.ok(response);
   }
     
-  @CrossOrigin(origins = "https://kd284b475c6e5a.user-app.krampoline.com:3000")
+
   @GetMapping("/home")
   public ResponseEntity<HomeResponse> getHomeInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long memberId = null;

@@ -20,6 +20,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "https://kd284b475c6e5a.user-app.krampoline.com:3000")
 public class ReviewController {
     private final ReviewService reviewService;
     @PostMapping(path ="/restaurant/reviews", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})

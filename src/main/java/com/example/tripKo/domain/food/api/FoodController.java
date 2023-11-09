@@ -7,15 +7,13 @@ import com.example.tripKo.domain.food.dto.response.FoodResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "https://kd284b475c6e5a.user-app.krampoline.com:3000")
 public class FoodController {
     private final FoodService foodService;
 
