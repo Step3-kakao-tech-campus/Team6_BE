@@ -87,6 +87,7 @@ public class SecurityConfig {
   }
 
   public CorsConfigurationSource configurationSource() {
+    System.out.println("==========================================================================================================================");
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
