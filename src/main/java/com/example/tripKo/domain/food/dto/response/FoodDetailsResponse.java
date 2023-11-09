@@ -36,9 +36,9 @@ public class FoodDetailsResponse {
     this.name = food.getName();
     this.category = food.getFoodCategory();
     this.description = food.getDescription();
-    this.mainImage = food.getFile().getName();
+    this.mainImage = food.getFile().getUrl();
     this.foodImage = food.getFoodImages().stream()
-        .map(fi -> fi.getFile().getName())
+        .map(fi -> fi.getFile().getUrl())
         .collect(Collectors.toList());
     this.restaurant = food.getFoodHasPlaceRestaurants().stream()
         .map(this::mapRestaurant)
@@ -51,7 +51,7 @@ public class FoodDetailsResponse {
         .name(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getName())
         .location(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAddress().toString())
         .averageRating(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAverageRating())
-        .image(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getFile().getName())
+        .image(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getFile().getUrl())
         .build();
   }
 }

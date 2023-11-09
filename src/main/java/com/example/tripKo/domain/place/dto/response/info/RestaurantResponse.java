@@ -59,7 +59,7 @@ public class RestaurantResponse {
     return RestaurantResponse.builder()
         .id(placeRestaurant.getId())
         .name(placeRestaurant.getPlace().getName())
-        .mainImage(placeRestaurant.getPlace().getFile().getName())
+        .mainImage(placeRestaurant.getPlace().getFile().getUrl())
         .contents(placeRestaurant.getPlace().getContents().stream()
             .map(RestaurantResponse::mapContent)
             .collect(Collectors.toList()))

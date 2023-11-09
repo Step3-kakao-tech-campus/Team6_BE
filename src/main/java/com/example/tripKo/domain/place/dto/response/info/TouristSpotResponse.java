@@ -37,7 +37,7 @@ public class TouristSpotResponse {
         .id(placeTouristSpot.getId())
         .name(placeTouristSpot.getPlace().getName())
         .averageScore(placeTouristSpot.getPlace().getAverageRating())
-        .mainImage(placeTouristSpot.getPlace().getFile().getName())
+        .mainImage(placeTouristSpot.getPlace().getFile().getUrl())
         .contents(placeTouristSpot.getPlace().getContents().stream()
             .map(TouristSpotResponse::mapContent)
             .collect(Collectors.toList()))

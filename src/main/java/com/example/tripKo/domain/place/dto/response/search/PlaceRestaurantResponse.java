@@ -25,7 +25,7 @@ public class PlaceRestaurantResponse {
     this.id = placeRestaurant.getPlace().getId();
     this.name = placeRestaurant.getPlace().getName();
     this.summary = placeRestaurant.getPlace().getSummary();
-    this.image = placeRestaurant.getPlace().getFile().getName();
+    this.image = placeRestaurant.getPlace().getFile().getUrl();
     this.address = addressToString(placeRestaurant.getPlace().getAddress());
     this.averageRating = placeRestaurant.getPlace().getAverageRating();
     this.isWished = isWished;
