@@ -1,6 +1,7 @@
 package com.example.tripKo.domain.place.dao;
 
 import com.example.tripKo.domain.place.entity.Place;
+import com.example.tripKo.domain.place.entity.PlaceFestival;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -35,6 +36,7 @@ public interface PlaceRestaurantRepository extends JpaRepository<PlaceRestaurant
 
   Optional<PlaceRestaurant> findByIdAndIdNot(Long id, Long virtualId);
 
+  Optional<PlaceRestaurant> findByPlaceId(Long placeId);
   Optional<PlaceRestaurant> findByPlace(Place place);
 
 }

@@ -2,12 +2,10 @@ package com.example.tripKo.domain.place.dto.request;
 
 import com.example.tripKo.domain.place.PlaceType;
 import com.sun.istack.NotNull;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
-public class RestaurantReservationConfirmRequest {
+public class FestivalReservationConfirmRequest {
 
     private Reservation reservation;
 
@@ -19,8 +17,6 @@ public class RestaurantReservationConfirmRequest {
         private Long placeId;
         @NotNull
         private String reservationDate;
-        @NotNull
-        private String reservationTime;
         @NotNull
         private Long headCount;
         private String message;

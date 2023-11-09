@@ -26,7 +26,7 @@ public class MemberHasPlaceIsWished {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @OneToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 

@@ -17,11 +17,11 @@ public class FestivalResponse {
 
   private Long id;
   private String name;
-  private Float averageScore;
+  private double averageScore;
   private String mainImage;
   private List<Content> contents;
   private String address;
-  private Boolean liked;
+  private Boolean isWished;
   private Boolean isReservable;
   private String period;
 
@@ -34,7 +34,7 @@ public class FestivalResponse {
     private List<String> image;
   }
 
-  public static FestivalResponse from(PlaceFestival placeFestival) {
+  public static FestivalResponse from(PlaceFestival placeFestival, boolean isWished) {
     return FestivalResponse.builder()
         .id(placeFestival.getId())
         .name(placeFestival.getPlace().getName())
@@ -44,7 +44,7 @@ public class FestivalResponse {
             .map(FestivalResponse::mapContent)
             .collect(Collectors.toList()))
         .address(placeFestival.getPlace().addressToString(placeFestival.getPlace().getAddress()))
-        .liked(false)
+        .isWished(isWished)
         .isReservable(placeFestival.getReservationAvailable())
         .period(placeFestival.getStartDate() + " ~ " + placeFestival.getEndDate())
         .build();

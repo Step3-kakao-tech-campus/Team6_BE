@@ -23,5 +23,5 @@ public class ReviewUpdateRequest {
     private String description;
 
     @Size(max = 10)
-    List<MultipartFile> images = new ArrayList<>();
+    List<MultipartFile> image = new ArrayList<>();
 }
