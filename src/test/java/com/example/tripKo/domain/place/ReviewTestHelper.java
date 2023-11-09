@@ -33,7 +33,6 @@ public class ReviewTestHelper {
     private String usageDate;
     private Member member;
     private Place place;
-    private boolean isAvailable;
     private PlaceType type;
 
     public ReviewBuilder score(int score) {
@@ -61,11 +60,6 @@ public class ReviewTestHelper {
       return this;
     }
 
-    public ReviewBuilder isAvailable(boolean isAvailable) {
-      this.isAvailable = isAvailable;
-      return this;
-    }
-
     public ReviewBuilder type(PlaceType type) {
       this.type = type;
       return this;
@@ -77,7 +71,6 @@ public class ReviewTestHelper {
           .place(place != null ? place : placeTestHelper.generate())
           .usageDate(usageDate != null ? usageDate : "23/10/03")
           .member(member != null ? member : memberTestHelper.generate())
-          .isAvailable(isAvailable)
           .placeType(type != null ? type : PlaceType.RESTAURANT)
           .build());
     }
