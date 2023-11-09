@@ -9,6 +9,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8080", "http://localhost:3000", "http://localhost:80"); // 허용할 출처
+                .allowedOrigins("https://kd284b475c6e5a.user-app.krampoline.com/"); // 허용할 출처
     }
 }
