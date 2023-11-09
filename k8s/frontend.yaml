@@ -18,7 +18,7 @@ spec:
           image: krmp-d2hub-idock.9rum.cc/dev-test/repo_42e1bd10cf18:latest
           volumeMounts:
             - name: shared-data
-              mountPath: /images
+              mountPath: /image
       volumes:
         - name: shared-data
           emptyDir: {}
