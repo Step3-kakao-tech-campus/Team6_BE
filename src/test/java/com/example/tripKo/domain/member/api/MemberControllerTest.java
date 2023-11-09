@@ -5,7 +5,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import com.example.tripKo.IntegrationTest;
+import com.example.tripKo.domain.member.MemberReservationStatus;
+import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.request.SignUpRequest;
+import com.example.tripKo.domain.member.entity.MemberReservationInfo;
+import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
+import com.example.tripKo.domain.place.entity.PlaceRestaurant;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -128,4 +134,73 @@ public class MemberControllerTest extends IntegrationTest {
           .andExpect(status().is5xxServerError());
     }
   }
+
+//  @Nested
+//  @DisplayName("로그인 테스트")
+//  class login_test {
+//
+//    @Test
+//    @DisplayName("유효한 요청이면 로그인에 성공해야 한다.")
+//    public void should_success_login() throws Exception {
+//      SignInRequest request = SignInRequest.builder()
+//          .memberId("tripko123")
+//          .password("tripko123!")
+//          .build();
+//
+//      mockMvc.perform(post("/login")
+//              .content(objectMapper.writeValueAsString(request))
+//              .contentType(MediaType.APPLICATION_JSON))
+//          .andExpect(status().isOk())
+//          .andDo(MockMvcResultHandlers.print())
+//          .andDo(document);
+//    }
+//  }
+
+  @Nested
+  @DisplayName("식당 예약 테스트")
+  class restaurantReservationTest {
+
+    @Test
+    @DisplayName("유효한 요청이면 식당 예약 날짜 선택 요청은 성공해야 한다.")
+    public void should_success_restaurant_booking_calendar() throws Exception {
+      PlaceRestaurant placeRestaurant = PlaceRestaurant.builder()
+          .contact_info("010-1111-1111")
+          .openingTime("10:00")
+          .closingTime("23:00")
+          .breakStartTime("15:00")
+          .breakEndTime("16:00")
+          .holiday(1)
+          .place(placeTestHelper.generate())
+          .build();
+      placeRestaurantRepository.save(placeRestaurant);
+
+      mockMvc.perform(get("/restaurant/bookings/calendar/{id}", placeRestaurant.getId()))
+          .andExpect(status().isOk())
+          .andDo(MockMvcResultHandlers.print())
+          .andDo(document);
+    }
+
+//    @Test
+//    @DisplayName("유효한 요청이면 식당 예약 완료는 성공해야 한다.")
+//    public void should_success_restaurant_booking() throws Exception {
+//      PlaceRestaurant placeRestaurant = PlaceRestaurant.builder()
+//          .contact_info("010-1111-1111")
+//          .openingTime("10:00")
+//          .closingTime("23:00")
+//          .breakStartTime("15:00")
+//          .breakEndTime("16:00")
+//          .holiday(1)
+//          .place(placeTestHelper.generate())
+//          .build();
+//      placeRestaurantRepository.save(placeRestaurant);
+//
+//
+//      mockMvc.perform(get("/restaurant/bookings"))
+//          .andExpect(status().isOk())
+//          .andDo(MockMvcResultHandlers.print())
+//          .andDo(document);
+//    }
+  }
+
+
 }

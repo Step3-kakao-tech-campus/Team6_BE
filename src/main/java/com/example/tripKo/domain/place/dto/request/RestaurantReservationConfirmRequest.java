@@ -1,9 +1,11 @@
 package com.example.tripKo.domain.place.dto.request;
 
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class RestaurantReservationConfirmRequest {
 
     private Reservation reservation;

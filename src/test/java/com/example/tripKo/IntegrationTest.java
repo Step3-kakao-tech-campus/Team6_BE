@@ -19,6 +19,7 @@ import com.example.tripKo.domain.place.application.PlaceService;
 import com.example.tripKo.domain.place.application.ReviewService;
 import com.example.tripKo.domain.place.dao.AddressCategoryRepository;
 import com.example.tripKo.domain.place.dao.AddressRepository;
+import com.example.tripKo.domain.place.dao.ContentsFileRepository;
 import com.example.tripKo.domain.place.dao.ContentsMenuRepository;
 import com.example.tripKo.domain.place.dao.ContentsRepository;
 import com.example.tripKo.domain.place.dao.PlaceFestivalRepository;
@@ -90,6 +91,9 @@ public class IntegrationTest {
 
   @SpyBean
   protected FoodRepository foodRepository;
+
+  @SpyBean
+  protected ContentsFileRepository contentsFileRepository;
 
 
   /*** service ***/

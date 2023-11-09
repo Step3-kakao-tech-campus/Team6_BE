@@ -8,10 +8,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.tripKo.IntegrationTest;
+import com.example.tripKo.domain.file.entity.File;
 import com.example.tripKo.domain.place.Category;
+import com.example.tripKo.domain.place.dto.response.info.FestivalResponse;
+import com.example.tripKo.domain.place.dto.response.info.RestaurantResponse;
+import com.example.tripKo.domain.place.entity.Contents;
+import com.example.tripKo.domain.place.entity.ContentsHasFile;
+import com.example.tripKo.domain.place.entity.ContentsMenu;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
 import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -37,6 +47,9 @@ public class ContentsControllerTest extends IntegrationTest {
           .build();
       placeRestaurantRepository.save(placeRestaurant);
 
+      Contents contents = contentsTestHelper.builder().place(placeRestaurant.getPlace()).build();
+      contentsRepository.save(contents);
+
       mockMvc.perform(get("/restaurant/{id}", placeRestaurant.getId()))
           .andExpect(status().isOk())
           .andDo(MockMvcResultHandlers.print())
@@ -48,15 +61,16 @@ public class ContentsControllerTest extends IntegrationTest {
     public void should_success_get_festival_info() throws Exception {
       PlaceFestival placeFestival = PlaceFestival.builder()
           .startDate("2023/10/1")
-          .endDate("2023/10/3")
+          .endDate("2023/10/5")
           .place(placeTestHelper.generate())
           .reservationAvailable(true)
           .build();
       placeFestivalRepository.save(placeFestival);
 
-      Long festivalId = placeFestival.getId();
+      Contents contents = contentsTestHelper.builder().place(placeFestival.getPlace()).build();
+      contentsRepository.save(contents);
 
-      mockMvc.perform(get("/festival/{id}", festivalId))
+      mockMvc.perform(get("/festival/{id}", placeFestival.getId()))
           .andExpect(status().isOk())
           .andDo(MockMvcResultHandlers.print())
           .andDo(document);
@@ -69,6 +83,9 @@ public class ContentsControllerTest extends IntegrationTest {
           .place(placeTestHelper.generate())
           .build();
       placeTouristSpotRepository.save(placeTouristSpot);
+
+      Contents contents = contentsTestHelper.builder().place(placeTouristSpot.getPlace()).build();
+      contentsRepository.save(contents);
 
       mockMvc.perform(get("/touristSpot/{id}", placeTouristSpot.getId()))
           .andExpect(status().isOk())
