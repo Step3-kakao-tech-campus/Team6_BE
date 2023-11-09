@@ -136,7 +136,7 @@ public class SecurityConfig {
     configuration.setAllowCredentials(true);
     configuration.setAllowedOrigins(List.of("https://kfd701ba2c3a1a.user-app.krampoline.com:3000"));
     configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-    configuration.setAllowedHeaders(List.of("*"));
+    configuration.setAllowedHeaders(List.of("Origin","Accept","X-Requested-With","Content-Type","Access-Control-Request-Method","Access-Control-Request-Headers", "Authorization"));
     configuration.setExposedHeaders(List.of("*"));
     configuration.setAllowCredentials(true);
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
