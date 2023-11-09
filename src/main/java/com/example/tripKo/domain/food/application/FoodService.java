@@ -98,6 +98,7 @@ public class FoodService {
     public FoodDetailsResponse getFoodInfo(Long id) {
         Food food = foodRepository.findById(id)
                 .orElseThrow(() -> new Exception404("해당하는 컨텐츠를 찾을 수 없습니다. id: " + id));
+        food.updateView();
         FoodDetailsResponse foodDetailsResponse = new FoodDetailsResponse(food);
         return foodDetailsResponse;
     }

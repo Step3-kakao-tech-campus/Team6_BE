@@ -19,7 +19,7 @@ public class PlaceTouristSpotResponse {
 
   @Builder
   public PlaceTouristSpotResponse(PlaceTouristSpot placeTouristSpot) {
-    this.id = placeTouristSpot.getId();
+    this.id = placeTouristSpot.getPlace().getId();
     this.name = placeTouristSpot.getPlace().getName();
     this.summary = placeTouristSpot.getPlace().getSummary();
     this.image = placeTouristSpot.getPlace().getFile().getName();
