@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+//@Component
 @Profile("test")
 @RequiredArgsConstructor
 public class TestData implements CommandLineRunner {

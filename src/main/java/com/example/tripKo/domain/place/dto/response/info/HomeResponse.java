@@ -76,6 +76,7 @@ public class HomeResponse {
         .map(festivalResponse -> SelectFestivalResponse.builder()
             .id(festivalResponse.getId())
             .name(festivalResponse.getName())
+            .image(festivalResponse.getMainImage())
             .summary(festivalResponse.getContents().get(0).getDescription()) // 데이터 없으면 에러나요 주의!
             .address(festivalResponse.getAddress())
             .isWished(festivalResponse.getIsWished())
@@ -86,6 +87,7 @@ public class HomeResponse {
         .map(touristSpotResponse -> SelectTouristSpotResponse.builder()
             .id(touristSpotResponse.getId())
             .name(touristSpotResponse.getName())
+            .image(touristSpotResponse.getMainImage())
             .summary(touristSpotResponse.getContents().get(0).getDescription()) // 데이터 없으면 에러나요 주의!
             .address(touristSpotResponse.getAddress())
             .isWished(touristSpotResponse.getIsWished())
