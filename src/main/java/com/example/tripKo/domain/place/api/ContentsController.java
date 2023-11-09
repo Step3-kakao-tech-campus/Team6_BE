@@ -51,7 +51,8 @@ public class ContentsController {
     TouristSpotResponse response = contentsService.getTouristSpotInfo(id, memberId);
     return ResponseEntity.ok(response);
   }
-
+    
+  @CrossOrigin(origins = "https://kd284b475c6e5a.user-app.krampoline.com:3000")
   @GetMapping("/home")
   public ResponseEntity<HomeResponse> getHomeInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long memberId = null;
