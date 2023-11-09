@@ -236,7 +236,7 @@ VALUES ('1', 'image/restaurant/CocamomeMangmi/main.png', 'image/png');
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('1', '14', 'Mangmibaesan-ro 10beon-gil', '48210', '1');
 
-INSERT INTO address_category (`id`, `emd_name`, `sido_name`, `sigg_name`)
+INSERT INTO address_category (`id`, `emd_name`, `sigg_name`, `sido_name`)
 VALUES ('1', 'Mangmi-dong', 'Suyeong-gu', 'Busan');
 
 INSERT INTO place_restaurant(`id`, `break_end_time`, `break_start_time`, `closing_time`, `contact_info`, `holiday`, `opening_time`, `place_id`)
@@ -277,7 +277,7 @@ VALUES ('5', 'image/restaurant/LeeJaemoPizza/main.png', 'image/png');
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('2', '21', 'Jeonpo-daero 209beon-gil', '47294', '2');
 
-INSERT INTO address_category (`id`, `emd_name`, `sido_name`, `sigg_name`)
+INSERT INTO address_category (`id`, `emd_name`, `sigg_name`, `sido_name`)
 VALUES ('2', 'Jeonpo-dong', 'Busanjin-gu', 'Busan');
 
 INSERT INTO place_restaurant(`id`, `closing_time`, `contact_info`, `holiday`, `opening_time`, `place_id`)
@@ -318,7 +318,7 @@ VALUES ('9', 'image/restaurant/WildcatBrewing/main.png', 'image/png');
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('3', '1F 101ho, 2', 'Sincheon-daero 62beon-gil', '47233', '3');
 
-INSERT INTO address_category (`id`, `emd_name`, `sido_name`, `sigg_name`)
+INSERT INTO address_category (`id`, `emd_name`, `sigg_name`, `sido_name`)
 VALUES ('3', 'Bujeon-dong', 'Busanjin-gu', 'Busan');
 
 INSERT INTO place_restaurant(`id`, `closing_time`, `contact_info`, `opening_time`, `place_id`)
@@ -353,7 +353,7 @@ VALUES ('12', 'image/restaurant/eybDwajigukbap/main.png', 'image/png');
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('4', '39', 'Suyeong-ro 680beon-gil', '48266', '4');
 
-INSERT INTO address_category (`id`, `emd_name`, `sido_name`, `sigg_name`)
+INSERT INTO address_category (`id`, `emd_name`, `sigg_name`, `sido_name`)
 VALUES ('4', 'Gwangan-dong', 'Suyeong-gu', 'Busan');
 
 INSERT INTO place_restaurant(`id`, `closing_time`, `contact_info`, `opening_time`, `place_id`)
@@ -378,7 +378,7 @@ VALUES ('14', 'image/restaurant/eybDwajigukbap/menu1.png', 'image/png');
 
 -- Busan Fireworks Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
-VALUES ('5', '0', '1232', 'Busan Fireworks Festival', 'Festival','0',
+VALUES ('5', '0', '1232', 'Busan Fireworks Festival', 'FESTIVAL','0',
         'Autumn in Busan blooms with colorful lights. It’s the time for the Busan Fireworks Festival!',
         '5', '15');
 
@@ -388,8 +388,8 @@ VALUES ('15', 'image/festival/BusanFirework/main.png', 'image/png');
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('5', '219', 'Gwanganhaebyeon-ro', '48303', '4');
 
-INSERT INTO place_festival(`id`, `category`, `start_date`, `reservation_available`, `end_date`, `place_id`)
-VALUES ('1', 'Beach', 'November 4, 2023', '0', 'November 4, 2023', '5');
+INSERT INTO place_festival(`id`/*, `category`*/, `start_date`, `reservation_available`, `end_date`, `place_id`)
+VALUES ('1'/*, 'Beach'*/, 'November 4, 2023', '0', 'November 4, 2023', '5');
 
 INSERT INTO contents (`id`, `description`, `page`, `place_id`)
 VALUES ('5',
@@ -404,7 +404,7 @@ VALUES ('16', 'image/festival/BusanFirework/content1.png', 'image/png');
 
 -- Busan International Rock Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
-VALUES ('6', '0', '843', 'Busan International Rock Festival', 'Festival','0',
+VALUES ('6', '0', '843', 'Busan International Rock Festival', 'FESTIVAL','0',
         'In the middle of summer, when it’s scorching hot, more and more people gather in a quiet and spacious park called Samnak Eco Park.',
         '6', '17');
 
@@ -414,11 +414,11 @@ VALUES ('17', 'image/festival/BusanRock/main.png', 'image/png');
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('6', '29-46', ' ', '41232', '5');
 
-INSERT INTO address_category (`id`, `emd_name`, `sido_name`, `sigg_name`)
+INSERT INTO address_category (`id`, `emd_name`, `sigg_name`, `sido_name`)
 VALUES ('5', 'Samnak-dong', 'Sasang-gu', 'Busan');
 
-INSERT INTO place_festival(`id`, `category`, `start_date`, `reservation_available`, `end_date`, `place_id`)
-VALUES ('2', 'Music', 'October 7, 2023', '0', 'October 8, 2023', '6');
+INSERT INTO place_festival(`id`/*, `category`*/, `start_date`, `reservation_available`, `end_date`, `place_id`)
+VALUES ('2'/*, 'Music'*/, 'October 7, 2023', '0', 'October 8, 2023', '6');
 
 INSERT INTO contents (`id`, `description`, `page`, `place_id`)
 VALUES ('6',
@@ -433,7 +433,7 @@ VALUES ('18', 'image/festival/BusanRock/content1.png', 'image/png');
 
 -- Haeundae Lighting Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
-VALUES ('7', '0', '613', 'Haeundae Lighting Festival', 'Festival','0',
+VALUES ('7', '0', '613', 'Haeundae Lighting Festival', 'FESTIVAL','0',
         'The lighting festival transforms the cold winter street into a romantic world that even seems to warm up the cold season.',
         '7', '19');
 
@@ -443,11 +443,11 @@ VALUES ('19', 'image/festival/BusanLighting/main.png', 'image/png');
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('7', '280', 'Haeundaehaebyeon-ro', '48099', '6');
 
-INSERT INTO address_category (`id`, `emd_name`, `sido_name`, `sigg_name`)
+INSERT INTO address_category (`id`, `emd_name`, `sigg_name`, `sido_name`)
 VALUES ('6', 'Jung-dong', 'Haeundae-gu', 'Busan');
 
-INSERT INTO place_festival(`id`, `category`, `start_date`, `reservation_available`, `end_date`, `place_id`)
-VALUES ('3', 'Beach', 'December 7, 2023', '0', 'January 31, 2024', '7');
+INSERT INTO place_festival(`id`/*, `category`*/, `start_date`, `reservation_available`, `end_date`, `place_id`)
+VALUES ('3'/*, 'Beach'*/, 'December 7, 2023', '0', 'January 31, 2024', '7');
 
 INSERT INTO contents (`id`, `description`, `page`, `place_id`)
 VALUES ('7',
@@ -472,8 +472,8 @@ VALUES ('21', 'image/spot/F1963/main.png', 'image/png');
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('8', '20', 'Gurak-ro 123beon-gil', '48212', '1');
 
-INSERT INTO place_tourist_spot(`id`, `category`, `place_id`)
-VALUES ('1', 'CultureComplex', '8');
+INSERT INTO place_tourist_spot(`id`/*, `category`*/, `place_id`)
+VALUES ('1'/*, 'CultureComplex'*/, '8');
 
 INSERT INTO contents (`id`, `description`, `page`, `place_id`)
 VALUES ('8',
@@ -498,8 +498,8 @@ VALUES ('23', 'image/spot/MillakPark/main.png', 'image/png');
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('9', '361', 'Gwanganhaebyeon-ro', '48212', '4');
 
-INSERT INTO place_tourist_spot(`id`, `category`, `place_id`)
-VALUES ('2', 'Beach', '9');
+INSERT INTO place_tourist_spot(`id`/*, `category`*/, `place_id`)
+VALUES ('2'/*, 'Beach'*/, '9');
 
 INSERT INTO contents (`id`, `description`, `page`, `place_id`)
 VALUES ('9',

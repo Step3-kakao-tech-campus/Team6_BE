@@ -35,9 +35,12 @@ spec:
             requests:
               memory: 1Gi
           readinessProbe:
-       #     httpGet:
-       #       path: /api/test
-       #       port: 8080
+          volumeMounts:
+            - name: shared-data
+              mountPath: /image
+      volumes:
+        - name: shared-data
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
