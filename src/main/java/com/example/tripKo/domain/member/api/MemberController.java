@@ -6,11 +6,15 @@ import com.example.tripKo._core.utils.ApiUtils;
 import com.example.tripKo.domain.member.application.MemberService;
 import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.request.SignUpRequest;
+import com.example.tripKo.domain.member.dto.response.FestivalReservationResponse;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import java.util.List;
 
 import com.example.tripKo.domain.member.entity.Member;
+import com.example.tripKo.domain.place.dto.request.FestivalReservationConfirmRequest;
 import com.example.tripKo.domain.place.dto.request.RestaurantReservationConfirmRequest;
+import com.example.tripKo.domain.place.dto.response.info.FestivalReservationConfirmResponse;
+import com.example.tripKo.domain.place.dto.response.info.FestivalReservationSelectResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationConfirmResponse;
 import com.example.tripKo.domain.place.dto.response.info.RestaurantReservationSelectResponse;
 import lombok.RequiredArgsConstructor;
@@ -40,16 +44,38 @@ public class MemberController {
   }
 
   @GetMapping("/restaurant/bookings/calendar/{id}")
-  public ResponseEntity<?> selectReservationDate(@PathVariable Long id) {
+  public ResponseEntity<?> selectRestaurantReservationDate(@PathVariable Long id) {
     RestaurantReservationSelectResponse responseDTO = memberService.selectRestaurantReservationDate(id);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
   }
 
   @PostMapping("/restaurant/bookings")
-  public ResponseEntity<?> confirmReservation(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody @Valid RestaurantReservationConfirmRequest requestDTOs) {
+  public ResponseEntity<?> confirmRestaurantReservation(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody @Valid RestaurantReservationConfirmRequest requestDTOs) {
     Member member = jwtUserDetails.getMember();
     RestaurantReservationConfirmResponse responseDTO = memberService.confirmRestaurantReservation(member, requestDTOs);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
+    return ResponseEntity.ok(apiResult);
+  }
+  @GetMapping("/userinfo/reservations/festival")
+  public ResponseEntity<?> getFestivalReservationInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+    Member member = jwtUserDetails.getMember();
+    List<FestivalReservationResponse> response = memberService.getFestivalReservationInfo(member);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @GetMapping("/festival/bookings/calendar/{id}")
+  public ResponseEntity<?> selectFestivalReservationDate(@PathVariable Long id) {
+    FestivalReservationSelectResponse responseDTO = memberService.selectFestivalReservationDate(id);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @PostMapping("/festival/bookings")
+  public ResponseEntity<?> confirmFestivalReservation(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody @Valid FestivalReservationConfirmRequest requestDTOs) {
+    Member member = jwtUserDetails.getMember();
+    FestivalReservationConfirmResponse responseDTO = memberService.confirmFestivalReservation(member, requestDTOs);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
   }

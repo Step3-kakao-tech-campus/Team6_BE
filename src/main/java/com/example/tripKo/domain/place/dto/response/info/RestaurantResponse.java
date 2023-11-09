@@ -17,7 +17,7 @@ public class RestaurantResponse {
   private String name;
   private String mainImage;
   private List<Content> contents;
-  private float averageScore;
+  private double averageScore;
   private String address;
   private Integer holiday;
   private String open;

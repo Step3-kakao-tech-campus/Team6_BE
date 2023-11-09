@@ -14,7 +14,7 @@ public class PlaceTouristSpotResponse {
   private String summary;
   private String image;
   private String address;
-  private float averageRating;
+  private double averageRating;
   private Boolean isWished;
 
   @Builder
