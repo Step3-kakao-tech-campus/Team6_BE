@@ -1,5 +1,9 @@
 package com.example.tripKo.domain.food.application;
 
+import static com.example.tripKo._core.errors.ErrorCode.CONTENTS_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.FOOD_CANNOT_FOUND;
+
+import com.example.tripKo._core.errors.exception.BusinessException;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo.domain.food.dao.FoodRepository;
 import com.example.tripKo.domain.food.dto.response.FoodDetailsResponse;
@@ -31,7 +35,7 @@ public class FoodService {
     }
 
     if (foods.isEmpty()) {
-      throw new Exception404("해당하는 음식을 찾을 수 없습니다. query : " + query);
+      throw new BusinessException(query, "query", FOOD_CANNOT_FOUND);
     }
 
     List<Food> foodSet = new ArrayList<>(new HashSet<>(foods));
@@ -99,7 +103,7 @@ public class FoodService {
   @Transactional
   public FoodDetailsResponse getFoodInfo(Long id) {
     Food food = foodRepository.findById(id)
-        .orElseThrow(() -> new Exception404("해당하는 컨텐츠를 찾을 수 없습니다. id: " + id));
+        .orElseThrow(() -> new BusinessException(id, "id", CONTENTS_CANNOT_FOUND));
     food.updateView();
     FoodDetailsResponse foodDetailsResponse = new FoodDetailsResponse(food);
     return foodDetailsResponse;
