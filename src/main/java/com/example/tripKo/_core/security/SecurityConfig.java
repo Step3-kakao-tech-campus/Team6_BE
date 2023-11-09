@@ -75,6 +75,9 @@ public class SecurityConfig {
         .and()
         .addFilterBefore(new JwtAuthFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
+      
+    
+      http.cors(cors -> cors.configurationSource(configurationSource()));
 
 
     //h2-console 접속을 위해 허용
