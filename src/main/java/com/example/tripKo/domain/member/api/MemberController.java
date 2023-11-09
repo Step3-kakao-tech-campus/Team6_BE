@@ -10,6 +10,7 @@ import com.example.tripKo.domain.member.dto.request.userInfo.UserInfoRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
 import java.util.List;
 
+import com.example.tripKo.domain.member.dto.response.review.ReviewsListResponse;
 import com.example.tripKo.domain.member.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.member.dto.response.userInfo.UserInfoResponse;
 import com.example.tripKo.domain.member.entity.Member;
@@ -88,6 +89,22 @@ public class MemberController {
   public ResponseEntity<?> getTouristSpotReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "page", defaultValue = "0") Integer page) {
     Member member = jwtUserDetails.getMember();
     List<ReviewsResponse> response = memberService.getTouristSpotReviews(member, page);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @GetMapping("/userinfo/reviews/{id}")
+  public ResponseEntity<?> getReviewDetail(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "id") Long id) {
+    Member member = jwtUserDetails.getMember();
+    ReviewsResponse response = memberService.getReviewDetail(member, id);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
+    return ResponseEntity.ok(apiResult);
+  }
+
+  @GetMapping("/userinfo/reviews")
+  public ResponseEntity<?> getAllReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+    Member member = jwtUserDetails.getMember();
+    ReviewsListResponse response = memberService.getAllReviews(member, page);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
     return ResponseEntity.ok(apiResult);
   }

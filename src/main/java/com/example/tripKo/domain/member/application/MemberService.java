@@ -14,6 +14,7 @@ import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
 import com.example.tripKo.domain.member.dto.request.SignInRequest;
 import com.example.tripKo.domain.member.dto.request.userInfo.UserInfoRequest;
 import com.example.tripKo.domain.member.dto.response.RestaurantReservationResponse;
+import com.example.tripKo.domain.member.dto.response.review.ReviewsListResponse;
 import com.example.tripKo.domain.member.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.member.dto.response.userInfo.UserInfoResponse;
 import com.example.tripKo.domain.member.entity.Member;
@@ -113,6 +114,41 @@ public class MemberService {
     List<Review> reviews = reviewRepository.findAllByMemberAndPlaceType(member, PlaceType.TOURIST_SPOT, pageable);
     List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build()).collect(Collectors.toList());
     return reviewsResponses;
+  }
+
+  @Transactional
+  public ReviewsResponse getReviewDetail(Member member, Long id) {
+    Review review = reviewRepository.findById(id)
+            .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + id));
+    if(!review.getMember().equals(member))
+      new Exception404("본인의 리뷰가 아닙니다. id : " + id);
+
+    ReviewsResponse reviewsResponse = ReviewsResponse.builder().review(review).build();
+    return reviewsResponse;
+  }
+
+  @Transactional
+  public ReviewsListResponse getAllReviews(Member member, int page) {
+    Pageable pageable = PageRequest.of(page, 10);
+    List<Review> reviews = reviewRepository.findAllByMember(member, pageable);
+    List<Review> restaurant = new ArrayList<>();
+    List<Review> festival = new ArrayList<>();
+    List<Review> touristSpot = new ArrayList<>();
+    for (Review r:reviews) {
+      switch (r.getType()) {
+        case RESTAURANT:
+          restaurant.add(r);
+          break;
+        case FESTIVAL:
+          festival.add(r);
+          break;
+        case TOURIST_SPOT:
+          touristSpot.add(r);
+          break;
+      }
+    }
+    ReviewsListResponse reviewsListResponse = ReviewsListResponse.builder().restaurant(restaurant).festival(festival).touristSpot(touristSpot).build();
+    return reviewsListResponse;
   }
 
   @Transactional
