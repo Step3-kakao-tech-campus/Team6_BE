@@ -14,9 +14,6 @@ configMapGenerator:
     files:
       - configs/init.sql
       
-volumes:
-  - name: shared-data
-    emptyDir: {}
 
 patches:
 - target:
