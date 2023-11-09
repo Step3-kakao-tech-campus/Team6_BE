@@ -26,11 +26,11 @@ public class ContentsController {
   private final ContentsService contentsService;
 
   @GetMapping("/restaurant/{id}")
-  public ResponseEntity<RestaurantResponse> getRestaurantDetails(@PathVariable Long id, @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+  public ResponseEntity<RestaurantResponse> getRestaurantInfo(@PathVariable Long id, @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long memberId = null;
     if (jwtUserDetails != null)
       memberId = jwtUserDetails.getMember().getId();
-    RestaurantResponse response = contentsService.findRestaurantDetailsById(id, memberId);
+    RestaurantResponse response = contentsService.getRestaurantInfo(id, memberId);
     return ResponseEntity.ok(response);
   }
 

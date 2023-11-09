@@ -35,7 +35,7 @@ public class ContentsService {
   private final MemberRepository memberRepository;
 
   @Transactional
-  public RestaurantResponse findRestaurantDetailsById(Long placeId, Long memberId) {
+  public RestaurantResponse getRestaurantInfo(Long placeId, Long memberId) {
     List<Place> places = new ArrayList<>();
     // AuthenticationPrincipal을 통해서 접근하는 member 객체가 준영속 상태이므로 MemberHasPlaceIsWishedList를 Lazy fetch를 통해 가져올 수 없음
     // 따라서 id만 받아서 다시 memberRepository에서 검색해서 가져오는 방식으로 구현
