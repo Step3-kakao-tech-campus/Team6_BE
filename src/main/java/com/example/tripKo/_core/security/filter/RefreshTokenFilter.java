@@ -12,7 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -42,6 +45,10 @@ public class RefreshTokenFilter extends GenericFilterBean {
         String newAccessToken = jwtProvider.createAccessToken(id);
         Authentication authentication = jwtProvider.getAuthentication(newAccessToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        httpResponse.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + newAccessToken);
+      } else if (isAccessTokenExpired && !isAccessExpiredAndRefreshValid) {
+        SecurityContextHolder.getContext().setAuthentication(null);
       }
     }
     chain.doFilter(request, response);

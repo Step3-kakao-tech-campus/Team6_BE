@@ -7,6 +7,8 @@ import com.example.tripKo._core.security.data.JwtToken;
 import static com.example.tripKo._core.security.data.JwtType.ACCESS_TOKEN;
 import static com.example.tripKo._core.security.data.JwtType.REFRESH_TOKEN;
 
+import com.example.tripKo._core.security.data.RefreshToken;
+import com.example.tripKo._core.utils.RedisUtil;
 import com.example.tripKo.domain.member.MemberRoleType;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -32,6 +34,7 @@ import java.util.stream.Collectors;
 public class JwtProvider {
 
   private final JwtUserDetailsService jwtUserDetailsService;
+  private final RedisUtil redisUtil;
 
   private static final String ROLES = "roles";
   private static final String SEPARATOR = ",";
@@ -58,7 +61,7 @@ public class JwtProvider {
     String refreshToken = createRefreshToken();
 
     //redis 설치 필요
-//        redisUtil.save(new RefreshToken(userPK, refreshToken));
+    redisUtil.save(new RefreshToken(userPK, refreshToken));
 
     return JwtToken.builder()
         .grantType("Bearer ")

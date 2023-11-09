@@ -5,7 +5,7 @@ import com.sun.istack.NotNull;
 import lombok.Getter;
 
 @Getter
-public class RestaurantReservationConfirmRequest {
+public class FestivalReservationConfirmRequest {
 
     private Reservation reservation;
 
@@ -17,8 +17,6 @@ public class RestaurantReservationConfirmRequest {
         private Long placeId;
         @NotNull
         private String reservationDate;
-        @NotNull
-        private String reservationTime;
         @NotNull
         private Long headCount;
         private String message;

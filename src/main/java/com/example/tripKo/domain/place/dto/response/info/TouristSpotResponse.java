@@ -17,11 +17,11 @@ public class TouristSpotResponse {
 
   private Long id;
   private String name;
-  private Float averageScore;
+  private double averageScore;
   private String mainImage;
   private List<Content> contents;
   private String address;
-  private Boolean liked = false;
+  private Boolean isWished = false;
 
   @Builder
   @Getter
@@ -32,7 +32,7 @@ public class TouristSpotResponse {
     private List<String> image;
   }
 
-  public static TouristSpotResponse from(PlaceTouristSpot placeTouristSpot) {
+  public static TouristSpotResponse from(PlaceTouristSpot placeTouristSpot, boolean isWished) {
     return TouristSpotResponse.builder()
         .id(placeTouristSpot.getId())
         .name(placeTouristSpot.getPlace().getName())
@@ -42,7 +42,7 @@ public class TouristSpotResponse {
             .map(TouristSpotResponse::mapContent)
             .collect(Collectors.toList()))
         .address(placeTouristSpot.getPlace().addressToString(placeTouristSpot.getPlace().getAddress()))
-        .liked(false)
+        .isWished(isWished)
         .build();
   }
 

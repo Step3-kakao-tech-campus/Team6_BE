@@ -35,7 +35,7 @@ public class Place extends BaseTimeEntity {
     private int count;
 
     @Column
-    private float averageRating;
+    private double averageRating;
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "file_id", nullable = false)
@@ -78,7 +78,7 @@ public class Place extends BaseTimeEntity {
         return addressToString + " " + addressCategoryToString;
     }
 
-    public void setAverageRating(float averageRating) {
+    public void setAverageRating(double averageRating) {
         this.averageRating = averageRating;
     }
 
