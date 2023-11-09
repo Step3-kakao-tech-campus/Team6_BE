@@ -134,7 +134,8 @@ public class SecurityConfig {
     System.out.println("==========================================================================================================================");
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.setAllowCredentials(true);
-    configuration.setAllowedOrigins(List.of("https://kfd701ba2c3a1a.user-app.krampoline.com:3000", "https://kfd701ba2c3a1a.user-app.krampoline.com"));
+    configuration.setAllowedOrigins(List.of("https://kfd701ba2c3a1a.user-app.krampoline.com:3000", "https://kfd701ba2c3a1a.user-app.krampoline.com",
+ "https://k9f03505f0e8ba.user-app.krampoline.com:3000",  "https://k9f03505f0e8ba.user-app.krampoline.com:8080"));
     configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
     configuration.setAllowedHeaders(List.of("Origin","Accept","X-Requested-With","Content-Type","Access-Control-Request-Method","Access-Control-Request-Headers", "Authorization"));
     configuration.setExposedHeaders(List.of("*"));
