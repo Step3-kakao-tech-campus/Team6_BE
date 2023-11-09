@@ -90,7 +90,7 @@ public class SecurityConfig {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
-    configuration.addAllowedOrigin("http://10.231.7.98:3000");
+    configuration.addAllowedOrigin("http://10.231.39.138:3000");
     configuration.addExposedHeader("authorization");
     configuration.addExposedHeader("refreshToken");
     configuration.setAllowCredentials(true);
