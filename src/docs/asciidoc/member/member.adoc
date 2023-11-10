@@ -31,6 +31,22 @@ endif::[]
 
 include::{snippets}/sign-up-test/success_sign-up_valid_request/http-request.adoc[]
 
+=== 응답
+
 ==== Response
 
 include::{snippets}/sign-up-test/success_sign-up_valid_request/http-response.adoc[]
+
+== *식당 예약 날짜 선택*
+
+=== 요청
+
+==== Request
+
+include::{snippets}/restaurant-reservation-test/should_success_restaurant_booking_calendar/http-request.adoc[]
+
+=== 응답
+
+==== Response
+
+include::{snippets}/restaurant-reservation-test/should_success_restaurant_booking_calendar/http-response.adoc[]

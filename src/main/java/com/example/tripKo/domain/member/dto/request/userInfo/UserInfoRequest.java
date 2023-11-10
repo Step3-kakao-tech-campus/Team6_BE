@@ -18,11 +18,12 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PACKAGE)
 @NoArgsConstructor(access = PRIVATE)
 public class UserInfoRequest {
-    @Pattern(regexp = REAL_NAME_REGEX, message = REAL_NAME_INVALID)
-    private String name;
-    @Pattern(regexp = NICK_NAME_REGEX, message = NICK_NAME_INVALID)
-    private String nickName;
 
-    private String email;
+  @Pattern(regexp = REAL_NAME_REGEX, message = REAL_NAME_INVALID)
+  private String name;
+  @Pattern(regexp = NICK_NAME_REGEX, message = NICK_NAME_INVALID)
+  private String nickName;
+
+  private String email;
 
 }

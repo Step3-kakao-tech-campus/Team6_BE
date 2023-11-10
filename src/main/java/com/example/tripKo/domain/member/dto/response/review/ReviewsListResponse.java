@@ -13,14 +13,18 @@ import java.util.stream.Collectors;
 
 @Getter
 public class ReviewsListResponse {
-    private List<ReviewsResponse> restaurant = new ArrayList<>();
-    private List<ReviewsResponse> festival = new ArrayList<>();
-    private List<ReviewsResponse> touristSpot = new ArrayList<>();
 
-    @Builder
-    public ReviewsListResponse(List<Review> restaurant, List<Review> festival, List<Review> touristSpot) {
-        this.restaurant = restaurant.stream().map(r->ReviewsResponse.builder().review(r).build()).collect(Collectors.toList());
-        this.festival = festival.stream().map(f->ReviewsResponse.builder().review(f).build()).collect(Collectors.toList());
-        this.touristSpot = touristSpot.stream().map(t->ReviewsResponse.builder().review(t).build()).collect(Collectors.toList());
-    }
+  private List<ReviewsResponse> restaurant = new ArrayList<>();
+  private List<ReviewsResponse> festival = new ArrayList<>();
+  private List<ReviewsResponse> touristSpot = new ArrayList<>();
+
+  @Builder
+  public ReviewsListResponse(List<Review> restaurant, List<Review> festival, List<Review> touristSpot) {
+    this.restaurant = restaurant.stream().map(r -> ReviewsResponse.builder().review(r).build())
+        .collect(Collectors.toList());
+    this.festival = festival.stream().map(f -> ReviewsResponse.builder().review(f).build())
+        .collect(Collectors.toList());
+    this.touristSpot = touristSpot.stream().map(t -> ReviewsResponse.builder().review(t).build())
+        .collect(Collectors.toList());
+  }
 }

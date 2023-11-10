@@ -24,6 +24,7 @@ public class JwtUserDetails implements UserDetails, OAuth2User {
   public final Member getMember() {
     return member;
   }
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     Collection<GrantedAuthority> authorities = new ArrayList<>();

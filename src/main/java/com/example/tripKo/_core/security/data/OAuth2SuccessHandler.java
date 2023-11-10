@@ -26,18 +26,20 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Component
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-    private final JwtProvider jwtProvider;
 
-    // 헤더에 토큰 정보 set
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-            throws IOException, ServletException {
+  private final JwtProvider jwtProvider;
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        JwtToken jwtToken = jwtProvider.generateToken(authentication);
+  // 헤더에 토큰 정보 set
+  @Override
+  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+      Authentication authentication)
+      throws IOException, ServletException {
 
-        response.setHeader(HttpHeaders.AUTHORIZATION, jwtToken.getGrantType() + jwtToken.getAccessToken());
-        response.setHeader("Refresh-Token", jwtToken.getRefreshToken());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    JwtToken jwtToken = jwtProvider.generateToken(authentication);
 
-    }
+    response.setHeader(HttpHeaders.AUTHORIZATION, jwtToken.getGrantType() + jwtToken.getAccessToken());
+    response.setHeader("Refresh-Token", jwtToken.getRefreshToken());
+
+  }
 }

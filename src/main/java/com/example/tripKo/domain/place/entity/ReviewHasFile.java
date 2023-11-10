@@ -10,6 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 import static javax.persistence.CascadeType.REMOVE;
+import static javax.persistence.FetchType.EAGER;
 import static lombok.AccessLevel.PROTECTED;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.FetchType.LAZY;
@@ -21,24 +22,25 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "review_has_file")
 public class ReviewHasFile {
-    @GeneratedValue(strategy = IDENTITY)
-    @Id
-    @Column(nullable = false, updatable = false)
-    private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "review_id", nullable = false)
-    private Review review;
+  @GeneratedValue(strategy = IDENTITY)
+  @Id
+  @Column(nullable = false, updatable = false)
+  private Long id;
 
-    @OneToOne(fetch = LAZY, cascade = REMOVE)
-    @JoinColumn(name = "file_id", nullable = false)
-    private File file;
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "review_id", nullable = false)
+  private Review review;
 
-    @Builder
-    public ReviewHasFile(Review review, File file){
-        this.review = review;
-        this.file = file;
+  @OneToOne(fetch = LAZY, cascade = REMOVE)
+  @JoinColumn(name = "file_id", nullable = false)
+  private File file;
 
-        review.getReviewHasFiles().add(this);
-    }
+  @Builder
+  public ReviewHasFile(Review review, File file) {
+    this.review = review;
+    this.file = file;
+
+    review.getReviewHasFiles().add(this);
+  }
 }

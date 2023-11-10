@@ -22,7 +22,7 @@ public class PlaceFestivalResponse {
     this.id = placeFestival.getPlace().getId();
     this.name = placeFestival.getPlace().getName();
     this.summary = placeFestival.getPlace().getSummary();
-    this.image = placeFestival.getPlace().getFile().getName();
+    this.image = placeFestival.getPlace().getFile().getUrl();
     this.address = addressToString(placeFestival.getPlace().getAddress());
     this.averageRating = placeFestival.getPlace().getAverageRating();
     this.isWished = isWished;

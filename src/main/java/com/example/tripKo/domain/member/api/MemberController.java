@@ -51,19 +51,19 @@ public class MemberController {
   }
 
   @PatchMapping("/userinfo/edit")
-  public ResponseEntity<?> setUserInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody @Valid UserInfoRequest userInfoRequest) {
+  public ResponseEntity<Void> setUserInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+      @RequestBody @Valid UserInfoRequest userInfoRequest) {
     Member member = jwtUserDetails.getMember();
     memberService.setUserInfo(member, userInfoRequest);
-    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
-    return ResponseEntity.ok(apiResult);
+    return ResponseEntity.noContent().build();
   }
 
   @PostMapping(value = "/userinfo/image")
-  public ResponseEntity<?> setUserInfoImage(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @Validated @RequestParam("image") MultipartFile image) {
+  public ResponseEntity<Void> setUserInfoImage(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+      @Validated @RequestParam("image") MultipartFile image) {
     Member member = jwtUserDetails.getMember();
     memberService.setUserInfoImage(member, image);
-    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
-    return ResponseEntity.ok(apiResult);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @GetMapping("/userinfo/reservations/restaurant")
@@ -75,7 +75,8 @@ public class MemberController {
   }
 
   @GetMapping("/userinfo/reviews/restaurant")
-  public ResponseEntity<?> getRestaurantReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+  public ResponseEntity<?> getRestaurantReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+      @RequestParam(value = "page", defaultValue = "0") Integer page) {
     Member member = jwtUserDetails.getMember();
     List<ReviewsResponse> response = memberService.getRestaurantReviews(member, page);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
@@ -83,7 +84,8 @@ public class MemberController {
   }
 
   @GetMapping("/userinfo/reviews/festival")
-  public ResponseEntity<?> getFestivalReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+  public ResponseEntity<?> getFestivalReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+      @RequestParam(value = "page", defaultValue = "0") Integer page) {
     Member member = jwtUserDetails.getMember();
     List<ReviewsResponse> response = memberService.getFestivalReviews(member, page);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
@@ -91,7 +93,8 @@ public class MemberController {
   }
 
   @GetMapping("/userinfo/reviews/touristSpot")
-  public ResponseEntity<?> getTouristSpotReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+  public ResponseEntity<?> getTouristSpotReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+      @RequestParam(value = "page", defaultValue = "0") Integer page) {
     Member member = jwtUserDetails.getMember();
     List<ReviewsResponse> response = memberService.getTouristSpotReviews(member, page);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
@@ -99,7 +102,8 @@ public class MemberController {
   }
 
   @GetMapping("/userinfo/reviews/{id}")
-  public ResponseEntity<?> getReviewDetail(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "id") Long id) {
+  public ResponseEntity<?> getReviewDetail(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+      @RequestParam(value = "id") Long id) {
     Member member = jwtUserDetails.getMember();
     ReviewsResponse response = memberService.getReviewDetail(member, id);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
@@ -107,7 +111,8 @@ public class MemberController {
   }
 
   @GetMapping("/userinfo/reviews")
-  public ResponseEntity<?> getAllReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestParam(value = "page", defaultValue = "0") Integer page) {
+  public ResponseEntity<?> getAllReviews(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+      @RequestParam(value = "page", defaultValue = "0") Integer page) {
     Member member = jwtUserDetails.getMember();
     ReviewsListResponse response = memberService.getAllReviews(member, page);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
@@ -122,12 +127,14 @@ public class MemberController {
   }
 
   @PostMapping("/restaurant/bookings")
-  public ResponseEntity<?> confirmRestaurantReservation(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody @Valid RestaurantReservationConfirmRequest requestDTOs) {
+  public ResponseEntity<?> confirmRestaurantReservation(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+      @RequestBody @Valid RestaurantReservationConfirmRequest requestDTOs) {
     Member member = jwtUserDetails.getMember();
     RestaurantReservationConfirmResponse responseDTO = memberService.confirmRestaurantReservation(member, requestDTOs);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
   }
+
   @GetMapping("/userinfo/reservations/festival")
   public ResponseEntity<?> getFestivalReservationInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Member member = jwtUserDetails.getMember();
@@ -144,7 +151,8 @@ public class MemberController {
   }
 
   @PostMapping("/festival/bookings")
-  public ResponseEntity<?> confirmFestivalReservation(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody @Valid FestivalReservationConfirmRequest requestDTOs) {
+  public ResponseEntity<?> confirmFestivalReservation(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+      @RequestBody @Valid FestivalReservationConfirmRequest requestDTOs) {
     Member member = jwtUserDetails.getMember();
     FestivalReservationConfirmResponse responseDTO = memberService.confirmFestivalReservation(member, requestDTOs);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);

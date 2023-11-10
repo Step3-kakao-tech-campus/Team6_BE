@@ -18,21 +18,22 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="place_tourist_spot")
+@Table(name = "place_tourist_spot")
 public class PlaceTouristSpot extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "place_id", nullable = false)
-    private Place place;
+  @Enumerated(EnumType.STRING)
+  private Category category;
 
-    @Builder
-    public PlaceTouristSpot(Place place) {
-        this.place = place;
-    }
+  @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "place_id", nullable = false)
+  private Place place;
+
+  @Builder
+  public PlaceTouristSpot(Place place) {
+    this.place = place;
+  }
 }

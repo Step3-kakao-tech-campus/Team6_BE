@@ -47,18 +47,18 @@ public class ReviewsResponse {
                 .description(review.getDescription())
                 .nickName(review.getMember().getNickName())
                 .image(review.getReviewHasFiles().stream()
-                        .map(r -> createFileNameWithPaths(r.getFile().getName()))
+                        .map(r -> r.getFile().getUrl())
                         .collect(Collectors.toList()))
                 .build();
     }
 
-    private String createFileNameWithPaths(String filename) {
-        return "src" + File.separator
-                + "main" + File.separator
-                + "resources" + File.separator
-                + "reviews" + File.separator
-                + "images" + File.separator
-                + filename;
-    }
+//    private String createFileNameWithPaths(String filename) {
+//        return "src" + File.separator
+//                + "main" + File.separator
+//                + "resources" + File.separator
+//                + "reviews" + File.separator
+//                + "images" + File.separator
+//                + filename;
+//    }
 
 }

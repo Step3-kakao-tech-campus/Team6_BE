@@ -19,12 +19,16 @@ public class PlaceResponse {
 
   @Builder
   public PlaceResponse(List<PlaceRestaurant> placeRestaurants, List<PlaceFestival> placeFestivals,
-                       List<PlaceTouristSpot> placeTouristSpots, List<Place> places) {
-    this.restaurants = placeRestaurants.stream().map(p -> PlaceRestaurantResponse.builder().placeRestaurant(p).isWished(places.contains(p.getPlace())).build())
+      List<PlaceTouristSpot> placeTouristSpots, List<Place> places) {
+    this.restaurants = placeRestaurants.stream()
+        .map(p -> PlaceRestaurantResponse.builder().placeRestaurant(p).isWished(places.contains(p.getPlace())).build())
         .collect(Collectors.toList());
-    this.festivals = placeFestivals.stream().map(p -> PlaceFestivalResponse.builder().placeFestival(p).isWished(places.contains(p.getPlace())).build())
+    this.festivals = placeFestivals.stream()
+        .map(p -> PlaceFestivalResponse.builder().placeFestival(p).isWished(places.contains(p.getPlace())).build())
         .collect(Collectors.toList());
     this.touristSpots = placeTouristSpots.stream()
-        .map(p -> PlaceTouristSpotResponse.builder().placeTouristSpot(p).isWished(places.contains(p.getPlace())).build()).collect(Collectors.toList());
+        .map(
+            p -> PlaceTouristSpotResponse.builder().placeTouristSpot(p).isWished(places.contains(p.getPlace())).build())
+        .collect(Collectors.toList());
   }
 }

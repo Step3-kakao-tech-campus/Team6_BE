@@ -40,3 +40,4 @@ src/main/resources/reviews/
 
 secret.yaml
 
+application-oauth.properties

@@ -21,7 +21,7 @@ public class WishlistResponse {
     this.id = placeFestival.getPlace().getId();
     this.name = placeFestival.getPlace().getName();
     this.summary = placeFestival.getPlace().getSummary();
-    this.image = placeFestival.getPlace().getFile().getName();
+    this.image = placeFestival.getPlace().getFile().getUrl();
     this.address = addressToString(placeFestival.getPlace().getAddress());
     this.averageRating = placeFestival.getPlace().getAverageRating();
     this.isWished = true;
@@ -32,7 +32,7 @@ public class WishlistResponse {
     this.id = placeRestaurant.getPlace().getId();
     this.name = placeRestaurant.getPlace().getName();
     this.summary = placeRestaurant.getPlace().getSummary();
-    this.image = placeRestaurant.getPlace().getFile().getName();
+    this.image = placeRestaurant.getPlace().getFile().getUrl();
     this.address = addressToString(placeRestaurant.getPlace().getAddress());
     this.averageRating = placeRestaurant.getPlace().getAverageRating();
     this.isWished = true;
@@ -43,7 +43,7 @@ public class WishlistResponse {
     this.id = placeTouristSpot.getPlace().getId();
     this.name = placeTouristSpot.getPlace().getName();
     this.summary = placeTouristSpot.getPlace().getSummary();
-    this.image = placeTouristSpot.getPlace().getFile().getName();
+    this.image = placeTouristSpot.getPlace().getFile().getUrl();
     this.address = addressToString(placeTouristSpot.getPlace().getAddress());
     this.averageRating = placeTouristSpot.getPlace().getAverageRating();
     this.isWished = true;
