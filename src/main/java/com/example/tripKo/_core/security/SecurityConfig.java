@@ -50,9 +50,10 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
+            .cors().configurationSource(configurationSource());
+
+    http
             .csrf().disable()
-            .cors().configurationSource(configurationSource())
-            .and()
             .authorizeHttpRequests()
             .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
             .antMatchers("/userinfo/**", "/wishlist/**", "/**/reviews/**") // 허용하지 않는 것들 (추가 예정)
@@ -132,7 +133,6 @@ public class SecurityConfig {
 
     return http.build();
   }
-   */
 
   public CorsConfigurationSource configurationSource() {
     System.out.println("==========================================================================================================================");
@@ -146,6 +146,20 @@ public class SecurityConfig {
     source.registerCorsConfiguration("/api/**", configuration);
     return source;
   }
+  */
 
+  @Bean
+  public CorsConfigurationSource configurationSource() {
+    final CorsConfiguration configuration = new CorsConfiguration();
+    configuration.addAllowedHeader("*");
+    configuration.addAllowedMethod("*");
+    configuration.addAllowedOriginPattern("*");
+    configuration.setAllowCredentials(true);
+    configuration.addExposedHeader("Authorization");
+
+    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+  }
 
 }
