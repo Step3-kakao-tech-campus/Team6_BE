@@ -41,4 +41,3 @@ src/main/resources/reviews/
 secret.yaml
 
 application-oauth.properties
-application-S3.properties
