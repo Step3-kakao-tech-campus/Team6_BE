@@ -34,6 +34,7 @@ public class FileService {
             MultipartFile  mFile = new CommonsMultipartFile(fileItem);
             imageS3Service.uploadImage(mFile);
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
             throw new Exception500("이미지 저장을 실패하였습니다.");
         }
 
