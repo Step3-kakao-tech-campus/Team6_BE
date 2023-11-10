@@ -11,45 +11,47 @@ import java.util.stream.Collectors;
 
 @Getter
 public class FoodDetailsResponse {
-    private Long id;
+
+  private Long id;
+  private String name;
+  private FoodCategory category;
+  private String description;
+  private String mainImage;
+  private List<String> foodImage;
+  private List<RestaurantDTO> restaurant;
+  private List<String> ingredients;
+
+  @Getter
+  @Builder
+  public static class RestaurantDTO {
+
     private String name;
-    private FoodCategory category;
-    private String description;
-    private String mainImage;
-    private List<String> foodImage;
-    private List<RestaurantDTO> restaurant;
-    private List<String> ingredients;
+    private String location;
+    private String image;
+    private double averageRating;
+  }
 
-    @Getter
-    @Builder
-    public static class RestaurantDTO {
-        private String name;
-        private String location;
-        private String image;
-        private double averageRating;
-    }
+  public FoodDetailsResponse(Food food) {
+    this.id = food.getId();
+    this.name = food.getName();
+    this.category = food.getFoodCategory();
+    this.description = food.getDescription();
+    this.mainImage = food.getFile().getUrl();
+    this.foodImage = food.getFoodImages().stream()
+        .map(fi -> fi.getFile().getUrl())
+        .collect(Collectors.toList());
+    this.restaurant = food.getFoodHasPlaceRestaurants().stream()
+        .map(this::mapRestaurant)
+        .collect(Collectors.toList());
+    this.ingredients = food.getIngredients();
+  }
 
-    public FoodDetailsResponse(Food food) {
-        this.id = food.getId();
-        this.name = food.getName();
-        this.category = food.getFoodCategory();
-        this.description = food.getDescription();
-        this.mainImage = food.getFile().getName();
-        this.foodImage = food.getFoodImages().stream()
-                .map(fi -> fi.getFile().getName())
-                .collect(Collectors.toList());
-        this.restaurant = food.getFoodHasPlaceRestaurants().stream()
-                .map(this::mapRestaurant)
-                .collect(Collectors.toList());
-        this.ingredients = food.getIngredients();
-    }
-
-    private RestaurantDTO mapRestaurant(FoodHasPlaceRestaurants foodHasPlaceRestaurants) {
-        return RestaurantDTO.builder()
-                .name(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getName())
-                .location(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAddress().toString())
-                .averageRating(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAverageRating())
-                .image(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getFile().getName())
-                .build();
-    }
+  private RestaurantDTO mapRestaurant(FoodHasPlaceRestaurants foodHasPlaceRestaurants) {
+    return RestaurantDTO.builder()
+        .name(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getName())
+        .location(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAddress().toString())
+        .averageRating(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getAverageRating())
+        .image(foodHasPlaceRestaurants.getPlaceRestaurant().getPlace().getFile().getUrl())
+        .build();
+  }
 }

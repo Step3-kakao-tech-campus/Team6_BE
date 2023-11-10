@@ -34,63 +34,49 @@ public class ContentsService {
   private final PlaceTouristSpotRepository placeTouristSpotRepository;
   private final MemberRepository memberRepository;
 
+  // AuthenticationPrincipal을 통해서 접근하는 member 객체가 준영속 상태이므로 MemberHasPlaceIsWishedList를 Lazy fetch를 통해 가져올 수 없음
+  // 따라서 id만 받아서 다시 memberRepository에서 검색해서 가져오는 방식으로 구현
+  // 참고 https://velog.io/@skrek269/%EC%97%90%EB%9F%AC-%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%A1%9D-org.hibernate.LazyInitializationException
+
   @Transactional
-  public RestaurantResponse findRestaurantDetailsById(Long placeId, Long memberId) {
+  public RestaurantResponse getRestaurantInfo(Long placeId, Long memberId) {
     List<Place> places = new ArrayList<>();
-    // AuthenticationPrincipal을 통해서 접근하는 member 객체가 준영속 상태이므로 MemberHasPlaceIsWishedList를 Lazy fetch를 통해 가져올 수 없음
-    // 따라서 id만 받아서 다시 memberRepository에서 검색해서 가져오는 방식으로 구현
-    // 참고 https://velog.io/@skrek269/%EC%97%90%EB%9F%AC-%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%A1%9D-org.hibernate.LazyInitializationException
     if (memberId != null) {
       Member member = memberRepository.findById(memberId).orElseThrow();
       places = member.getMemberHasPlaceIsWishedList().stream().map(p -> p.getPlace()).collect(Collectors.toList());
     }
 
-    PlaceRestaurant placeRestaurant = placeRestaurantRepository.findByPlaceId(placeId)
-            .orElseThrow(() -> new Exception404("해당 식당을 찾을 수 없습니다. id : " + placeId));
-//    PlaceRestaurant placeRestaurant = validContentsService.findByRestaurantId(placeId);
+    PlaceRestaurant placeRestaurant = validContentsService.findByRestaurantId(placeId);
     return RestaurantResponse.from(placeRestaurant, places.contains(placeRestaurant.getPlace()));
   }
 
   @Transactional
   public FestivalResponse getFestivalInfo(Long placeId, Long memberId) {
     List<Place> places = new ArrayList<>();
-    // AuthenticationPrincipal을 통해서 접근하는 member 객체가 준영속 상태이므로 MemberHasPlaceIsWishedList를 Lazy fetch를 통해 가져올 수 없음
-    // 따라서 id만 받아서 다시 memberRepository에서 검색해서 가져오는 방식으로 구현
-    // 참고 https://velog.io/@skrek269/%EC%97%90%EB%9F%AC-%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%A1%9D-org.hibernate.LazyInitializationException
     if (memberId != null) {
       Member member = memberRepository.findById(memberId).orElseThrow();
       places = member.getMemberHasPlaceIsWishedList().stream().map(p -> p.getPlace()).collect(Collectors.toList());
     }
 
-    PlaceFestival placeFestival = placeFestivalRepository.findByPlaceId(placeId)
-            .orElseThrow(() -> new Exception404("해당 식당을 찾을 수 없습니다. id : " + placeId));
-//    PlaceFestival placeFestival = validContentsService.findByFestivalId(placeId);
+    PlaceFestival placeFestival = validContentsService.findByFestivalId(placeId);
     return FestivalResponse.from(placeFestival, places.contains(placeFestival.getPlace()));
   }
 
   @Transactional
   public TouristSpotResponse getTouristSpotInfo(Long placeId, Long memberId) {
     List<Place> places = new ArrayList<>();
-    // AuthenticationPrincipal을 통해서 접근하는 member 객체가 준영속 상태이므로 MemberHasPlaceIsWishedList를 Lazy fetch를 통해 가져올 수 없음
-    // 따라서 id만 받아서 다시 memberRepository에서 검색해서 가져오는 방식으로 구현
-    // 참고 https://velog.io/@skrek269/%EC%97%90%EB%9F%AC-%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%A1%9D-org.hibernate.LazyInitializationException
     if (memberId != null) {
       Member member = memberRepository.findById(memberId).orElseThrow();
       places = member.getMemberHasPlaceIsWishedList().stream().map(p -> p.getPlace()).collect(Collectors.toList());
     }
 
-    PlaceTouristSpot placeTouristSpot = placeTouristSpotRepository.findByPlaceId(placeId)
-            .orElseThrow(() -> new Exception404("해당 식당을 찾을 수 없습니다. id : " + placeId));
-//    PlaceTouristSpot placeTouristSpot = validContentsService.findByTouristSpotId(placeId);
+    PlaceTouristSpot placeTouristSpot = validContentsService.findByTouristSpotId(placeId);
     return TouristSpotResponse.from(placeTouristSpot, places.contains(placeTouristSpot.getPlace()));
   }
 
   @Transactional
   public HomeResponse getHomeInfo(Long memberId) {
     List<Place> places = new ArrayList<>();
-    // AuthenticationPrincipal을 통해서 접근하는 member 객체가 준영속 상태이므로 MemberHasPlaceIsWishedList를 Lazy fetch를 통해 가져올 수 없음
-    // 따라서 id만 받아서 다시 memberRepository에서 검색해서 가져오는 방식으로 구현
-    // 참고 https://velog.io/@skrek269/%EC%97%90%EB%9F%AC-%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%A1%9D-org.hibernate.LazyInitializationException
     if (memberId != null) {
       Member member = memberRepository.findById(memberId).orElseThrow();
       places = member.getMemberHasPlaceIsWishedList().stream().map(p -> p.getPlace()).collect(Collectors.toList());

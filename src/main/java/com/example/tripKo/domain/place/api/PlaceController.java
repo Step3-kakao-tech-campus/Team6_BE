@@ -22,10 +22,12 @@ public class PlaceController {
   private final PlaceService placeService;
 
   @GetMapping(value = "/search")
-  public ResponseEntity<?> findAllByLocation(@RequestParam(value = "location") String location, @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+  public ResponseEntity<?> findAllByLocation(@RequestParam(value = "location") String location,
+      @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long id = null;
-    if (jwtUserDetails != null)
+    if (jwtUserDetails != null) {
       id = jwtUserDetails.getMember().getId();
+    }
     PlaceResponse responseDTO = placeService.findAllByLocation(location, id);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
@@ -33,10 +35,12 @@ public class PlaceController {
 
   @GetMapping("/search/restaurant")
   public ResponseEntity<?> findRestaurantByLocation(@RequestParam(value = "location") String location,
-                                                    @RequestParam(value = "page", defaultValue = "0") Integer page, @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+      @RequestParam(value = "page", defaultValue = "0") Integer page,
+      @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long id = null;
-    if (jwtUserDetails != null)
+    if (jwtUserDetails != null) {
       id = jwtUserDetails.getMember().getId();
+    }
     List<PlaceRestaurantResponse> responseDTO = placeService.findRestaurantByLocation(location, page, id);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
@@ -44,10 +48,12 @@ public class PlaceController {
 
   @GetMapping("/search/festival")
   public ResponseEntity<?> findFestivalByLocation(@RequestParam(value = "location") String location,
-                                                  @RequestParam(value = "page", defaultValue = "0") Integer page, @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+      @RequestParam(value = "page", defaultValue = "0") Integer page,
+      @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long id = null;
-    if (jwtUserDetails != null)
+    if (jwtUserDetails != null) {
       id = jwtUserDetails.getMember().getId();
+    }
     List<PlaceFestivalResponse> responseDTO = placeService.findFestivalByLocation(location, page, id);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);
@@ -55,10 +61,12 @@ public class PlaceController {
 
   @GetMapping("/search/touristSpot")
   public ResponseEntity<?> findTouristSpotByLocation(@RequestParam(value = "location") String location,
-                                                     @RequestParam(value = "page", defaultValue = "0") Integer page, @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
+      @RequestParam(value = "page", defaultValue = "0") Integer page,
+      @AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long id = null;
-    if (jwtUserDetails != null)
+    if (jwtUserDetails != null) {
       id = jwtUserDetails.getMember().getId();
+    }
     List<PlaceTouristSpotResponse> responseDTO = placeService.findTouristSpotByLocation(location, page, id);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);

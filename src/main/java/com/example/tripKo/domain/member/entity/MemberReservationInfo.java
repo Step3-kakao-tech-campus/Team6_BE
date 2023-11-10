@@ -61,7 +61,8 @@ public class MemberReservationInfo {
 
 
   @Builder
-  public MemberReservationInfo(Member member, Long headCount, MemberReservationStatus status, Place place, String reservationDate, String reservationTime, String message) {
+  public MemberReservationInfo(Member member, Long headCount, MemberReservationStatus status, Place place,
+      String reservationDate, String reservationTime, String message) {
     this.member = member;
     this.headCount = headCount;
     this.status = status;

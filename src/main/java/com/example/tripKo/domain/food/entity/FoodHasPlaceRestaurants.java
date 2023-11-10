@@ -20,22 +20,23 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "food_has_place_restaurants")
 public class FoodHasPlaceRestaurants {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "food_id", nullable = false)
-    private Food food;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  @Column(nullable = false, updatable = false)
+  private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "place_restaurant_id", nullable = false)
-    private PlaceRestaurant placeRestaurant;
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "food_id", nullable = false)
+  private Food food;
 
-    @Builder
-    public FoodHasPlaceRestaurants(Food food, PlaceRestaurant placeRestaurant) {
-        this.food = food;
-        this.placeRestaurant = placeRestaurant;
-    }
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "place_restaurant_id", nullable = false)
+  private PlaceRestaurant placeRestaurant;
+
+  @Builder
+  public FoodHasPlaceRestaurants(Food food, PlaceRestaurant placeRestaurant) {
+    this.food = food;
+    this.placeRestaurant = placeRestaurant;
+  }
 }

@@ -32,7 +32,7 @@ public class RestaurantReservationResponse {
         .type(PlaceType.RESTAURANT)
         .name(memberReservationInfo.getPlace().getName())
         .address(memberReservationInfo.getPlace().addressToString(memberReservationInfo.getPlace().getAddress()))
-        .image(memberReservationInfo.getPlace().getFile().getName())
+        .image(memberReservationInfo.getPlace().getFile().getUrl())
         .date(memberReservationInfo.getReservationDate())
         .reservationTime(memberReservationInfo.getReservationTime())
         .message(memberReservationInfo.getMessage())

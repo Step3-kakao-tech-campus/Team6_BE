@@ -1,19 +1,32 @@
 package com.example.tripKo;
 
+import com.example.tripKo.domain.file.FileTestHelper;
 import com.example.tripKo.domain.file.dao.FileRepository;
+import com.example.tripKo.domain.food.FoodTestHelper;
+import com.example.tripKo.domain.food.dao.FoodRepository;
+import com.example.tripKo.domain.member.MemberReservationInfoTestHelper;
+import com.example.tripKo.domain.member.MemberTestHelper;
 import com.example.tripKo.domain.member.application.MemberService;
 import com.example.tripKo.domain.member.dao.MemberRepository;
 import com.example.tripKo.domain.member.dao.MemberReservationInfoRepository;
+import com.example.tripKo.domain.place.AddressCategoryTestHelper;
+import com.example.tripKo.domain.place.AddressTestHelper;
+import com.example.tripKo.domain.place.ContentsTestHelper;
+import com.example.tripKo.domain.place.PlaceTestHelper;
+import com.example.tripKo.domain.place.ReviewTestHelper;
 import com.example.tripKo.domain.place.application.ContentsService;
 import com.example.tripKo.domain.place.application.PlaceService;
+import com.example.tripKo.domain.place.application.ReviewService;
 import com.example.tripKo.domain.place.dao.AddressCategoryRepository;
 import com.example.tripKo.domain.place.dao.AddressRepository;
+import com.example.tripKo.domain.place.dao.ContentsFileRepository;
 import com.example.tripKo.domain.place.dao.ContentsMenuRepository;
 import com.example.tripKo.domain.place.dao.ContentsRepository;
 import com.example.tripKo.domain.place.dao.PlaceFestivalRepository;
 import com.example.tripKo.domain.place.dao.PlaceRepository;
 import com.example.tripKo.domain.place.dao.PlaceRestaurantRepository;
 import com.example.tripKo.domain.place.dao.PlaceTouristSpotRepository;
+import com.example.tripKo.domain.place.dao.ReviewRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -73,6 +86,15 @@ public class IntegrationTest {
   @SpyBean
   protected MemberReservationInfoRepository memberReservationInfoRepository;
 
+  @SpyBean
+  protected ReviewRepository reviewRepository;
+
+  @SpyBean
+  protected FoodRepository foodRepository;
+
+  @SpyBean
+  protected ContentsFileRepository contentsFileRepository;
+
 
   /*** service ***/
   @Autowired
@@ -83,6 +105,37 @@ public class IntegrationTest {
 
   @Autowired
   protected MemberService memberService;
+
+  @Autowired
+  protected ReviewService reviewService;
+
+  /*** Test Helper ***/
+  @Autowired
+  protected FileTestHelper fileTestHelper;
+
+  @Autowired
+  protected MemberReservationInfoTestHelper memberReservationInfoTestHelper;
+
+  @Autowired
+  protected MemberTestHelper memberTestHelper;
+
+  @Autowired
+  protected ReviewTestHelper reviewTestHelper;
+
+  @Autowired
+  protected AddressCategoryTestHelper addressCategoryTestHelper;
+
+  @Autowired
+  protected AddressTestHelper addressTestHelper;
+
+  @Autowired
+  protected ContentsTestHelper contentsTestHelper;
+
+  @Autowired
+  protected PlaceTestHelper placeTestHelper;
+
+  @Autowired
+  protected FoodTestHelper foodTestHelper;
 
 
   /*** Spring Bean ***/

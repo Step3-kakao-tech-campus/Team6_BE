@@ -21,22 +21,22 @@ import static lombok.AccessLevel.PROTECTED;
 @Table(name = "member_has_place_isWished")
 public class MemberHasPlaceIsWished {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  @Column(nullable = false, updatable = false)
+  private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "member_id", nullable = false)
+  private Member member;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "place_id", nullable = false)
-    private Place place;
+  @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "place_id", nullable = false)
+  private Place place;
 
-    @Builder
-    public MemberHasPlaceIsWished(Member member, Place place) {
-        this.member = member;
-        this.place = place;
-    }
+  @Builder
+  public MemberHasPlaceIsWished(Member member, Place place) {
+    this.member = member;
+    this.place = place;
+  }
 }

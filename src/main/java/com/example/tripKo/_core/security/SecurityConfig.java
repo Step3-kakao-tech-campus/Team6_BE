@@ -127,7 +127,6 @@ public class SecurityConfig {
     
       http.cors(cors -> cors.configurationSource(configurationSource()));
 
-
     //h2-console 접속을 위해 허용
     //http.headers().frameOptions().sameOrigin();
 
@@ -155,6 +154,7 @@ public class SecurityConfig {
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
     configuration.addAllowedOriginPattern("*");
+    configuration.addExposedHeader("*");
     configuration.setAllowCredentials(true);
     configuration.addExposedHeader("Authorization");
 

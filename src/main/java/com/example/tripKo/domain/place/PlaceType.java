@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum PlaceType {
-    RESTAURANT(1),
-    FESTIVAL(2),
-    TOURIST_SPOT(3);
+  RESTAURANT(1),
+  FESTIVAL(2),
+  TOURIST_SPOT(3);
 
 
-    private final long id;
+  private final long id;
 }

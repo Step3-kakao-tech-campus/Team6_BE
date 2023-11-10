@@ -1,5 +1,16 @@
 package com.example.tripKo.domain.member.application;
 
+import static com.example.tripKo._core.errors.ErrorCode.EMAIL_ALREADY_EXIST;
+import static com.example.tripKo._core.errors.ErrorCode.FESTIVAL_ID_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.MEMBERID_ALREADY_EXIST;
+import static com.example.tripKo._core.errors.ErrorCode.RESERVATION_NOT_COMPLETE;
+import static com.example.tripKo._core.errors.ErrorCode.RESTAURANT_ID_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.REVIEW_CANNOT_FOUND;
+import static com.example.tripKo._core.errors.ErrorCode.REVIEW_NOT_MINE;
+
+import com.example.tripKo._core.errors.ErrorCode;
+import com.example.tripKo._core.errors.exception.BusinessException;
+import com.example.tripKo._core.S3.ImageS3Service;
 import com.example.tripKo._core.errors.exception.Exception400;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.errors.exception.Exception500;
@@ -72,6 +83,7 @@ public class MemberService {
   private final CheckDuplicateService checkDuplicateService;
   private final FileRepository fileRepository;
   private final ReviewRepository reviewRepository;
+  private final ImageS3Service imageS3Service;
 
   @Transactional
   public UserInfoResponse getUserInfo(Member member) {
@@ -82,9 +94,10 @@ public class MemberService {
   @Transactional
   public void setUserInfo(Member member, UserInfoRequest userInfoRequest) {
     //이메일 중복 여부 체크
-    Member emailCheck = memberRepository.findByEmailAddressAndMemberIdNot(userInfoRequest.getEmail(), member.getMemberId()).orElse(null);
+    Member emailCheck = memberRepository.findByEmailAddressAndMemberIdNot(userInfoRequest.getEmail(),
+        member.getMemberId()).orElse(null);
     if (emailCheck != null) {
-      throw new Exception404("이미 다른 사람이 사용 중인 이메일입니다. email : " + userInfoRequest.getEmail());
+      throw new BusinessException(userInfoRequest.getEmail(), "Email", EMAIL_ALREADY_EXIST);
     }
     member.updateUserInfo(userInfoRequest);
     memberRepository.save(member);
@@ -92,7 +105,7 @@ public class MemberService {
 
   @Transactional
   public void setUserInfoImage(Member member, MultipartFile image) {
-    com.example.tripKo.domain.file.entity.File file = saveImages(image);
+    com.example.tripKo.domain.file.entity.File file = imageS3Service.uploadImage(image);
     file = fileRepository.save(file);
 
     member.updateFile(file);
@@ -103,7 +116,8 @@ public class MemberService {
   public List<ReviewsResponse> getRestaurantReviews(Member member, int page) {
     Pageable pageable = PageRequest.of(page, 10);
     List<Review> reviews = reviewRepository.findAllByMemberAndPlaceType(member, PlaceType.RESTAURANT, pageable);
-    List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build()).collect(Collectors.toList());
+    List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build())
+        .collect(Collectors.toList());
     return reviewsResponses;
   }
 
@@ -111,7 +125,8 @@ public class MemberService {
   public List<ReviewsResponse> getFestivalReviews(Member member, int page) {
     Pageable pageable = PageRequest.of(page, 10);
     List<Review> reviews = reviewRepository.findAllByMemberAndPlaceType(member, PlaceType.FESTIVAL, pageable);
-    List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build()).collect(Collectors.toList());
+    List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build())
+        .collect(Collectors.toList());
     return reviewsResponses;
   }
 
@@ -119,16 +134,18 @@ public class MemberService {
   public List<ReviewsResponse> getTouristSpotReviews(Member member, int page) {
     Pageable pageable = PageRequest.of(page, 10);
     List<Review> reviews = reviewRepository.findAllByMemberAndPlaceType(member, PlaceType.TOURIST_SPOT, pageable);
-    List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build()).collect(Collectors.toList());
+    List<ReviewsResponse> reviewsResponses = reviews.stream().map(r -> ReviewsResponse.builder().review(r).build())
+        .collect(Collectors.toList());
     return reviewsResponses;
   }
 
   @Transactional
   public ReviewsResponse getReviewDetail(Member member, Long id) {
     Review review = reviewRepository.findById(id)
-            .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + id));
-    if(!review.getMember().equals(member))
-      new Exception404("본인의 리뷰가 아닙니다. id : " + id);
+        .orElseThrow(() -> new BusinessException(id, "id", REVIEW_CANNOT_FOUND));
+    if (!review.getMember().equals(member)) {
+      new BusinessException(id, "id", REVIEW_NOT_MINE);
+    }
 
     ReviewsResponse reviewsResponse = ReviewsResponse.builder().review(review).build();
     return reviewsResponse;
@@ -141,7 +158,7 @@ public class MemberService {
     List<Review> restaurant = new ArrayList<>();
     List<Review> festival = new ArrayList<>();
     List<Review> touristSpot = new ArrayList<>();
-    for (Review r:reviews) {
+    for (Review r : reviews) {
       switch (r.getType()) {
         case RESTAURANT:
           restaurant.add(r);
@@ -154,7 +171,8 @@ public class MemberService {
           break;
       }
     }
-    ReviewsListResponse reviewsListResponse = ReviewsListResponse.builder().restaurant(restaurant).festival(festival).touristSpot(touristSpot).build();
+    ReviewsListResponse reviewsListResponse = ReviewsListResponse.builder().restaurant(restaurant).festival(festival)
+        .touristSpot(touristSpot).build();
     return reviewsListResponse;
   }
 
@@ -170,7 +188,7 @@ public class MemberService {
   @Transactional
   public RestaurantReservationSelectResponse selectRestaurantReservationDate(Long id) {
     PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(id)
-        .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + id));
+        .orElseThrow(() -> new BusinessException(id, "id", RESTAURANT_ID_CANNOT_FOUND));
     RestaurantReservationSelectResponse ResponseDTO = new RestaurantReservationSelectResponse(placeRestaurant);
     return ResponseDTO;
   }
@@ -182,21 +200,22 @@ public class MemberService {
 //    Member memberInfo = memberRepository.findById(requestDTO.getReservation().getMemberId())
 //        .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + requestDTO.getReservation().getMemberId()));
     Place place = placeRepository.findById(requestDTO.getReservation().getPlaceId())
-        .orElseThrow(() -> new Exception404("해당하는 식당을 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
+        .orElseThrow(() -> new BusinessException(requestDTO.getReservation().getPlaceId(), "id",
+            RESTAURANT_ID_CANNOT_FOUND));
     MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
-            member,
-            requestDTO.getReservation().getHeadCount(),
-            MemberReservationStatus.예약완료,
-            place,
-            requestDTO.getReservation().getReservationDate(),
-            requestDTO.getReservation().getReservationTime(),
-            requestDTO.getReservation().getMessage()
+        member,
+        requestDTO.getReservation().getHeadCount(),
+        MemberReservationStatus.예약완료,
+        place,
+        requestDTO.getReservation().getReservationDate(),
+        requestDTO.getReservation().getReservationTime(),
+        requestDTO.getReservation().getMessage()
     );
     memberReservationInfoRepository.save(saveMemberReservationInfo);
 
     MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(
             requestDTO.getReservation().getId())
-        .orElseThrow(() -> new Exception404("예약이 완료되지 않았습니다. id : " + requestDTO.getReservation().getId()));
+        .orElseThrow(() -> new BusinessException(requestDTO.getReservation().getId(), "id", RESERVATION_NOT_COMPLETE));
     RestaurantReservationConfirmResponse ResponseDTO = new RestaurantReservationConfirmResponse(memberReservationInfo);
     return ResponseDTO;
   }
@@ -205,41 +224,43 @@ public class MemberService {
   public List<FestivalReservationResponse> getFestivalReservationInfo(Member member) {
     List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAllByMember(member);
     List<FestivalReservationResponse> responseList = memberReservationInfoList.stream()
-            .map(memberReservationInfo -> FestivalReservationResponse.from(memberReservationInfo))
-            .collect(Collectors.toList());
+        .map(memberReservationInfo -> FestivalReservationResponse.from(memberReservationInfo))
+        .collect(Collectors.toList());
     return responseList;
   }
 
   @Transactional
   public FestivalReservationSelectResponse selectFestivalReservationDate(Long id) {
     PlaceFestival placeFestival = placeFestivalRepository.findById(id)
-            .orElseThrow(() -> new Exception404("해당하는 축제를 찾을 수 없습니다. id : " + id));
+        .orElseThrow(() -> new BusinessException(id, "id", FESTIVAL_ID_CANNOT_FOUND));
     FestivalReservationSelectResponse ResponseDTO = new FestivalReservationSelectResponse(placeFestival);
     return ResponseDTO;
   }
 
   @Transactional
   public FestivalReservationConfirmResponse confirmFestivalReservation(
-          Member member,
-          FestivalReservationConfirmRequest requestDTO) {
+      Member member,
+      FestivalReservationConfirmRequest requestDTO) {
 //    Member memberInfo = memberRepository.findById(requestDTO.getReservation().getMemberId())
 //        .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다. id : " + requestDTO.getReservation().getMemberId()));
     Place place = placeRepository.findById(requestDTO.getReservation().getPlaceId())
-            .orElseThrow(() -> new Exception404("해당하는 축제를 찾을 수 없습니다. id : " + requestDTO.getReservation().getPlaceId()));
+        .orElseThrow(
+            () -> new BusinessException(requestDTO.getReservation().getPlaceId(), "id", FESTIVAL_ID_CANNOT_FOUND));
     MemberReservationInfo saveMemberReservationInfo = new MemberReservationInfo(
-            member,
-            requestDTO.getReservation().getHeadCount(),
-            MemberReservationStatus.예약완료,
-            place,
-            requestDTO.getReservation().getReservationDate(),
-            "", // 축제 예약은 시간 선택 기능이 없으니 빈 string으로 넘겨줌
-            requestDTO.getReservation().getMessage()
+        member,
+        requestDTO.getReservation().getHeadCount(),
+        MemberReservationStatus.예약완료,
+        place,
+        requestDTO.getReservation().getReservationDate(),
+        "", // 축제 예약은 시간 선택 기능이 없으니 빈 string으로 넘겨줌
+        requestDTO.getReservation().getMessage()
     );
     memberReservationInfoRepository.save(saveMemberReservationInfo);
 
     MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(
-                    requestDTO.getReservation().getId())
-            .orElseThrow(() -> new Exception404("예약이 완료되지 않았습니다. id : " + requestDTO.getReservation().getId()));
+            requestDTO.getReservation().getId())
+        .orElseThrow(
+            () -> new BusinessException(requestDTO.getReservation().getPlaceId(), "id", RESERVATION_NOT_COMPLETE));
     FestivalReservationConfirmResponse ResponseDTO = new FestivalReservationConfirmResponse(memberReservationInfo);
     return ResponseDTO;
   }
@@ -274,68 +295,13 @@ public class MemberService {
 
   private void checkIsDuplicateEmail(String email) {
     if (checkDuplicateService.isDuplicateEmail(email)) {
-      throw new Exception404("동일한 이메일이 존재합니다.");
+      throw new BusinessException(email, "email", EMAIL_ALREADY_EXIST);
     }
   }
 
   private void checkIsDuplicateLoginId(String memberId) {
     if (checkDuplicateService.isDuplicateLoginId(memberId)) {
-      throw new Exception404("동일한 아이디가 존재합니다.");
+      throw new BusinessException(memberId, "memberId", MEMBERID_ALREADY_EXIST);
     }
   }
-
-  private com.example.tripKo.domain.file.entity.File saveImages(MultipartFile image) {
-    //이미지가 저장될 경로는 /src/main/resources/reviews/images/
-    String imagesPath = new File("").getAbsolutePath() + File.separator
-            + "src" + File.separator
-            + "main" + File.separator
-            + "resources" + File.separator
-            + "reviews" + File.separator
-            + "images";
-
-    File imageFile = new File(imagesPath);
-
-    //resources/review/images에 디렉토리 생성
-    if (!imageFile.exists()) {
-      boolean isExists = imageFile.mkdirs();
-      if (!isExists) {
-        throw new Exception500("경로 생성에 실패하였습니다.");
-      }
-    }
-
-    String contentType = image.getContentType();
-    String imageName = image.getOriginalFilename();
-    String fileExtension;
-
-    //jpeg, jpg, png만 허용
-    if (Objects.isNull(contentType)) {
-      throw new Exception400("올바르지 않은 파일 확장자 형식입니다.");
-    }
-    else if (contentType.contains("image/jpeg") ||
-            contentType.contains("image/jpg"))
-      fileExtension = ".jpg";
-    else if (contentType.contains("image/png"))
-      fileExtension = ".png";
-    else throw new Exception400("올바르지 않은 파일 확장자 형식입니다.");
-
-    String newFileName = String.format("%1$016x",System.nanoTime()) + "_" + imageName;
-    System.out.println("====================");
-    System.out.println(newFileName);
-
-    com.example.tripKo.domain.file.entity.File fileEntity = com.example.tripKo.domain.file.entity.File.builder()
-            .type(contentType)
-            .name(newFileName)
-            .build();
-
-    String imagePath = imagesPath + File.separator + newFileName;
-    File savedImage = new File(imagePath);
-    try {
-      image.transferTo(savedImage);
-    } catch (IOException e) {
-      throw new Exception500("이미지를 저장하는 중 문제가 발생하였습니다.");
-    }
-
-    return fileEntity;
-  }
-
 }
