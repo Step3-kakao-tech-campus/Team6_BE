@@ -1,6 +1,7 @@
 package com.example.tripKo.domain.place.application;
 
 import com.example.tripKo._core.S3.ImageS3Service;
+import com.example.tripKo._core.errors.exception.BusinessException;
 import com.example.tripKo._core.errors.exception.Exception400;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.errors.exception.Exception500;
@@ -39,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.example.tripKo._core.errors.ErrorCode.*;
+
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
@@ -55,11 +58,9 @@ public class ReviewService {
     //place 불러오기
     //만약 받은 placeId가 URL의 PlaceType과 다르면 리뷰 작성 불가능
     Place place = placeRepository.findById(reviewRequest.getPlaceId())
-        .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + reviewRequest.getPlaceId()));
+        .orElseThrow(() -> new BusinessException(reviewRequest.getPlaceId(), "id", PLACE_ID_CANNOT_FOUND));
       if (place.getPlaceType() != placeType) {
-          throw new Exception400(
-              "요청한 URL의 Place 타입과 요청한 id의 Place 타입이 다릅니다. 요청한 URL : " + placeType + ", id의 Place 타입 : "
-                  + place.getPlaceType());
+          throw new BusinessException(place.getPlaceType(), "type", PLACE_NOT_MATCH);
       }
 
     //관광지 -> usageDate 작성 기준
@@ -72,7 +73,7 @@ public class ReviewService {
           member, place, MemberReservationStatus.예약완료);
       //예약 완료인지 체크
       if (Objects.isNull(memberReservationInfo)) {
-        throw new Exception400("리뷰는 예약 완료 후에 작성이 가능합니다.");
+        throw new BusinessException(null, "", REVIEW_BEFORE_RESERVATION);
       }
       String reservedDate = memberReservationInfo.getReservationDate();
       String reservedTime = memberReservationInfo.getReservationTime() + ":00";
@@ -82,7 +83,7 @@ public class ReviewService {
       Timestamp ts2 = Timestamp.valueOf(reservedDate + " " + reservedTime);
       //시간도 체크
       if (ts1.before(ts2)) {
-        throw new Exception404("리뷰는 예약 시간 이후에 작성 가능합니다.");
+          throw new BusinessException(ts2, "time", REVIEW_BEFORE_RESERVATION_TIME);
       } else {
         usageDate = reservedDate;
       }
@@ -93,7 +94,7 @@ public class ReviewService {
       Review sameReview = reviewRepository.findReviewByMemberIdAndPlaceIdAndUsageDate(member.getId(),
           reviewRequest.getPlaceId(), usageDate);
         if (!Objects.isNull(sameReview) || status.equals(MemberReservationStatus.리뷰완료.name())) {
-            throw new Exception400("이미 작성한 리뷰가 존재합니다.");
+            throw new BusinessException(sameReview.getId(), "id", REVIEW_ALREADY_DONE);
         }
 
       memberReservationInfo.setStatus(MemberReservationStatus.리뷰완료);
@@ -144,11 +145,9 @@ public class ReviewService {
   public ReviewsResponse getReviewsByPlaceId(Long placeId, PlaceType placeType, int page) {
     //리뷰에 저장할 placeRestaurant을 가져오는 부분
     Place place = placeRepository.findById(placeId)
-        .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + placeId));
+        .orElseThrow(() -> new BusinessException(placeId, "id", PLACE_ID_CANNOT_FOUND));
       if (place.getPlaceType() != placeType) {
-          throw new Exception400(
-              "요청한 URL의 Place 타입과 요청한 id의 Place 타입이 다릅니다. 요청한 URL : " + placeType + ", id의 Place 타입 : "
-                  + place.getPlaceType());
+          throw new BusinessException(place.getPlaceType(), "type", PLACE_NOT_MATCH);
       }
 
     Pageable pageable = PageRequest.of(page, 10);
@@ -156,9 +155,9 @@ public class ReviewService {
 
     if (reviews.isEmpty()) {
         if (page == 0) {
-            throw new Exception404("현재 이 플레이스는 리뷰가 없습니다. id : " + placeId);
+//            throw new Exception404("현재 이 플레이스는 리뷰가 없습니다. id : " + placeId);
         } else {
-            throw new Exception404("더이상 리뷰가 없습니다. page : " + page);
+            throw new BusinessException(page, "page", REVIEW_PAGE_CANNOT_FOUND);
         }
     }
 
@@ -170,10 +169,10 @@ public class ReviewService {
   @Transactional
   public void updateReview(Long reviewId, ReviewUpdateRequest reviewUpdateRequest) {
     Review review = reviewRepository.findById(reviewId)
-        .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
+        .orElseThrow(() -> new BusinessException(reviewId, "id", REVIEW_CANNOT_FOUND));
 
     Place place = placeRepository.findById(reviewUpdateRequest.getPlaceId())
-        .orElseThrow(() -> new Exception404("해당하는 플레이스를 찾을 수 없습니다. id : " + reviewUpdateRequest.getPlaceId()));
+        .orElseThrow(() -> new BusinessException(reviewUpdateRequest.getPlaceId(), "id", PLACE_ID_CANNOT_FOUND));
 
     int originalRate = review.getScore();
     review.update(reviewUpdateRequest);
@@ -206,7 +205,7 @@ public class ReviewService {
   @Transactional
   public void deleteReview(Long reviewId) {
     Review review = reviewRepository.findById(reviewId)
-        .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
+        .orElseThrow(() -> new BusinessException(reviewId, "id", REVIEW_CANNOT_FOUND));
     Place place = placeRepository.findById(review.getPlace().getId()).orElseThrow();
 
     deleteAllImages(reviewId);

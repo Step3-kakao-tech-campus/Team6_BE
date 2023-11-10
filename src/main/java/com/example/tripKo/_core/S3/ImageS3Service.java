@@ -4,6 +4,8 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
+import com.example.tripKo._core.errors.ErrorCode;
+import com.example.tripKo._core.errors.exception.BusinessException;
 import com.example.tripKo._core.errors.exception.Exception400;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.errors.exception.Exception500;
@@ -40,14 +42,14 @@ public class ImageS3Service{
 
         //jpeg, jpg, png만 허용
         if (Objects.isNull(contentType)) {
-            throw new Exception400("올바르지 않은 파일 확장자 형식입니다.");
+            throw new BusinessException(contentType, "type", ErrorCode.IMAGE_TYPE_NOT_CORRECT);
         }
         else if (contentType.contains("image/jpeg") ||
                 contentType.contains("image/jpg"))
             fileExtension = "jpg";
         else if (contentType.contains("image/png"))
             fileExtension = "png";
-        else throw new Exception400("올바르지 않은 파일 확장자 형식입니다.");
+        else throw new BusinessException(contentType, "type", ErrorCode.IMAGE_TYPE_NOT_CORRECT);
 
         String changedName = changedImageName(originName); //새로 생성된 이미지 이름
         ObjectMetadata metadata = new ObjectMetadata(); //메타데이터
@@ -58,7 +60,7 @@ public class ImageS3Service{
             ).withCannedAcl(CannedAccessControlList.PublicRead));
 
         } catch (IOException e) {
-            throw new Exception404("이미지 저장 오류"); //커스텀 예외 던짐.
+            throw new BusinessException(originName, "file name", ErrorCode.IMAGE_CANNOT_SAVE);
         }
         return amazonS3.getUrl(bucketName, "images/" + changedName).toString(); //데이터베이스에 저장할 이미지가 저장된 주소
 
@@ -92,17 +94,16 @@ public class ImageS3Service{
                 try {
                     amazonS3.deleteObject(new DeleteObjectRequest(bucketName, key));
                 } catch (AmazonServiceException e) {
-                    new Exception500("이미지를 삭제하는 중 문제가 발생하였습니다.");
+                    new BusinessException(key, "file name", ErrorCode.IMAGE_CANNOT_DELETE);
                 }
             } else {
-                new Exception500("삭제할 이미지가 없습니다.");
+                new BusinessException(key, "file name", ErrorCode.IMAGE_CANNOT_FOUND_AND_DELETE);
             }
-
 
             System.out.println(String.format("[%s] deletion complete", key));
 
         } catch (Exception exception) {
-            throw new Exception500("삭제하려는 이미지가 없습니다.");
+            new BusinessException(fileUrl, "url", ErrorCode.IMAGE_CANNOT_FOUND);
         }
     }
 
