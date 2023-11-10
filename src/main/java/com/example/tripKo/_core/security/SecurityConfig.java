@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class SecurityConfig {
             .cors().configurationSource(configurationSource())
             .and()
             .authorizeHttpRequests()
+            .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
             .antMatchers("/userinfo/**", "/wishlist/**", "/**/reviews/**") // 허용하지 않는 것들 (추가 예정)
             .hasRole(MemberRoleType.MEMBER.name())
             .anyRequest()
@@ -141,7 +143,7 @@ public class SecurityConfig {
     configuration.setAllowedHeaders(List.of("Origin","Accept","X-Requested-With","Content-Type","Access-Control-Request-Method","Access-Control-Request-Headers", "Authorization"));
     configuration.setExposedHeaders(List.of("*"));
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
+    source.registerCorsConfiguration("/api/**", configuration);
     return source;
   }
 
