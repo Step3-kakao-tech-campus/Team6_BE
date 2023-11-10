@@ -29,8 +29,8 @@ public enum ErrorCode {
 
 
   /*** Member ***/
-  EMAIL_ALREADY_EXIST("이미 다른 사람이 사용 중인 이메일입니다.", HttpStatus.BAD_REQUEST),
-  MEMBERID_ALREADY_EXIST("이미 다른 사람이 사용 중인 아이디입니다.", HttpStatus.BAD_REQUEST),
+  EMAIL_ALREADY_EXIST("This email is already being used by someone else", HttpStatus.BAD_REQUEST),
+  MEMBERID_ALREADY_EXIST("This ID is already being used by someone else", HttpStatus.BAD_REQUEST),
   RESERVATION_NOT_COMPLETE("예약이 완료되지 않았습니다.", HttpStatus.BAD_REQUEST),
 
   /*** Wishlist ***/
