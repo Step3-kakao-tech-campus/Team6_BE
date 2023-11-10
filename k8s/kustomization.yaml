@@ -1,0 +1,16 @@
+namespace: default
+resources:
+  - nginx.yaml
+  - mysql.yaml
+  - backend.yaml
+  - redis.yaml
+  #- secret.yaml
+  - frontend.yaml
+configMapGenerator:
+  - name: nginx
+    files:
+      - configs/default.conf
+  - name: init-db
+    files:
+      - configs/init.sql
+     

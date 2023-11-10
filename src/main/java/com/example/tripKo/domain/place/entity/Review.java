@@ -50,6 +50,7 @@ public class Review {
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "place", nullable = false)
   private Place place;
+  
 //
 //    @Column(nullable = false)
 //    private boolean isAvailable;

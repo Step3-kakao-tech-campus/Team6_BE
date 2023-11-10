@@ -5,6 +5,17 @@
 </br>
 
 ## 배포와 관련하여
+kubectl apply -f secret.yml 한 다음 배포해야 한다.
+
+```
+kubectl get ingress
+kubectl get pods
+kubectl delete -k k8s/
+kubectl apply -k k8s/
+kubectl exec -it mysql-0 -- /bin/bash
+mysql -uroot -proot < /docker-entrypoint-initdb.d/init.sql
+```
+
 
 ```
 
