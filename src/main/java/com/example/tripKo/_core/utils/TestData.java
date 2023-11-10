@@ -143,8 +143,8 @@ public class TestData implements CommandLineRunner {
     placeRestaurantRepository.saveAll(placeRestaurants);
 
     List<PlaceFestival> placeFestivals = Arrays.asList(
-        new PlaceFestival("16:00", "21:00", places.get(2), false),
-        new PlaceFestival("18:00", "23:00", places.get(3), false)
+        new PlaceFestival("23-10-20", "23-10-21", places.get(2), 20000, false),
+        new PlaceFestival("23-10-20", "23-10-21", places.get(3), 30000, false)
     );
     placeFestivalRepository.saveAll(placeFestivals);
 
@@ -156,7 +156,7 @@ public class TestData implements CommandLineRunner {
 
     List<Contents> contents = new ArrayList<>();
     List<ContentsMenu> contentsMenus = new ArrayList<>();
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 6; i++) {
       contents.add(Contents.builder().place(places.get(i)).page(0L).description("컨텐츠 설명" + (i + 1)).build());
       contentsMenus.add(
           ContentsMenu.builder().contents(contents.get(i)).name(places.get(i).getName() + " 메뉴1").price(10000L)
@@ -249,7 +249,10 @@ public class TestData implements CommandLineRunner {
     );
     memberRepository.saveAll(members);
 
-    MemberReservationInfo memberReservationInfo = MemberReservationInfo.builder()
+    List<MemberReservationInfo> memberReservationInfo = new ArrayList<>();
+
+    memberReservationInfo.add(
+            MemberReservationInfo.builder()
         .member(members.get(0))
         .headCount(2L)
         .status(MemberReservationStatus.예약완료)
@@ -257,9 +260,20 @@ public class TestData implements CommandLineRunner {
         .reservationDate("2023-10-10")
         .reservationTime("17:00")
         .message("test")
-        .build();
+        .build());
 
-    memberReservationInfoRepository.save(memberReservationInfo);
+    memberReservationInfo.add(
+            MemberReservationInfo.builder()
+                    .member(members.get(0))
+                    .headCount(2L)
+                    .status(MemberReservationStatus.예약완료)
+                    .place(places.get(3))
+                    .reservationDate("2023-10-10")
+                    .reservationTime("17:00")
+                    .message("test")
+                    .build());
+
+    memberReservationInfoRepository.saveAll(memberReservationInfo);
 
   }
 
