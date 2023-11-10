@@ -12,7 +12,8 @@ kubectl get ingress
 kubectl get pods
 kubectl delete -k k8s/
 kubectl apply -k k8s/
-
+kubectl exec -it mysql-0 -- /bin/bash
+mysql -uroot -proot < /docker-entrypoint-initdb.d/init.sql
 ```
 
 

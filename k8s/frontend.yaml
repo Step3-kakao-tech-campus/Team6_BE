@@ -15,21 +15,23 @@ spec:
       containers:
         - name: frontend
           # 여러분의 frontend image 주소를 입력해주세요.
-          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_42e1bd10cf18:latest
-          volumeMounts:
-            - name: shared-data
-              mountPath: /image
-      volumes:
-        - name: shared-data
-          emptyDir: {}
+          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_5d07c6490f63:latest
+#          volumeMounts:
+#            - name: shared-data
+#              mountPath: /image
+#      volumes:
+#        - name: shared-data
+#          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: frontend
 spec:
+  type: LoadBalancer
   selector:
     app: frontend
   ports:
     - port: 3000
+      protocol: TCP
       targetPort: 3000
