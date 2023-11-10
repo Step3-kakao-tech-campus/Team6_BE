@@ -58,7 +58,7 @@ public class ContentsController {
     return ResponseEntity.ok(response);
   }
 
-  @GetMapping("/home")
+  @GetMapping(value = {"/", "/home"})
   public ResponseEntity<HomeResponse> getHomeInfo(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Long memberId = null;
     if (jwtUserDetails != null) {

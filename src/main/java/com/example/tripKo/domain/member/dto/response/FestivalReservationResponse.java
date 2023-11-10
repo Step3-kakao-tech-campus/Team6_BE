@@ -31,7 +31,7 @@ public class FestivalReservationResponse {
         .type(PlaceType.FESTIVAL)
         .name(memberReservationInfo.getPlace().getName())
         .address(memberReservationInfo.getPlace().addressToString(memberReservationInfo.getPlace().getAddress()))
-        .image(memberReservationInfo.getPlace().getFile().getName())
+        .image(memberReservationInfo.getPlace().getFile().getUrl())
         .date(memberReservationInfo.getReservationDate())
         .message(memberReservationInfo.getMessage())
         .status(memberReservationInfo.getStatus().name())

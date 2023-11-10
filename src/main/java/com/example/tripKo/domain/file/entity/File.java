@@ -1,5 +1,4 @@
 package com.example.tripKo.domain.file.entity;
-
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -20,21 +19,25 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "file")
 public class File extends BaseTimeEntity {
 
-  @Id
-  @GeneratedValue(strategy = IDENTITY)
-  @Column(nullable = false, updatable = false)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(nullable = false, updatable = false)
+    private Long id;
 
-  @Column(nullable = false)
-  private String type;
+    @Column(nullable = false)
+    private String type;
 
-  @Column(nullable = false)
-  private String name;
+    @Column(nullable = false)
+    private String name;
 
-  @Builder
-  public File(String type, String name) {
-    this.type = type;
-    this.name = name;
-  }
+    @Column(nullable = false)
+    private String url;
+
+    @Builder
+    public File(String type, String name, String url) {
+        this.type = type;
+        this.name = name;
+        this.url = url;
+    }
 
 }

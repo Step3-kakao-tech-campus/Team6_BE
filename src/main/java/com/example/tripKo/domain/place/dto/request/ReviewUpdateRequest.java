@@ -25,4 +25,6 @@ public class ReviewUpdateRequest {
 
   @Size(max = 10)
   List<MultipartFile> image = new ArrayList<>();
+
+  List<String> deleteImage = new ArrayList<>();
 }

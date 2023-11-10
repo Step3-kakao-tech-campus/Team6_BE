@@ -10,6 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 import static javax.persistence.CascadeType.REMOVE;
+import static javax.persistence.FetchType.EAGER;
 import static lombok.AccessLevel.PROTECTED;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.FetchType.LAZY;

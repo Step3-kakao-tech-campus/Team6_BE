@@ -24,20 +24,11 @@ public class UserInfoResponse {
     this.nickName = member.getNickName();
     this.email = member.getEmailAddress();
     try {
-      this.image = createFileNameWithPaths(member.getFile().getName());
+      this.image =  member.getFile().getUrl();
     } catch (Exception e) {
     }
     this.nationality = member.getNationality();
     this.birthday = member.getBirthday();
-  }
-
-  private String createFileNameWithPaths(String filename) {
-    return "src" + File.separator
-        + "main" + File.separator
-        + "resources" + File.separator
-        + "reviews" + File.separator
-        + "images" + File.separator
-        + filename;
   }
 
 }

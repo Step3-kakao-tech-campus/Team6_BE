@@ -39,7 +39,7 @@ public class FestivalResponse {
         .id(placeFestival.getId())
         .name(placeFestival.getPlace().getName())
         .averageScore(placeFestival.getPlace().getAverageRating())
-        .mainImage(placeFestival.getPlace().getFile().getName())
+        .mainImage(placeFestival.getPlace().getFile().getUrl())
         .contents(placeFestival.getPlace().getContents().stream()
             .map(FestivalResponse::mapContent)
             .collect(Collectors.toList()))
@@ -55,7 +55,7 @@ public class FestivalResponse {
         .page(contents.getPage())
         .description(contents.getDescription())
         .image(contents.getContentsHasFiles().stream()
-            .map(c -> c.getFile().getName())
+            .map(c -> c.getFile().getUrl())
             .collect(Collectors.toList()))
         .build();
   }

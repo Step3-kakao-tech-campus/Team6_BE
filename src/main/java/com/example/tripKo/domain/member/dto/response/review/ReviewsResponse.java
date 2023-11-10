@@ -34,25 +34,16 @@ public class ReviewsResponse {
     this.rating = review.getScore();
     this.description = review.getDescription();
     this.image = review.getReviewHasFiles().stream()
-        .map(r -> createFileNameWithPaths(r.getFile().getName()))
+        .map(r -> r.getFile().getUrl())
         .collect(Collectors.toList());
   }
 
-  private String createFileNameWithPaths(String filename) {
-    return "src" + File.separator
-        + "main" + File.separator
-        + "resources" + File.separator
-        + "reviews" + File.separator
-        + "images" + File.separator
-        + filename;
-  }
-
   private String addressToString(Address address) {
-    String addressToString = address.getBuildingName() + " " + address.getRoadName();
-    AddressCategory addressCategory = address.getAddressCategory();
-    String addressCategoryToString =
-        addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
-    return addressToString + " " + addressCategoryToString;
+      String addressToString = address.getBuildingName() + " " + address.getRoadName();
+      AddressCategory addressCategory = address.getAddressCategory();
+      String addressCategoryToString =
+              addressCategory.getEmdName() + " " + addressCategory.getSiggName() + " " + addressCategory.getSidoName();
+      return addressToString + " " + addressCategoryToString;
   }
 
 

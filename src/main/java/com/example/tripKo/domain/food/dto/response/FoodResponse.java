@@ -23,7 +23,7 @@ public class FoodResponse {
     this.id = food.getId();
     this.name = food.getName();
     this.category = food.getFoodCategory();
-    this.image = food.getFile().getName();
+    this.image = food.getFile().getUrl();
     this.summary = food.getSummary();
   }
 
