@@ -19,7 +19,7 @@ public class FoodController {
 
   @GetMapping("/foods")
   public ResponseEntity<?> findByKeyword(@RequestParam(value = "query", defaultValue = "") String query,
-      @RequestParam(value = "sort", defaultValue = "True") String sort) {
+      @RequestParam(value = "sort", defaultValue = "recommended") String sort) {
     List<FoodResponse> responseDTO = foodService.findByKeyword(query, sort);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(responseDTO);
     return ResponseEntity.ok(apiResult);

@@ -39,4 +39,6 @@ public interface PlaceRestaurantRepository extends JpaRepository<PlaceRestaurant
   Optional<PlaceRestaurant> findByPlaceId(Long placeId);
   Optional<PlaceRestaurant> findByPlace(Place place);
 
+  List<PlaceRestaurant> findTop5ByOrderByPlace_AverageRatingDesc();
+
 }
