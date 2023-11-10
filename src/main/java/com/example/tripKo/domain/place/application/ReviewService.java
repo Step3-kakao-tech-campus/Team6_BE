@@ -224,6 +224,7 @@ public class ReviewService {
     place.setAverageRating(average);
 
     reviewFileRepository.deleteAllByReviewId(reviewId);
+    reviewRepository.delete(review);
   }
 
 
