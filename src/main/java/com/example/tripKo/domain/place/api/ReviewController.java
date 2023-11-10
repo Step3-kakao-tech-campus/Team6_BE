@@ -121,10 +121,9 @@ public class ReviewController {
     }
 
     @DeleteMapping("/touristSpot/reviews/{reviewId}")
-    public ResponseEntity<?> deleteTouristSpotReviews(@PathVariable Long reviewId) {
+    public ResponseEntity<Void> deleteTouristSpotReviews(@PathVariable Long reviewId) {
         reviewService.deleteReview(reviewId);
-        ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
-        return ResponseEntity.ok(apiResult);
+        return ResponseEntity.noContent().build();
 
     }
 }

@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.REMOVE;
 import static lombok.AccessLevel.PROTECTED;
 import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.FetchType.LAZY;
@@ -56,11 +57,11 @@ public class Review {
     @Column(nullable = false)
     private PlaceType type;
 
-    @OneToMany(mappedBy = "review")
+    @OneToMany(mappedBy = "review", cascade = REMOVE)
     private List<ReviewHasFile> reviewHasFiles = new ArrayList<>();
 
     @Builder
-    public Review(Place place, Member member, String description, int score) {
+    public Review(PlaceType placeType, Place place, Member member, String description, int score) {
         this.type = PlaceType.RESTAURANT;
         this.place = place;
         this.member = member;

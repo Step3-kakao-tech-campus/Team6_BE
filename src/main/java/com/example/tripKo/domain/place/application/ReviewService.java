@@ -15,6 +15,7 @@ import com.example.tripKo.domain.place.dto.response.review.ReviewsResponse;
 import com.example.tripKo.domain.place.entity.Place;
 import com.example.tripKo.domain.place.entity.Review;
 import com.example.tripKo.domain.place.entity.ReviewHasFile;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -139,11 +140,7 @@ public class ReviewService {
     public void deleteReview(Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new Exception404("해당하는 리뷰를 찾을 수 없습니다. id : " + reviewId));
-
-        deleteImages(reviewId);
-
-        //평균 별점 업데이트
-        Place place = review.getPlace();
+        Place place = placeRepository.findById(review.getPlace().getId()).orElseThrow();
 
         int reviewNumbers = place.getReviewNumbers();
         float average = place.getAverageRating();
