@@ -31,6 +31,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
+  labels:
+    app: nginx
 spec:
   type: LoadBalancer
   selector:
@@ -52,8 +54,8 @@ spec:
   rules:
     - http:
         paths:
-          - backend:
+          - path: /
+            pathType: Prefix
+            backend:
               serviceName: nginx-service
               servicePort: 80
-              path: /
-              pathType: Prefix
