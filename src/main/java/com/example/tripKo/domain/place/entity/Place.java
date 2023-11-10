@@ -54,6 +54,7 @@ public class Place extends BaseTimeEntity {
 
   private int reviewNumbers;
 
+  @Enumerated(EnumType.STRING)
   private PlaceType placeType;
 
   @Builder
