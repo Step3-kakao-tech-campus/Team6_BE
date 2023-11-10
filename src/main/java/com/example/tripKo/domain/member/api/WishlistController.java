@@ -16,7 +16,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "https://kd284b475c6e5a.user-app.krampoline.com:3000")
 public class WishlistController {
 
     private final WishlistService wishlistService;
