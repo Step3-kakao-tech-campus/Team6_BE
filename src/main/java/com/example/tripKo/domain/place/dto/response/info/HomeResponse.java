@@ -41,6 +41,7 @@ public class HomeResponse {
     private String summary;
     private String image;
     private String address;
+    private double averageRating;
     private Boolean isWished;
   }
 
@@ -54,6 +55,7 @@ public class HomeResponse {
     private String summary;
     private String image;
     private String address;
+    private double averageRating;
     private Boolean isWished;
   }
 
@@ -79,6 +81,7 @@ public class HomeResponse {
             .image(festivalResponse.getMainImage())
             .summary(festivalResponse.getContents().get(0).getDescription()) // 데이터 없으면 에러나요 주의!
             .address(festivalResponse.getAddress())
+            .averageRating(festivalResponse.getAverageRating())
             .isWished(festivalResponse.getIsWished())
             .build())
         .collect(Collectors.toList());
@@ -90,6 +93,7 @@ public class HomeResponse {
             .image(touristSpotResponse.getMainImage())
             .summary(touristSpotResponse.getContents().get(0).getDescription()) // 데이터 없으면 에러나요 주의!
             .address(touristSpotResponse.getAddress())
+            .averageRating(touristSpotResponse.getAverageRating())
             .isWished(touristSpotResponse.getIsWished())
             .build())
         .collect(Collectors.toList());
