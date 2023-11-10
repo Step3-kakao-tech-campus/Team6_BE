@@ -2,6 +2,7 @@ package com.example.tripKo.domain.place.dto.response.info;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.entity.Contents;
 import com.example.tripKo.domain.place.entity.PlaceTouristSpot;
 import java.util.List;
@@ -16,8 +17,10 @@ import lombok.Getter;
 public class TouristSpotResponse {
 
   private Long id;
+  private String type;
   private String name;
-  private double averageScore;
+  private String summary;
+  private double averageRating;
   private String mainImage;
   private List<Content> contents;
   private String address;
@@ -35,8 +38,10 @@ public class TouristSpotResponse {
   public static TouristSpotResponse from(PlaceTouristSpot placeTouristSpot, boolean isWished) {
     return TouristSpotResponse.builder()
         .id(placeTouristSpot.getId())
+        .type(PlaceType.TOURIST_SPOT.name())
         .name(placeTouristSpot.getPlace().getName())
-        .averageScore(placeTouristSpot.getPlace().getAverageRating())
+        .summary(placeTouristSpot.getPlace().getSummary())
+        .averageRating(placeTouristSpot.getPlace().getAverageRating())
         .mainImage(placeTouristSpot.getPlace().getFile().getUrl())
         .contents(placeTouristSpot.getPlace().getContents().stream()
             .map(TouristSpotResponse::mapContent)

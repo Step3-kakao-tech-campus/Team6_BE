@@ -67,7 +67,7 @@ public class HomeResponse {
             .summary(restaurantResponse.getContents().get(0).getDescription()) // 데이터 없으면 에러나요 주의!
             .image(restaurantResponse.getMainImage())
             .address(restaurantResponse.getAddress())
-            .averageRating(restaurantResponse.getAverageScore())
+            .averageRating(restaurantResponse.getAverageRating())
             .isWished(restaurantResponse.getIsWished())
             .build())
         .collect(Collectors.toList());

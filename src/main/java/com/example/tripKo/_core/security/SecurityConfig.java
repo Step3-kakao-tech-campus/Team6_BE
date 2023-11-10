@@ -21,13 +21,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.List;
 
 
 @EnableWebSecurity
@@ -49,52 +45,8 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-            .cors().configurationSource(configurationSource());
-
-    http
-            .csrf().disable()
-            .authorizeHttpRequests()
-            .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-            .antMatchers("/userinfo/**", "/wishlist/**", "/**/reviews/**") // 허용하지 않는 것들 (추가 예정)
-            .hasRole(MemberRoleType.MEMBER.name())
-            .anyRequest()
-            .permitAll()
-            .and()
-            .formLogin().disable()
-            .httpBasic().disable()
-            .logout().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .oauth2Login()
-            .userInfoEndpoint()
-            .userService(customOAuth2UserService)
-            .and()
-            .successHandler(oAuth2SuccessHandler)
-            .and()
-            .exceptionHandling().authenticationEntryPoint(((request, response, authException) -> {
-              FilterResponseUtils.unAuthorized(response, new Exception401("인증되지 않았습니다"));
-            }))
-            .and()
-            .exceptionHandling().accessDeniedHandler(((request, response, accessDeniedException) -> {
-              FilterResponseUtils.forbidden(response, new Exception403("권한이 없습니다"));
-            }))
-            .and()
-            .addFilterBefore(new JwtAuthFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
-
-    //h2-console 접속을 위해 허용
-   http.headers().frameOptions().disable()
-           .addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "https://kfd701ba2c3a1a.user-app.krampoline.com:3000"));
-
-    return http.build();
-  }
-
-  /*
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests()
-        .antMatchers() // 허용하지 않는 것들 (추가 예정)
+        .antMatchers("/userinfo/**", "/wishlist/**", "/*/reviews/**") // 허용하지 않는 것들 (추가 예정)
         .hasRole(MemberRoleType.MEMBER.name())
         .anyRequest()
         .permitAll()
@@ -123,42 +75,21 @@ public class SecurityConfig {
         .and()
         .addFilterBefore(new JwtAuthFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
-      
-    
-      http.cors(cors -> cors.configurationSource(configurationSource()));
 
     //h2-console 접속을 위해 허용
-    //http.headers().frameOptions().sameOrigin();
+    http.headers().frameOptions().sameOrigin();
 
     return http.build();
   }
 
   public CorsConfigurationSource configurationSource() {
-    System.out.println("==========================================================================================================================");
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowCredentials(true);
-    configuration.setAllowedOrigins(List.of("https://kfd701ba2c3a1a.user-app.krampoline.com:3000", "https://kfd701ba2c3a1a.user-app.krampoline.com",
- "https://k9f03505f0e8ba.user-app.krampoline.com:3000",  "https://k9f03505f0e8ba.user-app.krampoline.com:8080"));
-    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-    configuration.setAllowedHeaders(List.of("Origin","Accept","X-Requested-With","Content-Type","Access-Control-Request-Method","Access-Control-Request-Headers", "Authorization"));
-    configuration.setExposedHeaders(List.of("*"));
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/api/**", configuration);
-    return source;
-  }
-  */
-
-  @Bean
-  public CorsConfigurationSource configurationSource() {
-    final CorsConfiguration configuration = new CorsConfiguration();
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
     configuration.addAllowedOriginPattern("*");
     configuration.addExposedHeader("*");
     configuration.setAllowCredentials(true);
-    configuration.addExposedHeader("Authorization");
-
-    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }

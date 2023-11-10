@@ -178,7 +178,7 @@ public class MemberService {
 
   @Transactional
   public List<RestaurantReservationResponse> getRestaurantReservationInfo(Member member) {
-    List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAllByMember(member);
+    List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAllByMemberAndPlaceType(member, PlaceType.RESTAURANT);
     List<RestaurantReservationResponse> responseList = memberReservationInfoList.stream()
         .map(memberReservationInfo -> RestaurantReservationResponse.from(memberReservationInfo))
         .collect(Collectors.toList());
@@ -187,7 +187,7 @@ public class MemberService {
 
   @Transactional
   public RestaurantReservationSelectResponse selectRestaurantReservationDate(Long id) {
-    PlaceRestaurant placeRestaurant = placeRestaurantRepository.findById(id)
+    PlaceRestaurant placeRestaurant = placeRestaurantRepository.findByPlaceId(id)
         .orElseThrow(() -> new BusinessException(id, "id", RESTAURANT_ID_CANNOT_FOUND));
     RestaurantReservationSelectResponse ResponseDTO = new RestaurantReservationSelectResponse(placeRestaurant);
     return ResponseDTO;
@@ -211,18 +211,14 @@ public class MemberService {
         requestDTO.getReservation().getReservationTime(),
         requestDTO.getReservation().getMessage()
     );
-    memberReservationInfoRepository.save(saveMemberReservationInfo);
-
-    MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(
-            requestDTO.getReservation().getId())
-        .orElseThrow(() -> new BusinessException(requestDTO.getReservation().getId(), "id", RESERVATION_NOT_COMPLETE));
+    MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.save(saveMemberReservationInfo);
     RestaurantReservationConfirmResponse ResponseDTO = new RestaurantReservationConfirmResponse(memberReservationInfo);
     return ResponseDTO;
   }
 
   @Transactional
   public List<FestivalReservationResponse> getFestivalReservationInfo(Member member) {
-    List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAllByMember(member);
+    List<MemberReservationInfo> memberReservationInfoList = memberReservationInfoRepository.findAllByMemberAndPlaceType(member, PlaceType.FESTIVAL);
     List<FestivalReservationResponse> responseList = memberReservationInfoList.stream()
         .map(memberReservationInfo -> FestivalReservationResponse.from(memberReservationInfo))
         .collect(Collectors.toList());
@@ -231,7 +227,7 @@ public class MemberService {
 
   @Transactional
   public FestivalReservationSelectResponse selectFestivalReservationDate(Long id) {
-    PlaceFestival placeFestival = placeFestivalRepository.findById(id)
+    PlaceFestival placeFestival = placeFestivalRepository.findByPlaceId(id)
         .orElseThrow(() -> new BusinessException(id, "id", FESTIVAL_ID_CANNOT_FOUND));
     FestivalReservationSelectResponse ResponseDTO = new FestivalReservationSelectResponse(placeFestival);
     return ResponseDTO;
@@ -255,12 +251,8 @@ public class MemberService {
         "", // 축제 예약은 시간 선택 기능이 없으니 빈 string으로 넘겨줌
         requestDTO.getReservation().getMessage()
     );
-    memberReservationInfoRepository.save(saveMemberReservationInfo);
+    MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.save(saveMemberReservationInfo);
 
-    MemberReservationInfo memberReservationInfo = memberReservationInfoRepository.findById(
-            requestDTO.getReservation().getId())
-        .orElseThrow(
-            () -> new BusinessException(requestDTO.getReservation().getPlaceId(), "id", RESERVATION_NOT_COMPLETE));
     FestivalReservationConfirmResponse ResponseDTO = new FestivalReservationConfirmResponse(memberReservationInfo);
     return ResponseDTO;
   }
