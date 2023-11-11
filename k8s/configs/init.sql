@@ -333,13 +333,13 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('3', '3', '10');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('10', 'image/restaurant/WildcatBrewing/content1.png', 'image/png');
+VALUES ('10', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/WildcatBrewing/content1.png', 'image/png');
 
 INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price`, `contents_id`, `file_id`)
 VALUES ('5', 'Bliss IPA', 'A signature west-coast IPA with grapefruit, floral, and citrus notes.', 'Both American and West Coast IPAs are hop-forward in character, with the West Coast variety being especially so. They often have brilliant clarity and are dry with minimal malt character. Being highly hopped, West Coast / American IPAs are typically very bitter, between 40-70 IBUs.', '8000', '3', '11');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('11', 'image/restaurant/WildcatBrewing/BlissIPA.png', 'image/png');
+VALUES ('11', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/WildcatBrewing/BlissIPA.png', 'image/png');
 
 -- Eomyongbaek dwaejigukbap
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -348,7 +348,7 @@ VALUES ('4', '0', '241', 'Eomyongbaek dwaejigukbap', 'RESTAURANT','0',
         '4', '12');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('12', 'image/restaurant/eybDwajigukbap/main.png', 'image/png');
+VALUES ('12', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/eybDwajigukbap/main.png', 'image/png');
 
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('4', '39', 'Suyeong-ro 680beon-gil', '48266', '4');
@@ -368,13 +368,13 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('4', '4', '13');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('13', 'image/restaurant/eybDwajigukbap/content1.png', 'image/png');
+VALUES ('13', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/eybDwajigukbap/content1.png', 'image/png');
 
 INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price`, `contents_id`, `file_id`)
 VALUES ('6', 'Busan Style Dwajigukbap', 'Five different cuts of meat are topped with a clear broth of lean meat.', 'It tastes even better with kimchi and somen.', '12000', '4', '14');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('14', 'image/restaurant/eybDwajigukbap/menu1.png', 'image/png');
+VALUES ('14', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/eybDwajigukbap/menu1.png', 'image/png');
 
 -- Busan Fireworks Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -383,7 +383,7 @@ VALUES ('5', '0', '1232', 'Busan Fireworks Festival', 'FESTIVAL','0',
         '5', '15');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('15', 'image/festival/BusanFirework/main.png', 'image/png');
+VALUES ('15', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/festival/BusanFirework/main.png', 'image/png');
 
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('5', '219', 'Gwanganhaebyeon-ro', '48303', '4');
@@ -400,7 +400,7 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('5', '5', '16');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('16', 'image/festival/BusanFirework/content1.png', 'image/png');
+VALUES ('16', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/festival/BusanFirework/content1.png', 'image/png');
 
 -- Busan International Rock Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -409,7 +409,7 @@ VALUES ('6', '0', '843', 'Busan International Rock Festival', 'FESTIVAL','0',
         '6', '17');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('17', 'image/festival/BusanRock/main.png', 'image/png');
+VALUES ('17', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/festival/BusanRock/main.png', 'image/png');
 
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('6', '29-46', ' ', '41232', '5');
@@ -429,7 +429,7 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('6', '6', '17');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('18', 'image/festival/BusanRock/content1.png', 'image/png');
+VALUES ('18', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/festival/BusanRock/content1.png', 'image/png');
 
 -- Haeundae Lighting Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -438,7 +438,7 @@ VALUES ('7', '0', '613', 'Haeundae Lighting Festival', 'FESTIVAL','0',
         '7', '19');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('19', 'image/festival/BusanLighting/main.png', 'image/png');
+VALUES ('19', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/festival/BusanLighting/main.png', 'image/png');
 
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('7', '280', 'Haeundaehaebyeon-ro', '48099', '6');
@@ -458,7 +458,7 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('7', '7', '20');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('20', 'image/festival/BusanLighting/content1.png', 'image/png');
+VALUES ('20', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/festival/BusanLighting/content1.png', 'image/png');
 
 -- F1963
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -467,7 +467,7 @@ VALUES ('8', '0', '732', 'F1963', 'TOURIST_SPOT','0',
         '8', '21');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('21', 'image/spot/F1963/main.png', 'image/png');
+VALUES ('21', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/spot/F1963/main.png', 'image/png');
 
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('8', '20', 'Gurak-ro 123beon-gil', '48212', '1');
@@ -484,7 +484,7 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('8', '8', '22');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('22', 'image/spot/F1963/content1.png', 'image/png');
+VALUES ('22', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/spot/F1963/content1.png', 'image/png');
 
 -- Millak Waterside Park
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -493,7 +493,7 @@ VALUES ('9', '0', '634', 'Millak Waterside Park', 'TOURIST_SPOT','0',
         '9', '23');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('23', 'image/spot/MillakPark/main.png', 'image/png');
+VALUES ('23', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/spot/MillakPark/main.png', 'image/png');
 
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('9', '361', 'Gwanganhaebyeon-ro', '48212', '4');
@@ -513,7 +513,7 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('9', '9', '24');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('24', 'image/spot/MillakPark/content1.png', 'image/png');
+VALUES ('24', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/spot/MillakPark/content1.png', 'image/png');
 
 INSERT INTO contents (`id`, `description`, `page`, `place_id`)
 VALUES ('10',
@@ -524,7 +524,7 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('10', '10', '25');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('25', 'image/spot/MillakPark/content2.png', 'image/png');
+VALUES ('25', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/spot/MillakPark/content2.png', 'image/png');
 
 -- bulgogi
 INSERT INTO food (`id`,`summary`,`food_category`,`keyword`,`name`, `description`,`view`,`file_id`)
@@ -533,7 +533,7 @@ VALUES ('1', 'Bulgogi is a made of thin, marinated slices of meat, most commonly
         '23', '26');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('26', 'image/food/Bulgogi.png', 'image/png');
+VALUES ('26', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/food/Bulgogi.png', 'image/png');
 
 INSERT INTO food_ingredients (`food_id`, `ingredients_name`)
 VALUES ('1', 'Beef');
@@ -566,10 +566,10 @@ INSERT INTO food_has_file (`id`, `food_id`, `file_id`)
 VALUES ('2', '1', '28');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('27', 'image/food/Bulgogi1.png', 'image/png');
+VALUES ('27', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/food/Bulgogi1.png', 'image/png');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('28', 'image/food/Bulgogi2.png', 'image/png');
+VALUES ('28', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/food/Bulgogi2.png', 'image/png');
 
 -- Dwaejigukbap
 INSERT INTO food (`id`,`summary`,`food_category`,`keyword`,`name`, `description`,`view`,`file_id`)
@@ -578,7 +578,7 @@ VALUES ('2', 'Dwaeji gukbap is a South Korean soup especially popular in Busan m
         '63', '27');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('29', 'image/food/dwaejigukbap.png', 'image/png');
+VALUES ('29', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/food/dwaejigukbap.png', 'image/png');
 
 INSERT INTO food_ingredients (`food_id`, `ingredients_name`)
 VALUES ('2', 'Pork');
@@ -599,6 +599,6 @@ INSERT INTO food_has_file (`id`, `food_id`, `file_id`)
 VALUES ('3', '2', '30');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('30', 'image/food/dwaejigukbap.png', 'image/png');
+VALUES ('30', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/food/dwaejigukbap.png', 'image/png');
 
 
