@@ -82,19 +82,19 @@ public class ContentsService {
       places = member.getMemberHasPlaceIsWishedList().stream().map(p -> p.getPlace()).collect(Collectors.toList());
     }
 
-    List<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findAll();
+    List<PlaceRestaurant> placeRestaurants = placeRestaurantRepository.findTop5ByOrderByPlace_AverageRatingDesc();
     List<RestaurantResponse> restaurantResponses = new ArrayList<>();
     for (PlaceRestaurant p : placeRestaurants) {
       restaurantResponses.add(RestaurantResponse.from(p, places.contains(p.getPlace())));
     }
 
-    List<PlaceFestival> placeFestivals = placeFestivalRepository.findAll();
+    List<PlaceFestival> placeFestivals = placeFestivalRepository.findTop5ByOrderByPlace_AverageRatingDesc();
     List<FestivalResponse> festivalResponses = new ArrayList<>();
     for (PlaceFestival p : placeFestivals) {
       festivalResponses.add(FestivalResponse.from(p, places.contains(p.getPlace())));
     }
 
-    List<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findAll();
+    List<PlaceTouristSpot> placeTouristSpots = placeTouristSpotRepository.findTop5ByOrderByPlace_AverageRatingDesc();
     List<TouristSpotResponse> touristSpotResponses = new ArrayList<>();
     for (PlaceTouristSpot p : placeTouristSpots) {
       touristSpotResponses.add(TouristSpotResponse.from(p, places.contains(p.getPlace())));

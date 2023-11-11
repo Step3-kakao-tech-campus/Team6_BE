@@ -23,7 +23,8 @@ public class ReviewsResponse {
         private int rating;
         private String description;
         private String nickName;
-        private List<String> image = new ArrayList<>();
+        private String authorImage;
+        private List<String> reviewImage = new ArrayList<>();
     }
 
     private double averageRating;
@@ -38,7 +39,7 @@ public class ReviewsResponse {
     }
 
     private ReviewDTO mapReview(Review review) {
-        return ReviewDTO.builder()
+        ReviewDTO reviewDTO = ReviewDTO.builder()
                 .reviewId(review.getId())
                 .placeId(review.getPlace().getId())
                 .type(review.getPlace().getPlaceType())
@@ -46,10 +47,20 @@ public class ReviewsResponse {
                 .rating(review.getScore())
                 .description(review.getDescription())
                 .nickName(review.getMember().getNickName())
-                .image(review.getReviewHasFiles().stream()
-                        .map(r -> r.getFile().getUrl())
-                        .collect(Collectors.toList()))
                 .build();
+        if (review.getMember().getFile() != null) {
+            reviewDTO.authorImage = review.getMember().getFile().getUrl();
+        }
+        if(review.getReviewHasFiles() != null) {
+            try {
+                reviewDTO.reviewImage = review.getReviewHasFiles().stream()
+                                .map(r -> r.getFile().getUrl())
+                                .collect(Collectors.toList());
+            }catch (Exception e) {
+
+            }
+        }
+        return reviewDTO;
     }
 
 //    private String createFileNameWithPaths(String filename) {

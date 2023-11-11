@@ -20,7 +20,7 @@ public class RestaurantReservationResponse {
   private String address;
   private String image;
   private String date;
-  private String reservationTime;
+  private String time;
   private String message;
   private String status;
   private Long headCount;
@@ -34,7 +34,7 @@ public class RestaurantReservationResponse {
         .address(memberReservationInfo.getPlace().addressToString(memberReservationInfo.getPlace().getAddress()))
         .image(memberReservationInfo.getPlace().getFile().getUrl())
         .date(memberReservationInfo.getReservationDate())
-        .reservationTime(memberReservationInfo.getReservationTime())
+        .time(memberReservationInfo.getReservationTime())
         .message(memberReservationInfo.getMessage())
         .status(memberReservationInfo.getStatus().name())
         .headCount(memberReservationInfo.getHeadCount())

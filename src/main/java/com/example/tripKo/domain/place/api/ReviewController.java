@@ -34,7 +34,7 @@ public class ReviewController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @GetMapping("/restaurant/reviews/{placeId}")
+  @GetMapping("reviews/restaurant/{placeId}")
   public ResponseEntity<?> getPlaceRestaurantReviews(@PathVariable Long placeId,
       @RequestParam(value = "page", defaultValue = "0") Integer page) {
     ReviewsResponse response = reviewService.getReviewsByPlaceId(placeId, PlaceType.RESTAURANT, page);
@@ -70,7 +70,7 @@ public class ReviewController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @GetMapping("/festival/reviews/{placeId}")
+  @GetMapping("/reviews/festival/{placeId}")
   public ResponseEntity<?> getFestivalReviews(@PathVariable Long placeId,
       @RequestParam(value = "page", defaultValue = "0") Integer page) {
     ReviewsResponse response = reviewService.getReviewsByPlaceId(placeId, PlaceType.FESTIVAL, page);
@@ -107,7 +107,7 @@ public class ReviewController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @GetMapping("/touristSpot/reviews/{placeId}")
+  @GetMapping("/reviews/touristSpot/{placeId}")
   public ResponseEntity<?> getTouristSpotReviews(@PathVariable Long placeId,
       @RequestParam(value = "page", defaultValue = "0") Integer page) {
     ReviewsResponse response = reviewService.getReviewsByPlaceId(placeId, PlaceType.TOURIST_SPOT, page);
