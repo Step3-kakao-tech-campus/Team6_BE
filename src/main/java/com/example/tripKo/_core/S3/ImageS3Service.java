@@ -2,6 +2,9 @@ package com.example.tripKo._core.S3;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -44,18 +47,26 @@ public class ImageS3Service{
     @Value("${spring.devtools.remote.proxy.port}")
     private int proxyPort;
 
+    @Value("cloud.aws.credentials.accessKey")
+    private String accessKey;
+
+    @Value("cloud.aws.credentials.secretKey")
+    private String secretKey;
+
     private String changedImageName(String originName) { //이미지 이름 중복 방지를 위해 랜덤으로 생성
         String random = UUID.randomUUID().toString();
         return random+originName;
     }
 
-    private AmazonS3 createAmazonS3ClientWithProxy() {
+    public AmazonS3 createAmazonS3ClientWithProxy() {
         // Create proxy settings
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
+        AWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKey, secretKey);
 
         // Configure the client with proxy settings
         try {
             return AmazonS3ClientBuilder.standard()
+                    .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
                     .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(region, region))
                     .withPathStyleAccessEnabled(true)
                     .withClientConfiguration(getClientConfigurationWithProxy(proxy))
