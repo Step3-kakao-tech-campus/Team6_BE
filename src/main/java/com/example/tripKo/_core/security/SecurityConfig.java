@@ -56,7 +56,7 @@ public class SecurityConfig {
             .csrf().disable()
             .authorizeHttpRequests()
             .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-            .antMatchers("/userinfo/**", "/wishlist/**", "/*/reviews/**") // 허용하지 않는 것들 (추가 예정)
+            .antMatchers("/userinfo/**", "/wishlist/**", "/**/reviews/**") // 허용하지 않는 것들 (추가 예정)
             .hasRole(MemberRoleType.MEMBER.name())
             .anyRequest()
             .permitAll()
@@ -84,8 +84,7 @@ public class SecurityConfig {
             .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
 
     //h2-console 접속을 위해 허용
-    http.headers().frameOptions().disable()
-            .addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "https://kfd701ba2c3a1a.user-app.krampoline.com:3000"));
+   //http.headers().frameOptions().disable().addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "https://kfd701ba2c3a1a.user-app.krampoline.com:3000"));
 
     return http.build();
   }
@@ -123,8 +122,8 @@ public class SecurityConfig {
         .and()
         .addFilterBefore(new JwtAuthFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
-
-
+      
+    
       http.cors(cors -> cors.configurationSource(configurationSource()));
 
     //h2-console 접속을 위해 허용
@@ -154,9 +153,8 @@ public class SecurityConfig {
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
     configuration.addAllowedOriginPattern("*");
-    configuration.addExposedHeader("*");
+    configuration.setExposedHeaders(List.of("Authorization", "Authorization-refresh"));
     configuration.setAllowCredentials(true);
-    configuration.addExposedHeader("Authorization");
 
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
