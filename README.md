@@ -128,7 +128,7 @@
 ## 배포 링크 모음
 
 - #### 배포 주소
-    https://ka692d23662bca.user-app.krampoline.com
+    https://k50c1bf82e6cfa.user-app.krampoline.com
 
 - #### Notion
     https://www.notion.so/b919a86849414ea288f5678565653c40?v=9ba5b4b2824e47ff8a468f0cc73322d7
