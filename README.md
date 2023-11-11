@@ -58,6 +58,34 @@
 
 ![구성도](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/8ed965fa-2ca2-467d-bea5-3bbca7c6ef02)
 
+## 최종 ERD
+
+- #### 전체 구조
+
+  ![image](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/7156401e-64f8-4fdc-a98a-03de36f6d549)
+
+
+- #### 플레이스 관련
+
+  ![image-5](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/da7255fc-f886-4f25-bfd0-74b24a8a9ebf)
+
+- #### 음식 관련
+
+  ![image-4](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/88a21957-ee29-4d4d-bfbe-3462bda7c836)
+
+- #### 주소 관련
+
+  ![image-2](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/0856e9ef-0ba0-49bb-a432-8aede813d090)
+
+
+- #### 회원 관련
+
+  ![image-3](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/560fa62e-7ac6-4e14-9645-0d2dc68de253)
+
+- #### 파일 관련
+
+  ![image-6](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/b2c4d420-0480-46e8-af6e-c9f9c37968de)
+
 ## 주안점을 두고 개발한 기능
 
 #### 1️⃣Redis를 이용한 Refresh-Token 구현
@@ -74,3 +102,13 @@ RefreshTokenFilter, RedisConfig, RedisUtil, JwtProvider
 
 - 본 프로젝트는 관광정보 플랫폼이므로 컨텐츠, 리뷰 등 이미지 처리가 잦기 때문에 이미지들을 프로젝트 내부에 저장할 경우 용량과 관리에 대한 이슈 발생 가능성이 매우 높음
 - S3를 이용한 이미지 저장/삭제 로직을 구현하여 리뷰 작성/수정, 프로필 이미지 수정 등의 API에 적용
+
+
+#### 3️⃣예외 및 오류 처리를 통한 서비스 개선
+
+- 리뷰 작성 시 작성하려는 장소 유형에 따라 예약 상태가 완료여야 하거나, 리뷰 작성 날짜가 예약 날짜보다 뒤여야 하는 등의 다양한 조건 처리
+- 이러한 과정에서 발생하는 유저의 요청에 대한 예외 및 오류 처리를 진행
+- 이를 통헤 프로그램 실행 중 오작동이나 비정상적 종료를 방지하는 효과를 기대
+
+
+#### 4️⃣5️⃣6️⃣
