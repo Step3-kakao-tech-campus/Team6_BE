@@ -40,7 +40,7 @@ public class FestivalResponse {
 
   public static FestivalResponse from(PlaceFestival placeFestival, boolean isWished) {
     return FestivalResponse.builder()
-        .id(placeFestival.getId())
+        .id(placeFestival.getPlace().getId())
         .type(PlaceType.FESTIVAL.name())
         .name(placeFestival.getPlace().getName())
         .summary(placeFestival.getPlace().getSummary())

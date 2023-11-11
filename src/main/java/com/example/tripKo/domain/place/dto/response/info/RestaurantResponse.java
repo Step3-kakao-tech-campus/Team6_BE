@@ -60,7 +60,7 @@ public class RestaurantResponse {
 
   public static RestaurantResponse from(PlaceRestaurant placeRestaurant, boolean isWished) {
     return RestaurantResponse.builder()
-        .id(placeRestaurant.getId())
+        .id(placeRestaurant.getPlace().getId())
         .type(PlaceType.RESTAURANT.name())
         .name(placeRestaurant.getPlace().getName())
         .mainImage(placeRestaurant.getPlace().getFile().getUrl())
