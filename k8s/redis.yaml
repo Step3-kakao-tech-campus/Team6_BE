@@ -16,7 +16,7 @@ spec:
       containers:
         - name: redis
           # 여러분의 mariadb image 주소를 입력해주세요.
-          image: redis:latest
+          image: redis:5.3.1
           ports:
             - containerPort: 6379
       #    env:
