@@ -252,19 +252,19 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('1', '1', '2');
 
 INSERT INTO file (`id`, `url`, `name`, `type`)
-VALUES ('2', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/CocamomeContents1.png', 'CocamomeContents1.png','image/png');
+VALUES ('2', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/CocamomeContent1.png', 'CocamomeContents1.png','image/png');
 
 INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price`, `contents_id`, `file_id`)
 VALUES ('1', 'Cocamome Tendon', 'Cocamome signature menu', 'This signature dish features shrimp, eggplant, mushrooms, and pumpkin.', '11000', '1', '3');
 
 INSERT INTO file (`id`, `url`, `name`, `type`)
-VALUES ('3', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/CocamomeTendon.png', 'CocamomeTendon.png','image/png');
+VALUES ('3', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/CocamomeTendon.png', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/CocamomeTendon.png','image/png');
 
 INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price`, `contents_id`, `file_id`)
 VALUES ('2', 'Ebi Tendon', 'Menu with a lot of fried shrimp', 'Added 2 fried shrimp at Cocamome Tendon', '13000', '1', '4');
 
 INSERT INTO file (`id`, `url`, `name`, `type`)
-VALUES ('4', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/EbiTendon.png', 'EbiTendon.png','image/png');
+VALUES ('4', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/EbiTendon.png', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/EbiTendon.png','image/png');
 
 -- lee jaemo pizza
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
