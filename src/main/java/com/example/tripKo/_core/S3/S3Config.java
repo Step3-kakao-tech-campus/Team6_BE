@@ -57,6 +57,7 @@ public class S3Config {
         try {
             return AmazonS3ClientBuilder.standard()
                     .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
+                    .withRegion(region)
                     .withPathStyleAccessEnabled(true)
                     .withClientConfiguration(getClientConfigurationWithProxy(proxy))
                     .build();
