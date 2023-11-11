@@ -243,9 +243,9 @@ public class TestData implements CommandLineRunner {
 
     List<Member> members = Arrays.asList(
         Member.builder().role(MemberRoleType.MEMBER).realName("가나다").nickName("쿠키").emailAddress("1234@gmail.com")
-            .memberId("1").password(passwordEncoder.encode("1234qwer")).birthday("2023-01-01").build(),
+            .memberId("1").password(passwordEncoder.encode("1234qwer")).build(),
         Member.builder().role(MemberRoleType.MEMBER).realName("라마바").nickName("키키").emailAddress("1234@gmail.com")
-            .memberId("2").password(passwordEncoder.encode("1234qwer")).birthday("2023-01-01").build()
+            .memberId("2").password(passwordEncoder.encode("1234qwer")).build()
     );
     memberRepository.saveAll(members);
 

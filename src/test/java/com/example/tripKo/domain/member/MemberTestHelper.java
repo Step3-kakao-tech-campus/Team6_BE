@@ -28,7 +28,6 @@ public class MemberTestHelper {
     private String emailAddress;
     private String memberId;
     private String password;
-    private String birthday;
     private String nationality;
 
     public MemberBuilder role(MemberRoleType memberRoleType) {
@@ -61,11 +60,6 @@ public class MemberTestHelper {
       return this;
     }
 
-    public MemberBuilder birthday(String birthday) {
-      this.birthday = birthday;
-      return this;
-    }
-
     public MemberBuilder nationality(String nationality) {
       this.nationality = nationality;
       return this;
@@ -79,7 +73,6 @@ public class MemberTestHelper {
           .emailAddress(emailAddress != null ? emailAddress : "123@aa.cc")
           .memberId(memberId != null ? memberId : "adminId")
           .password(password != null ? password : "adminPw12!")
-          .birthday(birthday != null ? birthday : "1970-10-01")
           .nationality(nationality != null ? nationality : "한국")
           .build());
     }
