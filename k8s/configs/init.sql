@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `file` (
                                       `id` bigint not null AUTO_INCREMENT,
                                       `created_date` timestamp,
                                       `modified_date` timestamp,
-                                      `name` varchar(50) not null,
+                                      `name` varchar(500) not null,
                                       `url` varchar(500) not null,
     `type` varchar(100) not null,
     primary key (`id`)
