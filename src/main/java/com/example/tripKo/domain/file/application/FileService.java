@@ -59,6 +59,8 @@ public class FileService {
 
             mFiles.add(new CommonsMultipartFile(fileItem));
         } catch (IOException ex) {
+            ex.printStackTrace();
+            throw new Exception500("이미지 변환에 실패하였습니다.");
             // do something.
         }
 
