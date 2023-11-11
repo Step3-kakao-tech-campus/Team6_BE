@@ -26,9 +26,18 @@ public class FileController {
     private final FileService fileService;
     private final ImageS3Service imageS3Service;
 
+    /*
     @PostMapping(path = "/file-init/yzzxet", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> getRestaurantInfo(@ModelAttribute FileRequest fileRequest) {
         boolean result = fileService.initImages(fileRequest);
+
+        return ResponseEntity.ok(result);
+    }
+
+     */
+    @PostMapping(path = "/file-init/yzzxet")
+    public ResponseEntity<?> getRestaurantInfo() {
+        boolean result = fileService.initImages();
 
         return ResponseEntity.ok(result);
     }
