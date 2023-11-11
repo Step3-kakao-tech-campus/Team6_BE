@@ -50,6 +50,8 @@
 - #### Build tool & Dependency
     <img src="https://img.shields.io/badge/Gradle-02303A?style=flat&logo=gradle&logoColor=white" height="29"/>
     <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat&logo=jsonwebtokens&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=flat&logo=spring&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Spring REST Docs-6DB33F?style=flat&logo=spring&logoColor=white" height="29"/>
     <img src="https://img.shields.io/badge/Auth0-EB5424?style=flat&logo=auth0&logoColor=white" height="29"/>
     <img src="https://img.shields.io/badge/Lombok-516c1c?style=flat&logoColor=white" height="29"/>
 
@@ -138,7 +140,10 @@
 ## 배포 링크 모음
 
 - #### 배포 주소
-    https://k50c1bf82e6cfa.user-app.krampoline.com
+  https://k50c1bf82e6cfa.user-app.krampoline.com
 
 - #### Notion
-    https://www.notion.so/b919a86849414ea288f5678565653c40?v=9ba5b4b2824e47ff8a468f0cc73322d7
+  https://www.notion.so/b919a86849414ea288f5678565653c40?v=9ba5b4b2824e47ff8a468f0cc73322d7
+
+- #### API 명세서
+  https://www.notion.so/API-6c234d0778ea4b009611cd94147eb5b1
