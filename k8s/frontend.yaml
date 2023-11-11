@@ -15,7 +15,7 @@ spec:
       containers:
         - name: frontend
           # 여러분의 frontend image 주소를 입력해주세요.
-          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_5d07c6490f63:latest
+          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_7f68c2969bcd:latest
 #          volumeMounts:
 #            - name: shared-data
 #              mountPath: /image
