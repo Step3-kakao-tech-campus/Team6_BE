@@ -45,6 +45,7 @@ public class FileService {
         List<MultipartFile> mFiles = new ArrayList<>();
 
         try {
+            System.out.println("파일 변환 시작");
             File file = new File(new File("").getAbsolutePath() +
                     File.separator + "image" +
                     File.separator + "restaurant" +
@@ -58,16 +59,18 @@ public class FileService {
             // IOUtils.copy(new FileInputStream(file), fileItem.getOutputStream());
 
             mFiles.add(new CommonsMultipartFile(fileItem));
+            System.out.println("파일 변환 완료: " + file.getName());
         } catch (IOException ex) {
             ex.printStackTrace();
             throw new Exception500("이미지 변환에 실패하였습니다.");
             // do something.
         }
 
-
+        System.out.println("S3 저장 시작");
         for(MultipartFile i : mFiles) {
                 fileEntities.add(imageS3Service.uploadImage(i));
         }
+        System.out.println("S3 저장 완료");
 
         fileRepository.saveAll(fileEntities);
 
