@@ -56,7 +56,7 @@
 
 ## 구성도
 
-![구성도](%ED%94%84%EB%A0%88%EC%A0%A0%ED%85%8C%EC%9D%B4%EC%85%981.png)
+![구성도](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/8ed965fa-2ca2-467d-bea5-3bbca7c6ef02)
 
 ## 주안점을 두고 개발한 기능
 
