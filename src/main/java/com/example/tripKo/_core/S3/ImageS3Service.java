@@ -20,8 +20,10 @@ import lombok.RequiredArgsConstructor;
 import org.apache.http.HttpHost;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
@@ -71,14 +73,21 @@ public class ImageS3Service{
         String changedName = changedImageName(originName); //새로 생성된 이미지 이름
         ObjectMetadata metadata = new ObjectMetadata(); //메타데이터
         metadata.setContentType("image/"+fileExtension);
+        String url = null;
         try {
+            /*
             PutObjectResult putObjectResult = amazonS3.putObject(new PutObjectRequest(
                     bucketName, "images/" + changedName, image.getInputStream(), metadata
             ).withCannedAcl(CannedAccessControlList.PublicRead));
+             */
+            File file = new File(image.getOriginalFilename());
+            image.transferTo(file);
+            PutObjectResult putObjectResult = amazonS3.putObject(bucketName, "images/" + changedName, file);
+            url = amazonS3.getUrl(bucketName, "images/" + changedName).toString();
         } catch (IOException | AmazonS3Exception e) {
             throw new BusinessException(originName, "file name", ErrorCode.IMAGE_CANNOT_SAVE);
         }
-        return amazonS3.getUrl(bucketName, "images/" + changedName).toString(); //데이터베이스에 저장할 이미지가 저장된 주소
+        return url; //데이터베이스에 저장할 이미지가 저장된 주소
 
     }
 
