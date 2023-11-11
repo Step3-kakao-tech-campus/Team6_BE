@@ -231,7 +231,7 @@ VALUES ('1', '0', '325', 'cocamome Mangmi', 'RESTAURANT', '0',
         '1', '1');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('1', 'image/restaurant/CocamomeMangmi/main.png', 'image/png');
+VALUES ('1', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/main.png', 'image/png');
 
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('1', '14', 'Mangmibaesan-ro 10beon-gil', '48210', '1');
@@ -251,19 +251,19 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('1', '1', '2');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('2', 'image/restaurant/CocamomeMangmi/CocamomeContents1.png', 'image/png');
+VALUES ('2', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/CocamomeContents1.png', 'image/png');
 
 INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price`, `contents_id`, `file_id`)
 VALUES ('1', 'Cocamome Tendon', 'Cocamome signature menu', 'This signature dish features shrimp, eggplant, mushrooms, and pumpkin.', '11000', '1', '3');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('3', 'image/restaurant/CocamomeMangmi/CocamomeTendon.png', 'image/png');
+VALUES ('3', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/CocamomeTendon.png', 'image/png');
 
 INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price`, `contents_id`, `file_id`)
 VALUES ('2', 'Ebi Tendon', 'Menu with a lot of fried shrimp', 'Added 2 fried shrimp at Cocamome Tendon', '13000', '1', '4');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('4', 'image/restaurant/CocamomeMangmi/EbiTendon.png', 'image/png');
+VALUES ('4', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/CocamomeMangmi/EbiTendon.png', 'image/png');
 
 -- lee jaemo pizza
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -272,7 +272,7 @@ VALUES ('2', '0', '214', 'lee Jaemo Pizza', 'RESTAURANT','0',
         '2', '5');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('5', 'image/restaurant/LeeJaemoPizza/main.png', 'image/png');
+VALUES ('5', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/main.png', 'image/png');
 
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('2', '21', 'Jeonpo-daero 209beon-gil', '47294', '2');
@@ -292,19 +292,19 @@ INSERT INTO contents_has_file (`id`, `contents_id`, `file_id`)
 VALUES ('2', '2', '6');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('6', 'image/restaurant/LeeJaemoPizza/content1.png', 'image/png');
+VALUES ('6', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/content1.png', 'image/png');
 
 INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price`, `contents_id`, `file_id`)
 VALUES ('3', 'Bulgogi Pizza', 'Lee Jaemo Pizza signature menu', 'Bulgogi pizza can only be found in Korea! It''s topped with bulgogi, a Korean beef dish.', '24000', '2', '7');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('7', 'image/restaurant/LeeJaemoPizza/BulgogiPizza.png', 'image/png');
+VALUES ('7', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/BulgogiPizza.png', 'image/png');
 
 INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price`, `contents_id`, `file_id`)
 VALUES ('4', 'Lee Jaemo Crust Pizza', 'A menu with lots of cheese for rich flavor', 'This one has cheese at the edge of the dough, so you can taste the cheese all the way to the end.', '25000', '2', '8');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('8', 'image/restaurant/LeeJaemoPizza/CrustPizza.png', 'image/png');
+VALUES ('8', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/CrustPizza.png', 'image/png');
 
 -- WildCatBrewing
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -313,7 +313,7 @@ VALUES ('3', '0', '523', 'Wildcat Brewing', 'RESTAURANT','0',
         '3', '9');
 
 INSERT INTO file (`id`, `name`, `type`)
-VALUES ('9', 'image/restaurant/WildcatBrewing/main.png', 'image/png');
+VALUES ('9', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/WildcatBrewing/main.png', 'image/png');
 
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('3', '1F 101ho, 2', 'Sincheon-daero 62beon-gil', '47233', '3');
