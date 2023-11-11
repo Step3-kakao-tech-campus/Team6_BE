@@ -15,8 +15,6 @@ public class UserInfoResponse {
   private String email;
   private String image;
   private String nationality;
-  private String birthday;
-
   @Builder
   public UserInfoResponse(Member member) {
     this.id = member.getId();
@@ -28,7 +26,6 @@ public class UserInfoResponse {
     } catch (Exception e) {
     }
     this.nationality = member.getNationality();
-    this.birthday = member.getBirthday();
   }
 
 }

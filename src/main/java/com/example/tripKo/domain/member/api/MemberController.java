@@ -103,7 +103,7 @@ public class MemberController {
 
   @GetMapping("/userinfo/reviews/{id}")
   public ResponseEntity<?> getReviewDetail(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
-      @RequestParam(value = "id") Long id) {
+                                           @PathVariable Long id) {
     Member member = jwtUserDetails.getMember();
     ReviewsResponse response = memberService.getReviewDetail(member, id);
     ApiUtils.ApiResult<?> apiResult = ApiUtils.success(response);
@@ -169,6 +169,7 @@ public class MemberController {
   @PostMapping("/login")
   public ResponseEntity<Void> signIn(@RequestBody @Valid SignInRequest request) {
     JwtToken jwtToken = memberService.signIn(request);
+    ApiUtils.ApiResult<?> apiResult = ApiUtils.success(null);
     return ResponseEntity.ok()
         .header(HttpHeaders.AUTHORIZATION, jwtToken.getGrantType() + jwtToken.getAccessToken())
         .header("Refresh-Token", jwtToken.getRefreshToken())

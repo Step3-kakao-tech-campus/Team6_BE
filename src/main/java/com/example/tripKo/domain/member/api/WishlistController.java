@@ -38,7 +38,7 @@ public class WishlistController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @GetMapping("/userinfo/wishlist/restaurant")
+  @GetMapping("/userinfo/wishlist/restaurants")
   public ResponseEntity<?> getRestaurantWishlist(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Member member = jwtUserDetails.getMember();
     List<WishlistResponse> response = wishlistService.getWishlist(member, PlaceType.RESTAURANT);
@@ -46,7 +46,7 @@ public class WishlistController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @GetMapping("/userinfo/wishlist/festival")
+  @GetMapping("/userinfo/wishlist/festivals")
   public ResponseEntity<?> getFestivalWishlist(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Member member = jwtUserDetails.getMember();
     List<WishlistResponse> response = wishlistService.getWishlist(member, PlaceType.FESTIVAL);
@@ -54,7 +54,7 @@ public class WishlistController {
     return ResponseEntity.ok(apiResult);
   }
 
-  @GetMapping("/userinfo/wishlist/touristSpot")
+  @GetMapping("/userinfo/wishlist/touristSpots")
   public ResponseEntity<?> getTouristSpotWishlist(@AuthenticationPrincipal JwtUserDetails jwtUserDetails) {
     Member member = jwtUserDetails.getMember();
     List<WishlistResponse> response = wishlistService.getWishlist(member, PlaceType.TOURIST_SPOT);

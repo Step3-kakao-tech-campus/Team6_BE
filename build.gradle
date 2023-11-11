@@ -37,8 +37,6 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5', 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.3.1.RELEASE'
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-	implementation 'commons-io:commons-io:2.11.0'    /* Apache commons-io */
-	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
 
 	//prod
 	runtimeOnly 'mysql:mysql-connector-java'

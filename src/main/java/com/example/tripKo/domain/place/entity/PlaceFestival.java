@@ -34,6 +34,8 @@ public class PlaceFestival extends BaseTimeEntity {
   @Enumerated(EnumType.STRING)
   private Category category;
 
+  private int price;
+
   @OneToOne(fetch = LAZY)
   @JoinColumn(name = "place_id", nullable = false)
   private Place place;
@@ -42,10 +44,11 @@ public class PlaceFestival extends BaseTimeEntity {
   private Boolean reservationAvailable;
 
   @Builder
-  public PlaceFestival(String startDate, String endDate, Place place, Boolean reservationAvailable) {
+  public PlaceFestival(String startDate, String endDate, Place place, int price, Boolean reservationAvailable) {
     this.startDate = startDate;
     this.endDate = endDate;
     this.place = place;
+    this.price = price;
     this.reservationAvailable = reservationAvailable;
   }
 }
