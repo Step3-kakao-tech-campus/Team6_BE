@@ -84,8 +84,7 @@ public class SecurityConfig {
             .addFilterBefore(new RefreshTokenFilter(jwtProvider, redisUtil), JwtAuthFilter.class);
 
     //h2-console 접속을 위해 허용
-   http.headers().frameOptions().disable()
-           .addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "https://kfd701ba2c3a1a.user-app.krampoline.com:3000"));
+   //http.headers().frameOptions().disable().addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM " + "https://kfd701ba2c3a1a.user-app.krampoline.com:3000"));
 
     return http.build();
   }
@@ -154,7 +153,7 @@ public class SecurityConfig {
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
     configuration.addAllowedOriginPattern("*");
-    configuration.setExposedHeaders(Arrays.asList("Authorization", "Authorization-refresh"));
+    configuration.setExposedHeaders(List.of("Authorization", "Authorization-refresh"));
     configuration.setAllowCredentials(true);
 
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
