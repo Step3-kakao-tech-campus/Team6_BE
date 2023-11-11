@@ -154,9 +154,8 @@ public class SecurityConfig {
     configuration.addAllowedHeader("*");
     configuration.addAllowedMethod("*");
     configuration.addAllowedOriginPattern("*");
-    configuration.addExposedHeader("*");
+    configuration.setExposedHeaders(Arrays.asList("Authorization", "Authorization-refresh"));
     configuration.setAllowCredentials(true);
-    configuration.addExposedHeader("Authorization");
 
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
