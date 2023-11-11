@@ -1,20 +1,32 @@
 package com.example.tripKo._core.S3;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
+import com.amazonaws.util.SdkHttpUtils;
 import com.example.tripKo._core.errors.ErrorCode;
 import com.example.tripKo._core.errors.exception.BusinessException;
 import com.example.tripKo._core.errors.exception.Exception400;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo._core.errors.exception.Exception500;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpHost;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -30,6 +42,13 @@ public class ImageS3Service{
 
     @Value("${cloud.aws.region.static}")
     private String region;
+
+    @Value("cloud.aws.credentials.accessKey")
+    private String accessKey;
+
+    @Value("cloud.aws.credentials.secretKey")
+    private String secretKey;
+
     private String changedImageName(String originName) { //이미지 이름 중복 방지를 위해 랜덤으로 생성
         String random = UUID.randomUUID().toString();
         return random+originName;
@@ -54,15 +73,21 @@ public class ImageS3Service{
         String changedName = changedImageName(originName); //새로 생성된 이미지 이름
         ObjectMetadata metadata = new ObjectMetadata(); //메타데이터
         metadata.setContentType("image/"+fileExtension);
+        String url = null;
         try {
             PutObjectResult putObjectResult = amazonS3.putObject(new PutObjectRequest(
                     bucketName, "images/" + changedName, image.getInputStream(), metadata
             ).withCannedAcl(CannedAccessControlList.PublicRead));
-
-        } catch (IOException e) {
+            /*
+            File file = new File(image.getOriginalFilename());
+            image.transferTo(file);
+            PutObjectResult putObjectResult = amazonS3.putObject(bucketName, "images/" + changedName, file);
+             */
+            url = amazonS3.getUrl(bucketName, "images/" + changedName).toString();
+        } catch (IOException | AmazonS3Exception e) {
             throw new BusinessException(originName, "file name", ErrorCode.IMAGE_CANNOT_SAVE);
         }
-        return amazonS3.getUrl(bucketName, "images/" + changedName).toString(); //데이터베이스에 저장할 이미지가 저장된 주소
+        return url; //데이터베이스에 저장할 이미지가 저장된 주소
 
     }
 

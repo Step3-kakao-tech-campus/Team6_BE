@@ -31,6 +31,26 @@ spec:
                   secretKeyRef:
                       name: env-secret
                       key: client_secret
+            - name: ACCESS_KEY
+              valueFrom:
+                  secretKeyRef:
+                      name: env-secret
+                      key: access_key
+            - name: SECRET_KEY
+              valueFrom:
+                  secretKeyRef:
+                      name: env-secret
+                      key: access_key
+            - name: BUCKET_NAME
+              valueFrom:
+                  secretKeyRef:
+                      name: env-secret
+                      key: bucket_name
+            - name: REGION
+              valueFrom:
+                  secretKeyRef:
+                      name: env-secret
+                      key: region
           resources:
             requests:
               memory: 1Gi
