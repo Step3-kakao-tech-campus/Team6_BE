@@ -30,7 +30,6 @@ public class MemberServiceTest extends IntegrationTest {
           .realName("김철수")
           .emailAddress("tripko@tripko.com")
           .nationality("한국")
-          .birthday("700101")
           .role(MemberRoleType.MEMBER)
           .build();
     }
