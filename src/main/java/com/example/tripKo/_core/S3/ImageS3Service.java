@@ -75,8 +75,7 @@ public class ImageS3Service{
             PutObjectResult putObjectResult = amazonS3.putObject(new PutObjectRequest(
                     bucketName, "images/" + changedName, image.getInputStream(), metadata
             ).withCannedAcl(CannedAccessControlList.PublicRead));
-
-        } catch (IOException e) {
+        } catch (IOException | AmazonS3Exception e) {
             throw new BusinessException(originName, "file name", ErrorCode.IMAGE_CANNOT_SAVE);
         }
         return amazonS3.getUrl(bucketName, "images/" + changedName).toString(); //데이터베이스에 저장할 이미지가 저장된 주소
