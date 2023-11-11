@@ -38,6 +38,7 @@
 
     <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=OpenJDK&logoColor=white" height="29"/> 
     <img src="https://img.shields.io/badge/springBoot-6DB33F?style=for-the-badge&logo=springBoot&logoColor=white" height="29"/> 
+    <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=springsecurity&logoColor=white" height="29"/>
 
 - #### DataBase
     <img src="https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white" height="29"/> 
@@ -46,6 +47,12 @@
 - #### Image Storage
     <img src="https://img.shields.io/badge/Amazon S3-569A31?style=flat&logo=amazons3&logoColor=white" height="29"/>
 
+- #### Build tool & Dependency
+    <img src="https://img.shields.io/badge/Gradle-02303A?style=flat&logo=gradle&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat&logo=jsonwebtokens&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Auth0-EB5424?style=flat&logo=auth0&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Lombok-516c1c?style=flat&logoColor=white" height="29"/>
+
 ### 💡FrontEnd
 
 - #### Language & Framework
@@ -53,6 +60,14 @@
     <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white" height="29"/>
     <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white" height="29"/>
     <img src="https://img.shields.io/badge/Redux Toolkit-764ABC?style=flat&logo=redux&logoColor=white" height="29"/>
+
+
+### 💡Deplotment
+
+<img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white" height="29"/>
+<img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=nginx&logoColor=white" height="29"/>
+<img src="https://img.shields.io/badge/DKOS-FEE500?style=flat&logoColor=white" height="29"/>
+<img src="https://img.shields.io/badge/D2hub-326CE5?style=flat&logoColor=white" height="29"/>
 
 ## 구성도
 
@@ -90,18 +105,19 @@
 
 #### 1️⃣Redis를 이용한 Refresh-Token 구현
 
-RefreshTokenFilter, RedisConfig, RedisUtil, JwtProvider
-
 - JWT와 Spring Security를 이용해서 Access-Token을 발급하는 단순한 인증 프로세스를 넘어서 Access-Token 만료 시 재 발급 자동화를 위한 Refresh-Token 도입
 - Refresh-Token은 엑세스가 빈번한 데이터이므로 다른 DB들보다 빠르고 가벼운 인메모리 DB인 Redis를 이용해 저장
 - Refresh-Token과 관련된 필터를 개별적으로 구현하여 단일 책임 원칙(SRP)을 지향 
 - Refresh-Token의 도입으로 Access Token의 유효기간을 단축해 정보 유출 위험을 줄여 보안성 강화
 - 빈번한 로그인 만료로 인해 사용자의 서비스 이용 흐름을 방해하지 않아 사용자 편의성 증대
+- RefreshTokenFilter, RedisConfig, RedisUtil, JwtProvider 참고
 
 #### 2️⃣S3를 이용한 이미지 관리 (멘토님 권장사항 반영)
 
 - 본 프로젝트는 관광정보 플랫폼이므로 컨텐츠, 리뷰 등 이미지 처리가 잦기 때문에 이미지들을 프로젝트 내부에 저장할 경우 용량과 관리에 대한 이슈 발생 가능성이 매우 높음
 - S3를 이용한 이미지 저장/삭제 로직을 구현하여 리뷰 작성/수정, 프로필 이미지 수정 등의 API에 적용
+- 이미지 저장 용량 이슈 저하 및 관리 용이성, 접근성 증대를 기대
+- S3Config, ImageS3Service 참고
 
 
 #### 3️⃣예외 및 오류 처리를 통한 서비스 개선
@@ -110,5 +126,12 @@ RefreshTokenFilter, RedisConfig, RedisUtil, JwtProvider
 - 이러한 과정에서 발생하는 유저의 요청에 대한 예외 및 오류 처리를 진행
 - 이를 통헤 프로그램 실행 중 오작동이나 비정상적 종료를 방지하는 효과를 기대
 
-
 #### 4️⃣5️⃣6️⃣
+
+## 배포 링크 모음
+
+- #### 배포 주소
+    https://ka692d23662bca.user-app.krampoline.com
+
+- #### Notion
+    https://www.notion.so/b919a86849414ea288f5678565653c40?v=9ba5b4b2824e47ff8a468f0cc73322d7
