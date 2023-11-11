@@ -89,7 +89,7 @@ public class ImageS3Service{
     }
 
     public String uploadImageToS3(MultipartFile image) { //이미지를 S3에 업로드하고 이미지의 url을 반환
-        AmazonS3 s3clientWithProxy = createAmazonS3ClientWithProxy();
+        //AmazonS3 s3clientWithProxy = createAmazonS3ClientWithProxy();
 
         String originName = image.getOriginalFilename(); //원본 이미지 이름
         String contentType = image.getContentType(); //확장자
@@ -110,14 +110,14 @@ public class ImageS3Service{
         ObjectMetadata metadata = new ObjectMetadata(); //메타데이터
         metadata.setContentType("image/"+fileExtension);
         try {
-            PutObjectResult putObjectResult = s3clientWithProxy.putObject(new PutObjectRequest(
+            PutObjectResult putObjectResult = amazonS3.putObject(new PutObjectRequest(
                     bucketName, "images/" + changedName, image.getInputStream(), metadata
             ).withCannedAcl(CannedAccessControlList.PublicRead));
 
         } catch (IOException e) {
             throw new BusinessException(originName, "file name", ErrorCode.IMAGE_CANNOT_SAVE);
         }
-        return s3clientWithProxy.getUrl(bucketName, "images/" + changedName).toString(); //데이터베이스에 저장할 이미지가 저장된 주소
+        return amazonS3.getUrl(bucketName, "images/" + changedName).toString(); //데이터베이스에 저장할 이미지가 저장된 주소
 
     }
 
