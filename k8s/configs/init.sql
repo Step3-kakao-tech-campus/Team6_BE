@@ -299,13 +299,13 @@ INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price
 VALUES ('3', 'Bulgogi Pizza', 'Lee Jaemo Pizza signature menu', 'Bulgogi pizza can only be found in Korea! It''s topped with bulgogi, a Korean beef dish.', '24000', '2', '7');
 
 INSERT INTO file (`id`, `url`, `name`, `type`)
-VALUES ('7', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/BulgogiPizza.png', 'BulgogiPizza.png','image/png');
+VALUES ('7', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/BulgogiPizza.png', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/BulgogiPizza.png','image/png');
 
 INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price`, `contents_id`, `file_id`)
 VALUES ('4', 'Lee Jaemo Crust Pizza', 'A menu with lots of cheese for rich flavor', 'This one has cheese at the edge of the dough, so you can taste the cheese all the way to the end.', '25000', '2', '8');
 
 INSERT INTO file (`id`, `url`, `name`, `type`)
-VALUES ('8', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/CrustPizza.png', 'CrustPizza.png','image/png');
+VALUES ('8', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/CrustPizza.png', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/LeeJaemoPizza/CrustPizza.png','image/png');
 
 -- WildCatBrewing
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -340,7 +340,7 @@ INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price
 VALUES ('5', 'Bliss IPA', 'A signature west-coast IPA with grapefruit, floral, and citrus notes.', 'Both American and West Coast IPAs are hop-forward in character, with the West Coast variety being especially so. They often have brilliant clarity and are dry with minimal malt character. Being highly hopped, West Coast / American IPAs are typically very bitter, between 40-70 IBUs.', '8000', '3', '11');
 
 INSERT INTO file (`id`, `url`, `name`, `type`)
-VALUES ('11', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/WildcatBrewing/BlissIPA.png', 'BlissIPA.png','image/png');
+VALUES ('11', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/WildcatBrewing/BlissIPA.png', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/WildcatBrewing/BlissIPA.png','image/png');
 
 -- Eomyongbaek dwaejigukbap
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
@@ -375,7 +375,7 @@ INSERT INTO contents_menu (`id`, `name`, `characteristic`, `description`, `price
 VALUES ('6', 'Busan Style Dwajigukbap', 'Five different cuts of meat are topped with a clear broth of lean meat.', 'It tastes even better with kimchi and somen.', '12000', '4', '14');
 
 INSERT INTO file (`id`, `url`, `name`, `type`)
-VALUES ('14', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/eybDwajigukbap/menu1.png', 'menu1.png','image/png');
+VALUES ('14', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/eybDwajigukbap/menu1.png', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/restaurant/eybDwajigukbap/menu1.png','image/png');
 
 -- Busan Fireworks Festival
 INSERT INTO place (`id`,`average_rating`,`count`,`name`,`place_type`, `review_numbers`,`summary`,`address_id`,`file_id`)
