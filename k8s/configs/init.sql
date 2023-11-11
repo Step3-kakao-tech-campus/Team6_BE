@@ -171,6 +171,7 @@ CREATE TABLE IF NOT EXISTS `place_festival` (
                                                 `created_date` timestamp,
                                                 `modified_date` timestamp,
                                                 `category` varchar(100),
+    `price` integer not null,
     `end_date` varchar(100) not null,
     `reservation_available` boolean not null,
     `start_date` varchar(100) not null,
@@ -389,8 +390,8 @@ VALUES ('15', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/festi
 INSERT INTO address (`id`, `building_name`, `road_name`, `zip_code`, `address_category_id`)
 VALUES ('5', '219', 'Gwanganhaebyeon-ro', '48303', '4');
 
-INSERT INTO place_festival(`id`/*, `category`*/, `start_date`, `reservation_available`, `end_date`, `place_id`)
-VALUES ('1'/*, 'Beach'*/, 'November 4, 2023', '0', 'November 4, 2023', '5');
+INSERT INTO place_festival(`id`/*, `category`*/, `start_date`, `reservation_available`, `end_date`, `price`, `place_id`)
+VALUES ('1'/*, 'Beach'*/, 'November 4, 2023', '0', 'November 4, 2023', '80000', '5');
 
 INSERT INTO contents (`id`, `description`, `page`, `place_id`)
 VALUES ('5',
@@ -418,8 +419,8 @@ VALUES ('6', '29-46', ' ', '41232', '5');
 INSERT INTO address_category (`id`, `emd_name`, `sigg_name`, `sido_name`)
 VALUES ('5', 'Samnak-dong', 'Sasang-gu', 'Busan');
 
-INSERT INTO place_festival(`id`/*, `category`*/, `start_date`, `reservation_available`, `end_date`, `place_id`)
-VALUES ('2'/*, 'Music'*/, 'October 7, 2023', '0', 'October 8, 2023', '6');
+INSERT INTO place_festival(`id`/*, `category`*/, `start_date`, `reservation_available`, `end_date`, `price`, `place_id`)
+VALUES ('2'/*, 'Music'*/, 'October 7, 2023', '0', 'October 8, 2023', '70000', '6');
 
 INSERT INTO contents (`id`, `description`, `page`, `place_id`)
 VALUES ('6',
@@ -447,8 +448,8 @@ VALUES ('7', '280', 'Haeundaehaebyeon-ro', '48099', '6');
 INSERT INTO address_category (`id`, `emd_name`, `sigg_name`, `sido_name`)
 VALUES ('6', 'Jung-dong', 'Haeundae-gu', 'Busan');
 
-INSERT INTO place_festival(`id`/*, `category`*/, `start_date`, `reservation_available`, `end_date`, `place_id`)
-VALUES ('3'/*, 'Beach'*/, 'December 7, 2023', '0', 'January 31, 2024', '7');
+INSERT INTO place_festival(`id`/*, `category`*/, `start_date`, `reservation_available`, `end_date`, `price`, `place_id`)
+VALUES ('3'/*, 'Beach'*/, 'December 7, 2023', '0', 'January 31, 2024', '0', '7');
 
 INSERT INTO contents (`id`, `description`, `page`, `place_id`)
 VALUES ('7',
