@@ -4,7 +4,8 @@ import lombok.Getter;
 
 public enum MemberReservationStatus {
   예약대기(1),
-  예약완료(2);
+  예약완료(2),
+  리뷰완료(3);
 
   @Getter
   private final long id;

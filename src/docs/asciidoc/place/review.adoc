@@ -1,0 +1,38 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= REVIEW API 문서
+:icons: font
+:source-highlighter: highlight.js
+:toc: left
+:toclevels: 1
+:sectlinks:
+
+== *식당 리뷰 조회*
+
+=== 요청
+
+==== Request
+
+include::{snippets}/restaurant-review-test/should_success_get_restaurant_review/http-request.adoc[]
+
+=== 응답
+
+==== Response
+
+include::{snippets}/restaurant-review-test/should_success_get_restaurant_review/http-response.adoc[]
+
+== *식당 리뷰 삭제*
+
+=== 요청
+
+==== Request
+
+include::{snippets}/restaurant-review-test/should_success_delete_restaurant_review/http-request.adoc[]
+
+=== 응답
+
+==== Response
+
+include::{snippets}/restaurant-review-test/should_success_delete_restaurant_review/http-response.adoc[]

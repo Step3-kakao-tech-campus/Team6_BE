@@ -1,253 +1,149 @@
-# Team6_BE
-6조
-## 카카오 테크 캠퍼스 3단계 진행 보드
+한국이 <span style="color:#FF8A00">**처음**</span>이라도, 한국어를 <span style="color:#FF8A00">**몰라도**</span>
 
-</br>
+<span style="color:#FF8A00">**제약없이**</span> 즐기는 한국 로컬여행
 
-## 배포와 관련하여
+# **Trip<span style="color:#FF8A00">K</span>o**
 
-```
+한국 로컬 관광정보 플랫폼
 
-최종 배포는 크램폴린으로 배포해야 합니다.
+## 서비스 소개
 
-하지만 배포 환경의 불편함이 있는 경우를 고려하여 
+#### 1️⃣다양한 관광 정보 제공
 
-임의의 배포를 위해 타 배포 환경을 자유롭게 이용해도 됩니다. (단, 금액적인 지원은 어렵습니다.)
+- 현지인들에게 인기 있는 장소를 구석구석 수록
+- 한국어와 문화를 몰라도 만족스러운 여행 경험 선사할 수 있는 정확하고 자세한 정보를 영어로 제공
 
-아래는 추가적인 설정을 통해 (체험판, 혹은 프리 티어 등)무료로 클라우드 배포가 가능한 서비스입니다.
+#### 2️⃣한국 음식 검색 기능
 
-ex ) AWS(아마존), GCP(구글), Azure(마이크로소프트), Cloudtype 
+- 오번역을 포함한 검색이 가능 
+- 음식의 재료 및 제조 과정 등 정확하고 자세한 정보 제공
+- 검색한 음식을 이용할 수 있는 관련 식당정보 제공
 
-```
-## Notice
+#### 3️⃣예약하기
 
-```
-필요 산출물들은 수료 기준에 영향을 주는 것은 아니지만, 
-주차 별 산출물을 기반으로 평가가 이루어 집니다.
+- 예약 대행 서비스
+- 의사소통의 어려움 없이 간편하게 식당, 축제 예약
 
-주차 별 평가 점수는 추 후 최종 평가에 최종 합산 점수로 포함됩니다.
-```
+#### 4️⃣사용자 편의 기능
 
-![레포지토리 운영-001 (1)](https://github.com/Step3-kakao-tech-campus/practice/assets/138656575/acb0dccd-0441-4200-999a-981865535d5f)
-![image](https://github.com/Step3-kakao-tech-campus/practice/assets/138656575/b42cbc06-c5e7-4806-8477-63dfa8e807a0)
+- 찜하기 기능
+- 리뷰 작성 및 관리
+- 프로필 수정
 
-[git flowchart_FE.pdf](https://github.com/Step3-kakao-tech-campus/practice/files/12521045/git.flowchart_FE.pdf)
+## 개발 환경
+
+### 💡BackEnd
+
+- #### Language & Framework
+
+    <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=OpenJDK&logoColor=white" height="29"/> 
+    <img src="https://img.shields.io/badge/springBoot-6DB33F?style=for-the-badge&logo=springBoot&logoColor=white" height="29"/> 
+    <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=springsecurity&logoColor=white" height="29"/>
+
+- #### DataBase
+    <img src="https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white" height="29"/> 
+    <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white" height="29"/> 
+
+- #### Image Storage
+    <img src="https://img.shields.io/badge/Amazon S3-569A31?style=flat&logo=amazons3&logoColor=white" height="29"/>
+
+- #### Build tool & Dependency
+    <img src="https://img.shields.io/badge/Gradle-02303A?style=flat&logo=gradle&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat&logo=jsonwebtokens&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=flat&logo=spring&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Spring REST Docs-6DB33F?style=flat&logo=spring&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Auth0-EB5424?style=flat&logo=auth0&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Lombok-516c1c?style=flat&logoColor=white" height="29"/>
+
+### 💡FrontEnd
+
+- #### Language & Framework
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white" height="29"/>
+    <img src="https://img.shields.io/badge/Redux Toolkit-764ABC?style=flat&logo=redux&logoColor=white" height="29"/>
 
 
-</br>
+### 💡Deplotment
 
-## 필요 산출물
-<details>
-<summary>Step3. Week-1</summary>
-<div>
-    
-✅**1주차**
-    
-```
-    - 5 Whys
-    - 마켓 리서치
-    - 페르소나 & 저니맵
-    - 와이어 프레임
-    - 칸반보드
-```
-    
-</div>
-</details>
+&emsp;<img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white" height="29"/> <img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=nginx&logoColor=white" height="29"/> <img src="https://img.shields.io/badge/DKOS-FEE500?style=flat&logoColor=white" height="29"/> <img src="https://img.shields.io/badge/D2hub-326CE5?style=flat&logoColor=white" height="29"/>
 
----
+## 구성도
 
-<details>
-<summary>Step3. Week-2</summary>
-<div>
-    
-✅**2주차**
-    
-```
-    - ERD 설계서
-    
-    - API 명세서
-```
-    
-</div>
-</details>
+![구성도](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/8ed965fa-2ca2-467d-bea5-3bbca7c6ef02)
 
----
+## 최종 ERD
 
-<details>
-<summary>Step3. Week-3</summary>
-<div>
-    
-✅**3주차**
-    
-```
-    - 최종 기획안
-```
-    
-</div>
-</details>
+- #### 전체 구조
 
----
+  ![image](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/7156401e-64f8-4fdc-a98a-03de36f6d549)
 
-<details>
-<summary>Step3. Week-4</summary>
-<div>
-    
-✅**4주차**
-    
-```
-    - 4주차 github
-    
-    - 4주차 노션
-```
-    
-</div>
-</details>
 
----
-<details>
-<summary>Step3. Week-5</summary>
-<div>
-    
-✅**5주차**
-    
-```
-    - 5주차 github
-    
-    - 5주차 노션
-```
-    
-</div>
-</details>
+- #### 플레이스 관련
 
----
+  ![image-5](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/da7255fc-f886-4f25-bfd0-74b24a8a9ebf)
 
-<details>
-<summary>Step3. Week-6</summary>
-<div>
-    
-✅**6주차**
-    
-```
-    - 6주차 github
-    
-    - 중간발표자료
-    
-    - 피어리뷰시트
-```
-    
-</div>
-</details>
+- #### 음식 관련
 
----
+  ![image-4](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/88a21957-ee29-4d4d-bfbe-3462bda7c836)
 
-<details>
-<summary>Step3. Week-7</summary>
-<div>
-    
-✅**7주차**
-    
-```
-    - 7주차 github
-    
-    - 7주차 노션
-```
-    
-</div>
-</details>
+- #### 주소 관련
 
----
+  ![image-2](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/0856e9ef-0ba0-49bb-a432-8aede813d090)
 
-<details>
-<summary>Step3. Week-8</summary>
-<div>
-    
-✅**8주차**
-    
-```
-    - 중간고사
-    
-```
-    
-</div>
-</details>
 
----
+- #### 회원 관련
 
-<details>
-<summary>Step3. Week-9</summary>
-<div>
-    
-✅**9주차**
-    
-```
-    - 9주차 github
-    
-    - 9주차 노션
-```
-    
-</div>
-</details>
+  ![image-3](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/560fa62e-7ac6-4e14-9645-0d2dc68de253)
 
----
+- #### 파일 관련
 
-<details>
-<summary>Step3. Week-10</summary>
-<div>
-    
-✅**10주차**
-    
-```
-    - 10주차 github
-    
-    - 테스트 시나리오 명세서
-    
-    - 테스트 결과 보고서
-```
-    
-</div>
-</details>
+  ![image-6](https://github.com/Step3-kakao-tech-campus/Team6_BE/assets/99969990/b2c4d420-0480-46e8-af6e-c9f9c37968de)
 
----
+## 주안점을 두고 개발한 기능
 
-<details>
-<summary>Step3. Week-11</summary>
-<div>
-    
-✅**11주차**
-    
-```
-    - 최종 기획안
-    
-    - 배포 인스턴스 링크
-```
-    
-</div>
-</details>
+#### 1️⃣Redis를 이용한 Refresh-Token 구현
 
----
+- `JWT`와 `Spring Security`를 이용해서 `Access-Token`을 발급하는 단순한 인증 프로세스를 넘어서 `Access-Token` 만료 시 재발급 자동화를 위한 `Refresh-Token` 도입
+- `Refresh-Token`은 엑세스가 빈번한 데이터이므로 다른 DB들보다 빠르고 가벼운 인메모리 DB인 `Redis`를 이용해 저장
+- `Refresh-Token`과 관련된 필터를 개별적으로 구현하여 단일 책임 원칙(SRP)을 지향 
+- `Refresh-Token`의 도입으로 `Access Token`의 유효기간을 단축해 정보 유출 위험을 줄여 보안성 강화
+- 빈번한 로그인 만료로 인해 사용자의 서비스 이용 흐름을 방해하지 않아 사용자 편의성 증대
+- `RefreshTokenFilter`, `RedisConfig`, `RedisUtil`, `JwtProvider` 참고
 
-## **과제 상세 : 수강생들이 과제를 진행할 때, 유념해야할 것**
+#### 2️⃣S3를 이용한 이미지 관리 (멘토님 권장사항 반영)
 
-```
-1. README.md 파일은 동료 개발자에게 프로젝트에 쉽게 랜딩하도록 돕는 중요한 소통 수단입니다.
-해당 프로젝트에 대해 아무런 지식이 없는 동료들에게 설명하는 것처럼 쉽고, 간결하게 작성해주세요.
+- 본 프로젝트는 관광정보 플랫폼이므로 컨텐츠, 리뷰 등 이미지 처리가 잦기 때문에 이미지들을 프로젝트 내부에 저장할 경우 용량과 관리에 대한 이슈 발생 가능성이 매우 높음
+- S3를 이용한 이미지 저장/삭제 로직을 구현하여 리뷰 작성/수정, 프로필 이미지 수정 등의 API에 적용
+- 이미지 저장 용량 이슈 저하 및 관리 용이성, 접근성 증대를 기대
+- `S3Config`, `ImageS3Service` 참고
 
-2. 좋은 개발자는 디자이너, 기획자, 마케터 등 여러 포지션에 있는 분들과 소통을 잘합니다.
-UI 컴포넌트의 명칭과 이를 구현하는 능력은 필수적인 커뮤니케이션 스킬이자 필요사항이니 어떤 상황에서 해당 컴포넌트를 사용하면 좋을지 고민하며 코드를 작성해보세요.
 
-```
+#### 3️⃣예외 및 오류 처리를 통한 서비스 개선
+- Business 예외에 대한 적절한 API `Error Code`와 `Error Message` 정의
+- 유효성을 검증하는 서비스 클래스를 따로 만들어 코드 재사용성 증대
+- 발생 가능한 문제 상황에 대한 꼼꼼한 예외 처리
+  - 리뷰 작성 시 작성하려는 장소 유형에 따라 예약 상태가 완료여야 하거나, 리뷰 작성 날짜가 예약 날짜보다 뒤여야 하는 등의 다양한 조건 처리
+  - 이미 처리된 요청에 대한 적절한 예외 처리
+  - 존재하지 않는 `place`에 대한 적절한 예외 처리 외 다수
+- 이를 통해 프로그램 실행 중 오작동이나 비정상적 종료를 방지하는 효과를 기대
+- `ErrorCode`, `BusinessException`, `ValidContentsService`, `CheckDuplicateService` 참고
 
-</br>
 
-## **코드리뷰 관련: review branch로 PR시, 아래 내용을 포함하여 코멘트 남겨주세요.**
+#### 4️⃣ 효율적인 Test 구현
+- 본 프로젝트는 `Setter`를 사용하지 않고 개발되었으므로 `Builder`를 활용한 Test Helper를 작성하여 효율적인 Test code 작성
+- test에 필요한 `Repository`, `Service`, `TestHelper` 이외의 다수 세팅을 `IntegrationTest`에 작성하고 상속을 이용하여 Test code 작성
+- `Spring Rest Docs`를 이용한 API 문서 자동화 시스템 구축
+- `ContentsTestHelper`, `PlaceTestHelper`, `IntegrationTest` 외 다수 참고
 
-**1. PR 제목과 내용을 아래와 같이 작성 해주세요.**
 
-> PR 제목 : 부산대_0조_아이템명_0주차
-> 
+## 배포 링크 모음
 
-</br>
+- #### 배포 주소
+  https://k50c1bf82e6cfa.user-app.krampoline.com
 
-</div>
+- #### Notion
+  https://www.notion.so/b919a86849414ea288f5678565653c40?v=9ba5b4b2824e47ff8a468f0cc73322d7
 
----
+- #### API 명세서
+  https://www.notion.so/API-6c234d0778ea4b009611cd94147eb5b1

@@ -2,6 +2,7 @@ package com.example.tripKo.domain.place.dto.response.info;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.entity.Contents;
 import com.example.tripKo.domain.place.entity.PlaceFestival;
 import java.util.List;
@@ -16,12 +17,15 @@ import lombok.Getter;
 public class FestivalResponse {
 
   private Long id;
+  private String type;
   private String name;
-  private Float averageScore;
+  private String summary;
+  private double averageRating;
   private String mainImage;
   private List<Content> contents;
   private String address;
-  private Boolean liked;
+  private int price;
+  private Boolean isWished;
   private Boolean isReservable;
   private String period;
 
@@ -34,17 +38,20 @@ public class FestivalResponse {
     private List<String> image;
   }
 
-  public static FestivalResponse from(PlaceFestival placeFestival) {
+  public static FestivalResponse from(PlaceFestival placeFestival, boolean isWished) {
     return FestivalResponse.builder()
-        .id(placeFestival.getId())
+        .id(placeFestival.getPlace().getId())
+        .type(PlaceType.FESTIVAL.name())
         .name(placeFestival.getPlace().getName())
-        .averageScore(placeFestival.getPlace().getAverageRating())
-        .mainImage(placeFestival.getPlace().getFile().getName())
+        .summary(placeFestival.getPlace().getSummary())
+        .averageRating(placeFestival.getPlace().getAverageRating())
+        .mainImage(placeFestival.getPlace().getFile().getUrl())
         .contents(placeFestival.getPlace().getContents().stream()
             .map(FestivalResponse::mapContent)
             .collect(Collectors.toList()))
         .address(placeFestival.getPlace().addressToString(placeFestival.getPlace().getAddress()))
-        .liked(false)
+        .price(placeFestival.getPrice())
+        .isWished(isWished)
         .isReservable(placeFestival.getReservationAvailable())
         .period(placeFestival.getStartDate() + " ~ " + placeFestival.getEndDate())
         .build();
@@ -55,7 +62,7 @@ public class FestivalResponse {
         .page(contents.getPage())
         .description(contents.getDescription())
         .image(contents.getContentsHasFiles().stream()
-            .map(c -> c.getFile().getName())
+            .map(c -> c.getFile().getUrl())
             .collect(Collectors.toList()))
         .build();
   }

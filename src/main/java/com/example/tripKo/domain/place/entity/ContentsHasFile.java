@@ -24,23 +24,23 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "contents_has_file")
 public class ContentsHasFile extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  @Column(nullable = false, updatable = false)
+  private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "contents_id", nullable = false)
-    private Contents contents;
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "contents_id", nullable = false)
+  private Contents contents;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "file_id", nullable = false)
-    private File file;
+  @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "file_id", nullable = false)
+  private File file;
 
-    @Builder
-    private ContentsHasFile(Contents contents, File file) {
-        this.contents = contents;
-        this.file = file;
-    }
+  @Builder
+  private ContentsHasFile(Contents contents, File file) {
+    this.contents = contents;
+    this.file = file;
+  }
 
 }

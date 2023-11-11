@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Category {
 
-    BEGAN("BEGAN", "채식주의"),
-    HALAL("HALAL", "할랄");
+  BEGAN("BEGAN", "채식주의"),
+  HALAL("HALAL", "할랄");
 
-    private final String key;
-    private final String title;
+  private final String key;
+  private final String title;
 
 }

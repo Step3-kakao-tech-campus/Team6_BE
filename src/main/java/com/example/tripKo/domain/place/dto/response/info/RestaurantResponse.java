@@ -1,5 +1,6 @@
 package com.example.tripKo.domain.place.dto.response.info;
 
+import com.example.tripKo.domain.place.PlaceType;
 import com.example.tripKo.domain.place.entity.Contents;
 import com.example.tripKo.domain.place.entity.ContentsMenu;
 import com.example.tripKo.domain.place.entity.PlaceRestaurant;
@@ -15,16 +16,18 @@ public class RestaurantResponse {
 
   private long id;
   private String name;
+  private String type;
   private String mainImage;
+  private String summary;
   private List<Content> contents;
-  private float averageScore;
+  private double averageRating;
   private String address;
   private Integer holiday;
   private String open;
   private String breakTime;
   private String contactInfo;
-  private Boolean liked = false; //좋아요 기능 개발되면 수정
-  private Boolean reservable = false; //예약 기능 개발되면 수정
+  private Boolean isWished = false; //좋아요 기능 개발되면 수정
+  private Boolean isReservable = true; //예약 기능 개발되면 수정
   private List<MenuDTO> menus;
 
   @Getter
@@ -55,20 +58,24 @@ public class RestaurantResponse {
     private List<String> image;
   }
 
-  public static RestaurantResponse from(PlaceRestaurant placeRestaurant) {
+  public static RestaurantResponse from(PlaceRestaurant placeRestaurant, boolean isWished) {
     return RestaurantResponse.builder()
-        .id(placeRestaurant.getId())
+        .id(placeRestaurant.getPlace().getId())
+        .type(PlaceType.RESTAURANT.name())
         .name(placeRestaurant.getPlace().getName())
-        .mainImage(placeRestaurant.getPlace().getFile().getName())
+        .mainImage(placeRestaurant.getPlace().getFile().getUrl())
+        .summary(placeRestaurant.getPlace().getSummary())
         .contents(placeRestaurant.getPlace().getContents().stream()
             .map(RestaurantResponse::mapContent)
             .collect(Collectors.toList()))
-        .averageScore(placeRestaurant.getPlace().getAverageRating())
+        .averageRating(placeRestaurant.getPlace().getAverageRating())
         .address(placeRestaurant.getPlace().addressToString(placeRestaurant.getPlace().getAddress()))
         .holiday(placeRestaurant.getHoliday())
         .open(placeRestaurant.getOpeningTime() + "~" + placeRestaurant.getClosingTime())
         .breakTime(placeRestaurant.getBreakStartTime() + "~" + placeRestaurant.getBreakEndTime())
         .contactInfo(placeRestaurant.getContact_info())
+        .isWished(isWished)
+        .isReservable(true)
         .menus(placeRestaurant.getPlace().getContents().stream()
             .flatMap(contents -> contents.getContentsMenus().stream()
                 .map(MenuDTO::new))
@@ -81,7 +88,7 @@ public class RestaurantResponse {
         .page(contents.getPage())
         .description(contents.getDescription())
         .image(contents.getContentsHasFiles().stream()
-            .map(c -> c.getFile().getName())
+            .map(c -> c.getFile().getUrl())
             .collect(Collectors.toList()))
         .build();
   }

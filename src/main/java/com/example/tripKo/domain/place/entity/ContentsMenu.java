@@ -54,7 +54,8 @@ public class ContentsMenu extends BaseTimeEntity {
   private File file;
 
   @Builder
-  private ContentsMenu(Contents contents, Long price, String name, String description, String characteristic, File file) {
+  private ContentsMenu(Contents contents, Long price, String name, String description, String characteristic,
+      File file) {
     this.contents = contents;
     this.price = price;
     this.name = name;

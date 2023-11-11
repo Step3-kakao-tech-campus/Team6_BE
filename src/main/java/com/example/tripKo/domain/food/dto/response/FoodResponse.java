@@ -11,18 +11,20 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 public class FoodResponse {
-    private Long id;
-    private String name;
-    private FoodCategory category;
-    private String image;
-    private String summary;
-    @Builder
-    public FoodResponse(Food food) {
-        this.id = food.getId();
-        this.name = food.getName();
-        this.category = food.getFoodCategory();
-        this.image = food.getFile().getName();
-        this.summary = food.getSummary();
-    }
+
+  private Long id;
+  private String name;
+  private FoodCategory category;
+  private String image;
+  private String summary;
+
+  @Builder
+  public FoodResponse(Food food) {
+    this.id = food.getId();
+    this.name = food.getName();
+    this.category = food.getFoodCategory();
+    this.image = food.getFile().getUrl();
+    this.summary = food.getSummary();
+  }
 
 }

@@ -18,52 +18,56 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="place_restaurant")
+@Table(name = "place_restaurant")
 public class PlaceRestaurant extends BaseTimeEntity {
-    //int -> long으로 변경
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
+  //int -> long으로 변경
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(length = 100)
-    private String contact_info;
+  @Enumerated(EnumType.STRING)
+  private Category category;
 
-    @Column(length = 100)
-    private String openingTime;
+  @Column(length = 100)
+  private String contact_info;
 
-    @Column(length = 100)
-    private String closingTime;
+  @Column(length = 100)
+  private String openingTime;
 
-    @Column(length = 100)
-    private String breakStartTime;
+  @Column(length = 100)
+  private String closingTime;
 
-    @Column(length = 100)
-    private String breakEndTime;
+  @Column(length = 100)
+  private String breakStartTime;
 
-    @Column(length = 100)
-    private Integer holiday;
+  @Column(length = 100)
+  private String breakEndTime;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "place_id", nullable = false)
-    private Place place;
+  @Column(length = 100)
+  private Integer holiday;
 
-    @Builder
-    public PlaceRestaurant(Place place) {
-        this.place = place;
-    }
+  @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "place_id", nullable = false)
+  private Place place;
 
-    //test용
-    public PlaceRestaurant(Category category, String contact_info, String openingTime, String closingTime, String breakStartTime, String breakEndTime, Integer holiday, Place place) {
-        this.category = category;
-        this.contact_info = contact_info;
-        this.openingTime = openingTime;
-        this.closingTime = closingTime;
-        this.breakStartTime = breakStartTime;
-        this.breakEndTime = breakEndTime;
-        this.holiday = holiday;
-        this.place = place;
-    }
+  //    @Builder
+  // Controller test를 위해 주석처리
+  public PlaceRestaurant(Place place) {
+    this.place = place;
+  }
+
+  //test용
+  @Builder
+  public PlaceRestaurant(Category category, String contact_info, String openingTime, String closingTime,
+      String breakStartTime, String breakEndTime, Integer holiday, Place place) {
+    this.category = category;
+    this.contact_info = contact_info;
+    this.openingTime = openingTime;
+    this.closingTime = closingTime;
+    this.breakStartTime = breakStartTime;
+    this.breakEndTime = breakEndTime;
+    this.holiday = holiday;
+    this.place = place;
+  }
 }

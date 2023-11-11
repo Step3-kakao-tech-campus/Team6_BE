@@ -30,10 +30,14 @@ public class File extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String url;
+
     @Builder
-    public File(String type, String name) {
+    public File(String type, String name, String url) {
         this.type = type;
         this.name = name;
+        this.url = url;
     }
 
 }

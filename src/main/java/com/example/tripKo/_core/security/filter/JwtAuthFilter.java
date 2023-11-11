@@ -20,7 +20,6 @@ import org.springframework.web.filter.GenericFilterBean;
 public class JwtAuthFilter extends GenericFilterBean {
 
   private final JwtProvider jwtProvider;
-  private final RedisUtil redisUtil;
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -36,5 +35,4 @@ public class JwtAuthFilter extends GenericFilterBean {
     }
     chain.doFilter(request, response);
   }
-
 }

@@ -1,27 +1,33 @@
 package com.example.tripKo.domain.place.dto.request;
 
+import com.example.tripKo.domain.place.PlaceType;
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PACKAGE;
+import static lombok.AccessLevel.PRIVATE;
 
 @Getter
+@AllArgsConstructor(access = PACKAGE)
+@NoArgsConstructor(access = PRIVATE)
 public class RestaurantReservationConfirmRequest {
 
-    private Reservation reservation;
+  private Reservation reservation;
 
-    @Getter
-    public static class Reservation {
-        @NotNull
-        private Long id;
-        @NotNull
-        private Long placeId;
-        @NotNull
-        private String reservationDate;
-        @NotNull
-        private String reservationTime;
-        @NotNull
-        private Long headCount;
-        @NotNull
-        private Long memberId;
-        private String message;
-    }
+  @Getter
+  @Builder
+  public static class Reservation {
+    @NotNull
+    private Long placeId;
+    @NotNull
+    private String reservationDate;
+    @NotNull
+    private String reservationTime;
+    @NotNull
+    private Long headCount;
+    private String message;
+  }
 }

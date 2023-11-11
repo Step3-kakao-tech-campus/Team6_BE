@@ -14,18 +14,18 @@ public class PlaceTouristSpotResponse {
   private String summary;
   private String image;
   private String address;
-  private float averageRating;
+  private double averageRating;
   private Boolean isWished;
 
   @Builder
-  public PlaceTouristSpotResponse(PlaceTouristSpot placeTouristSpot) {
-    this.id = placeTouristSpot.getId();
+  public PlaceTouristSpotResponse(PlaceTouristSpot placeTouristSpot, boolean isWished) {
+    this.id = placeTouristSpot.getPlace().getId();
     this.name = placeTouristSpot.getPlace().getName();
     this.summary = placeTouristSpot.getPlace().getSummary();
-    this.image = placeTouristSpot.getPlace().getFile().getName();
+    this.image = placeTouristSpot.getPlace().getFile().getUrl();
     this.address = addressToString(placeTouristSpot.getPlace().getAddress());
     this.averageRating = placeTouristSpot.getPlace().getAverageRating();
-    this.isWished = false;
+    this.isWished = isWished;
   }
 
   public String addressToString(Address address) {

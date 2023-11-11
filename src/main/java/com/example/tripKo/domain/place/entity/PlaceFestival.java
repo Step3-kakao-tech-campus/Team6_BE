@@ -18,33 +18,37 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="place_festival")
+@Table(name = "place_festival")
 public class PlaceFestival extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(length = 100, nullable = false)
-    private String startDate;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(length = 100, nullable = false)
-    private String endDate;
+  @Column(length = 100, nullable = false)
+  private String startDate;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
+  @Column(length = 100, nullable = false)
+  private String endDate;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "place_id", nullable = false)
-    private Place place;
+  @Enumerated(EnumType.STRING)
+  private Category category;
 
-    @Column(nullable = false)
-    private Boolean reservationAvailable;
+  private int price;
 
-    @Builder
-    public PlaceFestival(String startDate, String endDate, Place place, Boolean reservationAvailable) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.place = place;
-        this.reservationAvailable = reservationAvailable;
-    }
+  @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "place_id", nullable = false)
+  private Place place;
+
+  @Column(nullable = false)
+  private Boolean reservationAvailable;
+
+  @Builder
+  public PlaceFestival(String startDate, String endDate, Place place, int price, Boolean reservationAvailable) {
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.place = place;
+    this.price = price;
+    this.reservationAvailable = reservationAvailable;
+  }
 }

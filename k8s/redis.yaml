@@ -1,0 +1,67 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  serviceName: redis
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          # 여러분의 mariadb image 주소를 입력해주세요.
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+      #    env:
+            #- name: TZ
+            #  value: Asia/Seoul
+      #      - name: MYSQL_ROOT_PASSWORD
+      #        value: root
+      #      - name: MYSQL_DATABASE
+      #        value: tripko
+            #- name: MARIADB_DISABLE_UPGRADE_BACKUP
+            #  value: '1'
+      #    volumeMounts:
+      #      - mountPath: /var/lib/mysql
+      #         name: data
+      #         subPath: mysql
+      #       - mountPath: /docker-entrypoint-initdb.d
+      #         name: init-db
+      #     resources:
+      #       limits:
+      #         memory: 1Gi
+      #     readinessProbe:
+      #       tcpSocket:
+      #         port: 3306
+      # volumes:
+      #   - name: init-db
+      #     configMap:
+      #       name: init-db
+      #volumeClaimTemplates:
+      # - metadata:
+      #  name: redis-pvc
+      # spec:
+      #  accessModes:
+      #    - ReadWriteOnce
+      #  resources:
+      #    requests:
+      #      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  #type: ClusterIP
+  #clusterIP: None # Headless
+  selector:
+    app: redis
+  ports:
+    - port: 6379

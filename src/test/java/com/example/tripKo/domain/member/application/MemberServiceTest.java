@@ -1,6 +1,7 @@
 package com.example.tripKo.domain.member.application;
 
 import com.example.tripKo.IntegrationTest;
+import com.example.tripKo._core.errors.exception.BusinessException;
 import com.example.tripKo._core.errors.exception.Exception404;
 import com.example.tripKo.domain.member.MemberRoleType;
 import com.example.tripKo.domain.member.entity.Member;
@@ -29,7 +30,6 @@ public class MemberServiceTest extends IntegrationTest {
           .realName("김철수")
           .emailAddress("tripko@tripko.com")
           .nationality("한국")
-          .birthday("700101")
           .role(MemberRoleType.MEMBER)
           .build();
     }
@@ -40,7 +40,7 @@ public class MemberServiceTest extends IntegrationTest {
       memberRepository.save(member);
       Member newMember = Member.builder().emailAddress("tripko@tripko.com").build();
 
-      assertThrows(Exception404.class, ()->memberService.signUp(newMember.getMemberId(), newMember.getPassword()
+      assertThrows(BusinessException.class, ()->memberService.signUp(newMember.getMemberId(), newMember.getPassword()
           , newMember.getNickName(), newMember.getRealName(), newMember.getEmailAddress(), newMember.getNationality()));
     }
 
@@ -50,7 +50,7 @@ public class MemberServiceTest extends IntegrationTest {
       memberRepository.save(member);
       Member newMember = Member.builder().memberId("tripko123").build();
 
-      assertThrows(Exception404.class, ()->memberService.signUp(newMember.getMemberId(), newMember.getPassword()
+      assertThrows(BusinessException.class, ()->memberService.signUp(newMember.getMemberId(), newMember.getPassword()
           , newMember.getNickName(), newMember.getRealName(), newMember.getEmailAddress(), newMember.getNationality()));
     }
 

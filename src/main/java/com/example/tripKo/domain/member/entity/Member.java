@@ -10,16 +10,9 @@ import com.example.tripKo.domain.file.entity.File;
 import com.example.tripKo.domain.member.MemberRoleType;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import com.example.tripKo.domain.member.dto.request.userInfo.UserInfoRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -75,9 +68,6 @@ public class Member extends BaseTimeEntity {
   @Column
   private String nationality;
 
-  @Column(nullable = false)
-  private String birthday;
-
   @OneToOne(fetch = LAZY)
   @JoinColumn(name = "file_id")
   private File file;
@@ -85,24 +75,36 @@ public class Member extends BaseTimeEntity {
   @OneToMany(mappedBy = "member")
   private final List<MemberReservationInfo> memberReservationInfos = new ArrayList<>();
 
+  @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+  private final List<MemberHasPlaceIsWished> memberHasPlaceIsWishedList = new ArrayList<>();
+
+
   @Builder
   public Member(MemberRoleType role, String realName, String nickName, String emailAddress, String memberId,
-      String password, String birthday, String nationality) {
+      String password, String nationality) {
     this.role = role;
     this.realName = realName;
     this.nickName = nickName;
     this.emailAddress = emailAddress;
     this.memberId = memberId;
     this.password = password;
-    this.birthday = birthday;
     this.nationality = nationality;
   }
 
-  public void addInfoForGoogleLogin(String password, String realName, String memberId, String birthday, String nationality) {
+  public void addInfoForGoogleLogin(String password, String realName, String memberId, String nationality) {
     this.password = password;
     this.realName = realName;
     this.memberId = memberId;
-    this.birthday = birthday;
     this.nationality = nationality;
+  }
+
+  public void updateUserInfo(UserInfoRequest userInfoRequest) {
+    this.realName = userInfoRequest.getName();
+    this.nickName = userInfoRequest.getNickName();
+    this.emailAddress = userInfoRequest.getEmail();
+  }
+
+  public void updateFile(File file) {
+    this.file = file;
   }
 }

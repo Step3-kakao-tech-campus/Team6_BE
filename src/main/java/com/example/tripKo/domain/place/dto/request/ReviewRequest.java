@@ -1,5 +1,6 @@
 package com.example.tripKo.domain.place.dto.request;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,19 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
+@Builder
 public class ReviewRequest {
-    @NotNull
-    private Long placeId;
 
-    @NotNull
-    private Long memberId; //Spring Security 개발되면 삭제
+  @NotNull
+  private Long placeId;
 
-    @NotNull
-    private int rating;
+  @NotNull
+  private int rating;
 
-    private String description;
+  private String description;
 
-    @Size(max = 10)
-    List<MultipartFile> images = new ArrayList<>();
+  @Size(max = 10)
+  List<MultipartFile> image = new ArrayList<>();
 }
