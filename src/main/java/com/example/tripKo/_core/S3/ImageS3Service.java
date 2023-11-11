@@ -75,14 +75,14 @@ public class ImageS3Service{
         metadata.setContentType("image/"+fileExtension);
         String url = null;
         try {
-            /*
             PutObjectResult putObjectResult = amazonS3.putObject(new PutObjectRequest(
                     bucketName, "images/" + changedName, image.getInputStream(), metadata
             ).withCannedAcl(CannedAccessControlList.PublicRead));
-             */
+            /*
             File file = new File(image.getOriginalFilename());
             image.transferTo(file);
             PutObjectResult putObjectResult = amazonS3.putObject(bucketName, "images/" + changedName, file);
+             */
             url = amazonS3.getUrl(bucketName, "images/" + changedName).toString();
         } catch (IOException | AmazonS3Exception e) {
             throw new BusinessException(originName, "file name", ErrorCode.IMAGE_CANNOT_SAVE);
