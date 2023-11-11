@@ -13,4 +13,8 @@ configMapGenerator:
   - name: init-db
     files:
       - configs/init.sql
+  - name: nginx-conf
+    files:
+      - configs/nginx.conf
+      - configs/mime.types
      
