@@ -41,12 +41,6 @@ public class ImageS3Service{
     @Value("${cloud.aws.region.static}")
     private String region;
 
-    @Value("${spring.devtools.remote.proxy.host}")
-    private String proxyHost;
-
-    @Value("${spring.devtools.remote.proxy.port}")
-    private int proxyPort;
-
     @Value("cloud.aws.credentials.accessKey")
     private String accessKey;
 
@@ -58,39 +52,7 @@ public class ImageS3Service{
         return random+originName;
     }
 
-    public AmazonS3 createAmazonS3ClientWithProxy() {
-        // Create proxy settings
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
-        AWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKey, secretKey);
-
-        // Configure the client with proxy settings
-        try {
-            return AmazonS3ClientBuilder.standard()
-                    .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
-                    .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(region, region))
-                    .withPathStyleAccessEnabled(true)
-                    .withClientConfiguration(getClientConfigurationWithProxy(proxy))
-                    .build();
-        } catch (SdkClientException e) {
-            // Handle exception
-            throw new RuntimeException("Error creating S3 client with proxy.", e);
-        }
-    }
-
-    private com.amazonaws.ClientConfiguration getClientConfigurationWithProxy(Proxy proxy) {
-        com.amazonaws.ClientConfiguration clientConfiguration = new com.amazonaws.ClientConfiguration();
-        if (proxy.type() == Proxy.Type.HTTP) {
-            InetSocketAddress address = (InetSocketAddress) proxy.address();
-            HttpHost httpHost = new HttpHost(address.getHostName(), address.getPort());
-            clientConfiguration.setProxyHost(httpHost.getHostName());
-            clientConfiguration.setProxyPort(httpHost.getPort());
-        }
-        return clientConfiguration;
-    }
-
     public String uploadImageToS3(MultipartFile image) { //이미지를 S3에 업로드하고 이미지의 url을 반환
-        //AmazonS3 s3clientWithProxy = createAmazonS3ClientWithProxy();
-
         String originName = image.getOriginalFilename(); //원본 이미지 이름
         String contentType = image.getContentType(); //확장자
         String fileExtension;
