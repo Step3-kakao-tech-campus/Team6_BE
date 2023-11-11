@@ -124,7 +124,6 @@ CREATE TABLE IF NOT EXISTS `member` (
                                         `id` bigint not null AUTO_INCREMENT,
                                         `created_date` timestamp,
                                         `modified_date` timestamp,
-                                        `birthday` varchar(20) not null,
     `email_address` varchar(100) not null,
     `member_id` varchar(25) not null,
     `nationality` varchar(50),
