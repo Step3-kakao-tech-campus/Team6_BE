@@ -64,7 +64,7 @@
 
 ### 💡Deplotment
 
-<img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white" height="29"/> <img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=nginx&logoColor=white" height="29"/> <img src="https://img.shields.io/badge/DKOS-FEE500?style=flat&logoColor=white" height="29"/> <img src="https://img.shields.io/badge/D2hub-326CE5?style=flat&logoColor=white" height="29"/>
+&emsp;<img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white" height="29"/> <img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=nginx&logoColor=white" height="29"/> <img src="https://img.shields.io/badge/DKOS-FEE500?style=flat&logoColor=white" height="29"/> <img src="https://img.shields.io/badge/D2hub-326CE5?style=flat&logoColor=white" height="29"/>
 
 ## 구성도
 
