@@ -530,7 +530,7 @@ VALUES ('25', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/spot/
 -- bulgogi
 INSERT INTO food (`id`,`summary`,`food_category`,`keyword`,`name`, `description`,`view`,`file_id`)
 VALUES ('1', 'Bulgogi is a made of thin, marinated slices of meat, most commonly beef, grilled on a barbecue or on a stove-top griddle',
-        'KOREAN', 'Bulgogi KoreanGrilledBeef KoreanMarinatedBeef Yakiniku', 'Bulgogi','Bulgogi is a delicious Korean dish made with thinly sliced marinated beef, typically grilled or stir-fried. The marinade usually consists of soy sauce, sugar, sesame oil, garlic, and pepper, giving the beef a sweet and savory flavor.',
+        'KOREAN', 'Bulgogi KoreanGrilledBeef KoreanMarinatedBeef Yakiniku Korean Beef', 'Bulgogi','Bulgogi is a delicious Korean dish made with thinly sliced marinated beef, typically grilled or stir-fried. The marinade usually consists of soy sauce, sugar, sesame oil, garlic, and pepper, giving the beef a sweet and savory flavor.',
         '23', '26');
 
 INSERT INTO file (`id`, `url`, `name`, `type`)
@@ -575,7 +575,7 @@ VALUES ('28', 'https://tripko-be6.s3.ap-northeast-2.amazonaws.com/contents/food/
 -- Dwaejigukbap
 INSERT INTO food (`id`,`summary`,`food_category`,`keyword`,`name`, `description`,`view`,`file_id`)
 VALUES ('2', 'Dwaeji gukbap is a South Korean soup especially popular in Busan made with pork, soy sauce, miso, rice wine, sesame oil, and bone broth.',
-        'KOREAN', 'DwaejiGukbap KoreanPorkSoup BusanStylePorkSoup PorkAndRiceSoup', 'Dwaji gukbap(Pork Soup)','It originated during the Korean War in the 1950s as poverty food. It eventually grew in popularity. The dish spread from Busan to the rest of the Gyeongsang province and eventually the rest of the country. It is served various with sauces, garnishes, and side dishes. Variations exist in the exact preparation. It can be served with rice either already in the soup or on the side, and it can also be served with noodles. Other accompaniments like green onions, fermented shrimp, red pepper paste, white onions, garlic, and different types of kimchi, can also be added.',
+        'KOREAN', 'DwaejiGukbap KoreanPorkSoup BusanStylePorkSoup PorkAndRiceSoup Korean Dwaji Gukbap Pork Soup', 'Dwaji gukbap(Pork Soup)','It originated during the Korean War in the 1950s as poverty food. It eventually grew in popularity. The dish spread from Busan to the rest of the Gyeongsang province and eventually the rest of the country. It is served various with sauces, garnishes, and side dishes. Variations exist in the exact preparation. It can be served with rice either already in the soup or on the side, and it can also be served with noodles. Other accompaniments like green onions, fermented shrimp, red pepper paste, white onions, garlic, and different types of kimchi, can also be added.',
         '63', '27');
 
 INSERT INTO file (`id`, `url`, `name`, `type`)
