@@ -67,10 +67,15 @@ public class FileService {
         }
 
         System.out.println("S3 저장 시작");
-        for(MultipartFile i : mFiles) {
+        try {
+            for (MultipartFile i : mFiles) {
                 fileEntities.add(imageS3Service.uploadImage(i));
+            }
+            System.out.println("S3 저장 완료");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception500("S3 저장에 실패하였습니다.");
         }
-        System.out.println("S3 저장 완료");
 
         fileRepository.saveAll(fileEntities);
 
