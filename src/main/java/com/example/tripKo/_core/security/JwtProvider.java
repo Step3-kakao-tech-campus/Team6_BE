@@ -61,7 +61,7 @@ public class JwtProvider {
     String refreshToken = createRefreshToken();
 
     //redis 설치 필요
-    redisUtil.save(new RefreshToken(userPK, refreshToken));
+    //redisUtil.save(new RefreshToken(userPK, refreshToken));
 
     return JwtToken.builder()
         .grantType("Bearer ")

@@ -37,7 +37,7 @@ public class TouristSpotResponse {
 
   public static TouristSpotResponse from(PlaceTouristSpot placeTouristSpot, boolean isWished) {
     return TouristSpotResponse.builder()
-        .id(placeTouristSpot.getId())
+        .id(placeTouristSpot.getPlace().getId())
         .type(PlaceType.TOURIST_SPOT.name())
         .name(placeTouristSpot.getPlace().getName())
         .summary(placeTouristSpot.getPlace().getSummary())
