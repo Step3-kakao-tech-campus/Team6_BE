@@ -102,28 +102,38 @@
 
 #### 1️⃣Redis를 이용한 Refresh-Token 구현
 
-- JWT와 Spring Security를 이용해서 Access-Token을 발급하는 단순한 인증 프로세스를 넘어서 Access-Token 만료 시 재 발급 자동화를 위한 Refresh-Token 도입
-- Refresh-Token은 엑세스가 빈번한 데이터이므로 다른 DB들보다 빠르고 가벼운 인메모리 DB인 Redis를 이용해 저장
-- Refresh-Token과 관련된 필터를 개별적으로 구현하여 단일 책임 원칙(SRP)을 지향 
-- Refresh-Token의 도입으로 Access Token의 유효기간을 단축해 정보 유출 위험을 줄여 보안성 강화
+- `JWT`와 `Spring Security`를 이용해서 `Access-Token`을 발급하는 단순한 인증 프로세스를 넘어서 `Access-Token` 만료 시 재발급 자동화를 위한 `Refresh-Token` 도입
+- `Refresh-Token`은 엑세스가 빈번한 데이터이므로 다른 DB들보다 빠르고 가벼운 인메모리 DB인 `Redis`를 이용해 저장
+- `Refresh-Token`과 관련된 필터를 개별적으로 구현하여 단일 책임 원칙(SRP)을 지향 
+- `Refresh-Token`의 도입으로 `Access Token`의 유효기간을 단축해 정보 유출 위험을 줄여 보안성 강화
 - 빈번한 로그인 만료로 인해 사용자의 서비스 이용 흐름을 방해하지 않아 사용자 편의성 증대
-- RefreshTokenFilter, RedisConfig, RedisUtil, JwtProvider 참고
+- `RefreshTokenFilter`, `RedisConfig`, `RedisUtil`, `JwtProvider` 참고
 
 #### 2️⃣S3를 이용한 이미지 관리 (멘토님 권장사항 반영)
 
 - 본 프로젝트는 관광정보 플랫폼이므로 컨텐츠, 리뷰 등 이미지 처리가 잦기 때문에 이미지들을 프로젝트 내부에 저장할 경우 용량과 관리에 대한 이슈 발생 가능성이 매우 높음
 - S3를 이용한 이미지 저장/삭제 로직을 구현하여 리뷰 작성/수정, 프로필 이미지 수정 등의 API에 적용
 - 이미지 저장 용량 이슈 저하 및 관리 용이성, 접근성 증대를 기대
-- S3Config, ImageS3Service 참고
+- `S3Config`, `ImageS3Service` 참고
 
 
 #### 3️⃣예외 및 오류 처리를 통한 서비스 개선
+- Business 예외에 대한 적절한 API `Error Code`와 `Error Message` 정의
+- 유효성을 검증하는 서비스 클래스를 따로 만들어 코드 재사용성 증대
+- 발생 가능한 문제 상황에 대한 꼼꼼한 예외 처리
+  - 리뷰 작성 시 작성하려는 장소 유형에 따라 예약 상태가 완료여야 하거나, 리뷰 작성 날짜가 예약 날짜보다 뒤여야 하는 등의 다양한 조건 처리
+  - 이미 처리된 요청에 대한 적절한 예외 처리
+  - 존재하지 않는 `place`에 대한 적절한 예외 처리 외 다수
+- 이를 통해 프로그램 실행 중 오작동이나 비정상적 종료를 방지하는 효과를 기대
+- `ErrorCode`, `BusinessException`, `ValidContentsService`, `CheckDuplicateService` 참고
 
-- 리뷰 작성 시 작성하려는 장소 유형에 따라 예약 상태가 완료여야 하거나, 리뷰 작성 날짜가 예약 날짜보다 뒤여야 하는 등의 다양한 조건 처리
-- 이러한 과정에서 발생하는 유저의 요청에 대한 예외 및 오류 처리를 진행
-- 이를 통헤 프로그램 실행 중 오작동이나 비정상적 종료를 방지하는 효과를 기대
 
-#### 4️⃣5️⃣6️⃣
+#### 4️⃣ 효율적인 Test 구현
+- 본 프로젝트는 `Setter`를 사용하지 않고 개발되었으므로 `Builder`를 활용한 Test Helper를 작성하여 효율적인 Test code 작성
+- test에 필요한 `Repository`, `Service`, `TestHelper` 이외의 다수 세팅을 `IntegrationTest`에 작성하고 상속을 이용하여 Test code 작성
+- `Spring Rest Docs`를 이용한 API 문서 자동화 시스템 구축
+- `ContentsTestHelper`, `PlaceTestHelper`, `IntegrationTest` 외 다수 참고
+
 
 ## 배포 링크 모음
 
