@@ -56,7 +56,7 @@ public class SecurityConfig {
             .csrf().disable()
             .authorizeHttpRequests()
             .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-            .antMatchers("/userinfo/**", "/wishlist/**", "/**/reviews/**") // 허용하지 않는 것들 (추가 예정)
+            .antMatchers("/userinfo/**", "/wishlist/**", "/*/reviews/**") // 허용하지 않는 것들 (추가 예정)
             .hasRole(MemberRoleType.MEMBER.name())
             .anyRequest()
             .permitAll()
