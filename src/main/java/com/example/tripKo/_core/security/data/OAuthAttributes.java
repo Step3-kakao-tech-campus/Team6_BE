@@ -61,7 +61,7 @@ public class OAuthAttributes {
         .build();
 
     //임의로 부족한 데이터 채우기(사실 프론트에서 이 정보를 채워주는 페이지를 만들어주시면 제일 좋은데 일단 이렇게 해놨어용,,)
-    member.addInfoForGoogleLogin(passwordEncoder.encode("qwer1234"), nickName, emailAddress.split("@")[0], "000000",
+    member.addInfoForGoogleLogin(passwordEncoder.encode("qwer1234"), nickName, emailAddress.split("@")[0],
         "Korea");
     return member;
   }

@@ -68,9 +68,6 @@ public class Member extends BaseTimeEntity {
   @Column
   private String nationality;
 
-  @Column(nullable = false)
-  private String birthday;
-
   @OneToOne(fetch = LAZY)
   @JoinColumn(name = "file_id")
   private File file;
@@ -84,23 +81,20 @@ public class Member extends BaseTimeEntity {
 
   @Builder
   public Member(MemberRoleType role, String realName, String nickName, String emailAddress, String memberId,
-      String password, String birthday, String nationality) {
+      String password, String nationality) {
     this.role = role;
     this.realName = realName;
     this.nickName = nickName;
     this.emailAddress = emailAddress;
     this.memberId = memberId;
     this.password = password;
-    this.birthday = birthday;
     this.nationality = nationality;
   }
 
-  public void addInfoForGoogleLogin(String password, String realName, String memberId, String birthday,
-      String nationality) {
+  public void addInfoForGoogleLogin(String password, String realName, String memberId, String nationality) {
     this.password = password;
     this.realName = realName;
     this.memberId = memberId;
-    this.birthday = birthday;
     this.nationality = nationality;
   }
 
