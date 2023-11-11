@@ -272,7 +272,6 @@ public class MemberService {
         .emailAddress(email)
         .nationality(nationality)
         .role(MemberRoleType.MEMBER)
-        .birthday("700101")
         .build();
 
     memberRepository.save(member);
