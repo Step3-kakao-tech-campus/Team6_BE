@@ -35,7 +35,7 @@ public class FileController {
     }
 
      */
-    @PostMapping(path = "/file-init/yzzxet")
+    @GetMapping(path = "/file-init/yzzxet")
     public ResponseEntity<?> getRestaurantInfo() {
         boolean result = fileService.initImages();
 
